@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<convert reg="legacy_pojo.xml" from="C传承.xlsx" />
+	<convert reg="scriptstring_pojo.xml" from="J剧情内文字翻译.xlsx" />
+	
+	<convert reg="scriptstring_pojo.xml" from="Localization/Main/english/J剧情内文字翻译_hotfix.xlsx" />
+	<convert reg="chest_info_pojo_new.xml" from="Localization/Main/english/B宝箱信息表_Chests_hotfix.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="Localization/Main/english/C触发器_Triggers_MainStory_hotfix.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="Localization/Main/english/C触发器_Triggers_RandomQuests_hotfix.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="Localization/Main/english/C触发器_Triggers_zyc_hotfix.xlsx" />
+	<convert reg="gamemap_pojo_new.xml" from="Localization/Main/english/D地图列表_Maps_hotfix.xlsx" />
+	<convert reg="place_pojo_new.xml" from="Localization/Main/english/D地点列表_Places_hotfix.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Localization/Main/english/D道具列表_Items_hotfix.xlsx" />
+	<convert reg="game_item_synth_pojo_new.xml" from="Localization/Main/english/D道具合成配方表_Synth_hotfix.xlsx" />
+	<convert reg="bazzar_pojo_new.xml" from="Localization/Main/english/J集市信息表_Bazzar_hotfix.xlsx" />
+	<convert reg="bazzar_items_pojo_new.xml" from="Localization/Main/english/J集市道具信息表_BazzarItems_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/Main/english/R人物列表_Roles_Quest_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/Main/english/R人物列表_Roles_zyc_hotfix.xlsx" />
+	<convert reg="quest_pojo_new.xml" from="Localization/Main/english/R任务列表_Quests_19k_hotfix.xlsx" />
+	<convert reg="quest_pojo_new.xml" from="Localization/Main/english/R任务列表_Quests_hotfix.xlsx" />
+	<convert reg="quest_pojo_new.xml" from="Localization/Main/english/R任务列表_Quests_MainStory_hotfix.xlsx" />
+	<convert reg="quest_pojo_new.xml" from="Localization/Main/english/R任务列表_Quests_RandomQuests_hotfix.xlsx" />
+	<convert reg="quest_pojo_new.xml" from="Localization/Main/english/R任务列表_Quests_zyc_hotfix.xlsx" />
+	<convert reg="quest_group_pojo_new.xml" from="Localization/Main/english/R任务系列_QuestKinds_hotfix.xlsx" />
+	
+	<convert reg="scriptstring_pojo.xml" from="Localization/tchinese/J剧情内文字翻译_hotfix.xlsx" />
+	
+	<convert reg="string_pojo.xml" from="Localization/english/Y游戏内文字_Strings_UI_hotfix.xlsx" />
+	<convert reg="string_pojo.xml" from="Localization/english/Y游戏内文字_Strings_Tips_hotfix.xlsx" />
+	<convert reg="string_pojo_new.xml" from="Localization/english/Y游戏内文字_Strings_hotfix.xlsx" />
+	<convert reg="soldierunit_pojo_new.xml" from="Localization/english/B兵种单位表_Soldiers_hotfix.xlsx" />
+	<convert reg="chest_info_pojo_new.xml" from="Localization/english/B宝箱信息表_Chests_hotfix.xlsx" />
+	<convert reg="legacy_pojo_new.xml" from="Localization/english/C传承_Legacy_hotfix.xlsx" />
+	<convert reg="legacy_formula_pojo_new.xml" from="Localization/english/C传承点数公式_LegacyFormula_hotfix.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="Localization/english/C触发器_Triggers_Common_hotfix.xlsx" />
+	<convert reg="place_statu_field_pojo_new.xml" from="Localization/english/D地点属性字段_PlaceStatus_hotfix.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Localization/english/D道具列表_Items_hotfix.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Localization/english/D道具列表_Items_Mounts_hotfix.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Localization/english/D道具列表_Items_Special_hotfix.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Localization/english/D道具列表_Items_Supplies_hotfix.xlsx" />
+	<convert reg="game_item_words_pojo_new.xml" from="Localization/english/D道具装备词条表_ItemPrefixs_hotfix.xlsx" />
+	<convert reg="story_mode_pojo_new.xml" from="Localization/english/J剧本设定_StoryMode_hotfix.xlsx" />
+	<convert reg="skill_info_pojo_new.xml" from="Localization/english/J技能列表_Skills_Boss_hotfix.xlsx" />
+	<convert reg="skill_info_pojo_new.xml" from="Localization/english/J技能列表_Skills_Heros_hotfix.xlsx" />
+	<convert reg="skill_info_pojo_new.xml" from="Localization/english/J技能列表_Skills_HJJH_hotfix.xlsx" />
+	<convert reg="statu_field_pojo_new.xml" from="Localization/english/J角色属性字段_RoleStatus_HJJH_hotfix.xlsx" />
+	<convert reg="statu_field_pojo_new.xml" from="Localization/english/J角色属性字段_RoleStatus_hotfix.xlsx" />
+	<convert reg="card_def_pojo_new.xml" from="Localization/english/K卡牌定义_Cards_hotfix.xlsx" />
+	<convert reg="buff_info_pojo_new.xml" from="Localization/english/Q全局BUFF表_GlobalBuffs_hotfix.xlsx" />
+	<convert reg="global_talent_pojo_new.xml" from="Localization/english/Q全局天赋表_Talents_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/english/R人物列表_Roles_Boss_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/english/R人物列表_Roles_Common_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/english/R人物列表_Roles_Heros_hotfix.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Localization/english/R人物列表_Roles_Waitress_hotfix.xlsx" />
+	<convert reg="container_pojo_new.xml" from="Localization/english/R容器定义表_Containers_hotfix.xlsx" />
+	<convert reg="building_pojo_new.xml" from="Localization/english/S设施列表_Buildings_hotfix.xlsx" />
+	<convert reg="text_explore_pojo_new.xml" from="Localization/english/W文字探索地图表_TextExplore_hotfix.xlsx" />
+	<convert reg="text_explore_event_pojo_new.xml" from="Localization/english/W文字探索特殊事件表_TextExploreEvents_hotfix.xlsx" />
+	<convert reg="armor_effect_pojo_new.xml" from="Localization/english/W武器护甲作用表_ArmorEffect_hotfix.xlsx" />
+	<convert reg="project_effect_pojo_new.xml" from="Localization/english/X项目效果_Projects_hotfix.xlsx" />
+	<convert reg="intval_config_pojo_new.xml" from="Localization/english/Y游戏内可配置字段_IntvalConfigs_hotfix.xlsx" />
+	<convert reg="map_building_spot_new.xml" from="Localization/english/Y野外建筑点配置_BuildingSpots_hotfix.xlsx" />
+	<convert reg="monster_emitter_pojo_new.xml" from="Localization/english/Y野怪发射器_MonsterEmitters_hotfix.xlsx" />
+	<convert reg="monster_info_pojo_new.xml" from="Localization/english/Y野怪投放适配表_MonsterInfos_hotfix.xlsx" />
+	
+</root>

@@ -1,0 +1,4 @@
+RES\Maps\gamemap_files\* > :\BuildSource\gamemap_files\mod\* 
+RES\Maps\gamemaps_data\mapdir_info.bytes > :\BuildSource\gamemaps_data\mod\tradept\mapdir_info.bytes 
+RES\Maps\gamemaps_data\NavDataInfos\* > :\BuildSource\gamemaps_data\NavDataInfos\mod\tradept\* 
+RES\Maps\gamemaps_data\TileSetInfos\* > :\BuildSource\gamemaps_data\TileSetInfos\mod\tradept\* 

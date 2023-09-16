@@ -1,0 +1,12 @@
+{
+  "multilan": "true",
+  "type": "plugin",
+  "name": "Traducción no Oficial al Español",
+  "desc": "Traducción no oficial al idiona Español v1.00x (En progreso...), tiene muchos errores, mi plan es ir corrigiendolos poco a poco.",
+  "tags": "Scenarios;Maps;Items;Characters;Skills;English",
+  "start_scene": "",
+  "include_main_game": "1",
+  "homepage_background": "",
+  "audioControllerAdditional": "",
+  "build_version": "1.0.30"
+}
