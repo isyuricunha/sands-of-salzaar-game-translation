@@ -1,0 +1,1953 @@
+﻿此文件记录了 所有自定义的AB包中的所有原始资源（不列出外部依赖）。
+Assets/HanUser.Mod/blywd#additional#0.1/resourceindex.bytes [blywd#additional#0.1_hsframework_resourceabindex.bundle]
+Assets/BuildSource/GameDatas [blywd#additional#0.1_gamedatas.bundle]
+	Assets/BuildSource/GameDatas/update_detail.txt
+Assets/BuildSource/Audios/Weapon_Master [blywd#additional#0.1_audios_weapon_master.bundle]
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Throw_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Throw_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Throw_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Axe_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Charge_Loop.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Hit_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Pull_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Pull_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Pull_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Bow_Shot_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Dagger_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Damage_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Land_Strike_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Land_Strike_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Land_Strike_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Hammer_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Defense_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Defense_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Defense_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Defense_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Gather_Strength_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Gather_Strength_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Gather_Strength_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_BigExp_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_BigExp_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Hit_BigExp_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Light_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Light_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Light_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Medium_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Medium_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Medium_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Skill_Whoosh_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Strong_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Strong_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/SpartanKnuckle_Strong_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Damage_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Throw_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Throw_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Throw_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Spear_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Sword_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/TwoHandSword_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Defense_Impact_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Defense_Impact_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Hit_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_09.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_10.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_11.wav
+	Assets/BuildSource/Audios/Weapon_Master/1.WM_Mono/Wood_Stick_Whoosh_12.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Throw_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Throw_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Throw_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Axe_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Charge_Loop.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Hit_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Pull_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Pull_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Pull_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Bow_Shot_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Dagger_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Damage_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Land_Strike_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Land_Strike_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Land_Strike_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Hammer_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Defense_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Defense_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Defense_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Defense_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Gather_Strength_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Gather_Strength_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Gather_Strength_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_BigExp_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_BigExp_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Hit_BigExp_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Light_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Light_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Light_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Medium_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Medium_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Medium_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Skill_Whoosh_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Strong_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Strong_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/SpartanKnuckle_Strong_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Damage_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Throw_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Throw_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Throw_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Spear_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Sword_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/TwoHandSword_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Defense_Impact_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Defense_Impact_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Defense_Impact_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Defense_Impact_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Defense_Impact_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Hit_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_09.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_10.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_11.wav
+	Assets/BuildSource/Audios/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_12.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_01_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_02_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_03_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_04_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_05_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_06_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_07_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_08_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_09_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_10_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_11_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_12_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_13_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_14_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_15_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_16_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_17_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_18_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_19_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_20_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_21_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Mono/JBoB_Special_Sound_22_M.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_07.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_08.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_09.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_10.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_11.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_12.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_13.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_14.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_15.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_16.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_17.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_18.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_19.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_20.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_21.wav
+	Assets/BuildSource/Audios/Weapon_Master/3.WM_Bonus/Stereo/JBoB_Special_Sound_22.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Axe_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Axe_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Axe_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Dagger_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Dagger_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Dagger_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Hammer_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Hammer_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Hammer_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Gather_Strength_With_Def_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Gather_Strength_With_Def_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Gather_Strength_With_Def_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Gather_Strength_With_Def_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Light_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Light_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Light_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Medium_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Medium_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Medium_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Skill_Whoosh_With_BigExp_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Skill_Whoosh_With_BigExp_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Skill_Whoosh_With_BigExp_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Strong_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Strong_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Strong_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/SpartanKnuckle_Strong_Whoosh_With_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Spear_Whoosh_With_Damage_06.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Sword_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Sword_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Sword_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/TwoHandSword_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/TwoHandSword_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/TwoHandSword_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_01.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_02.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_03.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_04.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_05.wav
+	Assets/BuildSource/Audios/Weapon_Master/4.WM_MIX/Wood_Stick_Whoosh_With_Damage_06.wav
+Assets/BuildSource/Audios/Weapon_Collection [blywd#additional#0.1_audios_weapon_collection.bundle]
+	Assets/BuildSource/Audios/Weapon_Collection/AirSword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/AirSword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/AirSword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Arrow_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Arrow_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Arrow_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Axe_Stab_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Axe_Stab_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Axe_Stab_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Axe_Stab_04.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BigStick_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BigStick_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BigStick_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BlackSmoke_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BlackSmoke_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blade_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blade_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blade_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Metal_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Metal_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Metal_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Palm_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Palm_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Palm_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Wood_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Wood_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Block_Wood_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodDagger_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodDagger_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodDagger_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodSplash_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodSword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodSword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BloodSword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blood_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blood_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Blood_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BlueSpark_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BlueSpark_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/BlueSpark_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Bow_Aim_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Bow_Aim_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Bow_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Bow_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Bow_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ClothMovement_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ClothMovement_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ClothMovement_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Critical_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Critical_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Critical_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/CrossBow_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/DarkBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/DarkBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dart_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dodge_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dodge_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dodge_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Dust_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ElectricBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ElectricBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/ElectricBall_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireBall_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireSword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireSword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/FireSword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Fire_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Fire_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Fire_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ground_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ground_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ground_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandAxe_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Land.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Land_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/HandHammer_Land_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Heal_Hit.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceBall_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceSword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceSword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/IceSword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ice_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ice_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Ice_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Attack_04.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Attack_05.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Knife_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/LifeSteel_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/LifeSteel_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/LighBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/LightBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Attack_04.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Attack_05.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Palm_Hit_05.wav
+	Assets/BuildSource/Audios/Weapon_Collection/PoisonBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/PoisonBall_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Qin_hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Rock_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Rock_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Rock_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/SandBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Metal_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Metal_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Metal_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Wood_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Wood_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Shield_Wood_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Smoke_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Smoke_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Smoke_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Spear_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Staff_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Sword_Hit_04.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TaijiHit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/temp_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Thunder_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Thunder_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/Thunder_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandAxe_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Attack_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Attack_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Attack_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Hit_02.wav
+	Assets/BuildSource/Audios/Weapon_Collection/TwoHandSword_Hit_03.wav
+	Assets/BuildSource/Audios/Weapon_Collection/WindBall_Hit_01.wav
+	Assets/BuildSource/Audios/Weapon_Collection/WindBall_Hit_02.wav
+Assets/BuildSource/Audios/voice_npcs [blywd#additional#0.1_audios_voice_npcs.bundle]
+	Assets/BuildSource/Audios/voice_npcs/anguhuan_1.wav
+	Assets/BuildSource/Audios/voice_npcs/anguhuan_2.wav
+	Assets/BuildSource/Audios/voice_npcs/anguhuan_3.wav
+	Assets/BuildSource/Audios/voice_npcs/anhongsha_1.wav
+	Assets/BuildSource/Audios/voice_npcs/anhongsha_2.wav
+	Assets/BuildSource/Audios/voice_npcs/anhongsha_3.wav
+	Assets/BuildSource/Audios/voice_npcs/asaier_1.wav
+	Assets/BuildSource/Audios/voice_npcs/asaier_2.wav
+	Assets/BuildSource/Audios/voice_npcs/asaier_3.wav
+	Assets/BuildSource/Audios/voice_npcs/baihua_1.wav
+	Assets/BuildSource/Audios/voice_npcs/baihua_2.wav
+	Assets/BuildSource/Audios/voice_npcs/baihua_3.wav
+	Assets/BuildSource/Audios/voice_npcs/batalu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/batalu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/batalu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/batu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/batu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/batu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/bulie_1.wav
+	Assets/BuildSource/Audios/voice_npcs/bulie_2.wav
+	Assets/BuildSource/Audios/voice_npcs/bulie_3.wav
+	Assets/BuildSource/Audios/voice_npcs/chebaer_1.wav
+	Assets/BuildSource/Audios/voice_npcs/chebaer_2.wav
+	Assets/BuildSource/Audios/voice_npcs/chebaer_3.wav
+	Assets/BuildSource/Audios/voice_npcs/chejing_1.wav
+	Assets/BuildSource/Audios/voice_npcs/chejing_2.wav
+	Assets/BuildSource/Audios/voice_npcs/chejing_3.wav
+	Assets/BuildSource/Audios/voice_npcs/dugushuang_1.wav
+	Assets/BuildSource/Audios/voice_npcs/dugushuang_2.wav
+	Assets/BuildSource/Audios/voice_npcs/dugushuang_3.wav
+	Assets/BuildSource/Audios/voice_npcs/duguying_1.wav
+	Assets/BuildSource/Audios/voice_npcs/duguying_2.wav
+	Assets/BuildSource/Audios/voice_npcs/duguying_3.wav
+	Assets/BuildSource/Audios/voice_npcs/duxiebuluoshouling_1.wav
+	Assets/BuildSource/Audios/voice_npcs/duxiebuluoshouling_2.wav
+	Assets/BuildSource/Audios/voice_npcs/duxiebuluoshouling_3.wav
+	Assets/BuildSource/Audios/voice_npcs/fengdamu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/fengdamu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/fengdamu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunbalan_1.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunbalan_2.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunbalan_3.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunmi_1.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunmi_2.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunmi_3.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunyan_1.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunyan_2.wav
+	Assets/BuildSource/Audios/voice_npcs/gongsunyan_3.wav
+	Assets/BuildSource/Audios/voice_npcs/hanjing_1.wav
+	Assets/BuildSource/Audios/voice_npcs/hanjing_2.wav
+	Assets/BuildSource/Audios/voice_npcs/hanjing_3.wav
+	Assets/BuildSource/Audios/voice_npcs/hanyao_1.wav
+	Assets/BuildSource/Audios/voice_npcs/hanyao_2.wav
+	Assets/BuildSource/Audios/voice_npcs/hanyao_3.wav
+	Assets/BuildSource/Audios/voice_npcs/hefeng_1.wav
+	Assets/BuildSource/Audios/voice_npcs/hefeng_2.wav
+	Assets/BuildSource/Audios/voice_npcs/hefeng_3.wav
+	Assets/BuildSource/Audios/voice_npcs/hejiang_1.wav
+	Assets/BuildSource/Audios/voice_npcs/hejiang_2.wav
+	Assets/BuildSource/Audios/voice_npcs/hejiang_3.wav
+	Assets/BuildSource/Audios/voice_npcs/helianlide_1.wav
+	Assets/BuildSource/Audios/voice_npcs/helianlide_2.wav
+	Assets/BuildSource/Audios/voice_npcs/helianlide_3.wav
+	Assets/BuildSource/Audios/voice_npcs/helianqianbai_1.wav
+	Assets/BuildSource/Audios/voice_npcs/helianqianbai_2.wav
+	Assets/BuildSource/Audios/voice_npcs/helianqianbai_3.wav
+	Assets/BuildSource/Audios/voice_npcs/heruolanguang_1.wav
+	Assets/BuildSource/Audios/voice_npcs/heruolanguang_2.wav
+	Assets/BuildSource/Audios/voice_npcs/heruolanguang_3.wav
+	Assets/BuildSource/Audios/voice_npcs/huhe_1.wav
+	Assets/BuildSource/Audios/voice_npcs/huhe_2.wav
+	Assets/BuildSource/Audios/voice_npcs/huhe_3.wav
+	Assets/BuildSource/Audios/voice_npcs/huixue_1.wav
+	Assets/BuildSource/Audios/voice_npcs/huixue_2.wav
+	Assets/BuildSource/Audios/voice_npcs/huixue_3.wav
+	Assets/BuildSource/Audios/voice_npcs/hupo_1.wav
+	Assets/BuildSource/Audios/voice_npcs/hupo_2.wav
+	Assets/BuildSource/Audios/voice_npcs/hupo_3.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanlu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanlu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanlu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanzheshan_1.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanzheshan_2.wav
+	Assets/BuildSource/Audios/voice_npcs/huyanzheshan_3.wav
+	Assets/BuildSource/Audios/voice_npcs/jinyuye_1.wav
+	Assets/BuildSource/Audios/voice_npcs/jinyuye_2.wav
+	Assets/BuildSource/Audios/voice_npcs/jinyuye_3.wav
+	Assets/BuildSource/Audios/voice_npcs/jinzuchi_1.wav
+	Assets/BuildSource/Audios/voice_npcs/jinzuchi_2.wav
+	Assets/BuildSource/Audios/voice_npcs/jinzuchi_3.wav
+	Assets/BuildSource/Audios/voice_npcs/kangya_1.wav
+	Assets/BuildSource/Audios/voice_npcs/kangya_2.wav
+	Assets/BuildSource/Audios/voice_npcs/kangya_3.wav
+	Assets/BuildSource/Audios/voice_npcs/kunjiu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/kunjiu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/kunjiu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/longda_1.wav
+	Assets/BuildSource/Audios/voice_npcs/longda_2.wav
+	Assets/BuildSource/Audios/voice_npcs/longda_3.wav
+	Assets/BuildSource/Audios/voice_npcs/luofu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/luofu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/luofu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/luoweisha_1.wav
+	Assets/BuildSource/Audios/voice_npcs/luoweisha_2.wav
+	Assets/BuildSource/Audios/voice_npcs/luoweisha_3.wav
+	Assets/BuildSource/Audios/voice_npcs/manniubuluoshouling_1.wav
+	Assets/BuildSource/Audios/voice_npcs/manniubuluoshouling_2.wav
+	Assets/BuildSource/Audios/voice_npcs/manniubuluoshouling_3.wav
+	Assets/BuildSource/Audios/voice_npcs/misuode_1.wav
+	Assets/BuildSource/Audios/voice_npcs/misuode_2.wav
+	Assets/BuildSource/Audios/voice_npcs/misuode_3.wav
+	Assets/BuildSource/Audios/voice_npcs/mochi_1.wav
+	Assets/BuildSource/Audios/voice_npcs/mochi_2.wav
+	Assets/BuildSource/Audios/voice_npcs/mochi_3.wav
+	Assets/BuildSource/Audios/voice_npcs/muchangtan_1.wav
+	Assets/BuildSource/Audios/voice_npcs/muchangtan_2.wav
+	Assets/BuildSource/Audios/voice_npcs/muchangtan_3.wav
+	Assets/BuildSource/Audios/voice_npcs/qisuzhi_1.wav
+	Assets/BuildSource/Audios/voice_npcs/qisuzhi_2.wav
+	Assets/BuildSource/Audios/voice_npcs/qisuzhi_3.wav
+	Assets/BuildSource/Audios/voice_npcs/quyu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/quyu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/quyu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/rina_1.wav
+	Assets/BuildSource/Audios/voice_npcs/rina_2.wav
+	Assets/BuildSource/Audios/voice_npcs/rina_3.wav
+	Assets/BuildSource/Audios/voice_npcs/ruotao_1.wav
+	Assets/BuildSource/Audios/voice_npcs/ruotao_2.wav
+	Assets/BuildSource/Audios/voice_npcs/ruotao_3.wav
+	Assets/BuildSource/Audios/voice_npcs/sajia_1.wav
+	Assets/BuildSource/Audios/voice_npcs/sajia_2.wav
+	Assets/BuildSource/Audios/voice_npcs/sajia_3.wav
+	Assets/BuildSource/Audios/voice_npcs/shaoying_1.wav
+	Assets/BuildSource/Audios/voice_npcs/shaoying_2.wav
+	Assets/BuildSource/Audios/voice_npcs/shaoying_3.wav
+	Assets/BuildSource/Audios/voice_npcs/shiha_1.wav
+	Assets/BuildSource/Audios/voice_npcs/shiha_2.wav
+	Assets/BuildSource/Audios/voice_npcs/shiha_3.wav
+	Assets/BuildSource/Audios/voice_npcs/shuyuzhou_1.wav
+	Assets/BuildSource/Audios/voice_npcs/shuyuzhou_2.wav
+	Assets/BuildSource/Audios/voice_npcs/shuyuzhou_3.wav
+	Assets/BuildSource/Audios/voice_npcs/tianxing_1.wav
+	Assets/BuildSource/Audios/voice_npcs/tianxing_2.wav
+	Assets/BuildSource/Audios/voice_npcs/tianxing_3.wav
+	Assets/BuildSource/Audios/voice_npcs/tikeqin_1.wav
+	Assets/BuildSource/Audios/voice_npcs/tikeqin_2.wav
+	Assets/BuildSource/Audios/voice_npcs/tikeqin_3.wav
+	Assets/BuildSource/Audios/voice_npcs/tuoya_1.wav
+	Assets/BuildSource/Audios/voice_npcs/tuoya_2.wav
+	Assets/BuildSource/Audios/voice_npcs/tuoya_3.wav
+	Assets/BuildSource/Audios/voice_npcs/wanyanhei_1.wav
+	Assets/BuildSource/Audios/voice_npcs/wanyanhei_2.wav
+	Assets/BuildSource/Audios/voice_npcs/wanyanhei_3.wav
+	Assets/BuildSource/Audios/voice_npcs/weika_1.wav
+	Assets/BuildSource/Audios/voice_npcs/weika_2.wav
+	Assets/BuildSource/Audios/voice_npcs/weika_3.wav
+	Assets/BuildSource/Audios/voice_npcs/weilina_1.wav
+	Assets/BuildSource/Audios/voice_npcs/weilina_2.wav
+	Assets/BuildSource/Audios/voice_npcs/weilina_3.wav
+	Assets/BuildSource/Audios/voice_npcs/xihejialuo_1.wav
+	Assets/BuildSource/Audios/voice_npcs/xihejialuo_2.wav
+	Assets/BuildSource/Audios/voice_npcs/xihejialuo_3.wav
+	Assets/BuildSource/Audios/voice_npcs/xihenaya_1.wav
+	Assets/BuildSource/Audios/voice_npcs/xihenaya_2.wav
+	Assets/BuildSource/Audios/voice_npcs/xihenaya_3.wav
+	Assets/BuildSource/Audios/voice_npcs/xiongyingbuluodaishouing_1.wav
+	Assets/BuildSource/Audios/voice_npcs/xiongyingbuluodaishouing_2.wav
+	Assets/BuildSource/Audios/voice_npcs/xiongyingbuluodaishouing_3.wav
+	Assets/BuildSource/Audios/voice_npcs/xiyunna_1.wav
+	Assets/BuildSource/Audios/voice_npcs/xiyunna_2.wav
+	Assets/BuildSource/Audios/voice_npcs/xiyunna_3.wav
+	Assets/BuildSource/Audios/voice_npcs/xuelangbuluoshouling_1.wav
+	Assets/BuildSource/Audios/voice_npcs/xuelangbuluoshouling_2.wav
+	Assets/BuildSource/Audios/voice_npcs/xuelangbuluoshouling_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yemabuluoshouling_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yemabuluoshouling_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yemabuluoshouling_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yeyaliwa_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yeyaliwa_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yeyaliwa_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yeya_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yeya_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yeya_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yigu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yigu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yigu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yipantu_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yipantu_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yipantu_3.wav
+	Assets/BuildSource/Audios/voice_npcs/yuchiyue_1.wav
+	Assets/BuildSource/Audios/voice_npcs/yuchiyue_2.wav
+	Assets/BuildSource/Audios/voice_npcs/yuchiyue_3.wav
+Assets/BuildSource/Audios/voice_new [blywd#additional#0.1_audios_voice_new.bundle]
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 01.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 02.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 03.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 04.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 05.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 06.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Surprise 07.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 01.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 02.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 04.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 05.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 06.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 07.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 08.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE David, Man, Trust Agreement 09.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Ellen, Woman, Trust Insight 01.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Ellen, Woman, Trust Insight 02.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Ellen, Woman, Trust Insight 03.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Ellen, Woman, Trust Insight 04.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Ellen, Woman, Trust Insight 05.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Jane, Woman, Trust Agreement 02.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Jane, Woman, Trust Agreement 06.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Jane, Woman, Trust Agreement 07.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Jane, Woman, Trust Agreement 08.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Robert, Man, Trust Admiration 01.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Robert, Man, Trust Admiration 02.wav
+	Assets/BuildSource/Audios/voice_new/EMOTE Robert, Man, Trust Admiration 03.wav
+Assets/BuildSource/Audios/voice [blywd#additional#0.1_audios_voice.bundle]
+	Assets/BuildSource/Audios/voice/Female00_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female00_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female00_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Female00_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female00_BattleShout_02.wav
+	Assets/BuildSource/Audios/voice/Female00_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female00_Death_02.wav
+	Assets/BuildSource/Audios/voice/Female00_Death_03.wav
+	Assets/BuildSource/Audios/voice/Female00_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female00_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Female00_Hurt_03.wav
+	Assets/BuildSource/Audios/voice/Female00_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female00_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Female00_Skill_03.wav
+	Assets/BuildSource/Audios/voice/Female01_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female01_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female01_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Female01_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female01_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female01_Death_02.wav
+	Assets/BuildSource/Audios/voice/Female01_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female01_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female02_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female02_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female02_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female02_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female02_Death_02.wav
+	Assets/BuildSource/Audios/voice/Female02_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female02_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female03_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female03_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female03_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Female03_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female03_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female03_Death_02.wav
+	Assets/BuildSource/Audios/voice/Female03_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female03_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Female03_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female04_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Female04_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female04_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Female05_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Female05_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Female05_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Female05_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Female05_Death_01.wav
+	Assets/BuildSource/Audios/voice/Female05_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Female05_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Female05_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Female05_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Giant_Yell_01.wav
+	Assets/BuildSource/Audios/voice/Male00_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male00_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male00_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male00_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male00_BattleShout_03.wav
+	Assets/BuildSource/Audios/voice/Male00_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male00_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male00_Death_03.wav
+	Assets/BuildSource/Audios/voice/Male00_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male00_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Male00_Hurt_03.wav
+	Assets/BuildSource/Audios/voice/Male00_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male00_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Male00_Skill_03.wav
+	Assets/BuildSource/Audios/voice/Male01_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male01_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male01_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male01_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male01_BattleShout_03.wav
+	Assets/BuildSource/Audios/voice/Male01_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male01_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male01_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male01_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male02_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male02_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male02_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male02_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male02_BattleShout_02.wav
+	Assets/BuildSource/Audios/voice/Male02_BattleShout_03.wav
+	Assets/BuildSource/Audios/voice/Male02_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male02_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male02_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male02_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male03_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male03_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male03_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male03_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male03_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male03_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male03_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male03_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male04_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male04_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male04_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Male04_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male04_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Male05_Attack_01.wav
+	Assets/BuildSource/Audios/voice/Male05_Attack_02.wav
+	Assets/BuildSource/Audios/voice/Male05_Attack_03.wav
+	Assets/BuildSource/Audios/voice/Male05_BattleShout_01.wav
+	Assets/BuildSource/Audios/voice/Male05_Death_01.wav
+	Assets/BuildSource/Audios/voice/Male05_Death_02.wav
+	Assets/BuildSource/Audios/voice/Male05_Hurt_01.wav
+	Assets/BuildSource/Audios/voice/Male05_Hurt_02.wav
+	Assets/BuildSource/Audios/voice/Male05_Skill_01.wav
+	Assets/BuildSource/Audios/voice/Male05_Skill_02.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_00.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_01.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_02.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_03.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_04.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_05.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_06.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_07.wav
+	Assets/BuildSource/Audios/voice/Man_Cheer_08.wav
+	Assets/BuildSource/Audios/voice/NonVoice_00.wav
+	Assets/BuildSource/Audios/voice/NonVoice_01.wav
+	Assets/BuildSource/Audios/voice/NonVoice_02.wav
+	Assets/BuildSource/Audios/voice/NonVoice_03.wav
+	Assets/BuildSource/Audios/voice/NonVoice_04.wav
+	Assets/BuildSource/Audios/voice/NonVoice_05.wav
+	Assets/BuildSource/Audios/voice/NonVoice_06.wav
+	Assets/BuildSource/Audios/voice/NonVoice_07.wav
+	Assets/BuildSource/Audios/voice/NonVoice_08.wav
+	Assets/BuildSource/Audios/voice/NonVoice_09.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_00.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_01.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_03.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_04.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_05.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_06.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_07.wav
+	Assets/BuildSource/Audios/voice/Woman_Cheer_08.wav
+	Assets/BuildSource/Audios/voice/男激励1-LTT20070521.wav
+	Assets/BuildSource/Audios/voice/男激励10-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励13-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励17-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励2-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励23-彪悍-ltt20070411.wav
+	Assets/BuildSource/Audios/voice/男激励24-彪悍-ltt20070411.wav
+	Assets/BuildSource/Audios/voice/男激励25-彪悍-ltt20070411.wav
+	Assets/BuildSource/Audios/voice/男激励4-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励4zth070523.wav
+	Assets/BuildSource/Audios/voice/男激励5-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励6-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励8-ltt20070410.wav
+	Assets/BuildSource/Audios/voice/男激励zth070518.wav
+	Assets/BuildSource/Audios/voice/男激励zth070523.wav
+Assets/BuildSource/Audios/ui [blywd#additional#0.1_audios_ui.bundle]
+	Assets/BuildSource/Audios/ui/battle_lose.ogg
+	Assets/BuildSource/Audios/ui/battle_win.ogg
+	Assets/BuildSource/Audios/ui/bonus.ogg
+	Assets/BuildSource/Audios/ui/bonus_special.ogg
+	Assets/BuildSource/Audios/ui/button3.wav
+	Assets/BuildSource/Audios/ui/click.ogg
+	Assets/BuildSource/Audios/ui/dec_equipment.ogg
+	Assets/BuildSource/Audios/ui/dialog.ogg
+	Assets/BuildSource/Audios/ui/drink.ogg
+	Assets/BuildSource/Audios/ui/eat.ogg
+	Assets/BuildSource/Audios/ui/equip.ogg
+	Assets/BuildSource/Audios/ui/getbag.wav
+	Assets/BuildSource/Audios/ui/getcoin.wav
+	Assets/BuildSource/Audios/ui/hawk.mp3
+	Assets/BuildSource/Audios/ui/levelup.ogg
+	Assets/BuildSource/Audios/ui/open_chest.ogg
+	Assets/BuildSource/Audios/ui/recast_synthesis.ogg
+	Assets/BuildSource/Audios/ui/ring.wav
+	Assets/BuildSource/Audios/ui/selection.ogg
+	Assets/BuildSource/Audios/ui/selection_important.ogg
+	Assets/BuildSource/Audios/ui/sence_close.ogg
+	Assets/BuildSource/Audios/ui/sence_open.ogg
+	Assets/BuildSource/Audios/ui/sence_switch.ogg
+	Assets/BuildSource/Audios/ui/synthetic_equipment.ogg
+	Assets/BuildSource/Audios/ui/team.wav
+	Assets/BuildSource/Audios/ui/tips.ogg
+	Assets/BuildSource/Audios/ui/use_item.ogg
+	Assets/BuildSource/Audios/ui/warning.ogg
+	Assets/BuildSource/Audios/ui/window_close.ogg
+	Assets/BuildSource/Audios/ui/window_open.ogg
+Assets/BuildSource/Audios/RPG Magic SFX 2 [blywd#additional#0.1_audios_rpg magic sfx 2.bundle]
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Funny_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Funny_Whoosh_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Heavy_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Heavy_Whoosh_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Light_Wand_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Light_Wand_Whoosh_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Light_Wand_Whoosh_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Light_Wand_Whoosh_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Natural_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Natural_Whoosh_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Natural_Whoosh_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Subtle_Slash_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Subtle_Slash_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Subtle_Slash_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Subtle_Slash_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Subtle_Spell_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Weapon_Whoosh_Low_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic Whooshes/Weapon_Whoosh_Low_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_5_heavy.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Attack_Enemy_Impact_6_heavy.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Cute_Attack_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Cute_Attack_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Cute_Attack_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Cute_Attack_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Generic_Small_Whip_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Impact_Finishing_Blow.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Light_Enemy_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Light_Enemy_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Light_Enemy_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C0_Skill_Trigger.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_C5_Heavier.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_Combo_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_1_Combo_FULL_Heavy_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_C1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_C2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_C3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_C4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_C4_Heavier.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_Combo_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Mech_Attack_2_Combo_FULL_Heavy_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Heavier_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Heavier_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Heavier_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Heavier_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Light_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Light_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Light_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_1_Light_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Heavy_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Heavy_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Heavy_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Heavy_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Light_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Light_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Light_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_2_Light_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Brighter_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Brighter_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Brighter_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Natural_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Natural_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Punch_Type_3_Natural_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C0_Skill_Trigger.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_C4_Heavier.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_Combo_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S4_Magic_Attack_Combo_FULL_Heavy_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Attack_Charge_C0.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Attack_Charge_Combo_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Attack_Charge_Combo_FULL_Heavy_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Impact_C1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Impact_C2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Impact_C3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/S6_Impact_C3_Heavier.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Magic_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Magic_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Magic_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Small_Wind_Magic_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Star_Magic_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Star_Magic_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Star_Magic_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Star_Magic_Impact_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Subtle_Magic_Impact_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Subtle_Magic_Impact_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Subtle_Magic_Impact_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Subtle_Magic_Impact_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Sword_Slash_1_Finishing_Blow.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Sword_Slash_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Sword_Slash_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Sword_Slash_1_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Sword_Slash_1_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Wing_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Wing_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Wing_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Wing_Impact_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Basic_Magic_Attacks_Impacts/Wing_Impact_5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Babylon_Ice_Swords_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Babylon_Ice_Swords_Cast_Sword.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Babylon_Ice_Swords_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Babylon_Ice_Swords_Subtle_Energy_Pulse.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Babylon_Ice_Swords_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_2_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_2_Impacts.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_2_Magic_Wind.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Bamboo_Spell_Attack_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Charging_Punch_Triple_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_Cast_Sword.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_Impact_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_Impact_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Devil_Stab_Impact_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Cast_Charging_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Cast_Charging_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Ground_break.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Shoot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Shoot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_2_Shoot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Dragon_Heaven_Shoot.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Ground_Blaze_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Ground_Blaze_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Ground_Blaze_Shoot.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Sword_Burst_Cast_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Sword_Burst_Cast_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Sword_Burst_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Sword_Impact_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Sword_Impact_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Volcano_Strike_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Volcano_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Fire_Volcano_Strike_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_Jump_Swoosh.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_Punch_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Ground_Breaking_Strike_Punch_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Heaven_Sword_Slash_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Heaven_Sword_Slash_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Heaven_Sword_Slash_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Cast_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Cast_1_Sword.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Cast_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Cast_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Cast_Long.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Impacts.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Hell_Sword_Strike_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Lightning_Sword_Double_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Lightning_Sword_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Lightning_Sword_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Combo_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Combo_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Combo_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Combo_Triple_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Ring_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Ring_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Ring_Shoot.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Vine-Magic.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Vine-Vines.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Magic_Vine_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Plasma_Gravity_Strike-Rocks.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Plasma_Gravity_Strike_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Plasma_Gravity_Strike_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Plasma_Gravity_Strike_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Shaolin_Punch_Triple_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Subtle_Magic_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Teleport_Side_Step.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Tidal_Wave_Sphere_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Tidal_Wave_Sphere_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Tidal_Wave_Sphere_Impact-Magic.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Tidal_Wave_Sphere_Impact-Waves.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Tidal_Wave_Sphere_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Water_Buff_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Water_Buff_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/DucVu_Spells_SFX_[Video_Demo_1]/Water_Buff_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Zaps_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Zaps_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Zaps_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Zaps_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Rain_Spell_Zaps_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Simple_Impact_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Simple_Impact_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Simple_Impact_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Simple_Impact_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Whoosh_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Whoosh_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Generic_Whoosh_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Attack_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Attack_Swing_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Attack_Swing_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Attack_Swing_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Attack_Swing_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Charge_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Electric_Spell_Weapon_Charge_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fireball_Basic_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Explosion_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Explosion_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Explosion_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Fireball_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Fireball_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Fireball_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Fireball_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Fire_8_Bit_Fireball_5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Impact_1_v6.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Grow_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Grow_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Grow_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Grow_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Plant_Spell_Grow_2_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Rock_Dirt_Impact_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Rock_Dirt_Impact_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Rock_Dirt_Spell_Impact_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Rock_Dirt_Spell_Impact_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Buff_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Buff_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Current_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Droplet_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Impact_Light_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Impact_Light_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Impact_Light_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Simple_Spell_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Simple_Spell_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Simple_Spell_1_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Sink_Hole_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Sink_Hole_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_1_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_2_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Water_Wave_Impact_2_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Small_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Small_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Small_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Small_Impact_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Whoosh_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Whoosh_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Elemental_Magic_Layers_Impacts/Wind_Whoosh_Long_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Big_End_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Big_End_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P1_Charge_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P1_Charge_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P2_Swoosh_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P2_Swoosh_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P2_Swoosh_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P3_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Cute_P4_Buff.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Large_End_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Large_End_Buff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Large_End_Debuff_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Large_End_Debuff_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_Cast_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_Cast_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_Cast_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Buff_1_P1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Buff_1_P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Buff_2_P1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Buff_2_P1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Buff_2_P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Debuff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Heal_P1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Heal_P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Impact_1_Electric.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Impact_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Impact_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Medium_End_Revive.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Shimmer_Loop_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Shimmer_Loop_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Small_End_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Small_End_Buff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Small_End_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Small_End_Debuff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S2_Small_End_Evil.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_End_Debuff.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_End_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Impact_Debuff.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_1_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_1_v4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_1_v5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_2_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Cast_2_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_6.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S5_Low_Impact_7.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S7_Bounce_Impact_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S7_Bounce_Impact_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S7_P1_Charging.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S7_P2_Shoot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Long Spells/S7_P2_Shoot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/Epic_Boss_Death_P1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/Epic_Boss_Death_P1P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/Epic_Boss_Death_P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/HP_potion.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/MP_Potion.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Alarm_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Alarm_Retro_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Button_Select.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Error.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Get_Item.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Menu_Select.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Player_Turn.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Skill_Trigger_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Misc/UI_Skill_Trigger_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Electric_Spell_Slow_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Ball.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Cannon_Bombs.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_Charge.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_Fire.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_Fire_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_Fire_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_Fire_One_Shot_v3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Gun_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Missile_Activate.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Missile_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Missile_FULL_Spell.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Missile_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Power_Buff_Activate.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Power_Buff_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Power_Buff_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Spell_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Spell_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Spell_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Tornado_Slash.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Tornado_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Fire_Tornado_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Heavenly_Light_Buff.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Heavenly_Positive_Buff.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Crystal_Buff_Activate.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Crystal_Buff_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Crystal_Buff_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Magic_Spell_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Magic_Spell_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Magic_Spell_Impact_One_Shot_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Magic_Spell_Impact_One_Shot_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Simple_Spell_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Simple_Spell_Cast_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Simple_Spell_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Sword_Spell_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Sword_Spell_Disappear.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Sword_Spell_FULL.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Ice_Sword_Spell_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Magic_Slash_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Shield_Buff_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Shield_Buff_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Spell_Simple_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Impact_On_Dirt.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Pierce_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Slash_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_4.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_5.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Se-uk_Jeong_Spells_SFX_[Video_Demo_3]/Sword_Swing_6.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_Cast_P1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_Cast_P2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_End_P3_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_End_P3_Buff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_End_P3_Buff_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_End_P3_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Small_End_P3_Debuff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Subtle_Shield_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S1_Subtle_Shield_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S3_Buff_Scifi_1_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S3_Buff_Scifi_1_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S3_Buff_Scifi_1_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Buff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Buff_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Cast_1_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Cast_1_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Heal_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Heal_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Impact_Generic_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Impact_Generic_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Impact_Ice.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Cute_Impact_Wind.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S4_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Buff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Buff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Buff_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Charge_Aggressive_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Charge_Spell_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Debuff_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Debuff_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Debuff_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Gravity_Ball_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Gravity_Ball_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Heal_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Heal_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Impact_1_v1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Impact_1_v2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Impact_Heal_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Impact_Heal_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Impact_Mutiple.wav
+	Assets/BuildSource/Audios/RPG Magic SFX 2/Short Spells/S6_Subtle_Buff_1.wav
+Assets/BuildSource/Audios/RPG Magic SFX [blywd#additional#0.1_audios_rpg magic sfx.bundle]
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Fire_Swoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Fire_Swoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Fire_Swoosh_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Fire_Swoosh_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_Impact_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Harp_Attack_Impact_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Large_Neutral_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Large_Neutral_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_1_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_1_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_1_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_2_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_2_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_2_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Medium_Neutral_Impact_2_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Impact_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Impact_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Whoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Large_Whoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Medium_Whoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Medium_Whoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Medium_Whoosh_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Cute_Whoosh_06.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Whoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Neutral_Small_Whoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Plasma_Ball_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Plasma_Ball_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Plasma_Ball_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Impact_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Impact_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Whoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Whoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Whoosh_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Small_Positve_Whoosh_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Wind_Swoosh_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Wind_Swoosh_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Wind_Swoosh_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Wind_Swoosh_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Basic_Attacks_Impacts/Wind_Swoosh_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Boss_Appear.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Monster_Dies_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Monster_Dies_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Recall_Teleport_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Recall_Teleport_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Skill_Unlock_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/Skill_Unlock_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Confirmation_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Confirmation_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Confirmation_02_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Confirmation_02_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Confirmation_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Miscs/UI_Notification.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Music/RPGM_The_Abyss.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_06.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_07.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_08.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_09.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Cleanse_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Cleanse_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Harp_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Haste_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Haste_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Haste_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Shield_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Buff_Shield_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_06.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_07.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_08.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_09.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Curse_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Curse_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Curse_01_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Curse_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Poison_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Poison_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Poison_01_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Silence_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Silence_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Sleep_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Sleep_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Stasis_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Debuff_Stasis_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Dark_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Dark_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Large_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Large_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_04_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_04_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Medium_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Small_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Small_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Small_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Small_04_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Heal_Small_04_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Curse_Impact_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Curse_Subtle_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Large_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Large_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Large_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Large_Impact_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Large_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Laser_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_End_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_03_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_03_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Medium_Impact_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Small_End.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Small_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Small_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Small_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Negative_Wind_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Electric_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Electric_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Electric_Storm_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Hurricane_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Ice_Cast.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Ice_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Ice_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_Cast_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_Cast_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_End_02_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_End_02_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Large_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Laser_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Cast_06.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_End_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_End_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_03_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_03_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_06_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_06_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Impact_06_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Medium_Wind_Impact.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Melodic_Loop_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Small_Cast_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Small_Cast_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Small_Cast_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Teleport_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Teleport_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Water_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Neutral_Water_Impact_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Large_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Large_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Large_End_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Large_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Large_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_03_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_03_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_03_3.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_End_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_Impact_01_1.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_Impact_01_2.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Medium_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Positive_Small_Loop.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_Cast_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_End_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_End_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_End_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_End_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Postive_Small_Impact_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_01.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_02.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_03.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_04.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_05.wav
+	Assets/BuildSource/Audios/RPG Magic SFX/Spells/Revive_06.wav
+Assets/BuildSource/Audios/effect [blywd#additional#0.1_audios_effect.bundle]
+	Assets/BuildSource/Audios/effect/bg_desert.wav
+	Assets/BuildSource/Audios/effect/se_armymove1.mp3
+	Assets/BuildSource/Audios/effect/se_coldwind1.mp3
+	Assets/BuildSource/Audios/effect/se_fileburning1.mp3
+	Assets/BuildSource/Audios/effect/se_heavyrain1.mp3
+	Assets/BuildSource/Audios/effect/se_lighting1.mp3
+	Assets/BuildSource/Audios/effect/se_lighting2.mp3
+	Assets/BuildSource/Audios/effect/se_lighting3.mp3
+	Assets/BuildSource/Audios/effect/se_smallrain1.mp3
+	Assets/BuildSource/Audios/effect/se_warband_0.mp3
+	Assets/BuildSource/Audios/effect/se_warband_0_01.wav
+	Assets/BuildSource/Audios/effect/se_water1.mp3
+	Assets/BuildSource/Audios/effect/se_windhawling1.mp3
+	Assets/BuildSource/Audios/effect/walk_desert.wav
+	Assets/BuildSource/Audios/effect/walk_snow.wav
+	Assets/BuildSource/Audios/effect/walk_stone.wav
+Assets/BuildSource/Audios/bgm_new [blywd#additional#0.1_audios_bgm_new.bundle]
+	Assets/BuildSource/Audios/bgm_new/Battle1.wav
+	Assets/BuildSource/Audios/bgm_new/Battle2.wav
+	Assets/BuildSource/Audios/bgm_new/Battle3.wav
+	Assets/BuildSource/Audios/bgm_new/Bazaar.wav
+	Assets/BuildSource/Audios/bgm_new/bgm_cave.wav
+	Assets/BuildSource/Audios/bgm_new/bgm_tense.wav
+	Assets/BuildSource/Audios/bgm_new/Defeat1.wav
+	Assets/BuildSource/Audios/bgm_new/Desert1.wav
+	Assets/BuildSource/Audios/bgm_new/Desert2.wav
+	Assets/BuildSource/Audios/bgm_new/Desert3.wav
+	Assets/BuildSource/Audios/bgm_new/Expedition.wav
+	Assets/BuildSource/Audios/bgm_new/FogMountain.wav
+	Assets/BuildSource/Audios/bgm_new/GreatFight1.wav
+	Assets/BuildSource/Audios/bgm_new/GreatFight2.wav
+	Assets/BuildSource/Audios/bgm_new/Kingdom.wav
+	Assets/BuildSource/Audios/bgm_new/Lounge1.wav
+	Assets/BuildSource/Audios/bgm_new/March1.wav
+	Assets/BuildSource/Audios/bgm_new/Mystic1.wav
+	Assets/BuildSource/Audios/bgm_new/Sentimental1.wav
+	Assets/BuildSource/Audios/bgm_new/Sentimental2.wav
+	Assets/BuildSource/Audios/bgm_new/SnowMountain1.wav
+	Assets/BuildSource/Audios/bgm_new/SnowMountain2.wav
+	Assets/BuildSource/Audios/bgm_new/TheWind.wav
+	Assets/BuildSource/Audios/bgm_new/Victory1.wav
+Assets/BuildSource/Audios/battle [blywd#additional#0.1_audios_battle.bundle]
+	Assets/BuildSource/Audios/battle/behit.wav
+	Assets/BuildSource/Audios/battle/se_block.mp3
+	Assets/BuildSource/Audios/battle/se_crithit_0.mp3
+	Assets/BuildSource/Audios/battle/se_crithit_1.mp3
+	Assets/BuildSource/Audios/battle/se_crithit_2.mp3
+	Assets/BuildSource/Audios/battle/se_dodge.mp3
+	Assets/BuildSource/Audios/battle/se_elec_stream.mp3
+	Assets/BuildSource/Audios/battle/se_hawkattack1.mp3
+	Assets/BuildSource/Audios/battle/se_nhit_0.mp3
+	Assets/BuildSource/Audios/battle/se_nhit_1.mp3
+	Assets/BuildSource/Audios/battle/se_nhit_2.mp3
+	Assets/BuildSource/Audios/battle/se_tiggerattack.mp3
+	Assets/BuildSource/Audios/battle/se_tiggerhawl.mp3
+	Assets/BuildSource/Audios/battle/古筝_01.wav
+Assets/BuildSource/Audios [blywd#additional#0.1_audios.bundle]
+	Assets/BuildSource/Audios/AudioMixer.mixer
+	Assets/BuildSource/Audios/Blywd_AudioController.prefab
+	Assets/BuildSource/Audios/Blywd_AudioController_backup.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_Battle.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_BGM.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_Sandbox.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_SFX_Attack.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_SFX_Hit.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_SFX_VFX.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_SFX_VFXHit.prefab
+	Assets/BuildSource/Audios/Blywd_AudioObject_SFX_Voice.prefab
+	Assets/BuildSource/Audios/新增 Microsoft Access Database.accdb
+	Assets/BuildSource/Audios/Monster/Bear_Attack.wav
+	Assets/BuildSource/Audios/Monster/Bear_BattleShout.wav
+	Assets/BuildSource/Audios/Monster/Bear_Death.wav
+	Assets/BuildSource/Audios/Monster/Bear_Hurt.wav
+	Assets/BuildSource/Audios/Monster/Bear_Skill.wav
+	Assets/BuildSource/Audios/Monster/Boar_Attack.wav
+	Assets/BuildSource/Audios/Monster/Boar_Death.wav
+	Assets/BuildSource/Audios/Monster/Boar_Hurt.wav
+	Assets/BuildSource/Audios/Monster/Camel_Attack.wav
+	Assets/BuildSource/Audios/Monster/Camel_Death.wav
+	Assets/BuildSource/Audios/Monster/Cow_Attack.wav
+	Assets/BuildSource/Audios/Monster/Cow_Death.wav
+	Assets/BuildSource/Audios/Monster/DarkShadow_Attack.wav
+	Assets/BuildSource/Audios/Monster/DarkShadow_Death.wav
+	Assets/BuildSource/Audios/Monster/Dragon_Attack.wav
+	Assets/BuildSource/Audios/Monster/Dragon_Death.wav
+	Assets/BuildSource/Audios/Monster/FieDevil_Drath.wav
+	Assets/BuildSource/Audios/Monster/FireDevil_Attack.wav
+	Assets/BuildSource/Audios/Monster/FishMan_Attack.wav
+	Assets/BuildSource/Audios/Monster/FishMan_Death.wav
+	Assets/BuildSource/Audios/Monster/FlowerDevil_Attack.wav
+	Assets/BuildSource/Audios/Monster/FlowerDevil_Death.wav
+	Assets/BuildSource/Audios/Monster/Hawk_Attack.wav
+	Assets/BuildSource/Audios/Monster/Hawk_Death.wav
+	Assets/BuildSource/Audios/Monster/Horse_Attack.wav
+	Assets/BuildSource/Audios/Monster/Horse_Death.wav
+	Assets/BuildSource/Audios/Monster/Leopard_Attack.wav
+	Assets/BuildSource/Audios/Monster/Leopard_Death.wav
+	Assets/BuildSource/Audios/Monster/LizardLady_Attack.wav
+	Assets/BuildSource/Audios/Monster/LizardLady_Death.wav
+	Assets/BuildSource/Audios/Monster/Lizard_Attack.wav
+	Assets/BuildSource/Audios/Monster/Lizard_Death.wav
+	Assets/BuildSource/Audios/Monster/Phoenix_Attack.wav
+	Assets/BuildSource/Audios/Monster/Phoenix_Death.wav
+	Assets/BuildSource/Audios/Monster/Snake_Attack.wav
+	Assets/BuildSource/Audios/Monster/Snake_Death.wav
+	Assets/BuildSource/Audios/Monster/StoneMan_Attack.wav
+	Assets/BuildSource/Audios/Monster/StoneMan_Death.wav
+	Assets/BuildSource/Audios/Monster/ThreeMan_Attack.wav
+	Assets/BuildSource/Audios/Monster/ThreeMan_Death.wav
+	Assets/BuildSource/Audios/Monster/Titan_Attack.wav
+	Assets/BuildSource/Audios/Monster/Titan_Death.wav
+	Assets/BuildSource/Audios/Monster/Wolf_Attack.wav
+	Assets/BuildSource/Audios/Monster/Wolf_Attack_01.wav
+	Assets/BuildSource/Audios/Monster/Wolf_Attack_02.wav
+	Assets/BuildSource/Audios/Monster/Wolf_BattleShout_01.wav
+	Assets/BuildSource/Audios/Monster/Wolf_BattleShout_02.wav
+	Assets/BuildSource/Audios/Monster/Wolf_Death.wav
+	Assets/BuildSource/Audios/Skill/AirWave.wav
+	Assets/BuildSource/Audios/Skill/Alchemy_PowerUp.wav
+	Assets/BuildSource/Audios/Skill/ArrowRain.wav
+	Assets/BuildSource/Audios/Skill/Aura_Attack.wav
+	Assets/BuildSource/Audios/Skill/Aura_CriticalHit_02.wav
+	Assets/BuildSource/Audios/Skill/Aura_Dark.wav
+	Assets/BuildSource/Audios/Skill/Aura_Def.wav
+	Assets/BuildSource/Audios/Skill/Aura_DevilSword.wav
+	Assets/BuildSource/Audios/Skill/Aura_Forest.wav
+	Assets/BuildSource/Audios/Skill/Aura_General.wav
+	Assets/BuildSource/Audios/Skill/Aura_Heal.wav
+	Assets/BuildSource/Audios/Skill/Aura_LifeSteel.wav
+	Assets/BuildSource/Audios/Skill/Aura_PowerUp.wav
+	Assets/BuildSource/Audios/Skill/Auta_Lifesteel.wav
+	Assets/BuildSource/Audios/Skill/Auta_Llfesteel.wav
+	Assets/BuildSource/Audios/Skill/BigBodyFly_01.wav
+	Assets/BuildSource/Audios/Skill/BigFootDown.wav
+	Assets/BuildSource/Audios/Skill/BlackStorm.wav
+	Assets/BuildSource/Audios/Skill/BladeWave_01.wav
+	Assets/BuildSource/Audios/Skill/BladeWave_02.wav
+	Assets/BuildSource/Audios/Skill/BodyLock.wav
+	Assets/BuildSource/Audios/Skill/Bow_Load.wav
+	Assets/BuildSource/Audios/Skill/Buff_01.wav
+	Assets/BuildSource/Audios/Skill/Buff_02.wav
+	Assets/BuildSource/Audios/Skill/Burning_01.wav
+	Assets/BuildSource/Audios/Skill/Burning_02.wav
+	Assets/BuildSource/Audios/Skill/Burning_03.wav
+	Assets/BuildSource/Audios/Skill/Cast_01.wav
+	Assets/BuildSource/Audios/Skill/Cast_02.wav
+	Assets/BuildSource/Audios/Skill/Cast_BlackPower.wav
+	Assets/BuildSource/Audios/Skill/Cast_Holy.wav
+	Assets/BuildSource/Audios/Skill/Cast_Ice.wav
+	Assets/BuildSource/Audios/Skill/Cast_Morph.wav
+	Assets/BuildSource/Audios/Skill/Cast_Sound.wav
+	Assets/BuildSource/Audios/Skill/Cast_Storm.wav
+	Assets/BuildSource/Audios/Skill/Cast_Summor.wav
+	Assets/BuildSource/Audios/Skill/Charge_01.wav
+	Assets/BuildSource/Audios/Skill/Charge_02.wav
+	Assets/BuildSource/Audios/Skill/Charge_03.wav
+	Assets/BuildSource/Audios/Skill/Coins_ACT_01.wav
+	Assets/BuildSource/Audios/Skill/Coins_ACT_02.wav
+	Assets/BuildSource/Audios/Skill/CrowFog.wav
+	Assets/BuildSource/Audios/Skill/Darkness.wav
+	Assets/BuildSource/Audios/Skill/DarkSpace_01.wav
+	Assets/BuildSource/Audios/Skill/DarkSwirl.wav
+	Assets/BuildSource/Audios/Skill/Debuff_01.wav
+	Assets/BuildSource/Audios/Skill/Die_05Boss_02.wav
+	Assets/BuildSource/Audios/Skill/Die_06Boss_01.wav
+	Assets/BuildSource/Audios/Skill/DragonBubble.wav
+	Assets/BuildSource/Audios/Skill/DragonRoar.wav
+	Assets/BuildSource/Audios/Skill/Dust_Small_01.wav
+	Assets/BuildSource/Audios/Skill/Dust_Small_02.wav
+	Assets/BuildSource/Audios/Skill/EarthWave_01.wav
+	Assets/BuildSource/Audios/Skill/EarthWave_02.wav
+	Assets/BuildSource/Audios/Skill/EarthWave_03.wav
+	Assets/BuildSource/Audios/Skill/ElectricBall_Shoot.wav
+	Assets/BuildSource/Audios/Skill/EvilHand.wav
+	Assets/BuildSource/Audios/Skill/EvilLimit.wav
+	Assets/BuildSource/Audios/Skill/Explosion_01.wav
+	Assets/BuildSource/Audios/Skill/Explosion_02.wav
+	Assets/BuildSource/Audios/Skill/Explosion_03.wav
+	Assets/BuildSource/Audios/Skill/FearBall_Shoot.wav
+	Assets/BuildSource/Audios/Skill/FireArrowRain_01.wav
+	Assets/BuildSource/Audios/Skill/FireBall_Shoot.wav
+	Assets/BuildSource/Audios/Skill/FishManStaff.wav
+	Assets/BuildSource/Audios/Skill/ForTheSun.wav
+	Assets/BuildSource/Audios/Skill/GuardBladeDance_01.wav
+	Assets/BuildSource/Audios/Skill/GuardBladeDance_02.wav
+	Assets/BuildSource/Audios/Skill/GuardBladeDance_03.wav
+	Assets/BuildSource/Audios/Skill/GuardRoar.wav
+	Assets/BuildSource/Audios/Skill/GuardTaunt.wav
+	Assets/BuildSource/Audios/Skill/HammerStrike.wav
+	Assets/BuildSource/Audios/Skill/HeadHammer.wav
+	Assets/BuildSource/Audios/Skill/HealMagic_01.wav
+	Assets/BuildSource/Audios/Skill/Heal_01.wav
+	Assets/BuildSource/Audios/Skill/HellFire_ACT_01.wav
+	Assets/BuildSource/Audios/Skill/HellFire_ACT_02.wav
+	Assets/BuildSource/Audios/Skill/Hero_Explosion.wav
+	Assets/BuildSource/Audios/Skill/IceArrow.wav
+	Assets/BuildSource/Audios/Skill/IceBall_Shoot.wav
+	Assets/BuildSource/Audios/Skill/IceMagic_01.wav
+	Assets/BuildSource/Audios/Skill/IceShield.wav
+	Assets/BuildSource/Audios/Skill/JokerBook.wav
+	Assets/BuildSource/Audios/Skill/JumpUp_01.wav
+	Assets/BuildSource/Audios/Skill/JumpUp_02.wav
+	Assets/BuildSource/Audios/Skill/LadyAngry.wav
+	Assets/BuildSource/Audios/Skill/MirageFlowers.wav
+	Assets/BuildSource/Audios/Skill/MirageMoon.wav
+	Assets/BuildSource/Audios/Skill/Morph_Wolf.wav
+	Assets/BuildSource/Audios/Skill/Nova.wav
+	Assets/BuildSource/Audios/Skill/PhantomMove_01.wav
+	Assets/BuildSource/Audios/Skill/PhantomMove_02.wav
+	Assets/BuildSource/Audios/Skill/PhoenixOut.wav
+	Assets/BuildSource/Audios/Skill/PoisonBall_Shoot.wav
+	Assets/BuildSource/Audios/Skill/PoisonShield.wav
+	Assets/BuildSource/Audios/Skill/PowerSpear_01.wav
+	Assets/BuildSource/Audios/Skill/PowerSpear_02.wav
+	Assets/BuildSource/Audios/Skill/PowerSpear_03.wav
+	Assets/BuildSource/Audios/Skill/Shadow_Coming.wav
+	Assets/BuildSource/Audios/Skill/SkyFire_Start_01.wav
+	Assets/BuildSource/Audios/Skill/SK_006.wav
+	Assets/BuildSource/Audios/Skill/SK_014.wav
+	Assets/BuildSource/Audios/Skill/SK_018.wav
+	Assets/BuildSource/Audios/Skill/SK_020.wav
+	Assets/BuildSource/Audios/Skill/SK_027.wav
+	Assets/BuildSource/Audios/Skill/SK_033.wav
+	Assets/BuildSource/Audios/Skill/SK_045.wav
+	Assets/BuildSource/Audios/Skill/SK_048.wav
+	Assets/BuildSource/Audios/Skill/SK_050.wav
+	Assets/BuildSource/Audios/Skill/SK_075.wav
+	Assets/BuildSource/Audios/Skill/SK_077.wav
+	Assets/BuildSource/Audios/Skill/Slash_Basic_01.wav
+	Assets/BuildSource/Audios/Skill/Slash_Basic_02.wav
+	Assets/BuildSource/Audios/Skill/Slash_Basic_03.wav
+	Assets/BuildSource/Audios/Skill/Slash_Moon_01.wav
+	Assets/BuildSource/Audios/Skill/Slash_Super_01.wav
+	Assets/BuildSource/Audios/Skill/Slash_Super_02.wav
+	Assets/BuildSource/Audios/Skill/SoulMagic_01.wav
+	Assets/BuildSource/Audios/Skill/Spell_Buff_01.wav
+	Assets/BuildSource/Audios/Skill/Spell_Buff_02.wav
+	Assets/BuildSource/Audios/Skill/Spell_Buff_03.wav
+	Assets/BuildSource/Audios/Skill/Spell_Ice_01.wav
+	Assets/BuildSource/Audios/Skill/SP_Arrow_01.wav
+	Assets/BuildSource/Audios/Skill/SP_Arrow_02.wav
+	Assets/BuildSource/Audios/Skill/SP_Arrow_03.wav
+	Assets/BuildSource/Audios/Skill/SP_Spear_Attack.wav
+	Assets/BuildSource/Audios/Skill/SP_Spear_Waving.wav
+	Assets/BuildSource/Audios/Skill/SP_Weapon_Start.wav
+	Assets/BuildSource/Audios/Skill/SteamBurst_01.wav
+	Assets/BuildSource/Audios/Skill/SteamBurst_02.wav
+	Assets/BuildSource/Audios/Skill/StormMagic.wav
+	Assets/BuildSource/Audios/Skill/StormMagic_01.wav
+	Assets/BuildSource/Audios/Skill/Summor_01.wav
+	Assets/BuildSource/Audios/Skill/Summor_Shadow.wav
+	Assets/BuildSource/Audios/Skill/SuperKick.wav
+	Assets/BuildSource/Audios/Skill/SwordFire.wav
+	Assets/BuildSource/Audios/Skill/ThunderMove_01.wav
+	Assets/BuildSource/Audios/Skill/ThunderMove_02.wav
+	Assets/BuildSource/Audios/Skill/ThunderMove_03.wav
+	Assets/BuildSource/Audios/Skill/ThunderMove_Start_01.wav
+	Assets/BuildSource/Audios/Skill/Thunder_01.wav
+	Assets/BuildSource/Audios/Skill/Thunder_02.wav
+	Assets/BuildSource/Audios/Skill/Thunder_03.wav
+	Assets/BuildSource/Audios/Skill/Thunder_Clap_01.wav
+	Assets/BuildSource/Audios/Skill/Thunder_Clap_02.wav
+	Assets/BuildSource/Audios/Skill/Thunder_Clap_03.wav
+	Assets/BuildSource/Audios/Skill/WaveWeaponA_01.wav
+	Assets/BuildSource/Audios/Skill/WaveWeaponA_02.wav
+	Assets/BuildSource/Audios/Skill/WaveWeaponA_03.wav
+	Assets/BuildSource/Audios/Skill/Weapon_Storm_01.wav
+	Assets/BuildSource/Audios/Skill/Weapon_Storm_02.wav
+	Assets/BuildSource/Audios/Skill/Weapon_Storm_03.wav
+	Assets/BuildSource/Audios/Skill/WildFireWhoosh_01.wav
+	Assets/BuildSource/Audios/Skill/WildFireWhoosh_02.wav
+	Assets/BuildSource/Audios/Skill/WildFireWhoosh_03.wav
+	Assets/BuildSource/Audios/Skill/WildFire_Start.wav
+	Assets/BuildSource/Audios/Skill/WindSword_01.wav
+	Assets/BuildSource/Audios/Skill/WindSword_02.wav
+	Assets/BuildSource/Audios/Skill/WindSword_03.wav
+	Assets/BuildSource/Audios/Skill/WizardSmoke.wav
+	Assets/BuildSource/Audios/Skill/WolfRoar.wav
+	Assets/BuildSource/Audios/Soldier_Skill/Soldier_Running_01.wav
+	Assets/BuildSource/Audios/Soldier_Skill/Soldier_Running_02.wav
+	Assets/BuildSource/Audios/Soldier_Skill/Soldier_Running_03.wav
+Assets/BuildSource/ [blywd#additional#0.1.bundle]
+	Assets/BuildSource/dummy.txt
+	Assets/BuildSource/_Readme.txt
