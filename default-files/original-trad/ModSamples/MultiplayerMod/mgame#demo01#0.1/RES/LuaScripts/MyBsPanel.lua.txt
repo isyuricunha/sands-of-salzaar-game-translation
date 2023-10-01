@@ -1,0 +1,385 @@
+require("gui/WindowUtils")
+require("GameMath")
+require("MyBattleLogic")
+
+require("LuaPanda").start("127.0.0.1",8818)
+
+local windowPanel
+local windowController
+
+local btnBag = nil
+local btnCamera = nil
+local btnFinish = nil
+
+local groupCmdBtns = nil
+local btnRetreat = nil
+
+local groupInfoBox = nil
+local btnSystem = nil
+
+local btnFunc1 = nil
+local btnFunc1OldStr
+local btnFunc2 = nil
+local btnFunc2OldStr
+local btnFunc3 = nil
+local btnFunc3OldStr
+local btnFunc4 = nil
+local btnFunc4OldStr
+
+local btnTest
+
+local txtLabelSp = nil
+local txtLabelKillCount = nil
+
+local playerInfoPanel = nil
+
+local pnSelSlotInfoBox
+local txtSelSlotInfo
+local curSelectActionBarState = -1
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--初始化控件
+function initPanel(_view, _controllerScript)
+    windowPanel = _view
+    windowController = _controllerScript
+
+    --绑定按钮事件
+    btnCamera = windowPanel:GetChild("btn_camera").asButton;
+    btnCamera.onClick:Add(OnClickBtnCamera);
+
+    btnFinish = windowPanel:GetChild("btn_finish").asButton;
+    windowController:SetBattleOverBtn(btnFinish);
+
+    local groupBtns = windowPanel:GetChild("group_btns").asGroup;
+    btnBag = windowPanel:GetChildInGroup(groupBtns,"btn_profile").asButton;
+    btnBag.onClick:Add(OnClickBtnBag);
+    btnBag.tooltips = "快捷键：" .. CS.GUIHelper.GetHotkeyDisplayName(2001);
+
+    groupInfoBox = windowPanel:GetChild("group_infobox").asGroup;
+	btnSystem = windowPanel:GetChildInGroup(groupInfoBox, "btn_menu").asButton;
+    btnSystem.onClick:Add(OnClickBtnSystem);
+    local battleInfoGroup = windowPanel:GetChildInGroup(groupInfoBox, "group_info").asGroup;
+    local txtBattleInfo = windowPanel:GetChildInGroup(battleInfoGroup, "battle_info").asTextField;
+    local txtBattleTimeInfo = windowPanel:GetChildInGroup(battleInfoGroup, "time_info").asTextField;
+    windowController:SetBattleInfoComponents(battleInfoGroup, txtBattleInfo, txtBattleTimeInfo);
+
+    groupCmdBtns = windowPanel:GetChild("group_cmds").asGroup;
+    btnRetreat = windowPanel:GetChildInGroup(groupCmdBtns,"btn_retreat").asButton;
+    btnRetreat.onClick:Add(OnClickBtnRetreat);
+    windowController:SetRetreatBtn(btnRetreat);
+
+    local playerPanelComp = windowPanel:GetChild("player_bar").asCom;
+    playerInfoPanel = windowController:CreatePlayerPanel(playerPanelComp)
+
+    local actionBarWrapper = playerInfoPanel.bindView:GetChild("actions_bar_wrapper").asCom;
+    local rollActionWrapper = playerInfoPanel.bindView:GetChild("rollaction_wrapper").asCom;
+    windowController:CreateActionBarComponents(actionBarWrapper, rollActionWrapper, actionBarSlotCount);
+
+    btnFunc1 = playerInfoPanel.bindView:GetChild("btn_func1").asButton;
+    btnFunc1.onClick:Add(OnClickBtnFunc1);
+    btnFunc1OldStr = btnFunc1.title
+    btnFunc2 = playerInfoPanel.bindView:GetChild("btn_func2").asButton;
+    btnFunc2.onClick:Add(OnClickBtnFunc2);
+    btnFunc2OldStr = btnFunc2.title
+    btnFunc3 = playerInfoPanel.bindView:GetChild("btn_func3").asButton;
+    btnFunc3.onClick:Add(OnClickBtnFunc3);
+    btnFunc3OldStr = btnFunc3.title
+    btnFunc4 = playerInfoPanel.bindView:GetChild("btn_func4").asButton;
+    btnFunc4.onClick:Add(OnClickBtnFunc4);
+    btnFunc4OldStr = btnFunc4.title
+    UpdateBtnNames()
+
+    btnTest = playerInfoPanel.bindView:GetChild("btn_test").asButton;
+    btnTest.onClick:Add(OnClickBtnTest1);
+
+    local groupMyInfo = playerInfoPanel.bindView:GetChild("group_infobox").asGroup;
+    txtLabelSp = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_curpoint_val").asTextField;
+    txtLabelKillCount = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_killcount_val").asTextField;
+
+    pnSelSlotInfoBox = playerInfoPanel.bindView:GetChild("selslot_infobox").asCom;
+    txtSelSlotInfo = pnSelSlotInfoBox:GetChild("txt_selslot_info").asTextField;
+
+    --创建默认控件
+    windowController:CreateWindowComponent("res_box", windowPanel:GetChildInGroup(groupInfoBox, "res_box_wraper").asCom, 5, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("vars_watcher", windowPanel:GetChild("var_watcher_wraper").asCom, 2, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("minimap", windowPanel:GetChild("minimap_wraper").asCom, 8, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("revive_info", windowPanel:GetChild("revive_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("enemy_info", windowPanel:GetChild("enemy_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+
+    local blackMask = windowPanel:GetChild("black_mask").asGraph;
+    --设置场景所需UI遮罩层
+    windowController:SetSceneMaskLayer(blackMask)
+    --设置UI控制器
+    local stateCtl = windowPanel:GetController("ctl_state")
+    windowController:SetStateController(stateCtl)
+
+    HideSelectActionBar()
+
+    onUpdateMyInfo()
+    ResetActionBar()
+end
+
+--面板被销毁接口
+function onPanelDestory()
+    
+end
+
+function UpdateBtnNames()
+    btnFunc1.title = btnFunc1OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10001)
+    btnFunc2.title = btnFunc2OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10002)
+    btnFunc3.title = btnFunc3OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10003)
+    btnFunc4.title = btnFunc4OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10004)
+end
+
+--热键按下事件(-1代码默认为back键)
+function onHotkeyPressed(_keycode)
+    if _keycode == -1 then
+        return OnBackKey()
+    elseif _keycode == 10001 then
+        OnClickBtnFunc1()
+        return true
+    elseif _keycode == 10002 then
+        OnClickBtnFunc2()
+        return true
+    elseif _keycode == 10003 then
+        OnClickBtnFunc3()
+        return true
+    elseif _keycode == 10004 then
+        OnClickBtnFunc4()
+        return true
+    end
+    return false
+end
+
+--游戏信息面板更新事件
+function onUpdateGameInfo()
+    
+end
+
+--快捷栏点击开始事件
+function onActionBarPressStart(_slotIndex)
+    return false
+end
+
+--快捷栏点击结束事件
+function onActionBarPressEnd(_slotIndex)
+    if curSelectActionBarState >= 0 then
+        OnSelectTagSlot(_slotIndex)
+        return true
+    end
+    return false
+end
+
+--面板每秒事件
+function onPanelSecondUpdate()
+    onUpdateMyInfo()
+end
+
+function onUIMessage(_msgType, _msgArg)
+    if _msgType == "info_updated" then
+        onUpdateMyInfo()
+    elseif _msgType == "skills_changed" then
+        ResetActionBar()
+    end
+end
+
+local curSpNum = 0
+function onUpdateMyInfo()
+    --定制信息板更新
+    curSpNum = GetPlayerUsableSp()
+    txtLabelSp.text = curSpNum
+    txtLabelKillCount.text = tostring(playerUnitDefeatCount)
+
+    if playerUnitID > 0 and curSpNum > 0 and curPlayerSkillCount < actionBarSlotCount then
+        btnFunc1.enabled = true
+    else
+        btnFunc1.enabled = false
+    end
+
+    if curPlayerSkillCount > 0 then
+        btnFunc3.enabled = true
+        btnFunc4.enabled = true
+    else
+        btnFunc3.enabled = false
+        btnFunc4.enabled = false
+    end
+
+    if isExistSynthSkills then
+        btnFunc2.enabled = true
+    else
+        btnFunc2.enabled = false
+    end
+end
+
+function OnClickBtnSystem()
+    windowController:OnWindowCmd("system")
+end
+
+function OnClickBtnCamera()
+    windowController:OnWindowCmd("camera")
+end
+
+function OnClickBtnBag()
+    windowController:OnWindowCmd("profile")
+end
+
+function OnClickBtnRetreat()
+    windowController:OnWindowCmd("retreat")
+end
+
+function OnClickBtnFunc1()
+    HideSelectActionBar()
+    if PlayerDrawSkill() then
+        --播放音效
+        GameCoreHelper.PlayAudio("AddBuff")
+        onUpdateMyInfo()
+    end
+end
+
+function OnClickBtnFunc2()
+    HideSelectActionBar()
+    if PlayerSynthSkill() then
+        --播放音效
+        GameCoreHelper.PlayAudio("AddBuff")
+        onUpdateMyInfo()
+    end
+end
+
+function OnClickBtnFunc3()
+    PlayButtonSound()
+    if curSelectActionBarState == 0 then
+        HideSelectActionBar()
+    else
+        ShowSelectActionBar(0)
+    end
+end
+
+function OnClickBtnFunc4()
+    PlayButtonSound()
+    if curSelectActionBarState == 1 then
+        HideSelectActionBar()
+    else
+        ShowSelectActionBar(1)
+    end
+end
+
+function OnClickBtnTest1()
+    TestAddExp(1000)
+end
+
+local curSkillSlotList = {}
+function ResetActionBar()
+    local tagSp
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] ~= nil then
+            if not IsTagSkillExist(curSkillSlotList[i][1]) then
+                curSkillSlotList[i] = nil
+            end
+        end
+    end
+    for k, v in pairs(curPlayerSkillList) do
+        if not IsTagSkillInActionBar(v[1]) then
+            local tagSlotIndex = GetEmptyActionSlot()
+            if tagSlotIndex >= 0 then
+                curSkillSlotList[tagSlotIndex] = v
+            else
+                break
+            end
+        end
+    end
+    local slotInfo = ""
+    local slotExInfo
+    for i = 0, actionBarSlotCount-1, 1 do
+        if i > 0 then
+            slotInfo = slotInfo .. "|"
+        end
+        if curSkillSlotList[i] ~= nil then
+            tagSp = curSkillSlotList[i]
+            slotInfo = slotInfo .. "skill:" .. tagSp[1]
+            slotExInfo = string.format("技能等级：%s\n技能系：%s\n{0}", tagSp[2], tagSp[3])
+            windowController:SetActionBarSlotExInfo(i, slotExInfo)
+        end
+    end
+    windowController:SetActionBarSkill(slotInfo)
+end
+
+function GetTagSlotSp(_slotIndex)
+    return curSkillSlotList[_slotIndex]
+end
+
+function IsTagSkillInActionBar(_skillID)
+    local isExist = false
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] ~= nil and curSkillSlotList[i][1] == _skillID then
+            isExist = true
+            break
+        end
+    end
+    return isExist
+end
+
+function GetEmptyActionSlot()
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] == nil then
+            return i
+        end
+    end
+    return -1
+end
+
+--打开快捷键选择模式 _opType 0:替换技能 1：遗忘技能
+function ShowSelectActionBar(_opType)
+    curSelectActionBarState = _opType
+    if _opType == 1 then
+        txtSelSlotInfo.text = "请选择要进行遗忘的技能"
+    else
+        txtSelSlotInfo.text = "请选择要进行替换的技能"
+    end
+    pnSelSlotInfoBox.visible = true
+    SelSlotsSelSate(true)
+end
+
+function HideSelectActionBar()
+    if curSelectActionBarState >= 0 then
+        SelSlotsSelSate(false)
+    end
+    curSelectActionBarState = -1
+    pnSelSlotInfoBox.visible = false
+end
+
+function SelSlotsSelSate(_isOn)
+    for i = 0, actionBarSlotCount-1, 1 do
+        windowController:SetActionBarSelState(i, _isOn)
+    end
+end
+
+function OnSelectTagSlot(_slotIndex)
+    local tagSp = GetTagSlotSp(_slotIndex)
+    if tagSp ~= nil then
+        if curSelectActionBarState == 0 then
+            local retCode, errInfo = ReplaceRndSkill(tagSp)
+            if retCode then
+                ShowToastInfo("指定的技能已被替换", 3)
+            else
+                if errInfo ~= nil then
+                    ShowToastInfo(errInfo, 3)
+                end
+            end
+        elseif curSelectActionBarState == 1 then
+            if RemoveTagSkill(tagSp) then
+                ShowToastInfo("指定的技能已被移除", 3)
+            end
+        end
+    end
+    HideSelectActionBar()
+    onUpdateMyInfo()
+end
+
+function OnBackKey()
+    if curSelectActionBarState >= 0 then
+        HideSelectActionBar()
+        return true
+    end
+    return false
+end

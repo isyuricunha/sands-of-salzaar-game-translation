@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0.68#block_act#0#0
+0.18#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*3;hit:1000;blk:-1000;eft:铁匠之怒抡击受击#0#unit_pos,0,0,0,500
+0.18#play_sound#Ground_Hit#unit_pos
+0.15#play_sound#DragonRoar#unit_pos
+0.15#add_eft#月白寒刃波#unit_pos,0,0,0#0
+0.15#camera_shake#0.1#5
+0.28#play_sound#Dust_Small#unit_pos
+0.23#play_sound#SK_027#unit_pos

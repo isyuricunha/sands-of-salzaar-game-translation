@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.2" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
+  <tile_tex tex_id="8" scale_x="3" scale_y="3" rotate="0" />
+  <tile_obj obj_id="482" obj_type="3" tileset_id="WuYa" layer_index="2" pos_x="1374.273" pos_y="351.402832" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="481" obj_type="3" tileset_id="WuYa03" layer_index="2" pos_x="1189.04321" pos_y="27.726181" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="459" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="546.1792" pos_y="345.35495" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="458" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="816.9874" pos_y="285.767029" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="438" obj_type="0" tileset_id="yanti_desertrock03" layer_index="2" pos_x="1610.39453" pos_y="-107.616653" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="436" obj_type="0" tileset_id="yanti_desertrock03" layer_index="2" pos_x="1484.87939" pos_y="-54.3678131" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="417" obj_type="0" tileset_id="yanti_desertrock03" layer_index="2" pos_x="576.8607" pos_y="539.99054" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="416" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="493.184021" pos_y="570.775" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="415" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="487.605652" pos_y="445.259979" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="37" bind_info_type="12" center_map_x="519.934631" center_map_y="889.251465" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-233.970215" aabb_min_y="-266.5023" aabb_max_x="510.1026" aabb_max_y="289.678253">
+    <pts_info>-165,-282;0,-398;108,-383;300,-523;505,-325;445,-198;226,-211;208,-94;109,-94;76,44;153,90;103,326;200,452;50,569;-196,437;-228,369;-112,164</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+  <tile_areas area_id="42" bind_info_type="12" center_map_x="1692.16882" center_map_y="-151.3825" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-306.7118" aabb_min_y="-141.450165" aabb_max_x="204.397583" aabb_max_y="89.15204">
+    <pts_info>-301,23;-242,-77;-185,-82;-109,-200;23,-170;85,-265;193,-272;199,-181;139,-63;59,-52;67,44;2,168;-135,33;-199,141</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+0#play_sound#JumpUp#unit_pos
+0.1#dart_move#跳跃#1#3500#500##翱翔之剑翱翔冲击波,1,0.4
+0.1#play_sound#ClothMovement#unit_pos

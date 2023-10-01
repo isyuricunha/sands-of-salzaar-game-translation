@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0.05#play_sound#AirWave#unit_pos
+0.08#play_sound#Palm_Attack#unit_pos
+0.13#camera_shake#0.1#2
+0.13#play_sound#EarthWave#unit_pos
+0.15#dmg_check#2#type:2;dmg:0;hit:1000;blk:-1000;cri:1000;eft:铁匠之怒抡击受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+0.15#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.3;hit:1000;blk:-1000;cri:1000;eft:铁匠之怒抡击受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+0.18#play_sound#Palm_Attack#unit_pos
+0.22#block_act#0#0

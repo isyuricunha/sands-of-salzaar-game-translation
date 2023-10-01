@@ -1,0 +1,117 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="1" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="2" scale_y="2" rotate="0" />
+  <tile_tex tex_id="6" scale_x="2" scale_y="2" rotate="0" />
+  <tile_tex tex_id="37" scale_x="2" scale_y="2" rotate="0" />
+  <tile_obj obj_id="31073" obj_type="0" tileset_id="gobi_trail02" layer_index="11" pos_x="-2574.30981" pos_y="1560.21411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30394" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2378" pos_y="1523.267" offset_z="0" arg_x="0.8278035" arg_y="0.8278035" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30975" obj_type="0" tileset_id="yanti_gobi16" layer_index="22" pos_x="-1900.76831" pos_y="1565.198" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31076" obj_type="0" tileset_id="gobi_trail02" layer_index="11" pos_x="-2353.5874" pos_y="1541.93628" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31087" obj_type="0" tileset_id="20633" layer_index="11" pos_x="-2065.143" pos_y="1560.38074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31088" obj_type="0" tileset_id="4063" layer_index="18" pos_x="-2029.58752" pos_y="1548.892" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31089" obj_type="0" tileset_id="4059" layer_index="18" pos_x="-2080.69849" pos_y="1532.22534" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31097" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2155.80981" pos_y="1565.492" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31098" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2151.36523" pos_y="1553.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31114" obj_type="0" tileset_id="valley_rock05" layer_index="22" pos_x="-2170.47632" pos_y="1533.9364" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31086" obj_type="0" tileset_id="yanti_gobi07" layer_index="20" pos_x="-2084.47632" pos_y="1627.492" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30368" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2566.3335" pos_y="2025.46277" offset_z="0" arg_x="0.899665" arg_y="0.899665" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30377" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2550" pos_y="1717.62585" offset_z="0" arg_x="0.857704341" arg_y="0.857704341" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30378" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2568.33325" pos_y="1962.72864" offset_z="0" arg_x="0.838501036" arg_y="0.838501036" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30382" obj_type="0" tileset_id="brushwood02" layer_index="21" pos_x="-2541.66675" pos_y="2274.88867" offset_z="0" arg_x="0.5354495" arg_y="0.5354495" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31048" obj_type="0" tileset_id="yanti_gobi05" layer_index="22" pos_x="-2570.72632" pos_y="2466.29736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31049" obj_type="0" tileset_id="brushwood01" layer_index="22" pos_x="-2580.643" pos_y="1702.21411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31055" obj_type="0" tileset_id="20633" layer_index="11" pos_x="-2423.921" pos_y="1741.603" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31058" obj_type="0" tileset_id="20637" layer_index="11" pos_x="-2640.143" pos_y="1662.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31062" obj_type="0" tileset_id="20637" layer_index="11" pos_x="-2630.36523" pos_y="1848.04749" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31066" obj_type="0" tileset_id="desert plant_03" layer_index="19" pos_x="-2595.032" pos_y="2369.26978" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31072" obj_type="0" tileset_id="gobi_trail04" layer_index="11" pos_x="-2536.97632" pos_y="1639.88074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31085" obj_type="0" tileset_id="yanti_gobi09" layer_index="20" pos_x="-2659.143" pos_y="1877.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="1" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31074" obj_type="0" tileset_id="gobi_trail03" layer_index="11" pos_x="-2547.36523" pos_y="1783.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31082" obj_type="0" tileset_id="gobi_trail03" layer_index="11" pos_x="-2547.80981" pos_y="2007.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30370" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2354.66675" pos_y="1843.88843" offset_z="0" arg_x="0.9073657" arg_y="0.9073657" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30372" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2153" pos_y="2341.314" offset_z="0" arg_x="0.970594645" arg_y="0.970594645" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30373" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2068.3335" pos_y="1958.73035" offset_z="0" arg_x="0.949748456" arg_y="0.949748456" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30374" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2356.6665" pos_y="2223.14771" offset_z="0" arg_x="0.901197731" arg_y="0.901197731" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30375" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2005" pos_y="2225.76318" offset_z="0" arg_x="0.8413797" arg_y="0.8413797" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30376" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2240" pos_y="1728.696" offset_z="0" arg_x="0.8080035" arg_y="0.8080035" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30379" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-2333.33325" pos_y="2127.9563" offset_z="0" arg_x="0.9963628" arg_y="0.9963628" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30380" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-1925" pos_y="1980.58545" offset_z="0" arg_x="0.9376749" arg_y="0.9376749" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30381" obj_type="0" tileset_id="brushwood01" layer_index="21" pos_x="-1835" pos_y="2095.95752" offset_z="0" arg_x="0.8297839" arg_y="0.8297839" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30383" obj_type="0" tileset_id="brushwood02" layer_index="21" pos_x="-2278.33325" pos_y="2006" offset_z="0" arg_x="0.736544132" arg_y="0.736544132" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30384" obj_type="0" tileset_id="brushwood02" layer_index="21" pos_x="-2061.6665" pos_y="1764.33337" offset_z="0" arg_x="0.869364142" arg_y="0.869364142" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30385" obj_type="0" tileset_id="brushwood02" layer_index="21" pos_x="-1675" pos_y="2301" offset_z="0" arg_x="0.6624592" arg_y="0.6624592" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30386" obj_type="0" tileset_id="brushwood02" layer_index="21" pos_x="-1596" pos_y="1975" offset_z="0" arg_x="0.8195288" arg_y="0.8195288" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30976" obj_type="0" tileset_id="yanti_gobi03" layer_index="22" pos_x="-1811.10156" pos_y="1706.86462" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31050" obj_type="0" tileset_id="brushwood01" layer_index="22" pos_x="-2043.30981" pos_y="1746.88074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31052" obj_type="0" tileset_id="brushwood01" layer_index="22" pos_x="-2041.64307" pos_y="1981.88074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31059" obj_type="0" tileset_id="20637" layer_index="11" pos_x="-1915.25415" pos_y="1917.603" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="1" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31063" obj_type="0" tileset_id="20637" layer_index="11" pos_x="-2234.143" pos_y="1658.71411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31064" obj_type="0" tileset_id="20637" layer_index="11" pos_x="-2254.80981" pos_y="1792.04749" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31065" obj_type="0" tileset_id="desert plant_03" layer_index="19" pos_x="-1901.47644" pos_y="1651.71411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31075" obj_type="0" tileset_id="gobi_trail02" layer_index="11" pos_x="-2314.25415" pos_y="1862.603" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31077" obj_type="0" tileset_id="gobi_trail04" layer_index="11" pos_x="-2047.14307" pos_y="1753.04749" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31078" obj_type="0" tileset_id="gobi_trail01" layer_index="11" pos_x="-2091.5874" pos_y="1686.38074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31079" obj_type="0" tileset_id="gobi_trail01" layer_index="11" pos_x="-2187.143" pos_y="1623.04749" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31080" obj_type="0" tileset_id="gobi_trail03" layer_index="11" pos_x="-2178.25415" pos_y="1725.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31081" obj_type="0" tileset_id="gobi_trail05" layer_index="11" pos_x="-2201.80981" pos_y="1956.8252" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31083" obj_type="0" tileset_id="gobi_trail04" layer_index="11" pos_x="-2214.25415" pos_y="1870.603" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31084" obj_type="0" tileset_id="yanti_gobi09" layer_index="20" pos_x="-2243.143" pos_y="1897.04736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31090" obj_type="0" tileset_id="desert plant_03" layer_index="18" pos_x="-2009.58752" pos_y="1601.15857" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31092" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2020.69861" pos_y="1584.8252" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31093" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-1891.80969" pos_y="1637.04736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31094" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-1876.25415" pos_y="1694.8252" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31095" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-1927.36523" pos_y="1571.492" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31101" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2193.36523" pos_y="1592.38074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31102" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2271.36523" pos_y="1863.49182" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31103" obj_type="0" tileset_id="flower_rose" layer_index="18" pos_x="-2259.80981" pos_y="1887.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31110" obj_type="0" tileset_id="valley_rock02" layer_index="22" pos_x="-1915.36523" pos_y="1627.26965" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31111" obj_type="0" tileset_id="valley_rock02" layer_index="22" pos_x="-2177.5874" pos_y="1576.15857" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31112" obj_type="0" tileset_id="valley_rock06" layer_index="22" pos_x="-2169.36523" pos_y="1561.71411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31113" obj_type="0" tileset_id="valley_rock06" layer_index="22" pos_x="-1899.36523" pos_y="1675.04736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31115" obj_type="0" tileset_id="valley_rock08" layer_index="22" pos_x="-2018.25415" pos_y="1568.38074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31116" obj_type="0" tileset_id="valley_rock05" layer_index="22" pos_x="-1970.47632" pos_y="1558.38074" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31118" obj_type="0" tileset_id="valley_rock05" layer_index="22" pos_x="-2373.80981" pos_y="1735.492" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31119" obj_type="0" tileset_id="valley_rock06" layer_index="22" pos_x="-2204.921" pos_y="1837.71411" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31120" obj_type="0" tileset_id="valley_rock06" layer_index="22" pos_x="-2231.5874" pos_y="1842.15857" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31121" obj_type="0" tileset_id="valley_rock05" layer_index="22" pos_x="-2220.47632" pos_y="1848.8252" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31134" obj_type="0" tileset_id="desert plant_02" layer_index="19" pos_x="-2496.976" pos_y="2450.43628" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31135" obj_type="0" tileset_id="desert plant_02" layer_index="19" pos_x="-2484.754" pos_y="2478.65845" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31156" obj_type="0" tileset_id="flower_rose" layer_index="19" pos_x="-2422.643" pos_y="1734.603" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31365" obj_type="0" tileset_id="yanti_gobi13" layer_index="22" pos_x="-1457.47644" pos_y="2458.714" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31366" obj_type="0" tileset_id="yanti_gobi05" layer_index="22" pos_x="-1621.69849" pos_y="2502.26978" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="1" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31384" obj_type="0" tileset_id="yanti_gobi15" layer_index="22" pos_x="-1650.40979" pos_y="1799.0144" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="31385" obj_type="0" tileset_id="yanti_gobi10" layer_index="22" pos_x="-1483.74316" pos_y="1845.681" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33196" obj_type="3" tileset_id="Storm" layer_index="24" pos_x="-1966.11755" pos_y="2377.01538" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="210" bind_info_type="12" center_map_x="-1340.75037" center_map_y="3639.05713" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-989" aabb_min_y="-1166" aabb_max_x="404" aabb_max_y="108.5">
+    <pts_info>-626,-638;-825,-701;-831,-853;-854,-866;-820,-962;-922,-1032;-979,-1106;-984,-1257;-965,-1347;-590,-2236;-518,-2303;-447,-2322;-391,-2286;-333,-2212;-327,-2125;-264,-2214;-251,-2181;-304,-2079;-291,-2058;-351,-1832;-341,-1758;-216,-1528;-279,-1268;-136,-1045;80,-1027;399,-495;289,-269;357,-181;234,60;151,113;103,75;101,167;80,207;-17,183;-187,83;-224,7;-480,-72;-533,-167;-536,-306;-519,-355</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+  <tile_areas area_id="342" bind_info_type="12" center_map_x="-2781.109" center_map_y="4919.46045" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-1281" aabb_min_y="-1045.5" aabb_max_x="304" aabb_max_y="115">
+    <pts_info>-304,-314;-224,-233;-140,-165;-122,-196;-71,-172;-34,-233;9,-192;17,-160;182,-158;284,11;299,205;-503,220;-1276,203;-1270,-837;-1270,-2081;-1169,-1886;-1199,-830;-1025,-825;-885,-703;-565,-698</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+  <tile_areas area_id="746" bind_info_type="12" center_map_x="-2087.10229" center_map_y="3164.102" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-70" aabb_min_y="-46" aabb_max_x="67" aabb_max_y="25.5">
+    <pts_info>-51,-79;42,-82;62,41;-65,30</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+  <tile_areas area_id="238" bind_info_type="12" center_map_x="-834.631" center_map_y="4881.413" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-910" aabb_min_y="-181" aabb_max_x="401" aabb_max_y="151">
+    <pts_info>-394,-104;-258,-325;-30,-352;133,-161;267,-318;396,-134;347,292;-302,226;-905,236;-774,-32;-717,-67;-526,-78</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

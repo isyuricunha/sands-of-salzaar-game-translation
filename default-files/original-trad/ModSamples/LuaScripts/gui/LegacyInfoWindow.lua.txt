@@ -1,0 +1,123 @@
+require("gui/WindowUtils")
+require("GameUtils")
+require("GameTools")
+
+local g = {}
+
+local GameCoreHelper = CS.GameCoreHelper
+local ArchiveData = CS.HanFramework.ArchiveData
+local GameUtils = CS.GameUtils
+local GUIHelper = CS.GUIHelper
+local GameShared = CS.GameShared
+local LegacyLogic = CS.LegacyLogic
+
+local StringFormat = GameCoreHelper.StringFormat
+local GetLanString = GetLanString
+local GetGameString = GetGameString
+
+function onInit()
+    ---@type FairyGUI.GComponent
+    g.contentPane = self.contentPane
+
+    -- 设置返回键
+    g.btnClose = g.contentPane:GetChild("btn_close").asButton
+    g.btnClose.onClick:Add(onClickClose)
+
+    self:SetBackkeyButton(g.btnClose);
+
+    cacheLegacyInfo()
+
+    if #g.allLegacy > 0 then
+        g.selectedLegacy = g.allLegacy[1]
+    end
+
+    g.txTotalPoint = g.contentPane:GetChild("txt_legacyPoint").asTextField
+    g.legacyList = g.contentPane:GetChild("legacy_list").asList
+    g.txtTitle = g.contentPane:GetChild("txt_title").asTextField
+    g.txtDesc = g.contentPane:GetChild("txt_desc").asTextField
+
+    --g.txTotalPoint.text = tostring(g.totalLegacy)
+    g.contentPane.title = StringFormat(GetGameString("UILegacyInfoPage_InitTabBtnList"), g.totalLegacy)
+
+    initLegacyVirtualList()
+    refreshLegacy()
+end
+
+function cacheLegacyInfo()
+    LegacyLogic.UpdateLegacyScore();
+    ---@type legacyInfo[]
+    g.allLegacy = {}
+    ---@type legacyInfo
+    g.selectedLegacy = nil
+    g.totalLegacy = 0
+    for key, value in pairs(GameCoreHelper.GetAllList_LegacyFormulaPojo()) do
+        if (LegacyLogic.CheckLegacyFormulaCanDisplay(value)) then
+            ---@class legacyInfo
+            local info = {
+                ---@type LegacyFormulaPojo
+                pojo = value,
+                curVal = LegacyLogic.CalcFormulaScore(value),
+                maxVal = LegacyLogic.GetLegacyFormulaMax(value)
+            }
+            table.insert(g.allLegacy ,info)
+            g.totalLegacy = g.totalLegacy + info.curVal
+        end
+    end
+end
+
+function initLegacyVirtualList()
+    g.legacyList.itemRenderer = legacyItemRenderer
+    g.legacyList.onClickItem:Set(onClickLegacyItem)
+    g.legacyList:SetVirtual()
+    g.legacyList.numItems = #g.allLegacy
+end
+
+function legacyItemRenderer(index, obj)
+    ---@type FairyGUI.GButton
+    local btn = obj
+
+    local curInfo = g.allLegacy[index + 1]
+    if curInfo ~= nil then
+        btn.data = curInfo
+        btn.selected = curInfo == g.selectedLegacy
+
+        btn.title = curInfo.pojo.show_name
+        local prog = btn:GetChild("progress").asProgress
+        local desc = btn:GetChild("txt_desc").asTextField
+
+        prog.min = 0
+        prog.max = curInfo.maxVal
+        prog.value = curInfo.curVal
+
+        desc.text = StringFormat("{0}/{1}", curInfo.curVal, curInfo.maxVal)
+    end
+end
+
+---@param context FairyGUI.EventContext
+function onClickLegacyItem(context)
+    ---@type legacyInfo
+    local info = g.allLegacy[g.legacyList.selectedIndex + 1]
+    g.selectedLegacy = info
+    refreshLegacy()
+end
+
+function refreshLegacy()
+    if g.selectedLegacy == nil then
+        return
+    end
+
+    g.txtTitle.text = g.selectedLegacy.pojo.show_name
+    local desc = g.selectedLegacy.pojo.detail
+    --  .. "\n\n"
+    --  .. StringFormat(GetGameString("lua_script_str_333"), g.selectedLegacy.curVal)
+    --  .. "\n"
+    --  .. StringFormat(GetGameString("lua_script_str_334"), g.selectedLegacy.maxVal)
+
+     g.txtDesc.text = desc
+end
+
+function onClickClose()
+    PlayButtonSound()
+    self.CurDialogResult = -1;
+    self:Hide();
+end

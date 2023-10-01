@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="480,400">
+  <displayList>
+    <graph id="n4_fu4t" name="bg" xy="240,200" pivot="0.5,0.5" anchor="true" size="480,400" alpha="0.65" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width%,height-height%"/>
+    </graph>
+    <text id="n1_kfa5" name="n1" xy="233,222" pivot="0.5,0.5" anchor="true" size="320,36" fontSize="22" color="#f0f0e4" align="center" vAlign="middle" autoSize="none" text="请稍候...">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <movieclip id="n3_kfa5" name="n3" src="rbjt9c" fileName="Animations/WaitIndicator1.jta" xy="233,183" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </movieclip>
+  </displayList>
+</component>

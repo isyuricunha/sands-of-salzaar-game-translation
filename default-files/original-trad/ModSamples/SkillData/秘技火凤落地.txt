@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.27#add_eft#秘技火凤落地#tag_pos,100,0,0#0
+0.33#play_sound#FireBall_Hit#unit_pos
+0.33#camera_shake#0.3#5
+0.36#play_sound#EarthWave#unit_pos
+0.35#dmg_check#1#type:2;dmg:[&@min([%stat:s_攻击%]*(1.5+[%stat:this_level%]*0.1),[%stat:s_攻击%]*3.5)&];hit:1000;blk:-1000;eft:枪术狂风受击#0#unit_pos,0,0,0,[&@min(800,300+[%stat:b_身法%]+[%stat:b_臂力%])&]
+0.95#block_act#0#0

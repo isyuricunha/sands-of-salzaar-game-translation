@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.4#play_sound#Bow_Attack#unit_pos
+0.43#add_eft#P箭术火箭#unit_pos#3:0,3000#0#type:2;dmg:[&[%stat:s_攻击%]*2&];hit:1000;blk:-1000;eft:箭术火焰受击特效
+0.53#play_sound#SP_Arrow#unit_pos
+0.58#play_sound#WildFireCast_Start#unit_pos
+0.94#block_act#0#0

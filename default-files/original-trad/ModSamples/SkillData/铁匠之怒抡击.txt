@@ -1,0 +1,7 @@
+﻿1.72#block_act#0#0
+0.83#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:铁匠之怒抡击受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+0#block_act#1#0
+0.82#add_eft#P铁匠之怒抡击#unit_pos,0,0,0#0
+0.82#play_sound#Phantom_Sword#unit_pos
+0.82#camera_shake#0.1#2
+0.87#play_sound#EarthWave#unit_pos

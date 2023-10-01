@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+1.04#block_act#0#0
+0.52#add_eft#P凤凰羽弓#unit_pos#3:0,5000#0#type:2;dmg:[&[%stat:s_攻击%]&];hit:1000;blk:-1000;eft:箭术普通受击特效;
+0.52#camera_shake#0.05#5
+0.42#play_sound#Bow_Attack#unit_pos
+0.57#play_sound#SP_Arrow#unit_pos
+0.67#play_sound#Dust_Small#unit_pos
+0.4#play_sound#Bow_Aim#unit_pos
+0.4#add_eft#P箭术穿云释放#unit_pos#0

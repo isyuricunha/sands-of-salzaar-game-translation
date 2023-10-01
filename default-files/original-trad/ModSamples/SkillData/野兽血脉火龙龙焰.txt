@@ -1,0 +1,8 @@
+﻿1.72#block_act#0#0
+0.51#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*1;hit:1000;blk:-1000;eft:天火受击;buff:燃烧效果,10,10:#0#unit_pos,0,4,0,0,0,800,800,0,0,-800
+0#block_act#1#0
+0.5#add_eft#P龙焰#unit_pos,0,0,0#0
+0.5#play_sound#FireBall_Shoot#unit_pos
+0.5#camera_shake#0.1#2
+0.4#play_sound#EarthWave#unit_pos
+0.3#play_sound#SwordFire#unit_pos

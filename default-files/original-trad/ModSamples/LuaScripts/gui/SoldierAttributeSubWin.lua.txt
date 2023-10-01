@@ -1,0 +1,200 @@
+require("gui/WindowUtils")
+require("GameUtils")
+require("GameMath")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+SoldierAttributeSubWin = {
+	curCard = nil,
+	curSoldierInfo = nil,
+	curModelInfo = nil,
+	RefreshParentListCallback = nil,
+}
+
+SoldierAttributeSubWin.meta = {__index = SoldierAttributeSubWin}
+
+function SoldierAttributeSubWin:Create()
+	local tagClass = {}
+    setmetatable(tagClass, self.meta)
+    return tagClass
+end
+
+function SoldierAttributeSubWin:Init(_tagComp, _showInstBox)
+	self.mainView = _tagComp;
+
+	self.unitBaseInfo = CreateUnitBaseAttrBox(_tagComp:GetChild("base_box").asCom);
+
+	local groupAttrBox = _tagComp:GetChild("g_attrboxs").asGroup;
+
+	local tagStatBox = _tagComp:GetChildInGroup(groupAttrBox, "statbox_1").asLabel;
+	local tagStatLv = tagStatBox:GetChild("stat_list").asList;
+	tagStatLv.numItems = 2;
+	local tagLb = tagStatLv:GetChildAt(0).asLabel;
+	tagLb.title = GetGameString("lua_script_str_183");
+	SetAttributeStatViewType(tagLb, 0, 0);
+	self.lbHpMax = tagLb;
+	tagLb = tagStatLv:GetChildAt(1).asLabel;
+	tagLb.title = GetGameString("lua_script_str_184");
+	SetAttributeStatViewType(tagLb, 0, 1);
+	self.lbMpMax = tagLb;
+
+	tagStatBox = _tagComp:GetChildInGroup(groupAttrBox, "statbox_2").asLabel;
+	tagStatLv = tagStatBox:GetChild("stat_list").asList;
+	tagStatLv.numItems = 4;
+	tagLb = tagStatLv:GetChildAt(0).asLabel;
+	tagLb.title = GetGameString("lua_script_str_189");
+	SetAttributeStatViewType(tagLb, 0, 2);
+	self.lbPhyAtk = tagLb;
+	tagLb = tagStatLv:GetChildAt(1).asLabel;
+	tagLb.title = GetGameString("lua_script_str_190");
+	SetAttributeStatViewType(tagLb, 0, 2);
+	self.lbMagAtk = tagLb;
+	tagLb = tagStatLv:GetChildAt(2).asLabel;
+	tagLb.title = GetGameString("lua_script_str_191");
+	SetAttributeStatViewType(tagLb, 0, 2);
+	self.lbPhyDef = tagLb;
+	tagLb = tagStatLv:GetChildAt(3).asLabel;
+	tagLb.title = GetGameString("lua_script_str_192");
+	SetAttributeStatViewType(tagLb, 0, 2);
+	self.lbMagDef = tagLb;
+
+	tagStatBox = _tagComp:GetChildInGroup(groupAttrBox, "statbox_3").asLabel;
+	tagStatLv = tagStatBox:GetChild("stat_list").asList;
+	tagStatLv.numItems = 5;
+	tagLb = tagStatLv:GetChildAt(0).asLabel;
+	tagLb.title = GetGameString("lua_script_str_194");
+	SetAttributeStatViewType(tagLb, 1, 0);
+	self.lbMoveSpeed = tagLb;
+	tagLb = tagStatLv:GetChildAt(1).asLabel;
+	tagLb.title = GetGameString("lua_script_str_195");
+	SetAttributeStatViewType(tagLb, 1, 0);
+	self.lbAtkSpeed = tagLb;
+	tagLb = tagStatLv:GetChildAt(2).asLabel;
+	tagLb.title = GetGameString("lua_script_str_196");
+	SetAttributeStatViewType(tagLb, 1, 0);
+	self.lbAtkRange = tagLb;
+	tagLb = tagStatLv:GetChildAt(3).asLabel;
+	tagLb.title = GetGameString("lua_script_str_197");
+	SetAttributeStatViewType(tagLb, 0, 0);
+	self.lbHpRes = tagLb;
+	tagLb = tagStatLv:GetChildAt(4).asLabel;
+	tagLb.title = GetGameString("lua_script_str_198");
+	SetAttributeStatViewType(tagLb, 0, 1);
+	self.lbMpRes = tagLb;
+
+	tagStatBox = _tagComp:GetChildInGroup(groupAttrBox, "statbox_4").asLabel;
+	local typeList = tagStatBox:GetChild("type_list").asList;
+	self.lbAtkType = typeList:GetChildAt(0).asLabel;
+	self.lbArmorType = typeList:GetChildAt(1).asLabel;
+	self.lbClassType = typeList:GetChildAt(2).asLabel;
+
+	self.lvSkills = _tagComp:GetChildInGroup(groupAttrBox, "skill_list").asList;
+
+	self.instBox = _tagComp:GetChild("instruct_box").asCom;
+	self.lvInsTabs = self.instBox:GetChild("tab_list").asList;
+	self.ctlInstTabs = InitPartyInstruceBox(self.lvInsTabs);
+	if _showInstBox then
+		self.instBox.visible = true;
+		self.ctlInstTabs:SetSelectChangeCallback(function(_tagKey)
+			local _setInst = math.floor(tonumber(_tagKey));
+			GameCoreHelper.SetGroupDefInstruct(self.curCard:GetPartyGroupNo(), _setInst);
+		end);
+	else
+		self.instBox.visible = false;
+	end
+
+	self.cmbGroups = self.instBox:GetChild("cmb_group").asComboBox;
+	InitPartyMemberGroupSelCombo(self.cmbGroups);
+	self.cmbGroups.onChanged:Set(function()
+		local tagSelectNo = self.cmbGroups.selectedIndex + 1;
+		self:SetCurCardGroup(tagSelectNo);
+	end);
+end
+
+function SoldierAttributeSubWin:SetViewStyle(_style)
+	self.unitBaseInfo.ctlViewStyle.selectedIndex = _style;
+end
+
+function SoldierAttributeSubWin:SetCurCard(_tagCard)
+	self.curCard = _tagCard;
+	self.curSoldierInfo = _tagCard.BindSoldier;
+	self:UpdateStats();
+end
+
+function SoldierAttributeSubWin:UpdateStats()
+	if self.curCard == nil then
+		self.mainView.visible = false;
+	else
+		self.mainView.visible = true;
+
+		local curCard = self.curCard;
+		UpdateUnitBaseAttrBox(self.unitBaseInfo, curCard);
+
+		--处理种类图标
+		local attackType = curCard:GetAttackType();
+		local armorType = curCard:GetArmorType();
+		local unitClass = curCard:GetUnitClassType();
+		self.lbAtkType.icon = GetAttackTypeIcon(attackType);
+		self.lbAtkType.tooltips = CS.GUIHelper.ConvertUGUIStr(CS.GUIHelper.GetAttackTypeDescInfo(attackType));
+		self.lbArmorType.icon = GetArmorTypeIcon(armorType);
+		self.lbArmorType.tooltips = CS.GUIHelper.ConvertUGUIStr(CS.GUIHelper.GetArmorTypeDescInfo(armorType));
+		self.lbClassType.icon = GetUnitClassIcon(unitClass);
+		self.lbClassType.tooltips = GetUnitClassName(unitClass);
+
+		if IsMobileMode then
+			self.lbAtkType.onClick:Add(function()
+				ShowTooltipPopup(self.lbAtkType, self.lbAtkType.tooltips)
+			end)
+			self.lbArmorType.onClick:Add(function()
+				ShowTooltipPopup(self.lbArmorType, self.lbArmorType.tooltips)
+			end)
+			self.lbClassType.onClick:Add(function()
+				ShowTooltipPopup(self.lbClassType, self.lbClassType.tooltips)
+			end)
+		end
+
+		--更新技能表
+		UpdateSimpleSkillList(self.lvSkills, curCard:GetAllSpList(), curCard);
+
+		--更新数值列表
+		local curStat = curCard:GetBindUnitStat();
+		SetAttributeStatViewVal(self.lbHpMax, curStat:getVal("s_生命"), REF_VAL_MaxHp);
+		SetAttributeStatViewVal(self.lbMpMax, curStat:getVal("s_气力"), REF_VAL_MaxMp);
+
+		SetAttributeStatViewVal(self.lbPhyAtk, curStat:getVal("s_攻击"), REF_VAL_PhyAtk);
+		SetAttributeStatViewVal(self.lbMagAtk, curStat:getVal("s_魔法攻击"), REF_VAL_MagAtk);
+		SetAttributeStatViewVal(self.lbPhyDef, curStat:getVal("udatk_物理伤害减免") + curStat:getVal("udatk_伤害免除"), REF_VAL_PhyDef);
+		SetAttributeStatViewVal(self.lbMagDef, curStat:getVal("udatk_巫术伤害减免") + curStat:getVal("udatk_伤害免除"), REF_VAL_MagDef);
+
+		SetAttributeStatViewDesc(self.lbMoveSpeed, GetStatValDescMoveSpeed(curStat:getVal("s_移速")));
+		SetAttributeStatViewDesc(self.lbAtkSpeed, GetStatValDescAtkSpeed(curCard:GetWeaponSpeed()));
+		SetAttributeStatViewDesc(self.lbAtkRange, GetStatValDescAtkRange(curStat:getVal("s_攻击范围")));
+		SetAttributeStatViewVal(self.lbHpRes, curStat:getVal("s_生命回复"), REF_VAL_HpRes);
+		SetAttributeStatViewVal(self.lbMpRes, curStat:getVal("s_气力回复"), REF_VAL_MpRes);
+
+		--更新编队策略
+		local cardGroup = curCard:GetPartyGroupNo();
+		local _curInstruct = GameCoreHelper.GetGroupDefInstruct(cardGroup);
+		self.ctlInstTabs:SetSeledItemByKey(tostring(_curInstruct), false);
+
+		self.cmbGroups.selectedIndex = self.curCard:GetPartyGroupNo() - 1;
+	end
+end
+
+function SoldierAttributeSubWin:UpdateParentPartyList(_tagCard)
+	if self.RefreshParentListCallback == nil then
+		local playerTeam = GameCoreHelper.GetPlayerTeam();
+		playerTeam.isTeamUpdated = true;
+	else
+		if self.RefreshParentListCallback ~= nil then
+			self.RefreshParentListCallback(_tagCard, true);
+		end
+	end
+end
+
+function SoldierAttributeSubWin:SetCurCardGroup(_newNo)
+	if self.curCard ~= nil then
+		self.curCard:SetPartyGroupNo(_newNo);
+		self:UpdateParentPartyList(self.curCard);
+	end
+end

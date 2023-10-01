@@ -1,0 +1,157 @@
+require("gui/WindowUtils")
+require("GameMath")
+--require("LuaPanda").start("127.0.0.1",8818)
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local lvRecruitItemList
+
+local lbMoneyBox
+
+local curBattleScene
+local curPlayer
+local playerRole = nil
+
+RES_ID_MONEY = "金钱"
+
+recruitMercenaryPool = {
+	{"雪狼剑士,5",500,"雪狼剑士 x 5"},
+	{"连珠弩手,3",600,"连珠弩手 x 3"},
+	{"野马骑士,5",1000,"野马骑士 x 5"},
+	{"蛮力壮士,5",1200,"蛮力壮士 x 5"},
+	{"黑暗巫师,3",1500,"黑暗巫师 x 3"},
+	{"女武士,5",1600,"女武士 x 5"},
+	{"弩炮,2",2000,"弩炮 x 2"},
+	{"射石炮,1",2200,"射石炮 x 1"},
+}
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	local shopListGroup = contentPane:GetChild("shop_box").asGroup
+	lvRecruitItemList = contentPane:GetChildInGroup(shopListGroup, "tag_list1").asList
+	
+
+	lbMoneyBox = contentPane:GetChild("res_box").asLabel
+	
+end
+
+--设置绑定的战斗场景对象
+function SetBattleScene(_tagScene)
+	curBattleScene = _tagScene
+	curPlayer = curBattleScene:GetCurPlayerInfo()
+	playerRole = GameCoreHelper.GetPlayerRole()
+
+	UpdateAll()
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+--窗口事件接口
+function onWindowEvent(_eventID, _eventArg)
+	if _eventID == "shop_updated" then
+
+	elseif _eventID == "bag_updated" then
+        UpdateBagItemList()
+    end
+end
+
+function UpdateAll()
+	local curNum = 0
+
+	lvRecruitItemList.numItems = 0
+	for k, v in pairs(recruitMercenaryPool) do
+		local obj = lvRecruitItemList:AddItemFromPool();
+		RenderListItem(obj, v)
+		curNum = curNum + 1
+	end
+	UpdateBagItemList()
+end
+
+function UpdateBagItemList()
+	lbMoneyBox.title = playerRole:GetResourceNum(RES_ID_MONEY, 1)
+end
+
+function RenderListItem(obj, itemInfo)
+	local tagCom = obj.asCom
+	local bindData = tagCom.data
+	if bindData == nil then
+		bindData = {}
+		bindData.txtTitle = tagCom:GetChild("title").asTextField
+		bindData.txtPrice = tagCom:GetChild("price").asTextField
+		bindData.btnBuy =  tagCom:GetChild("btn_buy").asButton
+		bindData.btnBuy.onClick:Add(function ()
+            OnRecruitTagUnit(bindData)
+        end);
+
+		tagCom.data = bindData
+	end
+
+	if itemInfo ~= nil then
+		bindData.unitInfo = itemInfo
+		bindData.txtTitle.text = itemInfo[3]
+        bindData.txtPrice.text = "花费:" .. itemInfo[2]
+	end
+	
+end
+
+local curOpTagItem = nil
+local recruitLocker = false
+function OnRecruitTagUnit(tagUI)
+	if recruitLocker then 
+		return
+	end
+	local unitInfo = tagUI.unitInfo
+	if unitInfo == nil then
+		return 
+	end
+	local buyPrice = unitInfo[2]
+	if playerRole:GetResourceNum(RES_ID_MONEY, 1) < buyPrice then
+		local errInfo = string.format("招募该组单位需要%s乌塔", buyPrice)
+		ShowToastInfo(errInfo, 2.5)
+		return
+	end
+
+	curOpTagItem = unitInfo
+	recruitLocker = true
+	local reqInfo = curPlayer.actorID .. "#" .. unitInfo[1]
+	curBattleScene:SetRemoteGameVal("try_recruit", reqInfo, onRecruitCallback)
+end
+
+function onRecruitCallback(ret)
+	if ret and curOpTagItem ~= nil then
+		local buyPrice = curOpTagItem[2]
+		playerRole:ChangeResourceNum(RES_ID_MONEY, -buyPrice, false, 1)
+		ShowToastInfo(curOpTagItem[3] .. "已进入战场..", 1.5)
+		UpdateBagItemList()
+	else
+		ShowToastInfo("操作失败！", 1.5)
+	end
+	recruitLocker = false
+end

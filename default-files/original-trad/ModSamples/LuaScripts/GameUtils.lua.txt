@@ -1,0 +1,1149 @@
+
+--全局变量设置
+configEquipSlotCount = 4;
+ID_RES_MONEY = "金钱";
+ID_RES_WOOD = "木材";
+ID_RES_IRON = "铁石";
+ID_RES_JADE = "玉石";
+
+--最大编组数量
+CONFIG_MAX_GROUP_COUNT = 6;
+
+--主角ID
+ID_PLAYER_ID = "主角";
+ID_FIGHT_SKILLPAGE = "搏击";
+
+--技能页控件参数
+SKILLPAGE_COL_MAX = 4;
+SKILLPAGE_ROW_MAX = 7;
+
+SKILLPAGE_SLOT_WIDTH = 73;
+SKILLPAGE_SLOT_HEIGHT = 90;
+
+SKILLPAGE_SLOT_WIDTH_MOBILE = 100;
+SKILLPAGE_SLOT_HEIGHT_MOBILE = 110;
+
+--UI属性面板比例参考值
+--最大生命
+REF_VAL_MaxHp = 15000;
+--最大气力
+REF_VAL_MaxMp = 15000;
+--力量
+REF_VAL_Str = 300;
+--敏捷
+REF_VAL_Agi = 300;
+--精神
+REF_VAL_Spr = 300;
+--耐力
+REF_VAL_Stm = 300;
+
+--物理攻击
+REF_VAL_PhyAtk = 900;
+--巫术攻击
+REF_VAL_MagAtk = 900;
+--物理防御
+REF_VAL_PhyDef = 75;
+--巫术防御
+REF_VAL_MagDef = 75;
+
+--生命回复
+REF_VAL_HpRes = 150;
+--气力回复
+REF_VAL_MpRes = 150;
+
+JoystickButton = CS.JoystickButton
+
+local GameCoreHelper = CS.GameCoreHelper;
+local GUIHelper = CS.GUIHelper
+local GameTools = CS.GameTools
+local GameUtils = CS.GameUtils
+
+local GetGameString = CS.GameTools.getGameString;
+
+function GetLanString(srcInfo, ...)
+    return CS.GameTools.GetLanString(srcInfo, ...)
+end
+
+--将字符串拆分成表
+function SplitStr(szFullString, szSeparator)
+    local nFindStartIndex = 1
+    local nSplitIndex = 1
+    local nSplitArray = {}
+    while true do
+       local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
+       if not nFindLastIndex then
+        nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
+        break
+       end
+       nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+       nFindStartIndex = nFindLastIndex + string.len(szSeparator)
+       nSplitIndex = nSplitIndex + 1
+    end
+    return nSplitArray
+end
+
+--从目标List中抽取一个随机元素
+function GetRandomListItem(_tagList, _listCount)
+    if _listCount > 0 then
+        local rndIndex = CS.GameCoreHelper.GetRandomInt(0, _listCount);
+        return _tagList[rndIndex];
+    else
+        return nil;
+    end
+end
+
+---* 转换颜色代码、对话指令
+---@param str string
+---@param argv RuntimeArgVals
+---@overload fun(str :string) : string
+---@return string
+function ConvertAllStrVal(str, argv)
+    local argv = argv or GameCoreHelper.CreateEmptyRuntimeArgVal()
+    return GameUtils.ConvertRuntimeVarStr(GameUtils.ConvertDialogStr(str), argv)
+end
+
+--显示背包界面
+function ShowInventoryWindow(_invWindowCallback)
+    CS.GUIHelper.ShowInventoryUI(_invWindowCallback);
+end
+
+--根据目标控件创建标准资源数量表控件
+function CreateStandardResBox(_tagCom, _isPlayer)
+    local regInfo = CS.GameTools.getGameString("ResBoxRegInfo_Style1")
+    return CS.GUIHelper.CreateResNumsBox(_tagCom, regInfo, _isPlayer)
+end
+
+function CreateStandardResBoxByList(_tagList, _isPlayer)
+    local regInfo = CS.GameTools.getGameString("ResBoxRegInfo_Style1")
+    return CS.GUIHelper.CreateResNumsBoxByList(_tagList, regInfo, _isPlayer)
+end
+
+function CreateMerchantResBox(_tagCom)
+    local regInfo = CS.GameTools.getGameString("ResBoxRegInfo_Style1")
+    return CS.GUIHelper.CreateResNumsBox(_tagCom, regInfo, false)
+end
+
+function CreateMerchantResBoxByList(_tagList)
+    local regInfo = CS.GameTools.getGameString("ResBoxRegInfo_Style1")
+    return CS.GUIHelper.CreateResNumsBoxByList(_tagList, regInfo, false)
+end
+
+--获取角色当前所有的关系羁绊信息
+function GetRoleBindsInfo(_tagRole)
+    local bindsInfo = "[+]:";
+    local tagRoleID;
+    for i=0,_tagRole.FriendsList.Count-1 do
+        tagRoleID = _tagRole.FriendsList[i];
+        if i > 0 then
+            bindsInfo = bindsInfo .. ",";
+        end
+        bindsInfo = bindsInfo .. tagRoleID .. "(" .. CS.GameCoreHelper.GetRoleRelationVal(_tagRole.roleID, tagRoleID) .. ")";
+    end
+    bindsInfo = bindsInfo .. "\n[-]:";
+    for i=0,_tagRole.EnemiesList.Count-1 do
+        tagRoleID = _tagRole.EnemiesList[i];
+        if i > 0 then
+            bindsInfo = bindsInfo .. ",";
+        end
+        bindsInfo = bindsInfo .. tagRoleID .. "(" .. CS.GameCoreHelper.GetRoleRelationVal(_tagRole.roleID, tagRoleID) .. ")";
+    end
+    return bindsInfo;
+end
+
+constrSpeedDescVal1 = GetGameString("lua_script_str_atkSpeed1");
+constrSpeedDescVal2 = GetGameString("lua_script_str_atkSpeed2");
+constrSpeedDescVal3 = GetGameString("lua_script_str_atkSpeed3");
+constrSpeedDescVal4 = GetGameString("lua_script_str_atkSpeed4");
+constrSpeedDescVal5 = GetGameString("lua_script_str_atkSpeed5");
+
+function GetStatValDescMoveSpeed(_val)
+    if _val >= 300 then
+        return constrSpeedDescVal1;
+    elseif _val >= 200 then
+        return constrSpeedDescVal2;
+    elseif _val >= 100 then
+        return constrSpeedDescVal3;
+    elseif _val >= 0 then
+        return constrSpeedDescVal4;
+    else
+        return constrSpeedDescVal5;
+    end
+end
+
+function GetStatValDescAtkSpeed(_val)
+    if _val <= 0.5 then
+        return constrSpeedDescVal1;
+    elseif _val <= 0.7 then
+        return constrSpeedDescVal2;
+    elseif _val <= 0.9 then
+        return constrSpeedDescVal3;
+    elseif _val <= 1.1 then
+        return constrSpeedDescVal4;
+    else
+        return constrSpeedDescVal5;
+    end
+end
+
+constrAtkRangeDescVal1 = GetGameString("lua_script_str_113");--极小
+constrAtkRangeDescVal2 = GetGameString("lua_script_str_114");--中
+constrAtkRangeDescVal3 = GetGameString("lua_script_str_115");--大
+constrAtkRangeDescVal4 = GetGameString("lua_script_str_299");--小
+constrAtkRangeDescVal5 = GetGameString("lua_script_str_300");--极大
+function GetStatValDescAtkRange(_val)
+    if _val < 400 then
+        return constrAtkRangeDescVal1;
+    elseif _val < 801 then
+        return constrAtkRangeDescVal4;
+    elseif _val < 2001 then
+        return constrAtkRangeDescVal2;
+    elseif _val < 3001 then
+        return constrAtkRangeDescVal3;
+    else
+        return constrAtkRangeDescVal5;
+    end
+end
+
+constrMagicTalentDescVal1 = GetGameString("lua_script_str_magicTalent1");
+constrMagicTalentDescVal2 = GetGameString("lua_script_str_magicTalent2");
+constrMagicTalentDescVal3 = GetGameString("lua_script_str_magicTalent3");
+constrMagicTalentDescVal4 = GetGameString("lua_script_str_magicTalent4");
+
+function GetStatValMagicTalentDesc(_val)
+    if _val >= 3 then
+        return constrMagicTalentDescVal1;
+    elseif _val >= 2 then
+        return constrMagicTalentDescVal2;
+    elseif _val >= 1 then
+        return constrMagicTalentDescVal3;
+    else
+        return constrMagicTalentDescVal4;
+    end
+end
+
+---* 获取城镇动态描述
+---@param tagPlace HanFramework.GamePlaceRtData
+function GetPlaceDescInfoStr(tagPlace)
+    if (tagPlace == nil) then
+        return "";
+    end
+    local placeName = tagPlace:GetPlaceName();
+    local sizeStr;
+    local baseLevel = tagPlace:GetPlaceStat("ps_基地等级");
+    if baseLevel <= 1 then
+        sizeStr = GetGameString("lua_script_str_161");
+    elseif baseLevel <= 2 then
+        sizeStr = GetGameString("lua_script_str_162");
+    else
+        sizeStr = GetGameString("lua_script_str_163");
+    end
+
+    local descStr = GameCoreHelper.StringFormat(GetGameString("lua_script_str_164"), placeName, sizeStr);
+    local campInfo = tagPlace:getCampInfo();
+    if campInfo ~= nil then
+        descStr = descStr .. GameCoreHelper.StringFormat(GetGameString("lua_script_str_165"), campInfo:GetCampName());
+    end
+
+    local raceStr = "";
+    if tagPlace:GetPlaceStat("ps_玉族基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_166");
+    elseif tagPlace:GetPlaceStat("ps_沙漠基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_167");
+    elseif tagPlace:GetPlaceStat("ps_雪山基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_168");
+    elseif tagPlace:GetPlaceStat("ps_毒蝎基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_169");
+    elseif tagPlace:GetPlaceStat("ps_蛮牛基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_170");
+    elseif tagPlace:GetPlaceStat("ps_火魔基地") >= 1 then
+        raceStr = GetGameString("lua_script_str_171");
+    end
+    if not IsEmptyOrNil(raceStr) then
+        descStr = descStr .. GameCoreHelper.StringFormat(GetGameString("lua_script_str_172"), raceStr);
+    end
+
+    local prosperityStr;
+    local prosperityVal = 0;
+    prosperityVal = prosperityVal + tagPlace:GetPlaceStat("ps_产出金钱")
+    prosperityVal = prosperityVal + tagPlace:GetPlaceStat("ps_产出木材") * 10
+    prosperityVal = prosperityVal + tagPlace:GetPlaceStat("ps_产出铁石") * 10
+    prosperityVal = prosperityVal + tagPlace:GetPlaceStat("ps_产出玉石") * 1000
+    prosperityVal = prosperityVal + tagPlace:GetPlaceStat("ps_增加商队") * 550
+    if prosperityVal <= 1500 then
+        prosperityStr = GetGameString("lua_script_str_173");
+    elseif prosperityVal <= 3000 then
+        prosperityStr = GetGameString("lua_script_str_174");
+    elseif prosperityVal <= 7500 then
+        prosperityStr = GetGameString("lua_script_str_175");
+    elseif prosperityVal <= 12000 then
+        prosperityStr = GetGameString("lua_script_str_176");
+    else
+        prosperityStr = GetGameString("lua_script_str_177");
+    end
+    descStr = descStr .. prosperityStr;
+
+    local defenceStr;
+    local defenceVal = CS.GameTools.getSoldiersScore(tagPlace.soldierCardsInTown)
+         + tagPlace:GetPlaceStat("ps_基地等级") * 50;
+    if defenceVal <= 150 then
+        defenceStr = GetGameString("lua_script_str_178");
+    elseif defenceVal <= 300 then
+        defenceStr = GetGameString("lua_script_str_179");
+    elseif defenceVal <= 550 then
+        defenceStr = GetGameString("lua_script_str_180");
+    elseif defenceVal <= 900 then
+        defenceStr = GetGameString("lua_script_str_181");
+    else
+        defenceStr = GetGameString("lua_script_str_182");
+    end
+    descStr = descStr .. defenceStr;
+
+    return descStr;
+end
+
+---@param tagCamp HanFramework.GameCampRtData
+function GetCampDescInfoStr(tagCamp)
+    local desc = ""
+
+    local heroDesc
+    local heroList = tagCamp:GetAllCampRolesSnapshot()
+    local heroCount = heroList.Count
+    if heroCount <= 1 then
+        heroDesc = GetGameString("lua_script_str_304")
+    elseif heroCount <= 4 then
+        heroDesc = GetGameString("lua_script_str_305")
+    elseif heroCount <= 8 then
+        heroDesc = GetGameString("lua_script_str_306")
+    else
+        heroDesc = GetGameString("lua_script_str_307")
+    end
+
+    local placeDesc
+    local placeCount = tagCamp:GetCityCount()
+    if placeCount <= 1 then
+        placeDesc = GetGameString("lua_script_str_308")
+    elseif placeCount <= 4 then
+        placeDesc = GetGameString("lua_script_str_309")
+    elseif placeCount <= 8 then
+        placeDesc = GetGameString("lua_script_str_310")
+    else
+        placeDesc = GetGameString("lua_script_str_311")
+    end
+
+    desc = GameCoreHelper.StringFormat(GetGameString("lua_script_str_312"),
+        tagCamp:GetCampName(), tagCamp:GetLeader():GetRoleName(), heroDesc, placeDesc)
+
+    return desc
+end
+
+--------------------------------------------难度控制-----------------------------------------
+
+function AddInitCmdsByHardLevel(curHardlevel)
+    if curHardlevel == 2 then
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_ai_level#2");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_roll_limit#3");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_hunger_penalty#1");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_card_consumable_mode#1");
+        --AI士兵经验增加倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_ai_soldier_addExp_perPeriod#1.5");
+        --NPC每日自动升级概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*npc_daily_auto_lvup_prop#0.4");
+        --AI出征偏好参数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_invade_prob_fix#1");
+        --AI收入倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_income_rate#1.5");
+        --卡牌损耗概率倍数(低损耗基础概率为0.2)
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_soldier_dead_prob_scale#1.5");
+        --玩家卡牌升级资源消耗倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_upgrade_cost_ratio#1.25");
+        --AI士兵自动升级系数，值越低实际概率越高
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_soldier_auto_lv_up_propfade#0.03");
+        --ai开始资源作弊的起始天
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_start_time#30");
+        --ai开始资源作弊的上限天
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_max_time#200");
+        --AI招募士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitResourceRatio#0.7");
+        --AI升级士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiUpgradeResourceScaleRatio#0.7");
+        --玩家在AI阵营时给予一个轻微作弊收入惩罚
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_in_aiCamp_resource_decrease_rate#0.7");
+        --AI招募上限系数，驻军+隶属于本城的野外军队总和超过城市容量多少倍就不会再招募
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitMaxMult#5");
+        --AI新兵增加缺省经验的开始天数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_startTime#60");
+        --AI新兵增加缺省经验的概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_prop#0.35");
+        --AI新兵增加缺省经验的倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_ratio#0.3");
+        --AI势力升级T6单位最小周期天数
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_period#28");
+        --AI势力升级T6单位周期内限制数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_num#1");
+        --玩家持有T6单位的最大数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_t6_upgrade_limit_num#2");
+        --玩家自身减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_own_avoid_pct#0");
+        --玩家军队减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_army_avoid_pct#0");
+        --玩家阵营金库消耗百分比
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_camp_container_consume_pct#0.5");
+        --玩家获得资源增加百分比
+        --CS.GameTools.AddGameInitCmds("SETINTVAR*player_res_add_pct#0");
+        --玩家与NPC好感度降低豁免概率
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_rlchg_exempt_pct#0");
+    elseif curHardlevel == 1 then
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_ai_level#1");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_roll_limit#5");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_hunger_penalty#1");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_card_consumable_mode#1");
+        --AI士兵经验增加倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_ai_soldier_addExp_perPeriod#0.5");
+        --NPC每日自动升级概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*npc_daily_auto_lvup_prop#0.4");
+        --AI出征偏好参数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_invade_prob_fix#0.65");
+        --AI收入倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_income_rate#0.5");
+        --卡牌损耗概率倍数(高损耗基础概率为0.5，低损耗基础概率为0.2)
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_soldier_dead_prob_scale#1");
+        --玩家卡牌升级资源消耗倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_upgrade_cost_ratio#1");
+        --AI士兵自动升级系数，值越低实际概率越高
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_soldier_auto_lv_up_propfade#0.04");
+        --ai开始资源作弊的起始天
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_start_time#60");
+        --ai开始资源作弊的上限天
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_max_time#100");
+        --AI招募士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitResourceRatio#1");
+        --AI升级士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiUpgradeResourceScaleRatio#1");
+        --玩家在AI阵营时给予一个轻微作弊收入惩罚
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_in_aiCamp_resource_decrease_rate#1");
+        --AI招募上限系数，驻军+隶属于本城的野外军队总和超过城市容量多少倍就不会再招募
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitMaxMult#3");
+        --AI新兵增加缺省经验的开始天数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_startTime#90");
+        --AI新兵增加缺省经验的概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_prop#0.15");
+        --AI新兵增加缺省经验的倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_ratio#0.15");
+        --AI势力升级T6单位最小周期天数
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_period#14");
+        --AI势力升级T6单位周期内限制数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_num#1");
+        --玩家持有T6单位的最大数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_t6_upgrade_limit_num#2");
+        --玩家自身减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_own_avoid_pct#25");
+        --玩家军队减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_army_avoid_pct#0");
+        --玩家阵营金库消耗百分比
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_camp_container_consume_pct#0.75");
+        --玩家获得资源增加百分比
+        --CS.GameTools.AddGameInitCmds("SETINTVAR*player_res_add_pct#10");
+        --玩家与NPC好感度降低豁免概率
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_rlchg_exempt_pct#20");
+    else
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_ai_level#0");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_roll_limit#0");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_hunger_penalty#0");
+        CS.GameTools.AddGameInitCmds("SETINTVAR*config_card_consumable_mode#1");
+        --AI士兵经验增加倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_ai_soldier_addExp_perPeriod#0");
+        --NPC每日自动升级概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*npc_daily_auto_lvup_prop#0.2");
+        --AI出征偏好参数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_invade_prob_fix#0.3");
+        --AI收入倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_income_rate#0");
+        --卡牌损耗概率倍数(高损耗基础概率为0.5，低损耗基础概率为0.2)
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_soldier_dead_prob_scale#1");
+        --玩家卡牌升级资源消耗倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*cur_upgrade_cost_ratio#1");
+        --AI士兵自动升级系数，值越低实际概率越高
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_soldier_auto_lv_up_propfade#0.043");
+        --ai开始资源作弊的起始天(普通难度不作弊)
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_start_time#0");
+        --ai开始资源作弊的上限天(普通难度不作弊)
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_cheat_max_time#0");
+        --AI招募士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitResourceRatio#1");
+        --AI升级士兵时的资源倍率系数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiUpgradeResourceScaleRatio#1");
+        --玩家在AI阵营时给予一个轻微作弊收入惩罚
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_in_aiCamp_resource_decrease_rate#1");
+        --AI招募上限系数，驻军+隶属于本城的野外军队总和超过城市容量多少倍就不会再招募
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*aiRecruitMaxMult#3");
+        --AI新兵增加缺省经验的开始天数
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_startTime#0");
+        --AI新兵增加缺省经验的概率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_prop#0");
+        --AI新兵增加缺省经验的倍率
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*ai_new_recruit_add_exp_ratio#0");
+        --AI势力升级T6单位最小周期天数
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_period#14");
+        --AI势力升级T6单位周期内限制数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*ai_t6_upgrade_limit_num#2");
+        --玩家持有T6单位的最大数量
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_t6_upgrade_limit_num#2");
+        --玩家自身减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_own_avoid_pct#50");
+        --玩家军队减伤百分比
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_army_avoid_pct#25");
+        --玩家阵营金库消耗百分比
+        CS.GameTools.AddGameInitCmds("SETFLOATVAR*player_camp_container_consume_pct#1");
+        --玩家获得资源增加百分比
+        --CS.GameTools.AddGameInitCmds("SETINTVAR*player_res_add_pct#20");
+        --玩家与NPC好感度降低豁免概率
+        CS.GameTools.AddGameInitCmds("SETINTVAR*player_rlchg_exempt_pct#30");
+    end
+end
+
+function CallAddInitCmdsByCurHardLevel(_rtArgs, _args)
+    local curHardlevel = CS.GameConfig.cur_ai_level;
+    AddInitCmdsByHardLevel(curHardlevel);
+end
+
+--------------------------------------------单位类型相关-----------------------------------------
+AllAttackTypesInfo = nil;
+AllAttackTypesInfoSorted = nil;
+
+AllArmorTypesInfo = nil;
+AllArmorTypesInfoSorted = nil;
+
+AllUnitClassTypesInfo = nil;
+AllUnitClassTypesSorted = nil;
+
+function GetAllAttackTypes()
+    if AllAttackTypesInfo == nil then
+        AllAttackTypesInfo = {};
+        AllAttackTypesInfo[0] = {GetGameString("attack_type_0"), "ui://zuvkwb6nhfkdn4"};
+        AllAttackTypesInfo[1] = {GetGameString("attack_type_1"), "ui://zuvkwb6nhfkdn5"};
+        AllAttackTypesInfo[2] = {GetGameString("attack_type_2"), "ui://zuvkwb6nhfkdn6"};
+        AllAttackTypesInfo[3] = {GetGameString("attack_type_3"), "ui://zuvkwb6nhfkdn7"};
+        AllAttackTypesInfo[4] = {GetGameString("attack_type_4"), "ui://zuvkwb6nhfkdn8"};
+        AllAttackTypesInfo[5] = {GetGameString("attack_type_5"), "ui://zuvkwb6nhfkdn9"};
+        AllAttackTypesInfo[900] = {GetGameString("attack_type_900"), "ui://zuvkwb6nhfkdna"};
+
+        AllAttackTypesInfoSorted = {};
+        for k, v in pairs(AllAttackTypesInfo) do
+            local sortItem = {};
+            sortItem.key = k;
+            sortItem.val = v;
+            sortItem.sortIndex = k;
+            table.insert(AllAttackTypesInfoSorted, sortItem);
+        end
+        table.sort(AllAttackTypesInfoSorted, function(a, b)
+            return a.sortIndex < b.sortIndex;
+        end);
+    end
+    return AllAttackTypesInfoSorted;
+end
+
+GetAllAttackTypes();
+
+function GetAttackTypeName(_type)
+    local tagInfo = AllAttackTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[1];
+    end
+    return "";
+end
+
+function GetAttackTypeIcon(_type)
+    local tagInfo = AllAttackTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[2];
+    end
+    return "";
+end
+
+
+
+function GetAllArmorTypes()
+    if AllArmorTypesInfo == nil then
+        AllArmorTypesInfo = {};
+        AllArmorTypesInfo[0] = {GetGameString("armor_type_0"), "ui://zuvkwb6nhfkdog"};
+        AllArmorTypesInfo[1] = {GetGameString("armor_type_1"), "ui://zuvkwb6nhfkdoh"};
+        AllArmorTypesInfo[2] = {GetGameString("armor_type_2"), "ui://zuvkwb6nhfkdoi"};
+        AllArmorTypesInfo[3] = {GetGameString("armor_type_3"), "ui://zuvkwb6nhfkdoj"};
+        AllArmorTypesInfo[4] = {GetGameString("armor_type_4"), "ui://zuvkwb6nhfkdok"};
+        AllArmorTypesInfo[9] = {GetGameString("armor_type_9"), "ui://zuvkwb6nhfkdol"};
+
+        AllArmorTypesInfoSorted = {};
+        for k, v in pairs(AllArmorTypesInfo) do
+            local sortItem = {};
+            sortItem.key = k;
+            sortItem.val = v;
+            sortItem.sortIndex = k;
+            table.insert(AllArmorTypesInfoSorted, sortItem);
+        end
+        table.sort(AllArmorTypesInfoSorted, function(a, b)
+            return a.sortIndex < b.sortIndex;
+        end);
+    end
+    return AllArmorTypesInfoSorted;
+end
+
+GetAllArmorTypes();
+
+function GetArmorTypeName(_type)
+    local tagInfo = AllArmorTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[1];
+    end
+    return "";
+end
+
+function GetArmorTypeIcon(_type)
+    local tagInfo = AllArmorTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[2];
+    end
+    return "";
+end
+
+function GetAllUnitClassTypes()
+    if AllUnitClassTypesInfo == nil then
+        AllUnitClassTypesInfo = {};
+        AllUnitClassTypesInfo["近战"] = {GetGameString("unitclass_type_0"), "ui://zuvkwb6nhfkdnb", 1};
+        AllUnitClassTypesInfo["远程"] = {GetGameString("unitclass_type_1"), "ui://zuvkwb6nhfkdnc", 2};
+        AllUnitClassTypesInfo["骑乘"] = {GetGameString("unitclass_type_2"), "ui://zuvkwb6nhfkdnd", 3};
+        AllUnitClassTypesInfo["特种"] = {GetGameString("unitclass_type_3"), "ui://zuvkwb6nhfkdne", 4};
+        AllUnitClassTypesInfo["巫师"] = {GetGameString("unitclass_type_4"), "ui://zuvkwb6nhfkdnf", 5};
+        AllUnitClassTypesInfo["野兽"] = {GetGameString("unitclass_type_5"), "ui://zuvkwb6nhfkdng", 6};
+        AllUnitClassTypesInfo["怪物"] = {GetGameString("unitclass_type_6"), "ui://zuvkwb6nhfkdnh", 7};
+        AllUnitClassTypesInfo["魔法造物"] = {GetGameString("unitclass_type_7"), "ui://zuvkwb6nhfkdni", 8};
+
+        AllUnitClassTypesSorted = {};
+        for k, v in pairs(AllUnitClassTypesInfo) do
+            local sortItem = {};
+            sortItem.key = k;
+            sortItem.val = v;
+            sortItem.sortIndex = v[3];
+            table.insert(AllUnitClassTypesSorted, sortItem);
+        end
+        table.sort(AllUnitClassTypesSorted, function(a, b)
+            return a.sortIndex < b.sortIndex;
+        end);
+    end
+    return AllUnitClassTypesSorted;
+end
+
+GetAllUnitClassTypes();
+
+function GetUnitClassName(_type)
+    local tagInfo = AllUnitClassTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[1];
+    end
+    return "";
+end
+
+function GetUnitClassIcon(_type)
+    local tagInfo = AllUnitClassTypesInfo[_type];
+    if tagInfo ~= nil then
+        return tagInfo[2];
+    end
+    return "";
+end
+
+function GetSoldierSlotBgImgUrl(tagSoldierCard)
+    local typeCode = 0;
+    if tagSoldierCard ~= nil then
+        typeCode = tagSoldierCard:GetCardQuality();
+    end
+    if typeCode <= 1 then
+        return "ui://zuvkwb6nhfkdnz";
+    elseif typeCode == 2 then
+        return "ui://zuvkwb6nhfkdo0";
+    elseif typeCode == 3 then
+        return "ui://zuvkwb6nhfkdo1";
+    elseif typeCode == 4 then
+        return "ui://zuvkwb6nhfkdo2";
+    elseif typeCode == 5 then
+        return "ui://zuvkwb6nhfkdo3";
+    else
+        return "ui://zuvkwb6nhfkdo4";
+    end
+end
+
+function GetSoldierSlotBgImgUrlByCode(typeCode)
+    if typeCode <= 1 then
+        return "ui://zuvkwb6nhfkdnz";
+    elseif typeCode == 2 then
+        return "ui://zuvkwb6nhfkdo0";
+    elseif typeCode == 3 then
+        return "ui://zuvkwb6nhfkdo1";
+    elseif typeCode == 4 then
+        return "ui://zuvkwb6nhfkdo2";
+    elseif typeCode == 5 then
+        return "ui://zuvkwb6nhfkdo3";
+    else
+        return "ui://zuvkwb6nhfkdo4";
+    end
+end
+
+function GetSoldierWideSlotBgImgUrl(tagSoldierCard)
+    local typeCode = 0;
+    if tagSoldierCard ~= nil then
+        typeCode = tagSoldierCard:GetCardQuality();
+    end
+    if typeCode <= 1 then
+        return "ui://zuvkwb6nbqfj9xu";
+    elseif typeCode == 2 then
+        return "ui://zuvkwb6nbqfj9xv";
+    elseif typeCode == 3 then
+        return "ui://zuvkwb6nbqfj9xw";
+    elseif typeCode == 4 then
+        return "ui://zuvkwb6nbqfj9xx";
+    elseif typeCode == 5 then
+        return "ui://zuvkwb6nbqfj9xy";
+    else
+        return "ui://zuvkwb6nbqfj9xz";
+    end
+end
+
+constrArmyTypeName1 = GetGameString("lua_script_str_116");
+constrArmyTypeName2 = GetGameString("lua_script_str_117");
+constrArmyTypeName3 = GetGameString("lua_script_str_118");
+function GetCampArmyTypeName(_armyType)
+    if _armyType == 1 then
+        return constrArmyTypeName1;
+    elseif _armyType == 2 then
+        return constrArmyTypeName2;
+    elseif _armyType == 3 then
+        return constrArmyTypeName3;
+    else
+        return "";
+    end
+end
+
+-------------------------------------------兵种宝石相关操作--------------------------------------
+
+constrGemColorTypeName1 = GetGameString("lua_script_str_119");
+constrGemColorTypeName2 = GetGameString("lua_script_str_120");
+constrGemColorTypeName3 = GetGameString("lua_script_str_121");
+constrGemColorTypeNameRnd = GetGameString("lua_script_str_122");
+function GetOpColorName(_colorType)
+    if _colorType == 1 then
+        return constrGemColorTypeName1;
+    elseif _colorType == 2 then
+        return constrGemColorTypeName2;
+    elseif _colorType == 3 then
+        return constrGemColorTypeName3;
+    else
+        return constrGemColorTypeNameRnd;
+    end
+end
+
+function AddCardGemSlot(tagCard, curOpColorType)
+    local oldSlotCount = tagCard:GetGemSlotsCount();
+    --执行添加宝石孔操作
+    if oldSlotCount >= CONFIG_CARD_SLOTS_COUNT then
+        local msgInfo = GetGameString("lua_script_str_123");
+        ShowToastInfo(msgInfo, 2.5);
+        return false;
+    end
+    tagCard:ChangeGemSlotCount(1, curOpColorType, true, true);
+    local newSlotCount = tagCard:GetGemSlotsCount();
+    local deltaCount = newSlotCount - oldSlotCount;
+    if deltaCount > 0 then
+        --播报消息
+        local msgInfo = GameCoreHelper.StringFormat(GetGameString("lua_script_str_124"),
+                        tagCard:GetDisplayName(), deltaCount, GetOpColorName(curOpColorType));
+        ShowToastInfo(msgInfo, 2.5);
+    end
+    return true;
+end
+
+function ChangeCardGemSlotColor(tagCard, curOpColorType)
+    local oldSlotCount = tagCard:GetGemSlotsCount();
+    --执行改卡色操作
+    if oldSlotCount <= 0 then
+        local msgInfo = GetGameString("lua_script_str_125");
+        ShowToastInfo(msgInfo, 2.5);
+        return false;
+    end
+    local tagSlotColor;
+    tagCard:RemoveAllGems(true, true);
+    for index=0,oldSlotCount-1 do
+        tagSlotColor = curOpColorType;
+        if tagSlotColor <= 0 then
+            tagSlotColor = tagCard:GetRandomGemSlotColorType();
+        end
+        tagCard:SetGemSlotColorType(index, tagSlotColor);
+    end
+    --播报消息
+    local msgInfo = GameCoreHelper.StringFormat(GetGameString("lua_script_str_126"),
+                        tagCard:GetDisplayName(), GetOpColorName(curOpColorType));
+    ShowToastInfo(msgInfo, 2.5);
+    return true;
+end
+
+-------------------------------------------搏击技能相关功能--------------------------------------
+--当前技能点数
+FightActionBarMaxCount = 5;
+
+function IsTavernFightEnable()
+    return GameCoreHelper.GetIntVar("TAVERN_FIGHT_ON") >= 1;
+end
+
+function GetCurTavernFightRank()
+    local _curExp = GetCurTavernFightExp();
+    if _curExp < GetTavernFightRankExp(2) then
+        return 1;
+    elseif _curExp < GetTavernFightRankExp(3) then
+        return 2;
+    elseif _curExp < GetTavernFightRankExp(4) then
+        return 3;
+    elseif _curExp < GetTavernFightRankExp(5) then
+        return 4;
+    else
+        return 5;
+    end
+end
+
+function GetCurTavernFightExp()
+    return GameCoreHelper.GetIntVar("FIGHT_EXP");
+end
+
+function GetTavernFightRankTitle(_rank)
+    if _rank == 1 then
+        return GetGameString("lua_script_str_270");
+    elseif _rank == 2 then
+        return GetGameString("lua_script_str_271");
+    elseif _rank == 3 then
+        return GetGameString("lua_script_str_272");
+    elseif _rank == 4 then
+        return GetGameString("lua_script_str_273");
+    else
+        return GetGameString("lua_script_str_274");
+    end
+end
+
+function GetTavernFightRankExp(_rank)
+    if _rank == 1 then
+        return 0;
+    elseif _rank == 2 then
+        return 10;
+    elseif _rank == 3 then
+        return 30;
+    elseif _rank == 4 then
+        return 60;
+    elseif _rank == 5 then
+        return 90;
+    else
+        return -1;
+    end
+end
+
+function GetFightSkillType(_typeID)
+    if _typeID == "搏击普攻" then
+        return 1;
+    elseif _typeID == "搏击终结技" then
+        return 2;
+    else
+        return 0;
+    end
+end
+
+function GetFightSkillTypeName(_typeID)
+    if _typeID == "搏击普攻" then
+        return GetGameString("lua_script_str_127");
+    elseif _typeID == "搏击终结技" then
+        return GetGameString("lua_script_str_128");
+    else
+        return GetGameString("lua_script_str_129");
+    end
+end
+
+function GetSavedFightSpListStr()
+    local _savedFightSp = CS.GameCoreHelper.GetStrVar("all_fight_skill_pts");
+    return _savedFightSp;
+end
+
+function SetFightSkillsByStr(fightSpList, _skillsInfo, _isLearnNew)
+    local fightActionBarList = nil;
+    if _isLearnNew then
+        fightActionBarList = GetFightActionBarSlots();
+    end
+    if not IsEmptyOrNil(_skillsInfo) and fightSpList ~= nil then
+        local splitSpList = SplitStr(_skillsInfo, "|");
+        local nSubIndex = 0;
+        local szSeparator = ","
+        local keyVal;
+        local infoVal;
+        local oldLevel;
+        local skillLevel = 1;
+        for k, strLine in pairs(splitSpList) do
+            if not IsEmptyOrNil(strLine) then
+                nSubIndex = string.find(strLine, szSeparator, 0);
+                skillLevel = 1;
+                if nSubIndex > 0 then
+                    keyVal = string.sub(strLine, 1, nSubIndex - 1);
+                    infoVal = string.sub(strLine, nSubIndex + 1, -1);
+                    skillLevel = tonumber(infoVal);
+                else
+                    keyVal = strLine;
+                end
+                oldLevel = fightSpList[keyVal];
+                if oldLevel == nil then
+                    oldLevel = 0;
+                end
+                fightSpList[keyVal] = skillLevel;
+                if _isLearnNew then
+                    if skillLevel > 0 and oldLevel <= 0 then
+                        --学习新技能时
+                        TrySetQuickSlotForFightSkill(fightActionBarList, keyVal);
+                    end
+                end
+            end
+        end
+    end
+end
+
+function GetSavedFightSpList()
+    local fightSpList = {};
+
+    local allSpInfo = GetSavedFightSpListStr();
+    SetFightSkillsByStr(fightSpList, allSpInfo, false);
+
+    return fightSpList;
+end
+
+function GetAllFightSkillList()
+    local _retList = GameCoreHelper.GetEmptySpList();
+    local _fightSps = GetSavedFightSpList();
+    if _fightSps ~= nil then
+        for k, v in pairs(_fightSps) do
+            _retList:Add(GameCoreHelper.GetSkillPoint(k, v));
+        end
+    end
+    return _retList;
+end
+
+function SaveFightSpList(fightSpList)
+    local saveInfo = "";
+    if fightSpList ~= nil then
+        local nCount = 0;
+        for k, v in pairs(fightSpList) do
+            if nCount > 0 then
+                saveInfo = saveInfo .. "|";
+            end
+            saveInfo = saveInfo .. k .. "," .. v;
+            nCount = nCount + 1;
+        end
+    end
+    GameCoreHelper.SetStrVar("all_fight_skill_pts", saveInfo);
+end
+
+--学习搏击技能指令接口
+function LearnFightSkills(contextArgVal, _args)
+    local fightSpList = GetSavedFightSpList();
+    if not IsEmptyOrNil(_args) then
+        SetFightSkillsByStr(fightSpList, _args, true);
+        SaveFightSpList(fightSpList);
+    end
+end
+
+function GetFightActionBarSlots()
+    local fightActionBarList = {};
+
+    local allSpInfo = GameCoreHelper.GetStrVar("all_fight_actionbar");
+    if not IsEmptyOrNil(allSpInfo) then
+        local splitSpList = SplitStr(allSpInfo, "|");
+        local nSubIndex = 0;
+        local szSeparator = ","
+        local keyVal;
+        local infoVal;
+        local slotIndex = -1;
+        for k, strLine in pairs(splitSpList) do
+            if not IsEmptyOrNil(strLine) then
+                nSubIndex = string.find(strLine, szSeparator, 0);
+                slotIndex = -1;
+                if nSubIndex > 0 then
+                    keyVal = string.sub(strLine, 1, nSubIndex - 1);
+                    infoVal = string.sub(strLine, nSubIndex + 1, -1);
+                    slotIndex = tonumber(keyVal);
+                end
+                if slotIndex >= 0 then
+                    fightActionBarList[slotIndex] = infoVal;
+                end
+            end
+        end
+    end
+
+    return fightActionBarList;
+end
+
+function SetFightActionBarSlot(fightActionBarList, _slotIndex, _skillID)
+    if fightActionBarList == nil then
+        fightActionBarList = GetFightActionBarSlots();
+    end
+    if not IsEmptyOrNil(_skillID) then
+        for k, v in pairs(fightActionBarList) do
+            if v == _skillID then
+                fightActionBarList[k] = nil;
+            end
+        end
+    end
+    fightActionBarList[_slotIndex] = _skillID;
+    SaveFightActionBarSlots(fightActionBarList);
+
+    GameCoreHelper.SendSceneUIMessage("skills_changed", nil);
+end
+
+function SaveFightActionBarSlots(fightActionBarList)
+    local saveInfo = "";
+    if fightActionBarList ~= nil then
+        local nCount = 0;
+        for k, v in pairs(fightActionBarList) do
+            if nCount > 0 then
+                saveInfo = saveInfo .. "|";
+            end
+            saveInfo = saveInfo .. k .. "," .. v;
+            nCount = nCount + 1;
+        end
+    end
+    GameCoreHelper.SetStrVar("all_fight_actionbar", saveInfo);
+end
+
+function GetFightActionBarInfoStr()
+    local fightActionBarList = GetFightActionBarSlots();
+    local saveInfo = "";
+    local tagID = nil;
+    if fightActionBarList ~= nil then
+        local nCount = 0;
+        for index=0, FightActionBarMaxCount-1 do
+            if nCount > 0 then
+                saveInfo = saveInfo .. "|";
+            end
+            tagID = fightActionBarList[index];
+            if not IsEmptyOrNil(tagID) then
+                saveInfo = saveInfo .. "skill:" .. tagID;
+            end
+            nCount = nCount + 1;
+        end
+    end
+    return saveInfo, fightActionBarList;
+end
+
+function IsFightSkillClassEnableForSlot(fightSkillType, _slotIndex)
+    if fightSkillType == 1 then
+        return _slotIndex == 0;
+    elseif fightSkillType == 2 then
+        return _slotIndex == 4;
+    else
+        return _slotIndex >= 1 and _slotIndex <= 3;
+    end
+end
+
+--为搏击技能设置默认快捷键
+function TrySetQuickSlotForFightSkill(fightActionBarList, _skillID)
+    if fightActionBarList == nil then
+        fightActionBarList = GetFightActionBarSlots();
+    end
+    local tagSkillInfo = GameCoreHelper.GetSkillInfo(_skillID);
+    if tagSkillInfo == nil or tagSkillInfo.skill_type ~= 0 then
+        return;
+    end
+    local strFightSkillTag = tagSkillInfo:GetTagValue("fight_skill_class");
+    if not IsEmptyOrNil(strFightSkillTag) then
+        local fightSkillType = GetFightSkillType(strFightSkillTag);
+        local tagSlotID;
+        for index=0, FightActionBarMaxCount-1 do
+            tagSlotID = fightActionBarList[index];
+            if IsFightSkillClassEnableForSlot(fightSkillType, index) and IsEmptyOrNil(tagSlotID) then
+                SetFightActionBarSlot(fightActionBarList, index, _skillID);
+                return;
+            end
+        end
+    end
+end
+
+---* 获取卡牌列表的描述信息
+---@param cards System.Collections.Generic.List
+---@return string
+function GetCardsDescription(cards)
+    local cardDict = {}
+
+    for i = 0, cards.Count - 1 do
+        ---@type HanFramework.CardRtData
+        local card = cards[i]
+        local cardId = card.bindID
+        if cardDict[cardId] == nil then
+            cardDict[cardId] = {
+                data = card,
+                num = 0
+            }
+        end
+        cardDict[cardId].num = cardDict[cardId].num + 1
+    end
+
+    local strArr = {}
+
+    for key, value in pairs(cardDict) do
+        table.insert(strArr, GetCardCountDesc(value.data, value.num))
+    end
+
+    return table.concat(strArr, ", ")
+end
+
+function GetCardCountDesc(card, count)
+    return card:GetDisplayName() .. " x" .. tostring(count)
+end
+
+---* 获取可以升级的卡牌数量
+---@param cards System.Collections.Generic.List
+---@param toCard string
+---@return string
+function GetCardsCountCanUpgrade(cards, toCard)
+    local count = 0
+    if cards.Count == 0 then
+        return 0
+    end
+
+    for i = 0, cards.Count - 1 do
+        ---@type HanFramework.CardRtData
+        local card = cards[i]
+        if CS.CardLogic.CouldUpgradeTo(card, toCard) then
+            count = count + 1
+        end
+    end
+
+    local toCardPojo = GameCoreHelper.GetCardInfoByID(toCard)
+
+    local isT6 = toCardPojo.quality == 6
+    if isT6 then
+        local t6Max = CS.GameConfig.player_t6_upgrade_limit_num - GameTools.GetAllPlayerCardsNum(6)
+        count = math.min(count, t6Max)
+    end
+
+    return count
+end
+
+---* 判断是否是下一级升级
+---@param curCardRtData HanFramework.CardRtData
+---@param toCardRtData HanFramework.CardRtData
+function IsNextUpgrade(curCardRtData, toCardRtData)
+    local upList = curCardRtData.BindCardInfo:GetUpgradeList():ToList()
+    for key, value in pairs(upList) do
+        if value.upgradeCardID == toCardRtData.bindID then
+            return true
+        end
+    end
+
+    return false
+end
+
+---@param cardPojo CardPojo
+function CanUpgradeT6(cardPojo)
+    local toT6 = cardPojo.quality == 5
+    if not toT6 then
+        return true
+    end
+    local t6Max = CS.GameConfig.player_t6_upgrade_limit_num - GameTools.GetAllPlayerCardsNum(6)
+    return t6Max > 0
+end

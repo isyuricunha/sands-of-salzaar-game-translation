@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.566026" need_tex_file="1">
+  <tile_tex tex_id="16" scale_x="4" scale_y="4" rotate="0" />
+  <tile_tex tex_id="30" scale_x="4" scale_y="4" rotate="0" />
+  <tile_obj obj_id="249772" obj_type="0" tileset_id="BRF_yanti05" layer_index="27" pos_x="-5598.9873" pos_y="1311.00012" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="1" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="270063" obj_type="0" tileset_id="BRF_yanti07" layer_index="36" pos_x="-5713.943" pos_y="1371.211" offset_z="0" arg_x="1" arg_y="1" arg_z="30" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="270064" obj_type="0" tileset_id="BRF_yanti07" layer_index="36" pos_x="-5843.91" pos_y="1359.79492" offset_z="0" arg_x="1" arg_y="1" arg_z="30" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="998" bind_info_type="12" center_map_x="-5083.31" center_map_y="446.90686" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-808.018066" aabb_min_y="-358" aabb_max_x="471" aabb_max_y="1173.13086">
+    <pts_info>-793,389;-792,-425;-514,-495;-498,-556;-129,-703;163,-706;421,-461;379,-276;466,-107;466,132;412,273;-277,576;-254,1288;-350,1799;-411,2009;-473,2251;-562,2336;-803,2318</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

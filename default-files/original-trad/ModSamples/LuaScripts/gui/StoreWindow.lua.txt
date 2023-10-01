@@ -1,0 +1,365 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local closeBtn
+
+local txtStoreName;
+local txtPlayerName;
+
+local compStoreBox;
+local compInvBox;
+
+local ctlStoreItemsList
+local ctlInvItemsList
+
+local ctlStoreResBox
+local ctlInvResBox
+
+local lbIncome
+local lbCost
+local lbBalance
+local btnConfirm
+
+local timerTickInterval = 0.05
+
+local curTradeData = nil
+local curMerchantInfo = nil
+
+local listStoreItems
+local listInvItems
+
+local curOpTagItem = nil
+
+local playerRole
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	playerRole = GameCoreHelper.GetPlayerRole();
+
+	CS.GUIHelper.ForceClearItemDetailInfoWindow();	--防止物品信息窗口缓存的注册回调导致的引用BUG
+
+	closeBtn = contentPane:GetChild("close_btn").asButton;
+
+	txtStoreName = contentPane:GetChild("txt_title_left").asTextField;
+	ctlStoreResBox = CreateMerchantResBoxByList(contentPane:GetChild("res_list_left").asList);
+	ctlStoreResBox:SetFixedResIDs(ID_RES_MONEY);
+	compStoreBox = contentPane:GetChild("store_list").asCom;
+	listStoreItems = GameCoreHelper.GetEmptyGameItemList();
+	ctlStoreItemsList = CS.GUIHelper.CreateItemListBox(compStoreBox, listStoreItems, 30, 1);
+	ctlStoreItemsList:SetOpTagSlotCallback(onOpTagItemSlotCallback);
+	ctlStoreItemsList:SetDragSlotDoneCallback(onDragSlotDoneCallback);
+
+	txtPlayerName = contentPane:GetChild("txt_title_right").asTextField;
+	ctlInvResBox = CreateStandardResBoxByList(contentPane:GetChild("res_list_right").asList, true);
+	ctlInvResBox:SetFixedResIDs(ID_RES_MONEY);
+	compInvBox = contentPane:GetChild("inv_list").asCom;
+	listInvItems = GameCoreHelper.GetEmptyGameItemList();
+	ctlInvItemsList = CS.GUIHelper.CreateItemListBox(compInvBox, listInvItems, GameCoreHelper.GetPlayerInventoryCapicity(), 0);
+	ctlInvItemsList:SetListTitleText(contentPane:GetChild("txt_itemsinfo").asTextField);
+	ctlInvItemsList:SetOpTagSlotCallback(onOpTagItemSlotCallback);
+	ctlInvItemsList:SetDragSlotDoneCallback(onDragSlotDoneCallback);
+
+	local imgCurRoleHead = contentPane:GetChild("head_cliper"):GetChild("head_holder").asImage;
+	CS.GUIHelper.GenerateRoleHeadAvataImage(playerRole.HeadAvata, imgCurRoleHead);
+	txtPlayerName.text = GameCoreHelper.StringFormat(GetGameString("lua_script_str_337"), playerRole:GetRoleName());
+
+	--查询商人信息
+	local imgNpcHead = contentPane:GetChild("head_cliper_left"):GetChild("head_holder").asImage;
+	imgNpcHead.visible = false;
+	local curRtArgVal = self:GetRuntimeArgVal();
+	if curRtArgVal ~= nil then
+		local _npcID = curRtArgVal.CurTagRoleID;
+		local npcRole = GameCoreHelper.GetRole(_npcID);
+		if npcRole ~= nil then
+			CS.GUIHelper.GenerateRoleHeadAvataImage(npcRole.HeadAvata, imgNpcHead);
+			imgNpcHead.visible = true;
+		end
+	end
+
+	self:SetCloseButton(closeBtn)
+
+	local groupOpBox = contentPane:GetChild("group_opbox").asGroup;
+	lbIncome = contentPane:GetChildInGroup(groupOpBox, "lb_income").asLabel;
+	lbCost = contentPane:GetChildInGroup(groupOpBox, "lb_cost").asLabel;
+	lbBalance = contentPane:GetChildInGroup(groupOpBox, "lb_balance").asLabel;
+
+	btnConfirm = contentPane:GetChild("btn_confirm").asButton;
+	
+	--绑定按钮事件
+	btnConfirm.onClick:Set(onConfirmBtnClicked)
+	closeBtn.onClick:Set(onCloseBtnClicked)
+end
+
+--设置窗口参数
+function SetWindowParams(args)
+	local _merchantID = args[0]
+	SetMerchantInfo(_merchantID)
+end
+
+function SetMerchantInfo(_merchantID)
+	curTradeData = nil
+	curMerchantInfo = GameCoreHelper.GetMerchantByID(_merchantID)
+	if curMerchantInfo ~= nil then
+		curTradeData = GameCoreHelper.CreateTradeData(curMerchantInfo);
+		txtStoreName.text = curMerchantInfo.MerchantInfo.store_name;
+	end
+	if curTradeData == nil then
+		self:Hide()
+		return
+	end
+	ctlStoreItemsList:SetIsShowPriceInfo(1, curTradeData)
+
+	ctlInvItemsList:SetIsShowPriceInfo(2, curTradeData)
+
+	UpdateAll()
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	--增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	CS.GUIHelper.ForceClearItemDetailInfoWindow();
+	--移除计时器事件
+	CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+	--移除模糊背景
+
+	--释放交易业务
+	GameCoreHelper.ReleaseCurTradeData()
+end
+
+function onTimerTickUpdate()
+	ctlStoreItemsList:RunUpdate(timerTickInterval)
+	ctlInvItemsList:RunUpdate(timerTickInterval)
+end
+
+--操作目标回调
+function onOpTagItemSlotCallback(tagSlot)
+	if tagSlot == nil then
+		return
+	end
+	local tagItem = tagSlot.bindItemInfo
+	if tagItem == nil then
+		return
+	end
+
+	if tagSlot.bindTag == 1 then
+		BuyInTagSlotItem(tagItem)
+	elseif tagSlot.bindTag == 0 then
+		SellOutTagSlotItem(tagItem)
+	end
+
+end
+
+--长按拖动操作回调
+function onDragSlotDoneCallback(tagSlot, _rootPos)
+	if tagSlot == nil then
+		return
+	end
+	local tagItem = tagSlot.bindItemInfo
+	if tagItem == nil then
+		return
+	end
+	if tagSlot.bindTag == 1 and CS.GUIHelper.IsRootPosInComponentRect(compInvBox, _rootPos) then
+		BuyInTagSlotItem(tagItem)
+	elseif tagSlot.bindTag == 0 and CS.GUIHelper.IsRootPosInComponentRect(compStoreBox, _rootPos) then
+		SellOutTagSlotItem(tagItem)
+	end
+end
+
+local isShowingNumSelector = false
+
+function BuyInTagSlotItem(tagItem)
+	if tagItem == nil then
+		return
+	end
+
+	if not curTradeData.CurStoreItemList:ContainsKey(tagItem.tradeID) then
+		return
+	end
+
+	curOpTagItem = tagItem
+	if tagItem.itemCount > 1 then
+		local unitPrice = curTradeData:GetItemBuyInPrice(tagItem.tradeID);
+		if unitPrice <= 0 then
+			unitPrice = 1
+		end
+		local buyAskInfo = GameCoreHelper.StringFormat(GetGameString("shop_buysplit_ask"), tagItem:GetItemName())
+		if isShowingNumSelector then
+			return
+		end
+		isShowingNumSelector = true
+		ShowNumSelectorDlg(buyAskInfo, 0, tagItem.itemCount,
+			tagItem.itemCount, unitPrice, GetGameString("shop_buysplit_price"), function(seledNum)
+				if seledNum > 0 then
+					DoBuyInOp(seledNum)
+				end
+				isShowingNumSelector = false
+			end);
+	else
+		DoBuyInOp(tagItem.itemCount)
+	end
+end
+
+function DoBuyInOp(_itemCount)
+	if curOpTagItem ~= nil then
+		local opRet = curTradeData:BuyInItem(curOpTagItem.tradeID, _itemCount)
+		if opRet == true then
+			UpdateAll()
+		end
+	end
+end
+
+function SellOutTagSlotItem(tagItem)
+	if tagItem == nil then
+		return
+	end
+	if not curTradeData.CurPlayerItemList:ContainsKey(tagItem.tradeID) then
+		return
+	end
+	local sellPrice = curTradeData:GetItemSellOutTotalPrice(tagItem.tradeID);
+	if sellPrice <= 0 or not tagItem.ItemInfo:IsEnableSellOrDrop() then
+		ShowAlertInfo(GetGameString("shop_nosell_item"), true)
+		return
+	end
+
+	curOpTagItem = tagItem
+	if tagItem.itemCount > 1 then
+		local unitPrice = math.floor(sellPrice * 1.0 / tagItem.itemCount)
+		if unitPrice <= 0 then
+			unitPrice = 1
+		end
+		local sellAskInfo = GameCoreHelper.StringFormat(GetGameString("shop_sellsplit_ask"), tagItem:GetItemName())
+		if isShowingNumSelector then
+			return
+		end
+		isShowingNumSelector = true
+		ShowNumSelectorDlg(sellAskInfo, 0, tagItem.itemCount,
+			tagItem.itemCount, unitPrice, GetGameString("shop_sellsplit_price"), function(seledNum)
+				if seledNum > 0 then
+					DoSellOutOp(seledNum)
+				end
+				isShowingNumSelector = false
+			end);
+	else
+		DoSellOutOp(curOpTagItem.itemCount)
+	end
+end
+
+function DoSellOutOp(_itemCount)
+	if curOpTagItem ~= nil then
+		local opRet = curTradeData:SellOutItem(curOpTagItem.tradeID, _itemCount)
+		if opRet == true then
+			UpdateAll()
+		end
+	end
+end
+
+function UpdateAll()
+	updateStoreList()
+	updateInvList()
+	updateBalanceInfo()
+end
+
+function updateStoreList()
+	ctlStoreItemsList:SetItemList(curTradeData.StoreItemShowList)
+	ctlStoreItemsList:ReadjustListCapacity(6, 7)
+	ctlStoreItemsList:UpdateItemList()
+	ctlStoreResBox:SetResNum(ID_RES_MONEY, curMerchantInfo.CurMoney)
+end
+
+function updateInvList()
+	ctlInvItemsList:SetItemList(curTradeData.PlayerItemShowList)
+	ctlInvItemsList:UpdateItemList()
+	ctlInvResBox:UpdateNums()
+end
+
+function updateBalanceInfo()
+	if curTradeData.curBalanceMoney >= 0 then
+		lbBalance.titleColor = lbCost.titleColor;
+	else
+		lbBalance.titleColor = lbIncome.titleColor;
+	end
+	lbBalance.title = GetMoneyStr(curTradeData.curBalanceMoney);
+	lbIncome.text = GetMoneyStr(-curTradeData.curBuyInMoney);
+	lbCost.text = GetMoneyStr(curTradeData.curSellOutMoney);
+end
+
+function GetMoneyStr(_tagMoney)
+	if _tagMoney > 0 then
+		return "+" .. _tagMoney
+	else
+		return tostring(_tagMoney)
+	end
+end
+
+function onConfirmBtnClicked()
+	PlayButtonSound()
+
+	CommitTrade()
+end
+
+function onCloseBtnClicked()
+	PlayButtonSound()
+
+	if curTradeData ~= nil then
+		if curTradeData.curBuyInMoney ~= 0 or curTradeData.curSellOutMoney ~= 0 then
+			ShowConfirmDlg(GetGameString("UITradeDlg_OnCancelBtnClicked"), "yesno", function(ret)
+				if ret == 1 then
+					self:Hide()
+				end
+			end)
+			return
+		end
+	end
+	self:Hide()
+end
+
+function ShowAlertInfo(info, isWarning)
+	local displayInfo;
+	if isWarning then
+		displayInfo = "<color=#ff9999ff>" .. info .. "</color>"
+	else
+		displayInfo = info
+	end
+	ShowToastInfo(displayInfo, 2.0);
+end
+
+function CommitTrade()
+	if (curTradeData.curBalanceMoney < 0 and playerRole.roleMoney < -curTradeData.curBalanceMoney) then
+		ShowAlertInfo(GetGameString("shop_player_nomoney"), true)
+		return;
+	end
+
+	if (curTradeData.curBalanceMoney > 0 and curTradeData.CurMerchantRtData.CurMoney < curTradeData.curBalanceMoney) then
+		ShowAlertInfo(GetGameString("shop_store_nomoney"), true)
+		return
+	end
+
+	curTradeData:CommitTrade()
+	self:Hide()
+end

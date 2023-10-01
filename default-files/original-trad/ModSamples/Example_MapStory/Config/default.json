@@ -1,0 +1,11 @@
+{
+    "multilan":"true",
+	"type":"Story",
+	"name":"MOD示例：地图、叙事",
+	"desc":"为MOD开发者所提供的样例工程，将不断更新",
+	"tags":"Maps;Items;Characters;Rules",
+	"start_scene":"",
+	"include_main_game":"2",
+	"homepage_background":"",
+	"audioControllerAdditional":""
+}

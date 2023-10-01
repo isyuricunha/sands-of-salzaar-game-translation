@@ -1,0 +1,7 @@
+﻿0.08#add_buff#极#caster#0.2#1
+0.08#stop_dartmove
+0.08#dart_move##0#4000#0###caster#dim_pos,[%rnd:-200,200%],[%rnd:-200,200%],0
+0#set_status#start_action
+0#play_sound#Shunsha#unit_pos
+0.25#set_status#finish_action
+0.17#dmg_check#0#type:2;dmg:[%stat:s_攻击%]*3;hit:1000;blk:-1000;eft:血受击兵刃#

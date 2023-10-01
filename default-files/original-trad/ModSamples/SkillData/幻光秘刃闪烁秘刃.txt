@@ -1,0 +1,16 @@
+﻿0#block_act#1#0
+0.17#add_eft#T闪烁#unit_pos,0,0,0#0
+0.23#set_unitpos#caster#tag_pos,-200,0,0
+0.23#camera_shake#0.1#2
+0.38#add_eft#幻光秘刃闪烁秘刃#unit_pos,0,0,0#0
+0.38#play_sound#Slash_Long#unit_pos
+0.38#camera_shake#0.1#2
+0.3#play_sound#Phantom_Sword#unit_pos
+0.48#play_sound#Blade_Attack#unit_pos
+0.52#play_sound#Blade_Attack#unit_pos
+0.55#play_sound#Blade_Attack#unit_pos
+0.57#play_sound#Blade_Attack#unit_pos
+0.6#play_sound#Blade_Attack#unit_pos
+0.58*[%skill_lv:幻光秘刃闪烁秘刃提升1%][=]0#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:刀剑之术斩击提升受击#0#tag_pos,0,0,0,400
+0.58*[%skill_lv:幻光秘刃闪烁秘刃提升1%][>]0#dmg_check#1#type:2;dmg:[&@min([%stat:s_攻击%]*(2+[%stat:b_身法%]*0.02),[%stat:s_攻击%]*4)&];hit:1000;blk:-1000;eft:刀剑之术斩击提升受击#0#tag_pos,100,0,0,300
+0.67#block_act#0#0

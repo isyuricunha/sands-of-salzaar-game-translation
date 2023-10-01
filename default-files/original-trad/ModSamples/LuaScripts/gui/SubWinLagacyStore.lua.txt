@@ -1,0 +1,509 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+local conColorDisable = CS.UnityEngine.Color(1, 0.3, 0.3, 1);
+
+local isMobileMode = CS.GameTools.IsMobileMode();
+
+--页面访问控件
+
+SubWinLagacyStore = {
+	onCloseCallback = nil,
+	curDisplayedSlots = nil,
+	curLegacyPoints = 0,
+	maxLegacyPoints = 0,
+	isSceneReady = false;
+}
+
+SubWinLagacyStore.meta = {__index = SubWinLagacyStore}
+
+--窗体初始化时
+function SubWinLagacyStore:Create(_mainView, _onCloseCallback)
+	self.mainView = _mainView;
+	self.onCloseCallback = _onCloseCallback;
+
+	self.fadeAnim1 = _mainView:GetTransition("fade");
+
+	self.mainWin = _mainView:GetChild("main_win").asCom;
+	self.btnBack = self.mainWin:GetChild("btn_close").asButton;
+	local groupTabs = self.mainWin:GetChild("g_tabs").asGroup;
+	self.listTabs = self.mainWin:GetChildInGroup(groupTabs, "tab_list").asList;
+	self.lbPtsNum1 = self.mainWin:GetChildInGroup(groupTabs, "lb_ptsnum1").asLabel;
+	self.ctlPtsNumDis1 = self.lbPtsNum1:GetController("is_disable");
+	self.lbPtsNum2 = self.mainWin:GetChildInGroup(groupTabs, "lb_ptsnum2").asLabel;
+	self.ctlPtsNumDis2 = self.lbPtsNum2:GetController("is_disable");
+	self.lbPtsNum3 = self.mainWin:GetChildInGroup(groupTabs, "lb_ptsnum3").asLabel;
+	self.ctlPtsNumDis3 = self.lbPtsNum3:GetController("is_disable");
+	self.lbPtsNum4 = self.mainWin:GetChildInGroup(groupTabs, "lb_ptsnum4").asLabel;
+	self.ctlPtsNumDis4 = self.lbPtsNum4:GetController("is_disable");
+
+	self.lbTotalPts = self.mainWin:GetChild("lb_curpts").asLabel;
+	self.oldPtsLabelColor = self.lbTotalPts.titleColor;
+	self.listStoreItems = self.mainWin:GetChild("items_list").asList;
+
+	self.ctlStoreTabs = CS.GUICtlListHeaderTabsBar.CreateComponentByList(self.listTabs, true);
+	self.ctlStoreTabs:ClearTabList();
+	self.ctlStoreTabs:AddTabItem("skill", GetGameString("lua_script_str41"));
+	self.ctlStoreTabs:AddTabItem("item", GetGameString("lua_script_str43"));
+	self.ctlStoreTabs:AddTabItem("troops", GetGameString("lua_script_str42"));
+	self.ctlStoreTabs:AddTabItem("setting", GetGameString("lua_script_str44"));
+
+	self.curSeledTypeCode = "skill";
+	self.ctlStoreTabs:SetSeledItemByKey(self.curSeledTypeCode, false);
+	self.ctlStoreTabs:SetSelectChangeCallback(function(_tagKey)
+		self.curSeledTypeCode = _tagKey;
+		self:RefreshStoreItemList();
+	end);
+
+	--绑定按钮事件
+	self.btnBack.onClick:Add(function()
+		self:onClickBackBtn();
+	end);
+
+	return self;
+end
+
+function SubWinLagacyStore:ShowUpScene()
+	self.maxLegacyPoints = CS.LegacyLogic.GetMaxLegacyScore();
+
+	--更新传承选项
+	local _pojoList = GameCoreHelper.GetAllList_LegacyPojo()
+	self.allLegacyInfoList = {}
+	local _index = 0
+	for index=0,_pojoList.Count-1 do
+		local tagPojo = _pojoList[index]
+		if tagPojo.enable ~= 0 then
+			local newItemInfo = {}
+			newItemInfo.pojoInfo = tagPojo;
+			newItemInfo.maxLevel = tagPojo:GetMaxLevel();
+			newItemInfo.strConditionInfo = "";
+			if not IsEmptyOrNil(tagPojo.checkHint) then
+				newItemInfo.strConditionInfo = GetGameString("lua_script_str_255") .. CS.GameTools.GetLanStringInScript(tagPojo.checkHint);
+			end
+			newItemInfo.SetValue = 0;
+			if CS.GameUtils.checkConditionGroup(tagPojo.checkCondition, nil) then
+				newItemInfo.isEnable = true;
+			else
+				newItemInfo.isEnable = false;
+			end
+			self.allLegacyInfoList[_index] = newItemInfo;
+			_index = _index + 1
+		end
+	end
+
+	self:RefreshStoreItemList();
+
+	--播放淡入动画
+	self.isSceneReady = false;
+	CommonShowWindowAnim(self.mainView, nil);
+	if self.fadeAnim1 ~= nil then
+		self.fadeAnim1:Play(function()
+			self.isSceneReady = true;
+		end);
+	end
+end
+
+--按下完成按钮时
+function SubWinLagacyStore:onClickBackBtn()
+	PlayButtonSound();
+
+	self:beforeLeaveScene();
+	if self.onCloseCallback ~= nil then
+		self.onCloseCallback();
+	end
+end
+
+function SubWinLagacyStore:beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end
+
+function SubWinLagacyStore:RefreshStoreItemList()
+	local typeCode = -1;
+	self.ctlPtsNumDis1.selectedIndex = 1;
+	self.ctlPtsNumDis2.selectedIndex = 1;
+	self.ctlPtsNumDis3.selectedIndex = 1;
+	self.ctlPtsNumDis4.selectedIndex = 1;
+	if self.curSeledTypeCode == "skill" then
+		typeCode = 0;
+		self.ctlPtsNumDis1.selectedIndex = 0;
+	elseif self.curSeledTypeCode == "item" then
+		typeCode = 3;
+		self.ctlPtsNumDis2.selectedIndex = 0;
+	elseif self.curSeledTypeCode == "troops" then
+		typeCode = 2;
+		self.ctlPtsNumDis3.selectedIndex = 0;
+	elseif self.curSeledTypeCode == "setting" then
+		typeCode = 4;
+		self.ctlPtsNumDis4.selectedIndex = 0;
+	end
+	self:closeCurItemDetailInfoWin();
+
+	self.listStoreItems.numItems = 0;
+	self.curDisplayedLegacyItems = {};
+
+	local curListIndex = 0;
+	for k,v in pairs(self.allLegacyInfoList) do
+		local tagPojo = v.pojoInfo
+		if tagPojo.enable ~= 0 then
+			if typeCode < 0 or typeCode == tagPojo.type then
+				self.curDisplayedLegacyItems[curListIndex] = v;
+				curListIndex = curListIndex + 1
+			end
+		end
+	end
+	self.curDisplayedItemsNum = curListIndex;
+
+	local tagItemInfo;
+	self.curDisplayedSlots = {};
+	for index=0,self.curDisplayedItemsNum-1 do
+		tagItemInfo = self.curDisplayedLegacyItems[index];
+		local tagSlot = self:CreateLagacyItemSlot(self.listStoreItems, tagItemInfo);
+		self.curDisplayedSlots[index] = tagSlot;
+	end
+
+	self:UpdateLagacySlots()
+end
+
+function SubWinLagacyStore:updateCurStoreInfo()
+	self.curLegacyPoints = 0;
+	local _totalPts1 = 0;
+	local _totalPts2 = 0;
+	local _totalPts3 = 0;
+	local _totalPts4 = 0;
+	local _sumNum;
+	for k,v in pairs(self.allLegacyInfoList) do
+		if v.pojoInfo ~= nil and v.isEnable and v.SetValue > 0 then
+			_sumNum = v.pojoInfo.cost_point * v.SetValue;
+			self.curLegacyPoints = self.curLegacyPoints + _sumNum;
+			if v.pojoInfo.type == 0 then
+				_totalPts1 = _totalPts1 + _sumNum;
+			elseif v.pojoInfo.type == 3 then
+				_totalPts2 = _totalPts2 + _sumNum;
+			elseif v.pojoInfo.type == 2 then
+				_totalPts3 = _totalPts3 + _sumNum;
+			elseif v.pojoInfo.type == 4 then
+				_totalPts4 = _totalPts4 + _sumNum;
+			end
+		end
+	end
+	self.lbPtsNum1.text = tostring(_totalPts1);
+	self.lbPtsNum2.text = tostring(_totalPts2);
+	self.lbPtsNum3.text = tostring(_totalPts3);
+	self.lbPtsNum4.text = tostring(_totalPts4);
+
+	self.lbTotalPts.text = tostring(self.curLegacyPoints) .. " / " .. tostring(self.maxLegacyPoints);
+
+	if self.curLegacyPoints > self.maxLegacyPoints then
+		self.lbTotalPts.titleColor = conColorDisable;
+	else
+		self.lbTotalPts.titleColor = self.oldPtsLabelColor;
+	end
+end
+
+function SubWinLagacyStore:UpdateLagacySlots()
+	self:updateCurStoreInfo();
+
+	if self.curDisplayedSlots ~= nil then
+		for k,v in pairs(self.curDisplayedSlots) do
+			if v ~= nil then
+				self:UpdateStoreItemSlot(v);
+			end
+		end
+	end
+end
+
+function SubWinLagacyStore:ResetAllItems()
+	for k,v in pairs(self.allLegacyInfoList) do
+		v.SetValue = 0;
+	end
+	self:UpdateLagacySlots();
+end
+
+function SubWinLagacyStore:CreateLagacyItemSlot(_tagLv, _tagItemInfo)
+    local _tagSlotView = _tagLv:AddItemFromPool().asCom;
+
+	local compBindInfo = _tagSlotView.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+		compBindInfo = {};
+		compBindInfo.bindView = _tagSlotView;
+		compBindInfo.storyInfo = nil;
+
+		compBindInfo.ctlItemType = compBindInfo.bindView:GetController("item_type");
+		compBindInfo.ctlNumType = compBindInfo.bindView:GetController("num_type");
+		compBindInfo.ctlDisable = compBindInfo.bindView:GetController("is_disable");
+
+		compBindInfo.txtTitle = compBindInfo.bindView:GetChild("title").asTextField;
+		compBindInfo.lbCostVal = compBindInfo.bindView:GetChild("lb_cost").asLabel;
+		compBindInfo.oldCostColor = compBindInfo.lbCostVal.titleColor;
+
+		compBindInfo.itemBtn = compBindInfo.bindView:GetChild("item_slot").asButton;
+		compBindInfo.itemIcon = compBindInfo.itemBtn:GetChild("icon").asCom;
+		compBindInfo.itemCount = compBindInfo.itemBtn:GetChild("count").asTextField;
+		compBindInfo.rarityCtl = compBindInfo.itemBtn:GetController("rarity");
+
+		compBindInfo.headBox = compBindInfo.bindView:GetChild("head_holder").asCom;
+		compBindInfo.headImg = compBindInfo.headBox:GetChild("head_holder").asImage;
+
+		compBindInfo.btnToggle = compBindInfo.bindView:GetChild("btn_toggle").asButton;
+		compBindInfo.btnMinus = compBindInfo.bindView:GetChild("btn_minus").asButton;
+		compBindInfo.btnMinus:GetController("is_minus").selectedIndex = 1;
+		compBindInfo.btnPlus = compBindInfo.bindView:GetChild("btn_plus").asButton;
+		compBindInfo.btnPlus:GetController("is_minus").selectedIndex = 0;
+
+		compBindInfo.curAvataInfo = nil;
+        compBindInfo.oldAvataInfo = nil;
+
+		compBindInfo.btnToggle.changeStateOnClick = false;
+		compBindInfo.btnToggle.onClick:Set(function(context)
+			-- 取消信息窗口弹出
+			context:StopPropagation();
+			self:OnClickSlotToggleButton(compBindInfo);
+		end);
+		compBindInfo.btnMinus.onClick:Set(function()
+			self:OnClickSlotMinusButton(compBindInfo);
+		end);
+		compBindInfo.btnPlus.onClick:Set(function()
+			self:OnClickSlotPlusButton(compBindInfo);
+		end);
+
+		if isMobileMode then
+			compBindInfo.bindView.onClick:Set(function()
+				self:OnLegacySlotRollOver(compBindInfo);
+			end);
+		else
+			compBindInfo.bindView.onRollOver:Set(function()
+				self:OnLegacySlotRollOver(compBindInfo);
+			end);
+			compBindInfo.bindView.onRollOut:Set(function()
+				self:OnLegacySlotRollOut(compBindInfo);
+			end);
+		end
+
+		_tagSlotView.data = compBindInfo;
+	end
+
+	compBindInfo.bindItemInfo = _tagItemInfo;
+
+	return compBindInfo;
+end
+
+function SubWinLagacyStore:UpdateStoreItemSlot(_tagSlot)
+	local _itemInfo = _tagSlot.bindItemInfo;
+	local _pojoInfo = _itemInfo.pojoInfo;
+	local itemType = CS.GUIHelper.CreateLegacyIcon(_tagSlot.itemIcon, _tagSlot.headBox, _tagSlot.headImg, _pojoInfo.icon);
+	if itemType == 1 then
+		_tagSlot.ctlItemType.selectedIndex = 1;
+		_tagSlot.itemBtn.visible = false;
+	else
+		_tagSlot.ctlItemType.selectedIndex = 0;
+		_tagSlot.itemBtn.visible = true;
+	end
+	_tagSlot.itemCount.visible = false;
+	_tagSlot.txtTitle.text = CS.GUIHelper.ConvertUGUIStr(_pojoInfo.show_name);
+	_tagSlot.lbCostVal.text = tostring(_pojoInfo.cost_point);
+
+	_tagSlot.btnToggle.selected = false;
+
+	_tagSlot.ctlNumType.selectedIndex = 0
+	-- 改成点击框时显示数量选择器
+	-- if _itemInfo.maxLevel > 1 then
+	-- 	_tagSlot.ctlNumType.selectedIndex = 1;
+	-- else
+	-- 	_tagSlot.ctlNumType.selectedIndex = 0;
+	-- end
+
+	if not _itemInfo.isEnable then
+		self:SetItemSlotEnabled(_tagSlot, false);
+	else
+		self:SetItemSlotEnabled(_tagSlot, true);
+		if _itemInfo.SetValue > 0 then
+			_tagSlot.btnToggle.selected = true;
+		end
+
+		if _itemInfo.maxLevel > 1 then
+			_tagSlot.itemCount.visible = true;
+			_tagSlot.itemCount.text = GameCoreHelper.StringFormat("{0}/{1}", _itemInfo.SetValue, _itemInfo.maxLevel)
+		end
+
+		-- if _itemInfo.maxLevel > 1 then
+		-- 	_tagSlot.btnPlus.enabled = self:IsEnableAddNum(_tagSlot, 1);
+		-- 	_tagSlot.btnMinus.enabled = self:IsEnableAddNum(_tagSlot, -1);
+		-- end
+	end
+end
+
+function SubWinLagacyStore:IsEnableAddNum(_tagSlot, _addNum)
+	if _tagSlot == nil or _tagSlot.bindItemInfo == nil then
+		return false;
+	end
+	local _itemInfo = _tagSlot.bindItemInfo;
+	local _pojoInfo = _itemInfo.pojoInfo;
+	if _addNum > 0 then
+		local totalCost = _pojoInfo.cost_point * _addNum;
+		if (self.curLegacyPoints + totalCost) > self.maxLegacyPoints then
+			return false;
+		end
+		if _itemInfo.SetValue >= _itemInfo.maxLevel then
+			return false;
+		end
+	else
+		if _itemInfo.SetValue <= 0 then
+			return false;
+		end
+	end
+	return true;
+end
+
+function SubWinLagacyStore:SetItemSlotEnabled(_tagSlot, _enabled)
+	if _enabled then
+		_tagSlot.ctlDisable.selectedIndex = 0;
+	else
+		_tagSlot.ctlDisable.selectedIndex = 1;
+	end
+	_tagSlot.btnToggle.enabled = _enabled;
+	_tagSlot.btnMinus.enabled = _enabled;
+	_tagSlot.btnPlus.enabled = _enabled;
+end
+
+function SubWinLagacyStore:GetRestPts()
+	return self.maxLegacyPoints - self.curLegacyPoints;
+end
+
+function SubWinLagacyStore:TrySetLagacyItemNum(_tagSlot, _setNum)
+	local curNum = _tagSlot.bindItemInfo.SetValue;
+	if curNum == _setNum then
+		self:UpdateLagacySlots();
+		return false;
+	end
+	if _setNum > 0 then
+		if not _tagSlot.bindItemInfo.isEnable then
+			ShowAlertInfo(GetGameString("UIPageLegacy_EnableSelection"), 1);
+			self:UpdateLagacySlots();
+			return false;
+		end
+		local changeNum = _setNum - curNum;
+		if not self:IsEnableAddNum(_tagSlot, changeNum) then
+			ShowAlertInfo(GetGameString("lua_script_str46"), 1);
+			self:UpdateLagacySlots();
+			return false;
+		end
+	end
+	_tagSlot.bindItemInfo.SetValue = _setNum;
+	self:UpdateLagacySlots();
+	return true;
+end
+
+function SubWinLagacyStore:OnClickSlotToggleButton(_tagSlot)
+	if _tagSlot == nil or _tagSlot.bindItemInfo == nil then
+		return
+	end
+	PlayButtonSound();
+
+	local _itemInfo = _tagSlot.bindItemInfo;
+	local _pojoInfo = _itemInfo.pojoInfo;
+
+	if _itemInfo.maxLevel == 1 then
+		if _tagSlot.bindItemInfo.SetValue > 0 then
+			if not self:TrySetLagacyItemNum(_tagSlot, 0) then
+				_tagSlot.btnToggle.selected = false;
+			end
+		else
+			if not self:TrySetLagacyItemNum(_tagSlot, 1) then
+				_tagSlot.btnToggle.selected = false;
+			end
+		end
+	else
+		local maxNum = 0
+		if _pojoInfo.cost_point > 0 then
+			maxNum = math.floor((self.maxLegacyPoints - self.curLegacyPoints + _pojoInfo.cost_point * _itemInfo.SetValue)
+			/ _pojoInfo.cost_point)
+			maxNum = math.min(maxNum, _itemInfo.maxLevel)
+			CS.GUINumSelectorWindow.ShowWindow(GetGameString("lua_script_str_338"), 0, maxNum, _itemInfo.SetValue,
+				_pojoInfo.cost_point, GetGameString("lua_script_str_339"),
+				function(isConfirm, count)
+					if isConfirm then
+						self:TrySetLagacyItemNum(_tagSlot, count)
+					end
+				end)
+		else
+			maxNum = _itemInfo.maxLevel
+			CS.GUINumSelectorWindow.ShowWindow(GetGameString("lua_script_str_338"), 0, maxNum, _itemInfo.SetValue,
+				-_pojoInfo.cost_point, GetGameString("lua_script_str_353"),
+				function(isConfirm, count)
+					if isConfirm then
+						self:TrySetLagacyItemNum(_tagSlot, count)
+					end
+				end)
+		end
+
+	end
+end
+
+function SubWinLagacyStore:OnClickSlotPlusButton(_tagSlot)
+	if _tagSlot == nil or _tagSlot.bindItemInfo == nil then
+		return
+	end
+	PlayButtonSound();
+	local curVal = _tagSlot.bindItemInfo.SetValue;
+	self:TrySetLagacyItemNum(_tagSlot, curVal + 1);
+end
+
+function SubWinLagacyStore:OnClickSlotMinusButton(_tagSlot)
+	if _tagSlot == nil or _tagSlot.bindItemInfo == nil then
+		return
+	end
+	PlayButtonSound();
+	local curVal = _tagSlot.bindItemInfo.SetValue;
+	self:TrySetLagacyItemNum(_tagSlot, curVal - 1);
+end
+
+function SubWinLagacyStore:closeCurItemDetailInfoWin()
+
+end
+
+function SubWinLagacyStore:TryConfirmCurEdit()
+	self:beforeLeaveScene();
+
+	if self.curLegacyPoints > self.maxLegacyPoints then
+		return false;
+	end
+
+	self:DoCommitAllGameConfigs();
+	return true;
+end
+
+function SubWinLagacyStore:DoCommitAllGameConfigs()
+	CS.GameTools.ClearGameInitCmdQueue();
+	CS.LegacyData.Instance:Clear();
+
+	--应用传承选项
+	if self.allLegacyInfoList ~= nil then
+		for k,v in pairs(self.allLegacyInfoList) do
+			if v.SetValue > 0 then
+				CS.LegacyData.Instance:AddLegacyByPojo(v.pojoInfo, v.SetValue)
+			end
+        end
+	end
+end
+
+function SubWinLagacyStore:OnLegacySlotRollOver(_tagSlot)
+	if _tagSlot == nil or _tagSlot.bindItemInfo == nil then
+		return;
+	end
+	local tagLegacyInfo = _tagSlot.bindItemInfo.pojoInfo;
+	if tagLegacyInfo == nil then
+		return;
+	end
+
+	ShowLegacyDetailInfo(tagLegacyInfo, _tagSlot.bindView, _tagSlot.bindItemInfo.strConditionInfo);
+end
+
+function SubWinLagacyStore:OnLegacySlotRollOut(_tagSlot)
+	if _tagSlot == nil then
+		return;
+	end
+	HideLegacyDetailInfoWindow();
+end

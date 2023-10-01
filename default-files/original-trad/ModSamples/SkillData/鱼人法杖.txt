@@ -1,0 +1,5 @@
+﻿0#block_act#1#0
+0.48#dmg_check#0#type:2;hit:1000;blk:-1000#
+0.47#play_sound#FishManStaff#unit_pos
+0.67#play_sound#Dust_Small#unit_pos
+0.92#block_act#0#0

@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+1.52#block_act#0#0
+0.05#play_sound#Aura_Dark#unit_pos
+0.65#play_sound#Darkness#unit_pos
+0.3#play_sound#EvilLimit#unit_pos
+0.68#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;act:0#0#cast_pos,0,0,0,1000
+0.32#yell#caster#深渊束缚！
+0.32#add_eft#深渊束缚#unit_pos,0,0,0#0

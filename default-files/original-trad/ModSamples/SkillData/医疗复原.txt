@@ -1,0 +1,5 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.25#add_eft#医疗复原#unit_pos,0,0,0#0
+0.25#add_buff#医疗复原#caster#10#1
+0.17#play_sound#Cast_Heal#unit_pos

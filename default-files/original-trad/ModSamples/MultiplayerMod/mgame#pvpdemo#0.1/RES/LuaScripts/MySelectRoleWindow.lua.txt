@@ -1,0 +1,345 @@
+require("gui/WindowUtils")
+
+--require("LuaPanda").start("127.0.0.1",8818)
+
+local difficultyTable =
+{
+	{GetGameString("MG1_Difficulty_Level_1"), GetGameString("MG1_Difficulty_Level_1_Desc")},
+	{GetGameString("MG1_Difficulty_Level_2"), GetGameString("MG1_Difficulty_Level_2_Desc")},
+	{GetGameString("MG1_Difficulty_Level_3"), GetGameString("MG1_Difficulty_Level_3_Desc")},
+	{GetGameString("MG1_Difficulty_Level_4"), GetGameString("MG1_Difficulty_Level_4_Desc")},
+	{GetGameString("MG1_Difficulty_Level_5"), GetGameString("MG1_Difficulty_Level_5_Desc")}
+}
+
+local defaultLevel = 2
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnOK
+local lvRoleList
+
+local curSeledItem = nil
+
+local curBattleScene
+local curPlayer
+local curSeledRoleTemplate
+local curHeadAvatar = nil
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	lvRoleList = contentPane:GetChild("role_list").asList
+	roleDetailCom = contentPane:GetChild("role_detail").asCom
+	--绑定按钮事件
+	btnOK = contentPane:GetChild("btn_confirm").asButton
+	btnOK.onClick:Add(onClickOK);
+
+	InitRoleDetail()
+	bindListViewComponent()
+	UpdateRoleList()
+	UpdateOperateBtnState()
+end
+
+--设置绑定的战斗场景对象
+function SetBattleScene(_tagScene)
+	curBattleScene = _tagScene
+	curPlayer = curBattleScene:GetCurPlayerInfo()
+
+	UpdatePlayerSeledRoles()
+end
+
+function bindListViewComponent()
+	lvRoleList.onClickItem:Add(onClickListItem)
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+--按下完成按钮时
+function onClickOK()
+	PlayButtonSound()
+	if ComfirmTransition() then
+		self:Hide()
+	end
+end
+
+function ComfirmTransition()
+	if curBattleScene ~= nil then
+		if curSeledRoleTemplate ~= nil then
+			--curBattleScene:SendSceneEvent("seled_player", curSeledRoleTemplate.roleID)
+			--发送远程事件
+			curBattleScene:SendRemoteEvent("seled_player", curSeledRoleTemplate.roleID)
+			btnOK.enabled = false
+			if(curBattleScene:IsHostClient() and curBattleScene:GetRemoteGameVal("global_difficulty") == "")then
+				curBattleScene:SetRemoteGameVal("global_difficulty", "2", onSetDiffCallback)
+			end
+			curBattleScene:SendUIMessage("player_inited", "1")
+			return true
+		end
+	end
+	return false
+end
+
+--按下完成按钮时
+function onClickListItem(context)
+	local tagBtn = context.data.asButton
+
+	if tagBtn ~= nil and tagBtn.data ~= nil then
+		local tagListItem = tagBtn.data
+		curBattleScene:SetRemoteGameVal("player_sel_role", tagListItem.roleID .. "#" .. curPlayer.actorID, onSetPlayerRoleCallback)
+		--SetRoleSelInfo(tagListItem.roleID, curPlayer)
+	end
+end
+
+function onSetPlayerRoleCallback(ret)
+	if ret then
+
+	end
+end
+
+--窗口事件接口
+function onWindowEvent(_eventID, _eventArg)
+	if _eventID == "player_sel_role" then
+        local nFindIndex = string.find(_eventArg, "#", 0)
+        if nFindIndex > 0 then
+            local tagRoleID = string.sub(_eventArg, 0, nFindIndex - 1)
+			local tagPlayerID = string.sub(_eventArg, nFindIndex + 1, string.len(_eventArg))
+			local tagPlayerInfo = curBattleScene:GetPlayerInfo(tonumber(tagPlayerID))
+			if tagPlayerInfo ~= nil then
+				SetRoleSelInfo(tagRoleID, tagPlayerInfo)
+			end
+        end
+	elseif (_eventID == "on_set_difficulty") then
+		UpdateGlobalDifficulty(_eventArg)
+	elseif (_eventID == "global_difficulty") then
+		if(curBattleScene ~= nil and (not curBattleScene:IsHostClient()))then
+			for i=0, diffList.numChildren - 1 do
+				local btn = diffList:GetChildAt(i)
+				if(i+1 == tonumber(_eventArg))then
+					btn.selected = true
+				else
+					btn.selected = false
+				end
+			end
+		end
+	end
+end
+
+function UpdatePlayerSeledRoles()
+	local allPlayers = curBattleScene:GetAllPlayersInBattle()
+	local tagPlayer
+    for index=0,allPlayers.Count-1 do
+        tagPlayer = allPlayers[index]
+    end
+end
+
+function UpdateOperateBtnState()
+	if curSeledItem ~= nil then
+		btnOK.enabled = true
+	else
+		btnOK.enabled = false
+	end
+end
+
+local initRolePool = {
+	"玩家模板1", "玩家模板2", "玩家模板3", "玩家模板4", "玩家模板5", "玩家模板6", "玩家模板7", "玩家模板8", "玩家模板9", "玩家模板10"
+}
+
+function UpdateRoleList()
+	lvRoleList.numItems = 0
+	for k, v in pairs(initRolePool) do
+        local obj = lvRoleList:AddItemFromPool()
+		local tagRoleInfo = GameCoreHelper.GetRole(v)
+		if tagRoleInfo ~= nil then
+			RenderListItem(obj, tagRoleInfo)
+		end
+    end
+end
+
+function RenderListItem(obj, tagRoleInfo)
+	local button = obj.asButton
+	local listItemInfo
+	if button.data == nil then
+		listItemInfo = {}
+		listItemInfo.roleID = tagRoleInfo.roleID
+		listItemInfo.bindRole = tagRoleInfo
+		listItemInfo.txtName = button:GetChild("title").asTextField
+		listItemInfo.txtDesc = button:GetChild("info").asRichTextField
+		listItemInfo.headBox = button:GetChild("preview").asCom
+		listItemInfo.headHolder = listItemInfo.headBox:GetChild("head_holder").asGraph
+		listItemInfo.headAvata = CS.GUIHelper.CreateHeadAvataView("", listItemInfo.headHolder)
+		listItemInfo.groupSelOn = button:GetChild("sel_group").asGroup
+		listItemInfo.txtPlayerInfo = button:GetChildInGroup(listItemInfo.groupSelOn, "player_info").asTextField
+
+		listItemInfo.groupSelOn.visible = false
+		button.data = listItemInfo
+	else
+		listItemInfo = button.data
+	end
+	listItemInfo.txtName.text = tagRoleInfo:GetRoleName()
+	listItemInfo.txtDesc.text = tagRoleInfo:GetTagValue("Desc")
+
+	if listItemInfo.headAvata ~= nil then
+		listItemInfo.headAvata:ShowCharacter(tagRoleInfo.HeadAvata)
+	end
+end
+
+local curPlayerSelRoles = {}
+function SetRoleSelInfo(_roleID, playerInfo)
+	if playerInfo == nil then
+		return
+	end
+	local oldPlayerItem = curPlayerSelRoles[playerInfo.actorID]
+	if oldPlayerItem ~= nil then
+		SetListItemSelOn(oldPlayerItem, nil)
+		if playerInfo == curPlayer then
+			curSeledItem = nil
+		end
+	end
+	local tagListItem = GetListItemByRoleID(_roleID)
+	if tagListItem ~= nil then
+		SetListItemSelOn(tagListItem, playerInfo)
+		SetRoleDetails(tagListItem, playerInfo)
+		curPlayerSelRoles[playerInfo.actorID] = tagListItem
+		if curPlayer == playerInfo then
+			curSeledRoleTemplate = tagListItem.bindRole
+		end
+	end
+	UpdateOperateBtnState()
+end
+
+function SetRoleDetails(tagListItem, playerInfo)
+	if playerInfo == curPlayer then
+		local detailItem
+		if(tagListItem ~= nil)then
+			detailItem = {}
+			detailItem.bindRole = tagListItem.bindRole
+			detailItem.nameText = roleDetailCom:GetChild("title").asTextField
+			if(curHeadAvatar ~= nil)then
+				curHeadAvatar:ShowCharacter(detailItem.bindRole.HeadAvata)
+			else
+				detailItem.headHolder = roleDetailCom:GetChild("head_holder").asGraph
+				curHeadAvatar = CS.GUIHelper.CreateHeadAvataView(detailItem.bindRole.HeadAvata, detailItem.headHolder)
+			end
+			detailItem.graphHolder = roleDetailCom:GetChild("model_bg").asImage
+			detailItem.modelPreview = CS.GUIHelper.CreateModelViewToTagGraphHolder(detailItem.bindRole.ModelInfo .. "#男空手1#r_weapon:null;l_weapon:null", detailItem.graphHolder)
+			detailItem.descText = roleDetailCom:GetChild("desc").asRichTextField
+			detailItem.typeText = roleDetailCom:GetChild("typeText").asRichTextField
+			detailItem.str = roleDetailCom:GetChild("strVal").asRichTextField
+			detailItem.str.text = detailItem.bindRole.curRealStatu:getVal("b_臂力")
+			detailItem.agi = roleDetailCom:GetChild("agiVal").asRichTextField
+			detailItem.agi.text = detailItem.bindRole.curRealStatu:getVal("b_身法")
+			detailItem.int = roleDetailCom:GetChild("intVal").asRichTextField
+			detailItem.int.text = detailItem.bindRole.curRealStatu:getVal("b_精神")
+			detailItem.endu = roleDetailCom:GetChild("endVal").asRichTextField
+			detailItem.endu.text = detailItem.bindRole.curRealStatu:getVal("b_根骨")
+
+			detailItem.nameText.text = detailItem.bindRole:GetRoleName()
+			detailItem.descText.text = detailItem.bindRole:GetTagValue("FullDesc")
+			detailItem.typeText.text = detailItem.bindRole:GetTagValue("TypeDesc")
+		end
+	end
+end
+
+function InitRoleDetail()
+	local initRole = initRolePool[1]
+	local tagRoleInfo = GameCoreHelper.GetRole(initRole)
+	local detailItem
+	if(tagRoleInfo ~= nil)then
+		detailItem = {}
+		detailItem.bindRole = tagRoleInfo
+		detailItem.nameText = roleDetailCom:GetChild("title").asTextField
+		detailItem.headHolder = roleDetailCom:GetChild("head_holder").asGraph
+		curHeadAvatar = CS.GUIHelper.CreateHeadAvataView(tagRoleInfo.HeadAvata, detailItem.headHolder)
+		detailItem.graphHolder = roleDetailCom:GetChild("model_bg").asImage
+		detailItem.modelPreview = CS.GUIHelper.CreateModelViewToTagGraphHolder(tagRoleInfo.ModelInfo .. "#男空手1#r_weapon:null;l_weapon:null", detailItem.graphHolder)
+		detailItem.descText = roleDetailCom:GetChild("desc").asRichTextField
+		detailItem.typeText = roleDetailCom:GetChild("typeText").asRichTextField
+		detailItem.str = roleDetailCom:GetChild("strVal").asRichTextField
+		detailItem.str.text = tagRoleInfo.curRealStatu:getVal("b_臂力")
+		detailItem.agi = roleDetailCom:GetChild("agiVal").asRichTextField
+		detailItem.agi.text = tagRoleInfo.curRealStatu:getVal("b_身法")
+		detailItem.int = roleDetailCom:GetChild("intVal").asRichTextField
+		detailItem.int.text = tagRoleInfo.curRealStatu:getVal("b_精神")
+		detailItem.endu = roleDetailCom:GetChild("endVal").asRichTextField
+		detailItem.endu.text = tagRoleInfo.curRealStatu:getVal("b_根骨")
+
+		detailItem.nameText.text = tagRoleInfo:GetRoleName()
+		detailItem.descText.text = tagRoleInfo:GetTagValue("FullDesc")
+		detailItem.typeText.text = tagRoleInfo:GetTagValue("TypeDesc")
+	end
+end
+
+function SetListItemSelOn(tagListItem, playerInfo)
+	if tagListItem.groupSelOn ~= nil then
+		if playerInfo ~= nil then
+			tagListItem.txtPlayerInfo.text = "P" .. playerInfo.actorID .. "[color=#ffff00][" .. playerInfo.playerName .. "][/color]"
+			tagListItem.groupSelOn.visible = true
+			if playerInfo == curPlayer then
+				curSeledItem = tagListItem
+			end
+		else
+			tagListItem.groupSelOn.visible = false
+		end
+	end
+end
+
+function GetListItemByRoleID(_roleID)
+	local tagListItemObj
+	for index=0,lvRoleList.numItems-1 do
+		tagListItemObj = lvRoleList:GetChildAt(index)
+		if tagListItemObj.data ~= nil then
+			if tagListItemObj.data.roleID == _roleID then
+				return tagListItemObj.data
+			end
+		end
+	end
+	return nil
+end
+
+function Split(szFullString, szSeparator)
+	local nFindStartIndex = 1
+	local nSplitIndex = 1
+	local nSplitArray = {}
+
+	if(szFullString == nil or szFullString == "") then
+		return nSplitArray
+	end
+
+	while true do
+	   local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
+	   if not nFindLastIndex then
+		nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
+		break
+	   end
+	   nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+	   nFindStartIndex = nFindLastIndex + string.len(szSeparator)
+	   nSplitIndex = nSplitIndex + 1
+	end
+	return nSplitArray
+end

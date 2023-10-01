@@ -1,0 +1,235 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local tabItemCategory;
+local groupRoleList;
+local groupRecords;
+local btnRefresh;
+local txtSumInfo;
+local lvRoleList;
+
+local lvRecordList;
+
+local playerRole
+local gameWorld
+
+local popupMask;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	playerRole = GameCoreHelper.GetPlayerRole();
+	gameWorld = GameCoreHelper.GetCurGameWorld();
+
+	local tabListComp = contentPane:GetChild("tab_listbar").asCom
+	tabItemCategory = CS.GUIHelper.CreateListHeaderTabsBar(tabListComp)
+
+	groupRoleList = contentPane:GetChild("list_box").asGroup;
+	btnRefresh = contentPane:GetChildInGroup(groupRoleList, "btn_refresh").asButton;
+	txtSumInfo = contentPane:GetChildInGroup(groupRoleList, "txt_sum_info").asTextField;
+	lvRoleList = contentPane:GetChildInGroup(groupRoleList, "role_list").asList;
+
+	groupRecords = contentPane:GetChild("log_box").asGroup;
+	lvRecordList = contentPane:GetChildInGroup(groupRecords, "record_list").asList;
+
+	popupMask = contentPane:GetChild("mask").asGraph;
+	popupMask.visible = false;
+
+	--绑定按钮事件
+	tabItemCategory:ClearTabList()
+	tabItemCategory:AddTabItem("roles", GetGameString("lua_script_str_203"))
+	tabItemCategory:AddTabItem("logs", GetGameString("lua_script_str_204"))
+
+	tabItemCategory.OnSeledItemChanged = OnItemCategoryTabChanged;
+	tabItemCategory:SetSeledItemByKey("roles", true);
+
+	btnRefresh.onClick:Set(onClickBtnRefresh);
+
+end
+
+--设置窗口参数
+function SetWindowParams(args)
+	
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+	ResfreshRolesList();
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+function OnItemCategoryTabChanged(_code)
+	groupRoleList.visible = false;
+	groupRecords.visible = false;
+	if _code == "roles" then
+		groupRoleList.visible = true;
+	else
+		groupRecords.visible = true;
+		UpdateRlEventLogs();
+	end
+end
+
+function onClickBtnRefresh()
+	PlayButtonSound();
+
+	ResfreshRolesList();
+end
+
+function ResfreshRolesList()
+	local retNum = 0;
+	local allRoleList = GameCoreHelper.GetAllGameRoles();
+	local tagRole;
+	lvRoleList.numItems = 0;
+	for index=0,allRoleList.Count-1 do
+        tagRole = allRoleList[index]
+        if not tagRole:IsTemplateRole() and tagRole.whereType ~= 0 then
+			AddRoleInfoListItem(tagRole);
+			retNum = retNum + 1;
+		end
+    end
+
+	txtSumInfo.text = "当前共计" .. retNum .. "人活跃";
+end
+
+function AddRoleInfoListItem(tagRole)
+	local newItemObj = lvRoleList:AddItemFromPool().asCom;
+	if newItemObj ~= nil then
+		local compBindInfo = newItemObj.data;
+		if compBindInfo == nil then
+			compBindInfo = {};
+			compBindInfo.txtName = newItemObj:GetChild("title").asTextField;
+			compBindInfo.txtNature = newItemObj:GetChild("txt_natures").asTextField;
+			compBindInfo.txtFv = newItemObj:GetChild("txt_fv").asTextField;
+			compBindInfo.txtCamp = newItemObj:GetChild("txt_camp").asTextField;
+			compBindInfo.txtLocation = newItemObj:GetChild("txt_location").asTextField;
+			compBindInfo.txtBinds = newItemObj:GetChild("txt_binds").asTextField;
+
+			compBindInfo.btnTalk = newItemObj:GetChild("btn_talk").asButton;
+			compBindInfo.btnTalk.onClick:Set(function()
+				OnTalkToTagRole(compBindInfo);
+			end);
+			compBindInfo.btnView = newItemObj:GetChild("btn_view").asButton;
+			compBindInfo.btnView.onClick:Set(function()
+				OnViewTagRole(compBindInfo);
+			end);
+			newItemObj.data = compBindInfo;
+		end
+
+		compBindInfo.bindRole = tagRole;
+		compBindInfo.txtName.text = tagRole:GetRoleName();
+		compBindInfo.txtNature.text = tagRole:GetRoleNaturesValInfo();
+		compBindInfo.txtFv.text = tagRole:GetRelationValWithOtherRole("主角");
+		local campName = "-";
+		if tagRole:GetRoleCamp() ~= nil then
+			campName = CS.GameTools.GetCampName(tagRole:GetRoleCamp());
+			local nobleInfo = tagRole:GetNobilityRankInfo();
+			if nobleInfo ~= nil then
+				campName = campName .. " (" .. nobleInfo.title_name .. " " .. tagRole.curMerit .. ")"
+			end
+		end
+		compBindInfo.txtCamp.text = campName;
+		compBindInfo.txtLocation.text = tagRole:GetCurPosInfo();
+		compBindInfo.txtBinds.text = GetRoleBindsInfo(tagRole);
+	end
+end
+
+function SetBlockMask(_isShow)
+	popupMask.visible = _isShow;
+end
+
+function OnTalkToTagRole(_tagComp)
+	local tagRole = _tagComp.bindRole;
+	if tagRole == nil or tagRole:IsPlayer() then
+		return false;
+	end
+	local _roleID = tagRole.roleID;
+	local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	local roleTplt = CS.HanFramework.ArchiveData.Current:GetRoleTemplateByID(_roleID);
+	curRtVals.CurTagRoleID = roleTplt.roleID;
+	local role = GameCoreHelper.GetRole(_roleID);
+	if (role ~= nil and not role:IsTemplateRole()) then
+		role:SetPlayerContactActive();
+		curRtVals.CurTagCamp = role:GetRoleCamp();
+	end
+	local tagTrigger = gameWorld:GetBindTrigger("talk", "CITYHERO", roleTplt.roleID, curRtVals);
+	if (tagTrigger ~= nil) then
+		if (gameWorld:CheckTrigger(tagTrigger.Key, curRtVals)) then
+			self:Hide();
+			return true;
+		end
+	end
+	local defTalks = roleTplt:getDefTalks();
+	if (not IsEmptyOrNil(defTalks)) then
+		SetBlockMask(true);
+		CS.GUIHelper.ShowRoleTalkDialog(roleTplt.roleID, defTalks, function(ret)
+			SetBlockMask(false);
+		end);
+		return true;
+	end
+	return false;
+end
+
+function OnViewTagRole(_tagComp)
+	local tagRole = _tagComp.bindRole;
+	if tagRole == nil then
+		return false;
+	end
+	local _roleID = tagRole.roleID;
+	ShowRoleRlDebugWin(_roleID, function(ret)
+		if ret == 0 then
+			
+		end
+	end)
+end
+
+function UpdateRlEventLogs()
+	local allLogItems = gameWorld:GetAllRoleRlLogs();
+	local tagLogItem;
+	lvRecordList.numItems = 0;
+	for index=0,allLogItems.Count-1 do
+        tagLogItem = allLogItems[allLogItems.Count - 1 - index]
+        if tagLogItem ~= nil then
+			AddEventLogListItem(tagLogItem);
+		end
+    end
+end
+
+function AddEventLogListItem(tagLogItem)
+	local newItemObj = lvRecordList:AddItemFromPool().asCom;
+	if newItemObj ~= nil then
+		local compBindInfo = newItemObj.data;
+		if compBindInfo == nil then
+			compBindInfo = {};
+			compBindInfo.txtLogInfo = newItemObj:GetChild("title").asTextField;
+			newItemObj.data = compBindInfo;
+		end
+
+		compBindInfo.txtLogInfo.text = tagLogItem.logInfo;
+	end
+end

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.187117681" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
+  <tile_tex tex_id="8" scale_x="2" scale_y="2" rotate="0" />
+  <tile_obj obj_id="38" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="-2655.10449" pos_y="-899.7195" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="41" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="-2425.35986" pos_y="-806.6015" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="44" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="-2629.88647" pos_y="-701.843933" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="358" obj_type="0" tileset_id="desert_palm03" layer_index="1" pos_x="-2533.53979" pos_y="-907.3264" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="42" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="-2154.875" pos_y="-861.7516" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="43" obj_type="0" tileset_id="yanti_desertrock07" layer_index="2" pos_x="-2138.24683" pos_y="-753.668457" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="45" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="-1324.57483" pos_y="-843.460449" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="173" obj_type="0" tileset_id="yanti_desert03" layer_index="3" pos_x="-1567.21045" pos_y="-887.4155" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="174" obj_type="0" tileset_id="yanti_desert04" layer_index="3" pos_x="-1473.6853" pos_y="-750.7248" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="189" obj_type="0" tileset_id="yanti_plant01" layer_index="3" pos_x="-2298.7207" pos_y="-639.1126" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="258" obj_type="0" tileset_id="yanti_desertrock01" layer_index="1" pos_x="-1477.71472" pos_y="-594.751" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="262" obj_type="0" tileset_id="yanti_plant01" layer_index="1" pos_x="-1520.30469" pos_y="-702.1324" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="263" obj_type="0" tileset_id="yanti_desertrock04" layer_index="1" pos_x="-1394.83752" pos_y="-787.269165" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="300" obj_type="0" tileset_id="yanti_desertrock01" layer_index="1" pos_x="-1718.86536" pos_y="-799.9307" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="301" obj_type="0" tileset_id="yanti_desertrock01" layer_index="1" pos_x="-1848.36182" pos_y="-700.650146" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="302" obj_type="0" tileset_id="yanti_desertrock02" layer_index="1" pos_x="-2035.41223" pos_y="-774.031555" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="303" obj_type="0" tileset_id="yanti_desertrock04" layer_index="1" pos_x="-1576.41943" pos_y="-710.7221" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="304" obj_type="0" tileset_id="yanti_desertrock04" layer_index="1" pos_x="-2274.261" pos_y="-696.3336" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="305" obj_type="0" tileset_id="yanti_desertrock05" layer_index="1" pos_x="-1984.18835" pos_y="-836.1897" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="356" obj_type="0" tileset_id="desert_palm04" layer_index="1" pos_x="-1672.82019" pos_y="-908.8805" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="357" obj_type="0" tileset_id="desert_palm03" layer_index="1" pos_x="-1859.87061" pos_y="-860.42" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="2" bind_info_type="12" center_map_x="-2191.956" center_map_y="-1534.82874" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-845" aabb_min_y="-341" aabb_max_x="1542" aabb_max_y="339">
+    <pts_info>-840,-477;-343,-394;-144,-248;0,-371;449,-264;797,-580;1271,-672;1537,-283;1330,88;1179,111;1161,338;1280,447;1222,668;802,612;427,267;97,95;-61,291;-823,112</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

@@ -1,0 +1,10 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.9#add_buff#化身水龙#target#15#1
+0.9#add_buff#化身水龙火龙回血#target#15#1
+0.9#change_skill#水龙龙吼,1|水龙泡泡,1
+0.3#play_sound#EvilHand#unit_pos
+0.3#camera_shake#0.1#5
+0.6#play_sound#SK_045#unit_pos
+0.1#play_sound#Cast_Morph#unit_pos
+0.08#add_eft#P变身#unit_pos,0,0,0#0

@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:铁匠之怒抡击受击;dmg:[%stat:s_魔法攻击%]*1;buff:错乱,5,1#0#unit_pos,0,0,0,800
+0.57#play_sound#RenQi#unit_pos
+0.57#add_eft#P水龙龙吼#unit_pos,0,0,0#0
+0.57#camera_shake#0.1#5
+0.8#play_sound#DragonRoar#unit_pos
+0.8#play_sound#Ground_Hit#unit_pos
+0.95#play_sound#Rock_Hit#unit_pos
+1.05#play_sound#EarthWave#unit_pos
+0.2#play_sound#SK_045#unit_pos

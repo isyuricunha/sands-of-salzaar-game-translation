@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.12#play_sound#Sword_Attack#unit_pos
+0.12#add_eft#剑攻击05#unit_pos,0,0,0#0
+0.15#dmg_check#2#type:0;dmg:[%stat:s_攻击%];eft:大剑受击#0#unit_pos,0,4,0,0,300,250,[&300+[%stat:s_攻击范围%]&],0,300,-250
+0.25#block_act#0#0

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="69,69" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_vfem" name="bg" src="rocscm" fileName="Images/ui_js_btn_roll1.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n2_i5tu" name="icon" src="rocsc0" fileName="Mobile/SpriteImageRound.xml" xy="35,35" size="57,57" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <text id="n1_vfem" name="title" xy="4,77" size="61,21" group="n12_i5tu" visible="false" fontSize="14" color="#ffffff" align="center" vAlign="bottom" ubb="true" autoSize="none" strokeColor="#333333" singleLine="true" autoClearText="true" text="技能名称">
+      <relation target="" sidePair="width-width,height-height,center-center,bottom-bottom"/>
+    </text>
+    <text id="n10_i5tu" name="num" xy="1,36" size="66,28" group="n12_i5tu" fontSize="16" color="#ffffff" align="center" vAlign="middle" ubb="true" autoSize="none" strokeColor="#222222" singleLine="true" autoClearText="true" text="x10">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <image id="n13_i5tu" name="timer_mask" src="rocsc2" fileName="Images/ui_js_btn_skill_cd_mask_1.png" xy="34,34" pivot="0.5,0.5" anchor="true" size="61,61" group="n12_i5tu" fillMethod="radial360" fillClockwise="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n8_i5tu" name="eft_icon" src="rocsc0" fileName="Mobile/SpriteImageRound.xml" xy="34,34" size="57,57" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n6_i5tu" name="eft_frame1" src="rocsc3" fileName="Images/ui_js_btn_skill_eft1.png" xy="34,34" pivot="0.5,0.5" anchor="true" size="83,83" group="n12_i5tu" alpha="0.3" blend="add">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n9_i5tu" name="shiny_eft" src="rocsc4" fileName="Mobile/BoxShinyEffectRound.xml" xy="5,5" size="59,59" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <image id="n5_i5tu" name="selon" src="rocsc7" fileName="Images/ui_js_btn_skill_light_small_1.png" xy="34,34" pivot="0.5,0.5" anchor="true" size="101,101" group="n12_i5tu" visible="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <group id="n12_i5tu" name="group_info" xy="-16,-16" size="101,114" advanced="true"/>
+    <image id="n3_i5tu" name="dark" src="rocsc2" fileName="Images/ui_js_btn_skill_cd_mask_1.png" xy="34,34" pivot="0.5,0.5" anchor="true" size="69,69" alpha="0.3">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

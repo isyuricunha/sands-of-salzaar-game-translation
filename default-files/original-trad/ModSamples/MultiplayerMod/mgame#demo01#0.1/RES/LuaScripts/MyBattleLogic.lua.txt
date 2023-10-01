@@ -1,0 +1,348 @@
+require("LuaPanda").start("127.0.0.1",8818)
+
+require("GameMath")
+
+curBattleScene = nil
+
+playerUnitDefeatCount = 0
+
+playerUnitID = 0
+
+playerUnit = nil
+playerRole = nil
+playerCurLevel = 1
+
+totalPlayerGainedSp = 1
+totalPlayerUsedSp = 0
+
+actionBarSlotCount = 4
+
+RES_ID_MONEY = "金钱"
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--场景初始化
+function initBattleScene(_bs)
+    curBattleScene = _bs
+
+    if curBattleScene:IsHostClient() then
+        if curBattleScene:GetDungeonIntVal("自定义初始化主角") <= 0 then
+            local allPlayers = curBattleScene:GetAllPlayersInBattle()
+            local tagPlayer
+            local tagSide = 0
+            local templateRoleID
+            local tagPos
+            local initDir = 135
+            for index=0,allPlayers.Count-1 do
+                tagPlayer = allPlayers[index]
+                templateRoleID = "主角模板1"
+                tagPos = curBattleScene:GetBattleRealPosByMapPos(1500 + index * 50, -2500)
+                curBattleScene:SetPlayerUnit(tagPlayer.actorID, templateRoleID, tagSide, tagPos.x, tagPos.y, initDir)
+            end
+
+            curBattleScene:SetDungeonIntVal("自定义初始化主角", 1)
+        end
+
+        --判定当前地图，不同的地图执行不同的逻辑
+        if curBattleScene:GetDungeonMapID() == "守卫大河女神地图2" then
+            local tagCmd = "AREA_SPAWN*SpawnAreaA##荒沙精英武士,2|荒沙骆驼骑兵,2|蛮牛铁甲神射手,10#1#1:1000#LUA刷出A#s_生命,100000"
+            curBattleScene:LocalExecBsCmdLines(tagCmd, 0)
+        else
+            
+        end
+    end
+end
+
+--销毁场景接口
+function onBattleSceneDestory()
+    
+end
+
+--单位事件
+function onUnitEvent(_tagUnit, _eventType, _eventArg)
+    if _eventType == "set_player" then
+        --设置玩家控制单位事件
+        onSetPlayerUnit(_tagUnit)
+    elseif _eventType == "level_changed" then
+        --单位等级发生改变事件
+        onUnitLevelChanged(_tagUnit, tonumber(_eventArg))
+    elseif _eventType == "on_die" then
+        --单位被击倒事件
+        onUnitDie(_tagUnit)
+    end
+end
+
+--场景每秒事件
+function onSecondUpdate()
+    
+end
+
+--击败单位接口
+function onUnitDefeatEnemy(_thisUnit, _tagUnit)
+    if (_thisUnit == playerUnit) then
+        --增加统计接口
+        playerUnitDefeatCount = playerUnitDefeatCount + 1
+        curBattleScene:SendUIMessage("info_updated", "")
+    end
+end
+
+--设置主角控制单位
+function onSetPlayerUnit(_tagUnit)
+    playerUnit = _tagUnit
+    if playerUnit ~= nil then
+        playerUnitID = playerUnit.unitID
+        playerCurLevel = playerUnit.unitLevel
+        playerRole = GameCoreHelper.GetPlayerRole()
+        updatePlayerSpNum()
+    else
+        playerUnitID = 0
+    end
+    curBattleScene:SendUIMessage("info_updated", "")
+end
+
+function onUnitLevelChanged(_tagUnit, _newLevel)
+    if (_tagUnit == playerUnit) then
+        playerCurLevel = _newLevel
+        updatePlayerSpNum()
+        curBattleScene:SendUIMessage("info_updated", "")
+    end
+end
+
+function updatePlayerSpNum()
+    totalPlayerGainedSp = playerCurLevel
+end
+
+function onUnitDie(_tagUnit)
+    --do nothing
+end
+
+function GetPlayerUsableSp()
+    return math.max(totalPlayerGainedSp - totalPlayerUsedSp, 0)
+end
+
+--玩家当前的技能表
+curPlayerSkillList = {}
+curPlayerSkillCount = 0
+isExistSynthSkills = false
+
+skillPoolMaxLevel = 4
+--玩家可供抽取的技能池
+drawSpPool = {
+    --一级技能
+    {"火炎连弹", 1, "魔法"}, {"电光", 1, "魔法"},
+    {"炫光连弹", 1, "魔法"}, {"冰霜连弹", 1, "魔法"},
+    {"英雄背刺", 1, "刺杀"}, {"英雄天煞", 1, "刺杀"},
+    {"英雄旋风斩", 1, "刺杀"}, {"英雄双段斩", 1, "刺杀"},
+    --二级技能
+    {"火炎弹雨", 2, "魔法"}, {"风灵冲击", 2, "魔法"},
+    {"英雄狂风之歌", 2, "魔法"}, {"冰霜弹雨", 2, "魔法"},
+    {"英雄气裂扫", 2, "刺杀"}, {"英雄气裂扫", 2, "刺杀"},
+    --三级技能
+    {"烈火燎原", 3, "魔法"}, {"炫光弹雨", 3, "魔法"},
+    {"群星闪耀", 3, "魔法"}, {"英雄圣光审判", 3, "魔法"},
+    {"灰烬之剑", 3, "刺杀"}, {"黑暗爪击", 3, "刺杀"},
+    --四级技能
+    {"英雄炎爆术", 4, "魔法"}, {"英雄炎爆术", 4, "魔法"},
+    {"地狱火葬", 4, "刺杀"}, {"BOSS旋风斩", 4, "刺杀"},
+}
+
+--玩家抽技能操作
+function PlayerDrawSkill()
+    if playerRole == nil then
+        return
+    end
+    if GetPlayerUsableSp() > 0 and curPlayerSkillCount < actionBarSlotCount then
+        local tagDrawLevel = math.min(4, math.floor(playerCurLevel/5.0) + 1)
+        local tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, nil)
+            totalPlayerUsedSp = totalPlayerUsedSp + 1
+            return true
+        end
+    end
+    return false
+end
+
+function GetRandomNewSkill(_tagLevel, _tagSeries)
+    local curDrawPool = {}
+    local curPoolSize = 0
+    for k, v in pairs(drawSpPool) do
+        if v[2] == _tagLevel and not IsTagSkillExist(v[1]) then
+            if _tagSeries == nil or _tagSeries == v[3] then
+                curDrawPool[curPoolSize] = v
+                curPoolSize = curPoolSize + 1
+            end
+        end
+    end
+    math.randomseed(os.time())
+    local tagSp = nil
+    if curPoolSize > 0 then
+        tagSp = curDrawPool[math.random(1, curPoolSize - 1)]
+    end
+    return tagSp
+end
+
+--合成技能操作
+function PlayerSynthSkill()
+    if playerRole == nil then
+        return
+    end
+    local tagSynthLevel = 0
+    for k1, v1 in pairs(curPlayerSkillList) do
+        for k2, v2 in pairs(curPlayerSkillList) do
+            if k1 ~= k2 and v1[2] < skillPoolMaxLevel then
+                if v1[2] == v2[2] and v1[3] == v2[3] then
+                    tagSynthLevel = v1[2] + 1
+                    local tagDrawSp = GetRandomNewSkill(tagSynthLevel, v1[3])
+                    if tagDrawSp ~= nil then
+                        SetPlayerSkill(tagDrawSp, {v1, v2})
+                        return true
+                    end
+                    break
+                end
+            end
+        end
+    end
+    return false
+end
+
+--替换技能操作
+function ReplaceRndSkill(tagSp)
+    errInfo = nil
+    if playerRole == nil then
+        return false, nil
+    end
+    if tagSp ~= nil then
+        local costVal = GetReplaceSkillCostMoney(tagSp)
+        if playerRole:GetResourceNum(RES_ID_MONEY, 1) < costVal then
+            errInfo = string.format("资源不足：替换此技能需要%d乌塔！", costVal)
+            return false, errInfo
+        end
+        local tagDrawLevel = tagSp[2]
+        local tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, { tagSp })
+            playerRole:ChangeResourceNum(RES_ID_MONEY, -costVal, false, 1)
+            return 1
+        end
+    end
+    return false, nil
+end
+
+--获取替换技能消耗金钱数
+function GetReplaceSkillCostMoney(tagSp)
+    if tagSp ~= nil then
+        --暂定为技能等级*100
+        return tagSp[2] * 100
+    end
+    return 0
+end
+
+--遗忘技能操作
+function RemoveTagSkill(tagSp)
+    if playerRole == nil then
+        return
+    end
+    if tagSp ~= nil then
+        SetPlayerSkill(nil, { tagSp })
+        return true
+    end
+    return false
+end
+
+function SetPlayerSkill(_tagSp, _oldSpList)
+    local isUpdated = false
+    --移除旧技能
+    local oldSkillIDs = ""
+    local removeCount = 0
+    if _oldSpList ~= nil then
+        for k, v in pairs(_oldSpList) do
+            if removeCount > 0 then
+                oldSkillIDs = oldSkillIDs .. "|"
+            end
+            oldSkillIDs = oldSkillIDs .. v[1]
+            curPlayerSkillList[v[1]] = nil
+            removeCount = removeCount + 1
+            isUpdated = true
+        end
+    end
+    local newSkillID = ""
+    if _tagSp ~= nil then
+        --标记新技能
+        curPlayerSkillList[_tagSp[1]] = _tagSp
+        newSkillID = _tagSp[1]
+        isUpdated = true
+    end
+    if isUpdated then
+        --操作游戏内核
+        local cmdLine = "SETSKILL*#" .. newSkillID .. "#" .. oldSkillIDs
+        curBattleScene:LocalExecBsCmdLines(cmdLine, playerUnitID)
+
+        UpdatePlayerSkillCount()
+        --更新UI
+        curBattleScene:SendUIMessage("skills_changed", "")
+    end
+end
+
+function UpdatePlayerSkillCount()
+    curPlayerSkillCount = 0
+    isExistSynthSkills = false
+    for k1, v1 in pairs(curPlayerSkillList) do
+        curPlayerSkillCount = curPlayerSkillCount + 1
+        if not isExistSynthSkills then
+            for k2, v2 in pairs(curPlayerSkillList) do
+                if k1 ~= k2 and v1[2] < skillPoolMaxLevel then
+                    if v1[2] == v2[2] and v1[3] == v2[3] then
+                        isExistSynthSkills = true
+                        break
+                    end
+                end
+            end
+        end
+    end
+end
+
+function IsTagSkillExist(_tagSkID)
+    if curPlayerSkillList[_tagSkID] == nil then
+        return false
+    else
+        return true
+    end
+end
+
+function TestAddExp(_addVal)
+    curBattleScene:LocalExecBsCmdLines("ADD_EXP*" .. _addVal, playerUnitID)
+end
+
+function TestSpawnMonsters()
+    --获取最近的几个刷怪区并且刷怪
+    local maxAreasCount = 2
+    local allSpawnAreas = curBattleScene:GetAllSpawnAreas()
+    if allSpawnAreas == nil then
+        return
+    end
+    local tagAreasPool = {}
+    local unitPosX = 0
+    local unitPosY = 0
+    if playerUnit ~= nil then
+        unitPosX = playerUnit.CurPos.x
+        unitPosY = playerUnit.CurPos.y
+    end
+    local tagDist
+    for i=0,allSpawnAreas.Count-1 do
+        local tagArea = allSpawnAreas[i]
+        tagDist = Vector2Distance(tagArea.centerPos.x, tagArea.centerPos.y, unitPosX, unitPosY)
+        table.insert(tagAreasPool, { id=tagArea.controlID, dist=tagDist })
+    end
+    table.sort(tagAreasPool, function(a,b) return a.dist<b.dist end)
+    --开始刷怪
+    local curAreasCount = 0
+    for k,v in pairs(tagAreasPool) do
+        if curAreasCount >= maxAreasCount then
+            break
+        end
+        local tagCmd = "AREA_SPAWN*" .. v.id .. "##农民,3#0#0#LUA刷出"
+        curBattleScene:LocalExecBsCmdLines(tagCmd, 0)
+        curAreasCount = curAreasCount + 1
+    end
+end

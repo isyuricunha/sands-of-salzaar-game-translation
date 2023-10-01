@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0#add_eft#长条预警1:0:40,1,3#unit_pos,0,0,0#0
+0.01#play_sound#Cast_Ice#unit_pos
+0.08#add_eft#冰矛1#unit_pos,0,0,0#0
+0.58#play_sound#Aura_Attack#unit_pos
+1.02#add_eft#冰矛2#unit_pos#3:0,4000#0#
+1.02#play_sound#IceBall_Shoot#unit_pos
+1.02#camera_shake#0.1#3
+1.34#block_act#0#0

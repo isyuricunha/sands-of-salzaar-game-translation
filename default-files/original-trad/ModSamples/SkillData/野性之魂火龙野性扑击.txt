@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.05#play_sound#SP_Weapon_Start#unit_pos
+0.1#dart_move##0#3500#1000#野兽血脉龙冲刺##caster#
+0.1#play_sound#JumpUp#unit_pos
+0.48#dmg_check#1#type:2;dmg:[&[%stat:b_臂力%]*[%stat:s_攻击%]*0.02+2*[%stat:s_攻击%]&];hit:1000;blk:-1000;eft:翱翔之剑翱翔冲击波#0#unit_pos,0,0,0,500
+0.07#add_eft#横冲直撞#unit_pos,0,0,0#0
+0.42#add_eft#横冲直撞#unit_pos,0,0,0#0

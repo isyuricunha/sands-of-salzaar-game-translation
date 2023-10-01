@@ -1,0 +1,128 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnClose
+
+local curCard = nil;
+
+local curCardSlot;
+
+local lvStatList;
+local ctlStatList;
+
+local listInfos;
+local listHide;
+local lbDescInfo;
+local lbEquipTitle;
+local objEquipList;
+local listEquipList;
+local objSkills;
+
+local listSkills;
+
+local equipSlots = {};
+
+--弹出窗体初始化时
+function onCreate()
+	contentPane = self.mainView
+
+	curCard = self.CustomData;
+
+	local objCurCard = contentPane:GetChild("card_ui");
+	curCardSlot = InitBindListUnitCardCommon(objCurCard, false);
+	lvStatList = contentPane:GetChild("stat_list").asList;
+	ctlStatList = CS.GUIHelper.CreateRoleStatInfoList(lvStatList);
+
+	listInfos = contentPane:GetChild("info_list").asList;
+	listHide = contentPane:GetChild("hide_list").asList;
+	listHide.visible = false;
+	lbDescInfo = listInfos:GetChildAt(0).asLabel;
+	lbEquipTitle = listInfos:GetChildAt(1).asLabel;
+	objEquipList = listInfos:GetChildAt(2);
+	listEquipList = objEquipList:GetChild("item_list").asList;
+	objSkills = listInfos:GetChildAt(4);
+	listEquipList.numItems = configEquipSlotCount;
+	for i = 0, configEquipSlotCount-1, 1 do
+		local tagBtn = listEquipList:GetChildAt(i).asButton
+		equipSlots[i] = InitCommonItemSlot(tagBtn, i, 1, curCard, true);
+	end
+
+	listSkills = objSkills:GetChild("list").asList;
+
+	--绑定按钮事件
+	btnClose = contentPane:GetChild("frame"):GetChild("closeButton").asButton;
+	btnClose.onClick:Set(onCloseBtnClicked);
+
+	CommonShowWindowAnim(contentPane, nil);
+
+	UpdateCardInfo();
+end
+
+--弹出窗体移除时
+function onRemoved()
+
+end
+
+function HideWindow()
+	CommonHideWindowAnim(contentPane, onHideAnimationDone);
+end
+
+function onHideAnimationDone()
+	self:HideWindow();
+end
+
+function onCloseBtnClicked()
+	PlayButtonSound();
+
+	HideWindow();
+end
+
+function UpdateCardInfo()
+	if curCard == nil then
+		return;
+	end
+	UpdateListUnitCardCommon(curCardSlot.bindBtn, curCard, 0, 0);
+
+	local cardType = curCard:GetCardType();
+	if cardType == 1 then
+		--英雄角色信息
+		ToggleListItemVisible(lbDescInfo, listInfos, listHide, true);
+		ToggleListItemVisible(lbEquipTitle, listInfos, listHide, true);
+		ToggleListItemVisible(objEquipList, listInfos, listHide, true);
+
+		local tagRole = curCard.BindRole;
+		lbDescInfo.text = tagRole:GetRoleDesc();
+
+		--更新装备列表
+		if equipSlots ~= nil then
+			for i = 0, configEquipSlotCount-1, 1 do
+				equipSlots[i]:SetBindItem(tagRole:GetEquipSlotByIndex(i));
+			end
+		end
+	else
+		--单位信息
+		ToggleListItemVisible(lbDescInfo, listInfos, listHide, false);
+		ToggleListItemVisible(lbEquipTitle, listInfos, listHide, false);
+		ToggleListItemVisible(objEquipList, listInfos, listHide, false);
+	end
+	--更新属性字段
+	ctlStatList:ShowRoleStat(curCard:GetBindUnitStat());
+
+	--更新技能表
+	UpdateSkillListView(curCard:GetAllSpList());
+end
+
+function UpdateSkillListView(_spList)
+	listSkills.numItems = _spList.Count;
+	local tagSp;
+	for i = 0, _spList.Count-1, 1 do
+		tagSp = _spList[i];
+		UpdateSimpleSkillInfoViewStyle1(listSkills:GetChildAt(i).asCom, tagSp, curCard);
+	end
+	listSkills:ResizeToFit();
+end

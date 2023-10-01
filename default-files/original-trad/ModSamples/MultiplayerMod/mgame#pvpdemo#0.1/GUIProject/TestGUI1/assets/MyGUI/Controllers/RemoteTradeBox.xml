@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="900,800" bgColor="#000000">
+  <displayList>
+    <component id="n0_hr84" name="frame" src="rbjt8k" fileName="Components/CommonWindowFrame1.xml" xy="0,0" size="900,800">
+      <relation target="" sidePair="width-width,height-height"/>
+      <Label title="交易"/>
+    </component>
+    <graph id="n3_hr84" name="box_bg1" xy="28,105" size="846,471" group="n2_hr84" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width,height-height,left-left,top-top"/>
+    </graph>
+    <list id="n1_hr84" name="tag_list1" xy="33,109" size="837,461" group="n2_hr84" layout="flow_hz" overflow="scroll" scrollBarFlags="128" scrollBar="visible" lineGap="2" colGap="2" defaultItem="ui://zuvkwb6mohlga6" autoClearItems="true">
+      <relation target="n3_hr84" sidePair="width-width,height-height,left-left,top-top"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <text id="n4_hr84" name="list_title1" xy="29,69" size="843,36" group="n2_hr84" fontSize="16" color="#b9b3ab" vAlign="middle" autoSize="none" shadowColor="#333333" shadowOffset="1,1" text="可供出售的物品 %d/%d">
+      <relation target="n3_hr84" sidePair="width-width,left-left,top-top"/>
+    </text>
+    <group id="n2_hr84" name="shop_box" xy="28,69" size="846,507" advanced="true"/>
+    <graph id="n10_maw8" name="box_bg2" xy="22,667" size="846,110" group="n13_maw8" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </graph>
+    <list id="n11_maw8" name="tag_list2" xy="33,672" size="832,105" group="n13_maw8" layout="flow_hz" overflow="scroll" scrollBarFlags="128" scrollBar="visible" lineGap="2" colGap="2" defaultItem="ui://zuvkwb6mohlga6" autoClearItems="true">
+      <relation target="n10_maw8" sidePair="width-width,height-height,left-left,top-top"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <group id="n13_maw8" name="inventory_box" xy="28,667" size="846,110" advanced="true"/>
+    <component id="n16_ohlg" name="res_box" src="ohlga4" fileName="Components/ResBoxItem1.xml" xy="42,605">
+      <Label icon="ui://zuvkwb6mohlga2"/>
+    </component>
+    <component id="n15_s4q5" name="btn_operate" src="pczr7r" fileName="Buttons/FuncNormalBtn3.xml" xy="774,624" pivot="0.5,0.5" anchor="true" size="210,56"/>
+    <component id="n17_iz48" name="refresh_button" src="pczr7r" fileName="Buttons/FuncNormalBtn3.xml" xy="772,80" pivot="0.5,0.5" anchor="true" size="214,42">
+      <Button title="刷新"/>
+    </component>
+    <text id="n19_iz48" name="refresh_hint" xy="372,63" size="286,42" fontSize="12" color="#b9b3ab" align="right" vAlign="middle" autoSize="none" shadowColor="#333333" shadowOffset="1,1" text="每次团队刷新会导致价格提升，切换地图后重置">
+      <relation target="n3_hr84" sidePair="width-width,left-left,top-top"/>
+    </text>
+    <component id="n20_iz48" name="refresh_money" src="ohlga4" fileName="Components/ResBoxItem1.xml" xy="661,69" size="130,41" scale="0.6,0.6" touchable="false">
+      <Label icon="ui://zuvkwb6mohlga2"/>
+    </component>
+  </displayList>
+</component>

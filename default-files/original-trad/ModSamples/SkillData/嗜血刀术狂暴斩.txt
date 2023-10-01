@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+1.05#block_act#0#0
+0.05#play_sound#SP_Weapon_Start#unit_pos
+0.56#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*2.5;cri:1000;eft:嗜血刀术狂暴斩受击#0#unit_pos,0,4,0,0,282,282,800,0,282,-282
+0.55#add_eft#P狂暴斩#unit_pos,0,0,0#0
+0.55#camera_shake#0.1#2
+0.15#play_sound#TwoHandSwordWhoosh2#unit_pos
+0.3#play_sound#SK_018#unit_pos
+0.57#play_sound#EarthWave#unit_pos
+0.6#play_sound#Dust_Small#unit_pos
+0.02#add_eft#P狂暴斩蓄力#unit_pos,0,0,0#0

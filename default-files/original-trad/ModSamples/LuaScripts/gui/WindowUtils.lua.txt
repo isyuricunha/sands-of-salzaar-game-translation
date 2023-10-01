@@ -1,0 +1,1717 @@
+require("FairyGUI")
+require("GameUtils")
+
+constPackageName = "BlywdMain";
+constPackageNewUI = "NewUI";
+
+doubleClickTime = 0.2
+
+ShowTooltipWindowDelay = 0.2;
+
+CONFIG_CARD_SLOTS_COUNT = 2;
+
+GEMSLOT_COLOR_0 = CS.GUIHelper.GetColor("FFFFFF");
+GEMSLOT_COLOR_1 = CS.GUIHelper.GetColor("FF0000");
+GEMSLOT_COLOR_2 = CS.GUIHelper.GetColor("FFFF00");
+GEMSLOT_COLOR_3 = CS.GUIHelper.GetColor("0000FF");
+
+Vector2 = CS.UnityEngine.Vector2;
+
+IsMobileMode = CS.GameTools.IsMobileMode();
+
+local GameConfig = CS.GameConfig
+local txtItemNameMaxHeight = CS.GUICtlItemSlot.GetTitleMaxHeight()
+
+function IsEmptyOrNil(str)
+    if str == nil or str == "" then
+        return true
+    end
+    return false
+end
+
+function GetLanString(srcInfo, ...)
+    return CS.GameTools.GetLanString(srcInfo, ...)
+end
+
+function GetGameString(_key, ...)
+    return CS.GameTools.GetGameString(_key, ...)
+end
+
+--显示一个弹出消息
+function ShowToastInfo(sInfo, duration)
+    CS.GlobalUI.Instance:ShowToastInfo(sInfo, duration)
+end
+
+--显示一个确认框 支持的dlgMode: "ok" 确认  "yesno" 是否选择  当是否选择时返回值0代表否 1代表是
+function ShowConfirmDlg(sInfo, dlgMode, _callback)
+    --local dlgArgs = "{\"title\":\""..sInfo.."\",\"mode\":\""..dlgMode.."\"}"
+    local compName;
+    if IsMobileMode then
+        compName = "ConfirmWindowM";
+    else
+        compName = "ConfirmWindow";
+    end
+    local newWindow = CS.GUIHelper.ShowGUIWindow(constPackageNewUI, compName, "gui/ConfirmDialog", "", _callback)
+    newWindow:SetWindowParams(sInfo, dlgMode)
+end
+
+function ShowTooltipPopup(target, tooltips, dir, closeUntilUpEvent)
+    local tooltipRes = CS.FairyGUI.UIConfig.tooltipsWin
+    local gobj = UIPackage.CreateObjectFromURL(tooltipRes)
+    local dir = dir or CS.FairyGUI.PopupDirection.Auto
+    local closeUntilUpEvent = closeUntilUpEvent or false
+    gobj.title = tooltips
+    GRoot.inst:ShowPopup(gobj, target)
+end
+
+--显示数字选择框
+function ShowNumSelectorDlg(_info, _minVal, _maxVal, _defVal, _unitPrice, _priceInfo, _callback)
+    CS.GUIHelper.ShowNumSelectorDialog(_info, _minVal, _maxVal, _defVal, _unitPrice, _priceInfo, _callback)
+end
+
+function CommonShowWindowAnim(caller, callbackFunc)
+    caller.alpha = 0
+	caller:TweenFade(1.0, 0.2):OnComplete(callbackFunc)
+end
+
+function CommonHideWindowAnim(caller, callbackFunc)
+    caller:TweenFade(0, 0.2):OnComplete(callbackFunc)
+end
+
+function PlayButtonSound()
+    CS.AudioManager.Instance:Play("Button");
+end
+
+function GetIconPathByName(_iconName)
+    return "Assets/BuildSource/Items/".._iconName..".png"
+end
+
+function GetBuildingIconPathByName(_iconName)
+    return "Assets/BuildSource/buildings/small_icons/".._iconName..".png"
+end
+
+function GetSkillPathByName(_iconName)
+    return "Assets/BuildSource/SkillIcons/".._iconName..".png"
+end
+
+function InitCommonItemSlot(button, _slotIndex, _slotTag, _bindCard, _showInfoOnClick)
+    local tagSlot = CS.GUIHelper.CreateItemSlot(button)
+    tagSlot.bindCard = _bindCard;
+    tagSlot:SetSlotTagIndex(_slotTag, _slotIndex)
+    tagSlot:SetItemEnterCallback(function()
+        if (tagSlot.bindItemInfo ~= nil and not IsItemDetailInfoUILocked()) then
+            ShowItemDetailInfoAtObj(tagSlot.bindItemInfo, button, false, false, nil, nil, tagSlot.bindCard)
+        end
+    end);
+    tagSlot:SetItemExitCallback(function()
+        TryHideNoLockedItemDetailInfoUI();
+    end);
+    if _showInfoOnClick then
+        tagSlot:SetItemLeftClickCallback(function()
+            if (tagSlot.bindItemInfo ~= nil) then
+                ShowItemDetailInfoAtObj(tagSlot.bindItemInfo, button, false, true, nil, nil, tagSlot.bindCard)
+            end
+        end);
+    end
+    return tagSlot;
+end
+
+function InitBindListItemCommon(button)
+    local pObj = button:GetChild("title");
+    local txtTitle = nil;
+    if pObj ~= nil then
+        txtTitle = pObj.asTextField;
+    end
+    pObj = button:GetChild("count");
+    local txtCount = nil;
+    if pObj ~= nil then
+        txtCount = pObj.asTextField;
+    end
+    local imgIcon = button:GetChild("icon").asLoader
+
+    pObj = button:GetChild("sel_frame");
+    local imgSelframe = nil;
+    if pObj ~= nil then
+        imgSelframe = pObj.asImage;
+    end
+
+    pObj = button:GetController("show_name")
+    ---@type FairyGUI.Controller
+    local ctlShowName = nil
+    if pObj ~= nil then
+        ctlShowName = pObj
+    end
+
+    local bindData = {}
+    bindData.txtTitle = txtTitle
+    bindData.txtCount = txtCount
+    bindData.imgIcon = imgIcon
+    bindData.selFrame = imgSelframe
+    bindData.bindIndex = 0
+    bindData.bindTag = 0
+    bindData.bindItemInfo = nil
+    bindData.ctlShowName = ctlShowName
+    button.data = bindData
+end
+
+local AutoSizeType = CS.FairyGUI.AutoSizeType
+
+---@param button FairyGUI.GButton
+---@param itemInfo HanFramework.GameItemData
+---@param _index number
+---@param _tag number
+function UpdateListItemInfoCommon(button, itemInfo, _index, _tag)
+    local bindData = button.data
+    bindData.bindIndex = _index
+    bindData.bindTag = _tag
+    bindData.bindItemInfo = itemInfo
+
+    local isShow = false
+    if itemInfo ~= nil then
+        isShow = true
+        bindData.imgIcon.url = GetIconPathByName(itemInfo:GetItemIconFile())
+        if bindData.ctlShowName ~= nil then
+            bindData.ctlShowName.selectedIndex = GameConfig.IsShowItemName and 1 or 0
+        end
+        if bindData.txtTitle ~= nil then
+            local txtTitle = bindData.txtTitle
+            txtTitle.autoSize = AutoSizeType.Height;
+            txtTitle.color = itemInfo:GetItemQualityColor()
+            txtTitle.text = CS.GUIHelper.ConvertUGUIStr(itemInfo:GetItemName())
+            if txtTitle.height > txtItemNameMaxHeight then
+                txtTitle.autoSize = AutoSizeType.Ellipsis;
+                txtTitle.height = txtItemNameMaxHeight;
+            end
+        end
+        if bindData.txtCount ~= nil then
+            bindData.txtCount.text = itemInfo.itemCount
+        end
+    end
+    if bindData.txtTitle ~= nil then
+        bindData.txtTitle.visible = isShow
+    end
+    if bindData.txtCount ~= nil then
+        if isShow and itemInfo.itemCount > 1 then
+            bindData.txtCount.visible = true
+        else
+            bindData.txtCount.visible = false
+        end
+    end
+    if bindData.txtKeyName ~= nil and bindData.keyCode ~= nil then
+        bindData.txtKeyName.text = CS.GUIHelper.GetHotkeyDisplayName(bindData.keyCode)
+        bindData.txtKeyName.visible = true
+    end
+    bindData.imgIcon.visible = isShow
+    button.enabled = isShow
+end
+
+function SetItemName()
+    -- body
+end
+
+function SetListItemSelon(button, _isSelOn)
+    if button.data ~= nil and button.data.selFrame ~= nil then
+        button.data.selFrame.visible = _isSelOn
+    end
+end
+
+function SetListItemRollOverInfo(button, itemInfo, showInfoFunc, hideInfoFunc)
+    if itemInfo == nil then
+        button.onRollOver:Clear()
+        button.onRollOut:Clear()
+    end
+    if showInfoFunc ~= nil then
+        button.onRollOver:Clear()
+        button.onRollOver:Add(showInfoFunc)
+    else
+        button.onRollOver:Clear()
+    end
+    if hideInfoFunc ~= nil then
+        button.onRollOut:Clear()
+        button.onRollOut:Add(hideInfoFunc)
+    else
+        button.onRollOut:Clear()
+    end
+end
+
+isLockedItemDetailWin = false;
+
+function IsItemDetailInfoUILocked()
+    if isLockedItemDetailWin then
+        return true;
+    end
+    return false;
+end
+
+function ShowItemDetailInfoUI(itemInfo, isShowPrice, isLockedClick, _callback, _compareItem, _tagCard)
+    if (itemInfo ~= nil) then
+        local touchPos = Stage.inst:GetTouchPosition(-1);
+        return ShowItemDetailInfoAt(itemInfo, touchPos, Vector2(50, -50), isShowPrice, isLockedClick, _callback, _compareItem, _tagCard)
+    end
+    return nil;
+end
+
+function ShowItemDetailInfoAtObj(itemInfo, tagObj, isShowPrice, isLockedClick, _callback, _compareItem, _tagCard)
+    if (itemInfo ~= nil and tagObj ~= nil) then
+        local radX = tagObj.width * 0.5;
+        local radY = tagObj.height * 0.5;
+        local tagPos = tagObj:LocalToRoot(Vector2(radX, radY), nil);
+        return ShowItemDetailInfoAt(itemInfo, tagPos, Vector2(radX + 10, radY), isShowPrice, isLockedClick, _callback, _compareItem, _tagCard)
+    end
+    return nil;
+end
+
+function ShowItemDetailInfoAt(itemInfo, tagPos, offset, isShowPrice, isLockedClick, _callback, _compareItem, _tagCard)
+    if isLockedClick then
+        CloseCurItemDetailInfoUI();
+    else
+        TryHideNoLockedItemDetailInfoUI();
+    end
+    if (itemInfo ~= nil) then
+        local _tagWindow = CS.GUIHelper.ShowItemDetailInfoWindow(itemInfo, tagPos.x, tagPos.y, offset.x, offset.y, isShowPrice,
+            function(ret)
+                if (ret == 1) then
+                    isLockedItemDetailWin = false;
+                end
+                if _callback ~= nil then
+                    _callback(ret);
+                end
+            end, nil, _compareItem, _tagCard);
+        if isLockedClick then
+            _tagWindow.CurDialogResult = 1;
+        else
+            _tagWindow.CurDialogResult = 0;
+        end
+        if isLockedClick then
+            isLockedItemDetailWin = true;
+        end
+        return _tagWindow;
+    end
+    return nil;
+end
+
+function TryHideNoLockedItemDetailInfoUI()
+    if IsItemDetailInfoUILocked() then
+        return;
+    end
+    CS.GUIHelper.HideItemDetailInfoWindow();
+end
+
+function CloseCurItemDetailInfoUI()
+    CS.GUIHelper.HideItemDetailInfoWindow();
+end
+
+function MoveGameItemFromList(tagIndex, fromList, toList, fRecordList, tRecordList)
+    if tagIndex < fromList.Count then
+        local tagItem = fromList[tagIndex]
+        toList:Add(tagItem)
+        fromList:Remove(tagItem)
+        if fRecordList:Contains(tagItem) then
+            fRecordList:Remove(tagItem)
+        else
+            tRecordList:Add(tagItem)        --如果源记录表里没有则在目标记录表里增加送出项
+        end
+        return true
+    else
+        return false
+    end
+end
+
+function SwapItemsWithOtherList(index1, index2, fromList, toList, fRecordList, tRecordList)
+    if index1 < fromList.Count  then
+        if index2 < toList.Count and index2 >= 0 then
+            local tagItem1 = fromList[index1]
+            local tagItem2 = toList[index2]
+            toList[index2] = tagItem1
+            fromList[index1] = tagItem2
+            if fRecordList:Contains(tagItem1) then
+                fRecordList:Remove(tagItem1)
+            else
+                tRecordList:Add(tagItem1)
+            end
+            if tRecordList:Contains(tagItem2) then
+                tRecordList:Remove(tagItem2)
+            else
+                fRecordList:Add(tagItem2)
+            end
+            return true
+        else
+            return MoveGameItemFromList(index1, fromList, toList, fRecordList, tRecordList)
+        end
+    else
+        return false
+    end
+end
+
+function SwapItemsInList(index1, index2, tagList)
+    if (index1 == index2) then
+        return false
+    end
+    if index1 < tagList.Count  then
+        if index2 < tagList.Count and index2 >= 0 then
+            local tagItem1 = tagList[index1]
+            local tagItem2 = tagList[index2]
+            tagList[index1] = tagItem2
+            tagList[index2] = tagItem1
+            return true
+        else
+            local tagItem1 = tagList[index1]
+            tagList:Remove(tagItem1)
+            tagList:Add(tagItem1)
+            return true
+        end
+    else
+        return false
+    end
+end
+
+function GetCurTouchedListItem(...)
+    local arg={...}
+    --逐层往上知道查到点击了那个item
+    local curTouchObj = GRoot.inst.touchTarget;
+    local tagListItem = nil
+    if curTouchObj ~= nil then
+        local p = curTouchObj;
+        local tagParent = curTouchObj.parent
+        while(p ~= nil)
+        do
+            tagParent = p.parent
+            for i,v in ipairs(arg) do
+                if v == tagParent then
+                    tagListItem = p
+                    break
+                end
+            end
+            if (tagListItem ~= nil) then
+                break
+            end
+            p = tagParent
+        end
+
+        if (tagListItem == nil or tagParent == nil) then
+            return nil
+        end
+        return tagListItem, tagParent
+    end
+    return nil
+end
+
+--初始化兵种卡牌列表项
+function InitBindListUnitCardCommon(button, showDetailOnHover)
+    local imgBg = button:GetChild("bg").asImage
+
+    local txtTitle = button:GetChild("title").asTextField
+
+    local objStat= button:GetChild("lb_stat");
+    local txtLevel = button:GetChild("level").asTextField
+    local txtExpInfo = button:GetChild("exp_info").asTextField
+    local progExpBar = button:GetChild("exp_bar").asProgress
+
+    local imgBackCover = button:GetChild("back_cover").asImage
+    local imgSelframe = button:GetChild("sel_frame").asImage
+
+    local modelView = button:GetChild("model_view").asCom
+    local modelHolder = modelView:GetChild("model_holder").asImage
+
+    local objAlertMark = button:GetChild("alert_mark")
+    if objAlertMark ~= nil then
+        objAlertMark.visible = false;   --兼容旧MOD
+    end
+
+    local objCardSlots = button:GetChild("list_gemslots");
+
+    --icon信息
+    local objIconsList = button:GetChild("list_marks");
+
+    local bindData = {}
+    bindData.bindBtn = button;
+    bindData.bindCard = nil;
+    if showDetailOnHover then
+        bindData.bindBtn.onRollOver:Set(function()
+            if bindData.bindCard ~= nil then
+                ShowCardDetailInfo(bindData.bindCard, bindData.bindBtn, false, false);
+            end
+        end);
+        bindData.bindBtn.onRollOut:Set(function()
+            TryHideNoLockedCardDetailInfoUI();
+        end);
+    end
+
+    bindData.bgImg = imgBg
+    bindData.modelHolder = modelHolder
+    bindData.txtTitle = txtTitle
+
+    bindData.groupStat = nil;
+    bindData.txtCount = nil;
+    bindData.lbStat = nil;
+    if objStat ~= nil then
+        bindData.lbStat = objStat.asLabel;
+    else
+        local objCountOld = button:GetChild("count");
+        if objCountOld ~= nil then
+            bindData.txtCount = objCountOld.asTextField;
+        end
+    end
+    bindData.txtLevel = txtLevel
+    bindData.txtExpInfo = txtExpInfo
+    bindData.progExpBar = progExpBar
+    bindData.backCover = imgBackCover
+    bindData.selFrame = imgSelframe
+    bindData.bindIndex = 0
+    bindData.bindTag = 0
+    bindData.curModelInfo = nil;
+    bindData.listCardSlots = nil;
+    if objCardSlots ~= nil then
+        bindData.listCardSlots = objCardSlots.asList;
+        bindData.cardSlots = {};
+        bindData.curSlotCount = 0;
+        for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+            local tagSlotObj = bindData.listCardSlots:GetChildAt(index);
+            if tagSlotObj ~= nil then
+                bindData.cardSlots[index] = InitCardSubSlotCommon(tagSlotObj, bindData);
+            end
+        end
+    end
+
+    bindData.listMarks = nil;
+    if objIconsList ~= nil then
+        bindData.listMarks = objIconsList.asList;
+        bindData.listHide = button:GetChild("list_hidemarks");
+        bindData.lbAttackType = bindData.listMarks:GetChildAt(0).asLabel;
+        bindData.lbArmorType = bindData.listMarks:GetChildAt(1).asLabel;
+        bindData.lbHorseman = bindData.listMarks:GetChildAt(2).asLabel;
+        bindData.lbHorseman.tooltips = GetGameString("SimpleUnitCard_CardInfo_CardTagLayoutPanel_RideType");
+        bindData.lbNoLeave = bindData.listMarks:GetChildAt(3).asLabel;
+        bindData.lbNoLeave.tooltips = GetGameString("SimpleUnitCard_CardInfo_CardTagLayoutPanel_CouldNotLeave");
+    end
+
+    bindData.OnGemSlotClick = nil;
+    bindData.OnGemSlotRollOver = OnCardSubSlotRollOverCommon;
+    bindData.OnGemSlotRollOut = OnCardSubSlotRollOutCommon;
+
+    button.data = bindData
+
+    return bindData;
+end
+
+function OnCardSubSlotRollOverCommon(_tagCardSlot, _tagIndex, _gemSlotObj)
+    if _tagCardSlot == nil then
+        return;
+    end
+    local tagCard = _tagCardSlot.bindCard;
+    if tagCard ~= nil then
+        local _tagSlotItem = tagCard:GetGemItemInSlot(_tagIndex);
+        if _tagSlotItem ~= nil then
+            if _gemSlotObj ~= nil then
+                ShowItemDetailInfoAtObj(_tagSlotItem, _gemSlotObj, false, false, nil, nil, tagCard);
+            else
+                ShowItemDetailInfoUI(_tagSlotItem, false, false, nil, nil, tagCard);
+            end
+        end
+    end
+end
+
+function OnCardSubSlotRollOutCommon(_tagCardSlot, _tagIndex)
+    TryHideNoLockedItemDetailInfoUI();
+end
+
+--初始化卡牌插槽控件
+function InitCardSubSlotCommon(_tagSlotObj, _parent)
+    local compBindInfo = _tagSlotObj.data;
+    if compBindInfo == nil then
+        compBindInfo = {};
+        compBindInfo.parent = _parent;
+        compBindInfo.slotIndex = 0;
+        compBindInfo.curItem = nil;
+		compBindInfo.bindBtn = _tagSlotObj.asButton;
+		compBindInfo.imgIcon = _tagSlotObj:GetChild("icon").asLoader;
+        compBindInfo.lastIconPath = nil;
+        local colorObj = _tagSlotObj:GetChild("slot_color");
+        compBindInfo.colorFrame = nil;
+        if colorObj ~= nil then
+            compBindInfo.colorFrame = colorObj.asImage;
+        end
+        colorObj = _tagSlotObj:GetChild("gem_color_frame");
+        compBindInfo.imgGemColorFrame = nil;
+        if colorObj ~= nil then
+            compBindInfo.imgGemColorFrame = colorObj.asLoader;
+        end
+        compBindInfo.selFrame = _tagSlotObj:GetChild("sel_frame").asImage;
+        compBindInfo.selFrame.visible = false;
+
+        compBindInfo.bindBtn.onClick:Set(function()
+            OnCardSubSlotClick(compBindInfo);
+        end);
+        compBindInfo.bindBtn.onRollOver:Set(function()
+            OnCardSubSlotRollOver(compBindInfo);
+        end);
+        compBindInfo.bindBtn.onRollOut:Set(function()
+            OnCardSubSlotRollOut(compBindInfo);
+        end);
+
+		_tagSlotObj.data = compBindInfo;
+    end
+    return compBindInfo;
+end
+
+function OnCardSubSlotClick(_tagSubSlot)
+    if _tagSubSlot == nil then
+        return;
+    end
+    local parentCardSlot = _tagSubSlot.parent;
+    if parentCardSlot == nil then
+        return;
+    end
+    if parentCardSlot.OnGemSlotClick ~= nil then
+        parentCardSlot.OnGemSlotClick(parentCardSlot, _tagSubSlot);
+    end
+end
+
+function OnCardSubSlotRollOver(_tagSubSlot)
+    if _tagSubSlot == nil then
+        return;
+    end
+    local parentCardSlot = _tagSubSlot.parent;
+    if parentCardSlot == nil then
+        return;
+    end
+    if parentCardSlot.OnGemSlotRollOver ~= nil then
+        parentCardSlot.OnGemSlotRollOver(parentCardSlot, _tagSubSlot.slotIndex, _tagSubSlot.bindBtn);
+    end
+end
+
+function OnCardSubSlotRollOut(_tagSubSlot)
+    if _tagSubSlot == nil then
+        return;
+    end
+    local parentCardSlot = _tagSubSlot.parent;
+    if parentCardSlot == nil then
+        return;
+    end
+    if parentCardSlot.OnGemSlotRollOut ~= nil then
+        parentCardSlot.OnGemSlotRollOut(parentCardSlot, _tagSubSlot.slotIndex);
+    end
+end
+
+function GetCardGemSlotColor(_colorType)
+    if _colorType == 1 then
+        return GEMSLOT_COLOR_1;
+    elseif _colorType == 2 then
+        return GEMSLOT_COLOR_2;
+    elseif _colorType == 3 then
+        return GEMSLOT_COLOR_3;
+    else
+        return GEMSLOT_COLOR_0;
+    end
+end
+
+function GetCardGemSlotColorFrameUrl(_colorType)
+    if _colorType == 1 then
+        return "ui://zuvkwb6nkalwrv";
+    elseif _colorType == 2 then
+        return "ui://zuvkwb6nkalwrw";
+    elseif _colorType == 3 then
+        return "ui://zuvkwb6nkalwru";
+    end
+    return "";
+end
+
+function GetSimpleMiniGemSlotView(_colorType, _gemItem)
+    if _colorType == 1 then
+        if _gemItem ~= nil then
+            return "ui://zuvkwb6nlfy5q6";
+        else
+            return "ui://zuvkwb6nlfy5q3";
+        end
+    elseif _colorType == 2 then
+        if _gemItem ~= nil then
+            return "ui://zuvkwb6nlfy5q8";
+        else
+            return "ui://zuvkwb6nlfy5q5";
+        end
+    elseif _colorType == 3 then
+        if _gemItem ~= nil then
+            return "ui://zuvkwb6nlfy5q7";
+        else
+            return "ui://zuvkwb6nlfy5q4";
+        end
+    end
+    return "";
+end
+
+--渲染卡牌插槽控件
+function UpdateCardSubSlotsView(_tagSlot, _cardInfo)
+    if _tagSlot.cardSlots ~= nil  then
+        local subSlotsCount = _cardInfo:GetGemSlotsCount();
+        _tagSlot.curSlotCount = subSlotsCount;
+        local tagSubSlot;
+        for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+            tagSubSlot = _tagSlot.cardSlots[index];
+            if index < subSlotsCount then
+                tagSubSlot.bindBtn.visible = true;
+                --渲染控件
+                UpdateTagCardSubSlot(tagSubSlot, _cardInfo, index);
+            else
+                tagSubSlot.bindBtn.visible = false;
+            end
+        end
+    end
+end
+
+function UpdateTagCardSubSlot(_tagSlot, _cardInfo, _slotIndex)
+    _tagSlot.slotIndex = _slotIndex;
+    local _colorType = _cardInfo:GetGemSlotColorType(_slotIndex);
+
+    if _tagSlot.colorFrame ~= nil then
+        _tagSlot.colorFrame.color = GetCardGemSlotColor(_colorType);
+    end
+    if _tagSlot.imgGemColorFrame ~= nil then
+        _tagSlot.imgGemColorFrame.url = GetCardGemSlotColorFrameUrl(_colorType);
+    end
+
+    local _tagSlotItem = _cardInfo:GetGemItemInSlot(_slotIndex);
+    _tagSlot.curItem = _tagSlotItem;
+    if _tagSlotItem ~= nil then
+        _tagSlot.imgIcon.visible = true;
+        local curIconPath = _tagSlotItem:GetItemIconFile();
+        if curIconPath ~= _tagSlot.lastIconPath then
+            _tagSlot.imgIcon.url = CS.GUIHelper.GetItemIconPathByName(curIconPath);
+            _tagSlot.lastIconPath = curIconPath;
+        end
+    else
+        _tagSlot.imgIcon.visible = false;
+    end
+end
+
+function GetCardGemSlotColorName(_colorType)
+	if _colorType == 1 then
+		return GetGameString("gem_color_slotname_1");
+	elseif _colorType == 2 then
+		return GetGameString("gem_color_slotname_2");
+	elseif _colorType == 3 then
+		return GetGameString("gem_color_slotname_3");
+	else
+		return "";
+	end
+end
+
+--更新兵种卡牌列表项
+function UpdateListUnitCardCommon(button, itemInfo, _index, _tag)
+    local bindData = button.data
+    bindData.bindIndex = _index
+    bindData.bindTag = _tag
+
+    local isShow = false
+    if itemInfo ~= nil then
+        isShow = true
+        bindData.bindCard = itemInfo;
+        bindData.txtTitle.text = itemInfo:GetDisplayName()
+        bindData.txtLevel.text = string.format(GetGameString("LUA_Script_LanString_Level"), itemInfo.Level)
+        local lvUpExp = itemInfo:GetLevelUpExp(itemInfo.Level);
+        local expPct = itemInfo.Exp / lvUpExp * 100.0;
+        bindData.txtExpInfo.text = string.format("%d/%d", itemInfo.Exp, lvUpExp)
+        bindData.progExpBar.value = expPct
+        bindData.bgImg.color = CS.GameTools.GetCardBgColorByQuality(itemInfo:GetCardQuality())
+
+        if bindData.listMarks ~= nil then
+            local weaponType = itemInfo:GetWeaponType();
+            if weaponType >= 0 then
+                bindData.lbAttackType.visible = true;
+                bindData.lbAttackType.icon = CS.GUIHelper.GetWeaponTypeIconUrl(weaponType);
+                bindData.lbAttackType.tooltips = CS.GUIHelper.ConvertUGUIStr(CS.GUIHelper.GetWeaponTypeDescInfo(weaponType));
+            else
+                bindData.lbAttackType.visible = false;
+            end
+
+            local armorType = itemInfo:GetArmorType();
+            if armorType >= 0 then
+                bindData.lbArmorType.visible = true;
+                bindData.lbArmorType.icon = CS.GUIHelper.GetArmorTypeIconUrl(armorType);
+                bindData.lbArmorType.tooltips = CS.GUIHelper.ConvertUGUIStr(CS.GUIHelper.GetArmorTypeDescInfo(armorType));
+            else
+                bindData.lbArmorType.visible = false;
+            end
+        end
+        local cardType = itemInfo:GetCardType();
+        if cardType == 0 then
+            if bindData.listMarks ~= nil then
+                ToggleListItemVisible(bindData.lbNoLeave, bindData.listMarks, bindData.listHide, false);
+                if itemInfo:IsHorseman() then
+                    ToggleListItemVisible(bindData.lbHorseman, bindData.listMarks, bindData.listHide, true);
+                else
+                    ToggleListItemVisible(bindData.lbHorseman, bindData.listMarks, bindData.listHide, false);
+                end
+            end
+            if bindData.lbStat ~= nil then
+                bindData.lbStat.text = string.format("%d/%d", itemInfo.CurAvailable, itemInfo.MaxDurability);
+                bindData.lbStat.titleColor = itemInfo:GetCurNumStateColor();
+                bindData.lbStat.visible = true;
+                bindData.lbStat.tooltips = CS.GUIHelper.GetCardDurationInfoDesc(itemInfo);
+            end
+            --渲染兵牌
+            if bindData.modelHolder ~= nil then
+                local tagModelInfo = itemInfo:GetUnit3DViewInfo();
+                if tagModelInfo ~= bindData.curModelInfo then
+                    bindData.modelCtl = CS.GUIHelper.CreateModelViewToTagGraphHolder(tagModelInfo,
+                        bindData.modelHolder);
+                    bindData.curModelInfo = tagModelInfo;
+                end
+            end
+             --渲染卡牌插槽
+             UpdateCardSubSlotsView(bindData, itemInfo);
+        elseif cardType == 1 then
+            local tagRole = itemInfo.BindRole;
+
+            if bindData.lbStat ~= nil then
+                bindData.lbStat.visible = false;
+            end
+
+            if bindData.listMarks ~= nil then
+                ToggleListItemVisible(bindData.lbHorseman, bindData.listMarks, bindData.listHide, false);
+                if tagRole:getRoleTemplate():CouldNotLeave() then
+                    ToggleListItemVisible(bindData.lbNoLeave, bindData.listMarks, bindData.listHide, true);
+                else
+                    ToggleListItemVisible(bindData.lbNoLeave, bindData.listMarks, bindData.listHide, false);
+                end
+            end
+            --渲染角色立绘
+            if bindData.modelHolder ~= nil then
+                local tagModelInfo = tagRole.HeadAvata;
+                if tagModelInfo ~= bindData.curModelInfo then
+                    CS.GUIHelper.GenerateRoleHeadAvataImage(tagModelInfo, bindData.modelHolder);
+                    bindData.curModelInfo = tagModelInfo;
+                end
+            end
+            --渲染卡牌插槽
+            UpdateCardSubSlotsView(bindData, itemInfo);
+        end
+    end
+    bindData.txtTitle.visible = isShow
+    bindData.txtLevel.visible = isShow
+    bindData.txtExpInfo.visible = isShow
+    bindData.progExpBar.visible = isShow
+
+    bindData.backCover.visible = not isShow
+    button.enabled = isShow
+end
+
+function SetUnitCardSlotSelected(_tagSlot, _isSeled)
+    if _tagSlot.selFrame ~= nil then
+        _tagSlot.selFrame.visible = _isSeled;
+    end
+end
+
+function ToggleListItemVisible(_tagListItem, _showList, _hideList, _isShow)
+    if _tagListItem ~= nil and _showList ~= nil and _hideList ~= nil then
+        if _isShow then
+            if _showList:GetChildIndex(_tagListItem) < 0 then
+                _hideList:RemoveChild(_tagListItem);
+                _showList:AddChild(_tagListItem);
+            end
+        else
+            if _showList:GetChildIndex(_tagListItem) >= 0 then
+                _showList:RemoveChild(_tagListItem);
+                _hideList:AddChild(_tagListItem);
+            end
+        end
+    end
+end
+
+function ShowHintBtnDescInfo(_tagBtn, _desc, _offset)
+	local _infoTxt = CS.GUIHelper.ConvertUGUIStr(_desc)
+	local tagPos = CS.GUIHelper.GetGUIComponentRootPos(_tagBtn, 0, 0)
+	CS.GUIHelper.ShowTextListInfoWindow(_infoTxt, tagPos, _offset, nil, nil, 0, 0);
+end
+
+--显示一个角色的关系调试窗口
+function ShowRoleRlDebugWin(roleID, _callback)
+    local newWindow = CS.GUIHelper.ShowGUIWindow(constPackageName, "RoleDetailDebugWin", "gui/RoleDetailDebugWin", "", _callback);
+    newWindow:SetWindowParams(roleID);
+end
+
+isLockCardDetailWin = false;
+curCardDetailWin = nil;
+
+function TryHideNoLockedCardDetailInfoUI()
+    if isLockCardDetailWin then
+        return;
+    end
+    HideCurCardDetailWindow();
+end
+
+function HideCurCardDetailWindow()
+    if curCardDetailWin ~= nil then
+        CS.GUIHelper.ClosePopupUI(curCardDetailWin);
+    end
+end
+
+--显示卡牌详情界面
+function ShowCardDetailInfo(tagCard, tagObj, _isLock, inverseX)
+    local tagPos;
+    local offsetPos = Vector2(20, -20);
+    if (tagObj ~= nil) then
+        local radX = tagObj.width * 0.5;
+        local radY = tagObj.height * 0.5;
+        tagPos = tagObj:LocalToRoot(Vector2(radX, radY), nil);
+        offsetPos = Vector2(radX + 20, radY - 20);
+    else
+        tagPos = Stage.inst:GetTouchPosition(-1);
+    end
+    return ShowCardDetailInfoAtPos(tagCard, tagPos, offsetPos, _isLock, inverseX)
+end
+
+function ShowCardDetailInfoAtCenter(tagCard, _callback)
+    HideCurCardDetailWindow();
+    if tagCard ~= nil then
+        local tagPos = Vector2(GRoot.inst.width * 0.5, GRoot.inst.height * 0.5);
+        local winArg = 1;
+        local tagComp = CS.GUIHelper.ShowCardInfoDetailWindow(tagCard, function(ret)
+            if ret == 1 then
+                isLockCardDetailWin = false;
+            end
+            if _callback ~= nil then
+                _callback(ret);
+            end
+        end, winArg);
+        tagPos.x = tagPos.x - tagComp.width * 0.5;
+        tagPos.y = tagPos.y - tagComp.height * 0.5;
+        local offsetPos = Vector2(0, 0);
+        CS.GUIHelper.AdjustPopupUIPos(tagComp, tagPos, offsetPos, false);
+        curCardDetailWin = tagComp;
+        isLockCardDetailWin = true;
+        return tagComp;
+    else
+        return nil;
+    end
+end
+
+function ShowCardDetailInfoAtPos(tagCard, tagPos, offsetPos, _isLock, inverseX)
+    if _isLock then
+        HideCurCardDetailWindow();
+    else
+        if isLockCardDetailWin then
+            return;
+        else
+            TryHideNoLockedCardDetailInfoUI();
+        end
+    end
+    local winArg = 0;
+    if _isLock then
+        winArg = 1;
+    end
+    if tagCard ~= nil then
+        local tagComp = CS.GUIHelper.ShowCardInfoDetailWindow(tagCard, function(ret)
+            if ret == 1 then
+                isLockCardDetailWin = false;
+            end
+        end, winArg);
+        CS.GUIHelper.AdjustPopupUIPos(tagComp, tagPos, offsetPos, inverseX);
+        curCardDetailWin = tagComp;
+        if _isLock then
+            isLockCardDetailWin = true;
+        end
+        return curCardDetailWin;
+    else
+        return nil;
+    end
+end
+
+--渲染简易技能信息控件
+function UpdateSimpleSkillInfoViewStyle1(tagCom, bindSp, tagCard)
+    local compBindInfo = tagCom.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+		compBindInfo = {};
+		compBindInfo.bindView = tagCom;
+
+		compBindInfo.txtName = tagCom:GetChild("title").asTextField;
+        compBindInfo.txtDesc = tagCom:GetChild("skill_desc").asTextField;
+
+		compBindInfo.lastSpt = nil;
+		compBindInfo.imgIcon = tagCom:GetChild("round_icon").asCom:GetChild("icon").asCom;
+
+		tagCom.data = compBindInfo;
+	end
+    if bindSp ~= nil and bindSp.SkillInfo ~= nil then
+        compBindInfo.txtName.text = bindSp.SkillInfo.skill_name;
+        local tagSpt = CS.GUIHelper.GetIconSprite(bindSp.SkillInfo.skill_icon);
+        if compBindInfo.lastSpt ~= tagSpt then
+            CS.GUIHelper.CreateSpriteForTarget(compBindInfo.imgIcon, tagSpt);
+            compBindInfo.lastSpt = tagSpt;
+        end
+
+        local skillDesc = CS.GameTools.GetSkillDescForCard(bindSp, tagCard);
+        compBindInfo.txtDesc.text = CS.GUIHelper.ConvertUGUIStr(skillDesc);
+    end
+end
+
+function GetCommonRepLevelColorVal(_val)
+    if _val <= -100 then
+        return "8f160d";
+    elseif _val <= -80 then
+        return "8f160d";
+    elseif _val <= -50 then
+        return "8f160d";
+    elseif _val <= -20 then
+        return "8f0d84";
+    elseif _val <= -1 then
+        return "8890df";
+    elseif _val <= 19 then
+        return "c9c9c9";
+    elseif _val <= 49 then
+        return "85bdba";
+    elseif _val <= 79 then
+        return "5abd3f";
+    elseif _val <= 99 then
+        return "e3df6a";
+    else
+        return "f5b546";
+    end
+end
+
+function GetPlaceRepStateDescWithColor(rep)
+    local colorVal = GetCommonRepLevelColorVal(rep);
+    local repStr = "[color=#" .. colorVal .. "]" .. CS.GUIHelper.GetPlaceRepStateInfoStr(rep) .. "[/color]";
+    return repStr;
+end
+
+function GetRoleRelationStateColor(_val)
+    return CS.GUIHelper.GetColor(GetCommonRepLevelColorVal(_val));
+end
+
+function SetJoystickKeyInfo(_keyInfo, _tagComp)
+    if _tagComp == nil then
+        return;
+    end
+    if CS.GameTools.IsJoystickConnected() then
+        local bindInfo = _tagComp.data;
+        if bindInfo == nil then
+            bindInfo = {};
+            bindInfo.listKeys = _tagComp:GetChild("info_list").asList;
+            _tagComp.data = bindInfo;
+        end
+        bindInfo.listKeys.numItems = 0;
+        if not IsEmptyOrNil(_keyInfo) then
+            local tagLines = SplitStr(_keyInfo, "|");
+            local nSubIndex = 0;
+            local szSeparator = "="
+            local keyVal;
+            local infoVal;
+            local lbKeyInfo;
+            for k, tagLine in pairs(tagLines) do
+                nSubIndex = string.find(tagLine, szSeparator, 0)
+                if nSubIndex > 0 then
+                    keyVal = string.sub(tagLine, 1, nSubIndex - 1)
+                    infoVal = string.sub(tagLine, nSubIndex + 1, -1)
+                    lbKeyInfo = bindInfo.listKeys:AddItemFromPool().asLabel;
+                    lbKeyInfo.title = infoVal;
+                    lbKeyInfo.icon = CS.GUIHelper.GetJoystickIconUrl(keyVal);
+                end
+            end
+        end
+        if bindInfo.listKeys.numItems > 0 then
+            bindInfo.listKeys:ResizeToFit();
+            _tagComp.visible = true;
+        else
+            _tagComp.visible = false;
+        end
+    else
+        _tagComp.visible = false;
+    end
+end
+
+curSkillDetailWin = nil;
+
+function TryHideNoLockedSkillDetailInfoUI()
+    HideCurSkillDetailWindow();
+end
+
+function HideCurSkillDetailWindow()
+    if curSkillDetailWin ~= nil then
+        CS.GUIHelper.ClosePopupUI(curSkillDetailWin);
+        curSkillDetailWin = nil;
+    end
+end
+
+--显示卡牌详情界面
+function ShowSkillDetailInfo(tagSp, tagObj, inverseX, _pageNode, _tagCard, _getRankDelegate)
+    local tagPos;
+    local offsetPos = Vector2(12, -2);
+    if (tagObj ~= nil) then
+        local posX = tagObj.width * (0.5 - tagObj.pivotX);
+        local posY = tagObj.height * (0.5 - tagObj.pivotY);
+        tagPos = tagObj:LocalToRoot(Vector2(posX, posY), nil);
+        offsetPos = Vector2(tagObj.width * 0.5 + 12, -tagObj.height * 0.5 - 2);
+    else
+        tagPos = Stage.inst:GetTouchPosition(-1);
+    end
+    return ShowSkillDetailInfoAtPos(tagSp, tagPos, offsetPos, inverseX, _pageNode, _tagCard, _getRankDelegate)
+end
+
+function ShowSkillDetailInfoAtPos(tagSp, tagPos, offsetPos, inverseX, _pageNode, _tagCard, _getRankDelegate)
+    TryHideNoLockedSkillDetailInfoUI();
+    if tagSp ~= nil then
+        local tagComp = CS.GUIHelper.ShowSkillInfoDetailWindow(tagSp, _pageNode, _tagCard, _getRankDelegate);
+        CS.GUIHelper.AdjustPopupUIPos(tagComp, tagPos, offsetPos, inverseX);
+        curSkillDetailWin = tagComp;
+        return curSkillDetailWin;
+    else
+        return nil;
+    end
+end
+
+function CreateSkillDetailByComp(_comp, _tagSp, _tagCard)
+    local luaWrapper = CS.GUIHelper.CreateLuaWrapperByComp(_comp, "gui/SkillInfoDetailWin", _tagSp, nil, _tagCard, nil);
+    return luaWrapper;
+end
+
+--显示传承详情
+function ShowLegacyDetailInfo(_legacyInfo, tagObj, _requireInfo)
+    local tagPos;
+    local offsetPos = Vector2(12, -2);
+    if (tagObj ~= nil) then
+        local posX = tagObj.width * (0.5 - tagObj.pivotX);
+        local posY = tagObj.height * (0.5 - tagObj.pivotY);
+        tagPos = tagObj:LocalToRoot(Vector2(posX, posY), nil);
+        offsetPos = Vector2(tagObj.width * 0.5 + 12, -tagObj.height * 0.5 - 2);
+    else
+        tagPos = Stage.inst:GetTouchPosition(-1);
+    end
+    HideLegacyDetailInfoWindow();
+    if _legacyInfo ~= nil then
+        local tagComp = CS.GUIHelper.ShowLegacyInfoDetailWindow(tagPos, offsetPos, _legacyInfo, _requireInfo);
+        return tagComp;
+    else
+        return nil;
+    end
+end
+
+function HideLegacyDetailInfoWindow()
+    TryHideNoLockedSkillDetailInfoUI();
+    TryHideNoLockedItemDetailInfoUI();
+    CS.GUIHelper.HideCurLegacyDetailInfoWindow()
+end
+
+function GetEquipSlotDefaultIconPath(i)
+    if i == 0 then
+        return "ui://NewUI/ui_equip_icon_weapon";
+    elseif i == 1 then
+        return "ui://NewUI/ui_equip_icon_armor";
+    elseif i == 2 then
+        return "ui://NewUI/ui_equip_icon_trinket";
+    elseif i == 3 then
+        return "ui://NewUI/ui_equip_icon_mount";
+    end
+    return "";
+end
+
+function SetAttributeStatViewType(_tagLb, _type, _clorType)
+    local lbCtl = _tagLb:GetController("view_type");
+    if lbCtl ~= nil then
+        lbCtl.selectedIndex = _type;
+    end
+    local ctlView = _tagLb.data;
+    if ctlView == nil then
+        ctlView = {};
+        ctlView.imgBar = _tagLb:GetChild("img_prog").asLoader;
+        ctlView.txtVal = _tagLb:GetChild("txt_val").asTextField;
+        ctlView.txtDesc = _tagLb:GetChild("stat_desc").asTextField;
+        _tagLb.data = ctlView;
+    end
+    if _clorType == 1 then
+        ctlView.imgBar.url = "ui://zuvkwb6nuc48pp";
+    elseif _clorType == 2 then
+        ctlView.imgBar.url = "ui://zuvkwb6nuc48pq";
+    else
+        ctlView.imgBar.url = "ui://zuvkwb6nuc48po";
+    end
+end
+
+function SetAttributeStatViewVal(_tagLb, _statVal, _refVal)
+    if _tagLb == nil then
+        return;
+    end
+
+    local ctlView = _tagLb.data;
+    if ctlView == nil then
+        return;
+    end
+    local rateVal = 0;
+    if _refVal ~= 0 then
+        rateVal = _statVal / _refVal;
+    end
+    if rateVal < 0 then
+        rateVal = 0;
+    elseif rateVal > 1 then
+        rateVal = 1;
+    end
+    ctlView.imgBar.width = rateVal * 200;
+    if rateVal < 0.01 then
+        ctlView.imgBar.visible = false;
+    else
+        ctlView.imgBar.visible = true;
+    end
+    ctlView.txtVal.text = tostring(_statVal);
+end
+
+function SetAttributeStatViewValPercentage(_tagLb, _statVal, _refVal)
+    local ctlView = _tagLb.data;
+    if ctlView == nil then
+        return;
+    end
+    local rateVal = 0;
+    if _refVal ~= 0 then
+        rateVal = _statVal / _refVal;
+    end
+    if rateVal < 0 then
+        rateVal = 0;
+    elseif rateVal > 1 then
+        rateVal = 1;
+    end
+    ctlView.imgBar.width = rateVal * 200;
+    if rateVal < 0.01 then
+        ctlView.imgBar.visible = false;
+    else
+        ctlView.imgBar.visible = true;
+    end
+    ctlView.txtVal.text = tostring(_statVal) .. "%";
+end
+
+function SetAttributeStatViewDesc(_tagLb, _descInfo)
+    if _tagLb == nil then
+        return
+    end
+
+    local ctlView = _tagLb.data;
+    if ctlView == nil then
+        return;
+    end
+    ctlView.txtDesc.text = ":" .. tostring(_descInfo);
+end
+
+function SetAttributeStatViewIconDesc(_tagLb, _iconUrl, _descInfo)
+    local ctlView = _tagLb.data;
+    if ctlView == nil then
+        return;
+    end
+    _tagLb.icon = _iconUrl;
+    ctlView.txtDesc.text = tostring(_descInfo);
+end
+
+--技能页技能是否能够被设置快捷栏
+function IsPageSpSlotEnableSetQuickSlot(_tagSlot)
+	if _tagSlot == nil then
+		return false;
+	end
+	if _tagSlot.curState ~= 0 or IsEmptyOrNil(_tagSlot.skillID) then
+		return false;
+	end
+	local tagSp = _tagSlot.slotInfo.bindSp;
+	if tagSp == nil or tagSp.SkillInfo == nil then
+		return false;
+	end
+	if tagSp.SkillInfo.skill_type ~= 0 then
+		return false;
+	end
+	return true;
+end
+
+constrUnitLevelBoxInfoS = GetGameString("lua_script_str_243");
+
+function UpdateUnitLevelBoxView(_tagBox, _curLevel, _maxLevel)
+    _tagBox.title = tostring(_curLevel);
+    _tagBox.tooltips = CS.GameCoreHelper.StringFormat(constrUnitLevelBoxInfoS, _maxLevel);
+    local objLvMark = _tagBox:GetChild("lv_mark");
+    if objLvMark ~= nil then
+        if (_curLevel >= _maxLevel) then
+            objLvMark.visible = true;
+        else
+            objLvMark.visible = false;
+        end
+    end
+end
+
+function AddHeroSlotViewPUI(tagRoleInfo, _listTag, _tagLv, _btnFunc)
+	local _tagSlotBtn = _tagLv:AddItemFromPool().asButton;
+    local _tagSlot = CreateHeroSlotInfoByCardPUI(_tagSlotBtn, _listTag, _btnFunc);
+    SetHeroSlotBindInfoPUI(_tagSlot, tagRoleInfo);
+    return _tagSlot;
+end
+
+function CreateHeroSlotInfoByCardPUI(_tagSlotBtn, _listTag, _btnFunc)
+    local compBindInfo = _tagSlotBtn.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+        compBindInfo = CreateHeroSlotInfoPUI(_tagSlotBtn, _listTag, function()
+            if _btnFunc ~= nil then
+                _btnFunc(compBindInfo);
+            end
+        end);
+		_tagSlotBtn.data = compBindInfo;
+	end
+    return compBindInfo;
+end
+
+function SetHeroSlotBindInfoPUI(compBindInfo, tagRoleInfo)
+    compBindInfo.cardInfo = nil;
+	compBindInfo.bindRole = tagRoleInfo;
+	if tagRoleInfo ~= nil then
+		compBindInfo.cardInfo = tagRoleInfo.BindCard;
+		compBindInfo.bindBtn.title = tagRoleInfo:GetRoleName();
+		CS.GUIHelper.GenerateRoleHeadAvataImage(tagRoleInfo.HeadAvata, compBindInfo.headImg);
+	end
+end
+
+function CreateHeroSlotInfoPUI(_tagSlotBtn, _listTag, _btnFunc)
+    --初始化控件绑定信息
+    compBindInfo = {};
+    compBindInfo.slotType = 0;
+    compBindInfo.cardInfo = nil;
+    compBindInfo.listTag = _listTag;
+    compBindInfo.bindBtn = _tagSlotBtn;
+    compBindInfo.selOnFrame = _tagSlotBtn:GetChild("frame_on").asImage;
+    compBindInfo.headImg = _tagSlotBtn:GetChild("role_head"):GetChild("head_holder").asImage;
+    compBindInfo.txtLevel = _tagSlotBtn:GetChild("txt_level").asTextField;
+    compBindInfo.imgAlertMark = _tagSlotBtn:GetChild("icon_warning").asCom;
+    compBindInfo.imgQuestMark = _tagSlotBtn:GetChild("quest_icon").asCom;
+    compBindInfo.lbGroupNo = _tagSlotBtn:GetChild("group_no").asLabel;
+    compBindInfo.lbGroupNo.visible = false;
+    compBindInfo.bindBtn.onClick:Set(function()
+        if _btnFunc ~= nil then
+            _btnFunc(compBindInfo);
+        end
+    end);
+
+    _tagSlotBtn.data = compBindInfo;
+
+	return compBindInfo;
+end
+
+function AddSoldierSlotViewPUI(tagSoldierCard, _listTag, _tagLv, _btnFunc)
+	local _tagSlotBtn = _tagLv:AddItemFromPool().asButton;
+	local _tagSlot = CreateSoldierSlotInfoByCardPUI(_tagSlotBtn, _listTag, _btnFunc);
+    SetSoldierSlotBindInfoPUI(_tagSlot, tagSoldierCard);
+    return _tagSlot;
+end
+
+function CreateSoldierSlotInfoByCardPUI(_tagSlotBtn, _listTag, _btnFunc)
+    local compBindInfo = _tagSlotBtn.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+        compBindInfo = CreateSoldierSlotInfoPUI(_tagSlotBtn, _listTag, function()
+            if _btnFunc ~= nil then
+                _btnFunc(compBindInfo);
+            end
+        end);
+		_tagSlotBtn.data = compBindInfo;
+	end
+    return compBindInfo;
+end
+
+function SetSoldierSlotBindInfoPUI(compBindInfo, tagSoldierCard)
+    compBindInfo.cardInfo = tagSoldierCard;
+	if tagSoldierCard ~= nil then
+		compBindInfo.bindBtn.title = tagSoldierCard:GetDisplayName();
+        if compBindInfo.isWideBar then
+            compBindInfo.bgImg.url = GetSoldierWideSlotBgImgUrl(tagSoldierCard);
+        else
+		    compBindInfo.bgImg.url = GetSoldierSlotBgImgUrl(tagSoldierCard);
+        end
+		compBindInfo.headImg.url = tagSoldierCard:GetUnitHeadImgUrl();
+	end
+end
+
+function CreateSoldierSlotInfoPUI(_tagSlotBtn, _listTag, _btnFunc)
+    compBindInfo = {};
+    compBindInfo.slotType = 1;
+    compBindInfo.cardInfo = nil;
+    compBindInfo.listTag = _listTag;
+    compBindInfo.bindBtn = _tagSlotBtn;
+    compBindInfo.bgImg = _tagSlotBtn:GetChild("bg").asLoader;
+    local _tagComp = _tagSlotBtn:GetChild("frame_on");
+    if _tagComp ~= nil then
+        compBindInfo.selOnFrame = _tagComp.asImage;
+    else
+        compBindInfo.selOnFrame = nil;
+    end
+    compBindInfo.headImg = _tagSlotBtn:GetChild("unit_head"):GetChild("head_holder").asLoader;
+    compBindInfo.txtLevel = _tagSlotBtn:GetChild("txt_level").asTextField;
+    _tagComp = _tagSlotBtn:GetChild("icon_warning");
+    if _tagComp ~= nil then
+        compBindInfo.imgAlertMark = _tagComp.asCom;
+        compBindInfo.imgAlertMark.visible = false;
+    else
+        compBindInfo.imgAlertMark = nil;
+    end
+    _tagComp = _tagSlotBtn:GetChild("prog_mask");
+    if _tagComp ~= nil then
+        compBindInfo.progHp = _tagComp.asImage;
+    else
+        compBindInfo.progHp = nil;
+    end
+    compBindInfo.imgArmyType = _tagSlotBtn:GetChild("unit_tag").asLoader;
+    compBindInfo.lbGroupNo = _tagSlotBtn:GetChild("group_no").asLabel;
+    compBindInfo.lbGroupNo.visible = false;
+
+    local gemBox = _tagSlotBtn:GetChild("gem_box").asCom;
+    compBindInfo.listGems = {};
+    for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+        local tagSlotObj = gemBox:GetChild("gem_slot_" .. (index + 1));
+        if tagSlotObj ~= nil then
+            compBindInfo.listGems[index] = tagSlotObj.asLoader;
+        end
+    end
+
+    compBindInfo.bindBtn.onClick:Set(_btnFunc);
+    compBindInfo.isWideBar = false;
+
+    return compBindInfo;
+end
+
+function UpdateHeroSlotPUI(_tagSlot, _showGroupNo)
+	if _tagSlot ~= nil and _tagSlot.bindRole ~= nil then
+		local tagRole = _tagSlot.bindRole;
+		_tagSlot.imgAlertMark.visible = false;
+		_tagSlot.imgQuestMark.visible = false;
+		_tagSlot.txtLevel.text = tostring(tagRole.roleLevel);
+
+        if tagRole:IsPlayer() then
+            _showGroupNo = false;
+        end
+		--英雄
+		if tagRole:HasUnlockDistributeSp() then
+			_tagSlot.imgAlertMark.visible = true;
+		end
+		--检查任务标记
+		if not tagRole:IsPlayer() then
+			if tagRole:HasQuestBinded() then
+				_tagSlot.imgQuestMark.visible = true;
+			end
+		end
+        if _tagSlot.lbGroupNo ~= nil then
+            _tagSlot.lbGroupNo.visible = false;
+            if _showGroupNo then
+                _tagSlot.lbGroupNo.text = tostring(_tagSlot.cardInfo:GetPartyGroupNo());
+                _tagSlot.lbGroupNo.visible = true;
+            end
+        end
+	end
+end
+
+function GetArmyTypeIconUrl(_type)
+    if _type == 1 then
+        return "ui://zuvkwb6nlfy5q9";
+    elseif _type == 2 then
+        return "ui://zuvkwb6nlfy5qa";
+    else
+        return "";
+    end
+end
+
+constrArmyTypeDesc1 = GetGameString("lua_script_str_244");
+constrArmyTypeDesc2 = GetGameString("lua_script_str_245");
+constrArmyTypeDesc3 = GetGameString("lua_script_str_246");
+function GetArmyTypeTooltipInfo(_type)
+    if _type == 1 then
+        return constrArmyTypeDesc1;
+    elseif _type == 2 then
+        return constrArmyTypeDesc2;
+    elseif _type == 3 then
+        return constrArmyTypeDesc3;
+    else
+        return "";
+    end
+end
+
+function UpdateSoldierSlotPUI(_tagSlot, _showGroupNo, _hideAlertIcon)
+	if _tagSlot ~= nil and _tagSlot.cardInfo ~= nil then
+		--小兵
+		local _cardInfo = _tagSlot.cardInfo;
+        if _tagSlot.imgAlertMark ~= nil then
+		    _tagSlot.imgAlertMark.visible = false;
+        end
+
+        if _tagSlot.progHp ~= nil then
+            local curPct = 0;
+            if _cardInfo.MaxDurability > 0 then
+                curPct = 1 - (_cardInfo.CurAvailable * 1.0 / _cardInfo.MaxDurability);
+            end
+            _tagSlot.progHp.fillAmount = curPct;
+        end
+
+        if _cardInfo.CampArmyType > 0 and _cardInfo.CampArmyType <= 2 then
+            _tagSlot.imgArmyType.visible = true;
+            _tagSlot.imgArmyType.url = GetArmyTypeIconUrl(_cardInfo.CampArmyType);
+            _tagSlot.imgArmyType.tooltips = GetArmyTypeTooltipInfo(_cardInfo.CampArmyType);
+        else
+            _tagSlot.imgArmyType.visible = false;
+        end
+
+        local gemCount = _cardInfo:GetGemSlotsCount();
+        local _colorType = 0;
+        local _tagSlotItem = nil;
+        for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+            local tagSlotObj = _tagSlot.listGems[index];
+            if tagSlotObj ~= nil then
+                if index >= gemCount then
+                    tagSlotObj.visible = false;
+                else
+                    tagSlotObj.visible = true;
+                    _colorType = _cardInfo:GetGemSlotColorType(index);
+                    _tagSlotItem = _cardInfo:GetGemItemInSlot(index);
+                    tagSlotObj.url = GetSimpleMiniGemSlotView(_colorType, _tagSlotItem);
+                end
+            end
+        end
+
+		_tagSlot.txtLevel.text = tostring(_cardInfo.Level);
+        if _hideAlertIcon ~= true then
+            if _tagSlot.imgAlertMark ~= nil and CS.CardLogic.CouldUpgrade(_cardInfo) then
+                _tagSlot.imgAlertMark.visible = true;
+            end
+        end
+
+        if _tagSlot.lbGroupNo ~= nil then
+            _tagSlot.lbGroupNo.visible = false;
+            if _showGroupNo then
+                _tagSlot.lbGroupNo.text = tonumber(_tagSlot.cardInfo:GetPartyGroupNo());
+                _tagSlot.lbGroupNo.visible = true;
+            end
+        end
+	end
+end
+
+function SetSoldierSlotAlert(_tagSlot, _showAlert)
+    if _tagSlot.imgAlertMark ~= nil then
+        _tagSlot.imgAlertMark.visible = _showAlert;
+    end
+end
+
+function UpdateSimpleSkillList(_tagLv, _skillList, _bindCard)
+    if _skillList ~= nil and _skillList.Count > 0 then
+        _tagLv.numItems = _skillList.Count;
+        local tagSp;
+        local tagBtn;
+        for index=0,_skillList.Count-1 do
+			tagSp = _skillList[index];
+			tagBtn = _tagLv:GetChildAt(index);
+            UpdateSimpleSkillSlot(tagBtn, tagSp, _bindCard, nil);
+		end
+    else
+        _tagLv.numItems = 0;
+    end
+end
+
+function UpdateSimpleSkillSlot(_tagBtn, _tagSp, _bindCard, _onClick)
+    local spSlot = _tagBtn.data;
+    if spSlot == nil then
+        spSlot = {};
+        spSlot.bindBtn = _tagBtn;
+		spSlot.txtLevel = _tagBtn:GetChild("level").asTextField;
+		spSlot.imgIcon = _tagBtn:GetChild("icon").asLoader;
+		spSlot.lastIconUrl = nil;
+        spSlot.imgSelframe = _tagBtn:GetChild("sel_frame").asImage;
+
+        if _onClick ~= nil then
+            _tagBtn.onClick:Set(_onClick);
+        else
+            if IsMobileMode then
+                _tagBtn.onClick:Set(function()
+                    OnSimpleSkillSlotRollOver(spSlot);
+                end);
+            else
+                _tagBtn.onClick:Set(nil);
+                _tagBtn.onRollOver:Set(function()
+                    OnSimpleSkillSlotRollOver(spSlot);
+                end);
+                _tagBtn.onRollOut:Set(function()
+                    OnSimpleSkillSlotRollOut(spSlot);
+                end);
+            end
+        end
+
+        _tagBtn.data = spSlot;
+    end
+
+    spSlot.bindSp = _tagSp;
+    spSlot.bindCard = _bindCard;
+
+    local maxLevel = _tagSp.SkillInfo.MaxLevel;
+    if maxLevel > 1 then
+        spSlot.txtLevel.text = tostring(_tagSp.skillLevel);
+        spSlot.txtLevel.visible = true;
+    else
+        spSlot.txtLevel.visible = false;
+    end
+    local iconUrl = _tagSp.SkillInfo.skill_icon;
+	if spSlot.lastIconUrl ~= iconUrl then
+		spSlot.imgIcon.url = CS.GUIHelper.GetItemSkillPathByName(iconUrl);
+		spSlot.lastIconUrl = iconUrl;
+	end
+    return spSlot;
+end
+
+function OnSimpleSkillSlotRollOver(_tagSlot)
+    if _tagSlot == nil then
+		return;
+	end
+	--self:UpdateActionPanelForSlot(_tagSlot);
+	local tagSp = _tagSlot.bindSp;
+	if tagSp == nil then
+		return;
+	end
+	ShowSkillDetailInfo(tagSp, _tagSlot.bindBtn, false, nil, _tagSlot.bindCard, nil);
+end
+
+function OnSimpleSkillSlotRollOut(_tagSlot)
+    if _tagSlot == nil then
+		return;
+	end
+	TryHideNoLockedSkillDetailInfoUI();
+end
+
+function CreateUnitBaseAttrBox(_tagComp)
+    local baseInfoBox = {};
+    baseInfoBox.ctlViewStyle = _tagComp:GetController("show_style");
+
+	baseInfoBox.imgModelHolder = _tagComp:GetChild("cliper_bg"):GetChild("model_holder").asImage;
+
+	baseInfoBox.expBarView = _tagComp:GetChild("exp_bar").asCom;
+	baseInfoBox.imgProgExp = baseInfoBox.expBarView:GetChild("exp_bar").asImage;
+	baseInfoBox.txtExp = baseInfoBox.expBarView:GetChild("txt_exp").asTextField;
+	baseInfoBox.lbLevel = _tagComp:GetChild("lb_level").asLabel;
+	baseInfoBox.txtName = _tagComp:GetChild("txt_name").asTextField;
+	baseInfoBox.txtInfo = _tagComp:GetChild("txt_info").asTextField;
+	baseInfoBox.txtArmyInfo = _tagComp:GetChild("txt_armyinfo").asTextField;
+
+    baseInfoBox.lvGems = _tagComp:GetChild("gem_list").asList;
+    baseInfoBox.cardSlots = {};
+    baseInfoBox.curSlotCount = 0;
+    for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+        local tagSlotObj = baseInfoBox.lvGems:GetChildAt(index);
+        if tagSlotObj ~= nil then
+            baseInfoBox.cardSlots[index] = InitCardSubSlotCommon(tagSlotObj, baseInfoBox);
+        end
+    end
+
+    baseInfoBox.OnGemSlotClick = nil;
+    baseInfoBox.OnGemSlotRollOver = OnCardSubSlotRollOverCommon;
+    baseInfoBox.OnGemSlotRollOut = OnCardSubSlotRollOutCommon;
+
+    return baseInfoBox;
+end
+
+local constrUnitInfo = GetGameString("lua_script_str_247");
+function UpdateUnitBaseAttrBox(baseAttrBox, curCard)
+    baseAttrBox.bindCard = curCard;
+    local curExp = curCard.Exp;
+
+    baseAttrBox.txtName.text = curCard:GetDisplayName();
+    baseAttrBox.txtInfo.text = CS.GameCoreHelper.StringFormat(constrUnitInfo, curCard.CurAvailable, curCard.MaxDurability);
+    if curCard.CampArmyType > 0 then
+        local typeInfo = GetCampArmyTypeName(curCard.CampArmyType);
+        if curCard.CampArmyType == 2 then
+            local fromPlace = CS.GameCoreHelper.GetGamePlace(curCard.FromID);
+            if fromPlace ~= nil then
+                typeInfo = typeInfo.. "(" .. fromPlace:GetPlaceName() .. ")";
+            end
+        end
+        baseAttrBox.txtArmyInfo.text = typeInfo;
+        baseAttrBox.txtArmyInfo.visible = true;
+    else
+        baseAttrBox.txtArmyInfo.visible = false;
+    end
+
+    local levelUpVal = curCard:GetLevelUpExp(curCard.Level);
+    local maxLevel = curCard:GetCardMaxLevel();
+    local pct = 0;
+    if levelUpVal > 0 then
+        pct = Clamp(curExp / levelUpVal, 0, 1);
+    end
+    if curCard.Level >= maxLevel then
+        baseAttrBox.txtExp.visible = false;
+        pct = 1;
+    else
+        baseAttrBox.txtExp.visible = true;
+    end
+    baseAttrBox.imgProgExp.fillAmount = pct;
+    baseAttrBox.txtExp.text = curExp .. "/" .. levelUpVal;
+    UpdateUnitLevelBoxView(baseAttrBox.lbLevel, curCard.Level, maxLevel);
+
+    --渲染卡牌插槽
+    UpdateCardSubSlotsView(baseAttrBox, curCard);
+
+    --渲染兵牌
+    if baseAttrBox.imgModelHolder ~= nil then
+        local tagModelInfo = curCard:GetUnit3DViewInfo();
+        baseAttrBox.modelCtl = nil;
+        if tagModelInfo ~= baseAttrBox.curModelInfo then
+            baseAttrBox.modelCtl = CS.GUIHelper.CreateModelViewToTagGraphHolder(tagModelInfo,
+                    baseAttrBox.imgModelHolder);
+            baseAttrBox.curModelInfo = tagModelInfo;
+        end
+    end
+end
+
+function InitPartyInstruceBox(_tabList)
+    local ctlTabs = CS.GUICtlListHeaderTabsBar.CreateComponentByList(_tabList, true);
+	ctlTabs:ClearTabList();
+	ctlTabs:AddTabItem("0", CS.GameTools.GetBattleInstructName(0));
+	ctlTabs:AddTabItem("1", CS.GameTools.GetBattleInstructName(1));
+	ctlTabs:AddTabItem("2", CS.GameTools.GetBattleInstructName(2));
+	return ctlTabs;
+end
+
+function InitPartyMemberGroupSelCombo(_tagCmb)
+    local cmbGroupOpts = "";
+	for index=1,CONFIG_MAX_GROUP_COUNT do
+        if index > 1 then
+			cmbGroupOpts = cmbGroupOpts .. ";";
+		end
+		cmbGroupOpts = cmbGroupOpts .. tostring(index) .. "," .. CS.GameCoreHelper.StringFormat(GetGameString("lua_script_str_256"), index);
+    end
+	CS.GUIHelper.SetComboBoxItems(_tagCmb, cmbGroupOpts);
+end
+
+function ShowPartyCardsDisposeWindow(_callback)
+    local uiPkg = constPackageNewUI
+    local uiCom = "PartyCardsDisposeWindow"
+    if IsMobileMode then
+        uiCom = "PartyCardsDisposeWindowM"
+    end
+
+    local newWindow = CS.GUIHelper.ShowGUIWindow(uiPkg, uiCom, "gui/PartyCardsDisposeWindow", "", _callback, true);
+    return newWindow;
+end
+
+function CreateRankTitleBox(_tagComp)
+    local baseInfoBox = {};
+	baseInfoBox.bindView = _tagComp;
+	baseInfoBox.imgProgExp = _tagComp:GetChild("exp_bar").asImage;
+	baseInfoBox.txtStat = _tagComp:GetChild("txt_stat").asTextField;
+	baseInfoBox.txtRank = _tagComp:GetChild("txt_num").asTextField;
+    baseInfoBox.txtTitle = _tagComp:GetChild("txt_title").asTextField;
+
+    return baseInfoBox;
+end
+
+function SetRankTitleBoxVal(_tagBox, _progVal, _rank, _statInfo, _titleInfo)
+    if _tagBox ~= nil then
+        _tagBox.imgProgExp.fillAmount = _progVal;
+        _tagBox.txtRank.text = tostring(_rank);
+        _tagBox.txtStat.text = _statInfo;
+        _tagBox.txtTitle.text = _titleInfo;
+    end
+end
+
+---@param contentPane FairyGUI.GComponent
+function CreateQuickCloseBg(contentPane, onClick)
+    local graph = CS.FairyGUI.GGraph()
+    graph.alpha = 0
+    contentPane.parent:AddChildAt(graph, contentPane.parent:GetChildIndex(contentPane))
+    graph:SetSize(GRoot.inst.width * 0.9, GRoot.inst.height * 0.9)
+    graph:Center()
+    graph:DrawRect(graph.width, graph.height, 0,
+        CS.GUIHelper.GetColor("FFFFFF"), CS.GUIHelper.GetColor("FFFFFF"))
+    graph.onClick:Add(onClick)
+end

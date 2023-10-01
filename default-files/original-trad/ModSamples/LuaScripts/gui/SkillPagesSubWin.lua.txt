@@ -1,0 +1,1326 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+--require("LuaPanda").start("127.0.0.1",8818)
+
+SKILLPAGE_ID_OTHER = "Other";
+SKILLPAGE_ID_LEGACY = "Legacy";
+SKILLPAGE_ID_EQUIP = "Equip";
+
+local GameCoreHelper = CS.GameCoreHelper
+
+local isMobileMode;
+
+SkillPagesSubWin = {
+    curRole = nil,
+    curSkillPages = nil,
+    curPageViews = nil,
+    curPageCount = 0,
+    onPageRefreshed = nil,
+    curUsedSp = 0,
+    curOpSpList = nil,
+    curDragingOpSlot = nil,
+    curActionBarType = 0,
+    curFightSpList = nil,
+    curActionBarSlots = nil,
+    curOpSlotTarget = nil,
+    isEnableTavernFight = false,
+    RefreshParentListCallback = nil,
+    groupKeyConfig = nil,
+}
+
+SkillPagesSubWin.meta = { __index = SkillPagesSubWin }
+
+function SkillPagesSubWin:Create()
+    local tagClass = {}
+    setmetatable(tagClass, self.meta)
+    return tagClass
+end
+
+function SkillPagesSubWin:Init(_tagComp, _disableSkillSlot)
+    self.mainView = _tagComp;
+    self.disableSkillSlot = _disableSkillSlot;
+
+    isMobileMode = CS.GameTools.IsMobileMode();
+
+    self.lvPages = _tagComp:GetChild("page_list").asList;
+    self.actionBarNormal = _tagComp:GetChild("normal_actionbar").asCom;
+    self.actionBarFight = _tagComp:GetChild("fight_actionbar").asCom;
+
+    self.lbSpNum = self.actionBarNormal:GetChild("lb_spbox").asLabel;
+    local actionBarComp = self.actionBarNormal:GetChild("action_bar").asCom;
+    self.ctlActionBar = CS.GUIHelper.CreateActionBarListUI(actionBarComp, "list_slots");
+    self.ctlActionBar:SetActionBarOpMode(1);
+    self.ctlActionBar:RefreshQuickSlots();
+    self.compActionBar = actionBarComp;
+    self.btnSave = self.actionBarNormal:GetChild("btn_save").asButton;
+    self.btnSave.onClick:Add(function()
+        PlayButtonSound();
+        self:ApplySkillDistribute();
+    end);
+
+    local skillSlotObjs = CS.GUIHelper.CreateEmptyObjList();
+    skillSlotObjs:Add(self.actionBarFight:GetChild("slot_0"));
+    skillSlotObjs:Add(self.actionBarFight:GetChild("slot_1"));
+    skillSlotObjs:Add(self.actionBarFight:GetChild("slot_2"));
+    skillSlotObjs:Add(self.actionBarFight:GetChild("slot_3"));
+    skillSlotObjs:Add(self.actionBarFight:GetChild("slot_4"));
+    self.ctlActionBarFight = CS.GUIHelper.CreateActionBarListUIbyObjs(self.actionBarFight, skillSlotObjs);
+    self.ctlActionBarFight:SetActionBarOpMode(1);
+    self.ctlActionBarFight:SetActionBarSlotRemovedCallback(function(_index)
+        self:RemoveTagActionSlot(_index);
+    end);
+
+    self.groupKeyConfig = _tagComp:GetChild("g_btns").asGroup;
+    local btnKeyConfig = _tagComp:GetChildInGroup(self.groupKeyConfig, "btn_skill_key").asButton;
+    local btnKeyConfigFight = _tagComp:GetChildInGroup(self.groupKeyConfig, "btn_fightskill_key").asButton;
+
+    if isMobileMode then
+        btnKeyConfig.onClick:Add(onClickBtnKeyConfigNormal);
+        self.btnSave.visible = true;
+    else
+        self.btnSave.visible = true;
+    end
+
+    self.isEnableTavernFight = IsTavernFightEnable();
+    self.fightSkillPage = nil;
+    if self.isEnableTavernFight then
+        self.fightSkillPage = GameCoreHelper.GetSkillPageInfo(ID_FIGHT_SKILLPAGE);
+        if isMobileMode then
+            btnKeyConfigFight.visible = true;
+            btnKeyConfigFight.onClick:Add(onClickBtnKeyConfigFight);
+        end
+    else
+        if isMobileMode then
+            btnKeyConfigFight.visible = false;
+        end
+    end
+
+    if _disableSkillSlot then
+        self.btnSave.visible = false;
+        self.groupKeyConfig.visible = false;
+        self.actionBarNormal.visible = false;
+        self.actionBarFight.visible = false;
+    end
+
+    CS.GUIHelper.CheckPlayerQuickSlotList();
+
+    self:SetActionBarType(0);
+end
+
+function onClickBtnKeyConfigNormal()
+    PlayButtonSound()
+
+    CS.GUIHelper.ShowActionBarConfigUI(0, nil);
+end
+
+function onClickBtnKeyConfigFight()
+    PlayButtonSound()
+
+    CS.GUIHelper.ShowActionBarConfigUI(1, nil);
+end
+
+function SkillPagesSubWin:SetCurRole(_tagRole)
+    self.curRole = _tagRole;
+    self:ResetSpDistribute();
+    self:RefreshRoleSkills();
+end
+
+function SkillPagesSubWin:SetActionBarType(_actionBarType)
+    self.curActionBarType = _actionBarType;
+    self:UpdateActionBarView();
+end
+
+function SkillPagesSubWin:UpdateActionBarView()
+    self.groupKeyConfig.visible = false;
+    if self.disableSkillSlot then
+        self.actionBarNormal.visible = false;
+        self.actionBarFight.visible = false;
+        self.groupKeyConfig.visible = false;
+    elseif isMobileMode then
+        self.actionBarNormal.visible = true;
+        self.actionBarFight.visible = false;
+        if self.curRole ~= nil and self.curRole:IsPlayer() then
+            self.groupKeyConfig.visible = true;
+        end
+    else
+        if self.curActionBarType == 1 then
+            self.actionBarNormal.visible = false;
+            self.actionBarFight.visible = true;
+        else
+            self.actionBarNormal.visible = true;
+            self.actionBarFight.visible = false;
+        end
+    end
+    self:CancelCurDragOp();
+end
+
+function SkillPagesSubWin:IsChanged()
+    if self.curOpSpList ~= nil then
+        local changedCount = 0;
+        for k, v in pairs(self.curOpSpList) do
+            if v ~= nil and v.opCount > 0 then
+                changedCount = changedCount + v.opCount;
+            end
+        end
+        if changedCount > 0 then
+            return true;
+        end
+    end
+    return false;
+end
+
+function SkillPagesSubWin:ResetSpDistribute()
+    self.curUsedSp = 0;
+    self.curOpSpList = {};
+end
+
+function SkillPagesSubWin:UpdateUiStats()
+    if self:IsChanged() then
+        self.btnSave.enabled = true;
+    else
+        self.btnSave.enabled = false;
+    end
+end
+
+function SkillPagesSubWin:RefreshRoleSkills()
+    if self.curRole == nil then
+        self.mainView.visible = false;
+    else
+        self.mainView.visible = true;
+
+        local curRole = self.curRole;
+
+        self.lvPages.numItems = 0;
+        self.curSkillPages = {};
+        self.curSortIndex = 0;
+
+        local tagPageID;
+        for index = 0, curRole.skillPagesList.Count - 1 do
+            tagPageID = curRole.skillPagesList[index];
+            self:AddSkillPageByID(tagPageID, nil);
+        end
+
+        local tagSp = nil;
+        --检查角色现有技能
+        if curRole.natureSpList ~= nil then
+            local allNatureSpList = CS.GameTools.GetSpListBySDic(curRole.natureSpList);
+            for index = 0, allNatureSpList.Count - 1 do
+                tagSp = allNatureSpList[index];
+                if not self:IsContainSkill(tagSp.skillID) then
+                    self:AddSkillPageByID(SKILLPAGE_ID_OTHER, tagSp);
+                end
+            end
+        end
+        if curRole.distributeSpList ~= nil then
+            local allDistribSpList = CS.GameTools.GetSpListBySDic(curRole.distributeSpList);
+            for index = 0, allDistribSpList.Count - 1 do
+                tagSp = allDistribSpList[index];
+                if not self:IsContainSkill(tagSp.skillID) then
+                    self:AddSkillPageByID(SKILLPAGE_ID_OTHER, tagSp);
+                end
+            end
+        end
+
+        --来自装备
+        if curRole.equipSpList ~= nil then
+            local allEquipSpList = CS.GameTools.GetSpListBySDic(curRole.equipSpList);
+            for index = 0, allEquipSpList.Count - 1 do
+                tagSp = allEquipSpList[index];
+                self:AddSkillPageByID(SKILLPAGE_ID_EQUIP, tagSp);
+            end
+        end
+
+        --传承页签
+        if curRole.customSpList ~= nil and curRole.customSpList.Count > 0 then
+            self:AddSkillPageByID(SKILLPAGE_ID_LEGACY, nil);
+        end
+
+        --搏击技能页
+        self.curFightSpList = nil;
+        if curRole:IsPlayer() and self.isEnableTavernFight and self.fightSkillPage ~= nil then
+            self:AddSkillPageByID(ID_FIGHT_SKILLPAGE, nil);
+            self.curFightSpList = GetSavedFightSpList();
+            self:UpdateFightActionBar();
+        end
+
+        local _showList = {};
+        for k, v in pairs(self.curSkillPages) do
+            if v.spList ~= nil and v.spCount > 0 then
+                table.insert(_showList, v);
+            end
+        end
+        table.sort(_showList, function(a, b)
+            return a.sortIndex < b.sortIndex;
+        end);
+        self.curPageViews = {};
+        self.curPageCount = 0;
+        local tagPageView;
+        for k, v in pairs(_showList) do
+            tagPageView = self:AddPageUI(v);
+            if tagPageView ~= nil then
+                self.curPageViews[self.curPageCount] = tagPageView;
+                self.curPageCount = self.curPageCount + 1;
+            end
+        end
+
+        self:SetActionBarType(0);
+        self:UpdateSkillPages();
+    end
+end
+
+function IsTagSlotEmpty(_tagPage, _col, _row)
+    local tagSlot;
+    for index = 0, _tagPage.spCount - 1 do
+        tagSlot = _tagPage.spList[index];
+        if tagSlot ~= nil then
+            if tagSlot.col == _col and tagSlot.row == _row then
+                return false;
+            end
+        end
+    end
+    return true;
+end
+
+function SkillPagesSubWin:AddSpToTagPage(_tagPage, _addSp, _col, _row)
+    if _addSp == nil then
+        return nil;
+    end
+    local emptyCol = _col;
+    local emptyRow = _row;
+    local isFound = false;
+    if IsTagSlotEmpty(_tagPage, _col, _row) then
+        isFound = true;
+    else
+        emptyCol = 0;
+        emptyRow = 0;
+        for rowIndex = 0, SKILLPAGE_ROW_MAX - 1 do
+            for colIndex = 0, SKILLPAGE_COL_MAX - 1 do
+                emptyCol = rowIndex;
+                if IsTagSlotEmpty(_tagPage, colIndex, rowIndex) then
+                    emptyCol = colIndex;
+                    emptyRow = rowIndex;
+                    isFound = true;
+                    break;
+                end
+            end
+            if isFound then
+                break;
+            end
+        end
+        if not isFound then
+            --未找到空余向右延伸
+            local _curColCount = 0;
+            local colStartIndex = SKILLPAGE_COL_MAX;
+            local tagColIndex = 0;
+            for colIndex = 0, 5 do
+                for rowIndex = 0, SKILLPAGE_ROW_MAX - 1 do
+                    emptyCol = rowIndex;
+                    tagColIndex = colStartIndex + colIndex;
+                    if IsTagSlotEmpty(_tagPage, tagColIndex, rowIndex) then
+                        emptyCol = tagColIndex;
+                        emptyRow = rowIndex;
+                        isFound = true;
+                        --判断是否需要扩展宽度
+                        _curColCount = emptyCol + 1;
+                        if _curColCount > _tagPage.colCount then
+                            _tagPage.colCount = _curColCount;
+                        end
+                        break;
+                    end
+                end
+                if isFound then
+                    break;
+                end
+            end
+        end
+    end
+    if isFound then
+        local addSlotInfo = {};
+        addSlotInfo.skillID = _addSp.skillID;
+        addSlotInfo.bindSp = _addSp;
+        addSlotInfo.col = emptyCol;
+        addSlotInfo.row = emptyRow;
+        addSlotInfo.bindNode = nil;
+        _tagPage.spList[_tagPage.spCount] = addSlotInfo;
+        _tagPage.spCount = _tagPage.spCount + 1;
+
+        if emptyCol >= _tagPage.colCount then
+            _tagPage.colCount = emptyCol + 1;
+        end
+
+        return addSlotInfo;
+    else
+        return nil;
+    end
+end
+
+function SkillPagesSubWin:AddSkillPageByID(_skillpageID, _addSp)
+    local tagPage = self.curSkillPages[_skillpageID];
+    if tagPage == nil then
+        tagPage = {};
+        tagPage.spList = {};
+        tagPage.spCount = 0;
+        tagPage.bgUrl = nil;
+        tagPage.colCount = SKILLPAGE_COL_MAX;
+        tagPage.isEquipPage = false;
+        tagPage.isFightPage = false;
+        self.curSkillPages[_skillpageID] = tagPage;
+
+        local pageName = "";
+        if _skillpageID == SKILLPAGE_ID_OTHER then
+            tagPage.bgUrl = "ui://zuvkwb6nf5xzmm";
+            pageName = CS.GameTools.GetGameString("UIItemSynthDlg_UpdatePageInfos");
+            tagPage.sortIndex = 99999;
+        elseif _skillpageID == SKILLPAGE_ID_EQUIP then
+            tagPage.bgUrl = "ui://zuvkwb6nf5xzmn";
+            pageName = CS.GameTools.GetGameString("UISkillDistribPage_AddTabBtnToList");
+            tagPage.sortIndex = 99997;
+            tagPage.isEquipPage = true;
+        elseif _skillpageID == SKILLPAGE_ID_LEGACY then
+            pageName = CS.GameTools.GetGameString("UISkillDistribPage_AddTabBtnToList_1");
+            tagPage.sortIndex = 99998;
+            tagPage.bgUrl = "ui://zuvkwb6nf5xzmo";
+            if self.curRole ~= nil then
+                local legacyPage = self.curRole:GetLegacyPage();
+                if legacyPage ~= nil then
+                    local allSpInTree = legacyPage:GetAllNodes();
+                    local tagNode;
+                    for index = 0, allSpInTree.Count - 1 do
+                        tagNode = allSpInTree[index];
+                        if tagNode ~= nil then
+                            local addSp = GameCoreHelper.GetSkillPoint(tagNode.skillID, tagNode.skillLevel);
+                            local addSlot = self:AddSpToTagPage(tagPage, addSp, 0, 0);
+                            if addSlot ~= nil then
+                                addSlot.bindNode = tagNode;
+                            end
+                        end
+                    end
+                end
+            end
+        else
+            local tagPagePojo = GameCoreHelper.GetSkillPageInfo(_skillpageID);
+            if tagPagePojo ~= nil then
+                if _skillpageID == ID_FIGHT_SKILLPAGE then
+                    tagPage.isFightPage = true;
+                end
+                pageName = tagPagePojo.display_name;
+                tagPage.bgUrl = tagPagePojo.res_name;
+                local allSpInTree = tagPagePojo:GetAllNodes();
+                local tagNode;
+                for index = 0, allSpInTree.Count - 1 do
+                    tagNode = allSpInTree[index];
+                    if tagNode ~= nil then
+                        local addSp = GameCoreHelper.GetSkillPoint(tagNode.skillID, tagNode.skillLevel);
+                        local addSlot = self:AddSpToTagPage(tagPage, addSp, math.max(0, tagNode.column - 1),
+                            math.max(0, tagNode.row - 1));
+                        if addSlot ~= nil then
+                            addSlot.bindNode = tagNode;
+                        end
+                    end
+                end
+            end
+            tagPage.sortIndex = self.curSortIndex;
+            self.curSortIndex = self.curSortIndex + 1;
+        end
+        tagPage.pageName = pageName;
+    end
+    if _addSp ~= nil then
+        local addSlot = self:AddSpToTagPage(tagPage, _addSp, 0, 0);
+        if addSlot ~= nil then
+            addSlot.bindNode = nil;
+        end
+    end
+end
+
+function SkillPagesSubWin:IsContainSkill(_tagSkillID)
+    local tagSp = nil;
+    for k, v in pairs(self.curSkillPages) do
+        if v.spList ~= nil and v.spCount > 0 then
+            for index = 0, v.spCount - 1 do
+                tagSp = v.spList[index];
+                if tagSp ~= nil then
+                    if tagSp.skillID == _tagSkillID then
+                        return true;
+                    end
+                end
+            end
+        end
+    end
+    if self.curRole ~= nil then
+        if self.curRole:IsLegacySkill(_tagSkillID) then
+            return true;
+        end
+    end
+    return false;
+end
+
+function SkillPagesSubWin:AddPageUI(_tagPage)
+    if _tagPage == nil then
+        return nil;
+    end
+    local newItemObj = self.lvPages:AddItemFromPool().asCom;
+    if newItemObj ~= nil then
+        local compBindInfo = newItemObj.data;
+        if compBindInfo == nil then
+            compBindInfo = self:CreateSkillPageView(newItemObj);
+            compBindInfo.mainView.onClick:Set(function()
+                local tagType = 0;
+                if compBindInfo.pageInfo.isFightPage then
+                    tagType = 1;
+                end
+                self:SetActionBarType(tagType);
+            end);
+            newItemObj.data = compBindInfo;
+        end
+
+        self:RefreshSkillPageView(compBindInfo, _tagPage);
+        return compBindInfo;
+    end
+    return nil;
+end
+
+function SkillPagesSubWin:CreateSkillPageView(_tagComp)
+    local pageView = {};
+    pageView.mainView = _tagComp;
+    pageView.txtTitle = _tagComp:GetChild("title").asTextField;
+    pageView.imgBg = _tagComp:GetChild("bg_img").asLoader;
+    pageView.compSlots = _tagComp:GetChild("skill_slots").asCom;
+
+    pageView.pageW = 0;
+
+    pageView.slotList = nil;
+
+    return pageView;
+end
+
+function SkillPagesSubWin:AddSkillPageSlot(pageView, _slotInfo)
+    local cellWidth = SKILLPAGE_SLOT_WIDTH;
+    local cellHeight = SKILLPAGE_SLOT_HEIGHT;
+    if IsMobileMode then
+        cellWidth = SKILLPAGE_SLOT_WIDTH_MOBILE;
+        cellHeight = SKILLPAGE_SLOT_HEIGHT_MOBILE;
+    end
+
+    local pageW = pageView.colCount * cellWidth;
+    if pageW > pageView.pageW then
+        pageView.pageW = pageW;
+    end
+    pageView.compSlots.width = pageW;
+
+    local tagCol = _slotInfo.col;
+    local tagRow = _slotInfo.row;
+    local tagPosX = math.floor(cellWidth * (tagCol + 0.5));
+    local tagPosY = math.floor(cellHeight * (tagRow + 0.5));
+
+    local tagSlotBtn
+    if IsMobileMode then
+        tagSlotBtn = UIPackage.CreateObject(constPackageNewUI, "SkillPageSlot1M").asButton;
+    else
+        tagSlotBtn = UIPackage.CreateObject(constPackageNewUI, "SkillPageSlot1").asButton;
+    end
+    tagSlotBtn.pivot = Vector2(0.5, 0.5);
+    tagSlotBtn.pivotAsAnchor = true;
+    tagSlotBtn:SetXY(tagPosX, tagPosY);
+    tagSlotBtn.sortingOrder = 100;
+
+    local spSlot = tagSlotBtn.data;
+    if spSlot == nil then
+        spSlot = {};
+        spSlot.bindBtn = tagSlotBtn;
+        spSlot.rankBox = tagSlotBtn:GetChild("g_rankinfo").asGroup;
+        spSlot.txtLevel = tagSlotBtn:GetChildInGroup(spSlot.rankBox, "level").asTextField;
+        spSlot.imgIcon = tagSlotBtn:GetChild("icon").asLoader;
+        spSlot.ctlState = tagSlotBtn:GetController("state");
+        spSlot.lastIconUrl = nil;
+
+        tagSlotBtn.onClick:Set(function()
+            self:OnClickTagSkillNode(spSlot);
+        end);
+        tagSlotBtn.onRightClick:Set(function()
+            self:OnRightClickTagSkillNode(spSlot);
+        end);
+
+        if not isMobileMode then
+            tagSlotBtn.onRollOver:Set(function()
+                self:OnSkillSlotRollOver(spSlot);
+            end);
+            tagSlotBtn.onRollOut:Set(function()
+                self:OnSkillSlotRollOut(spSlot);
+            end);
+        end
+
+        tagSlotBtn.draggable = true;
+        tagSlotBtn.onDragStart:Set(function(context)
+            context:PreventDefault();
+            self:onSlotDragStart(spSlot);
+        end);
+
+        tagSlotBtn.data = spSlot;
+    end
+
+    spSlot.slotPosX = tagPosX;
+    spSlot.slotPosY = tagPosY;
+    spSlot.isEquipPage = pageView.isEquipPage;
+    spSlot.slotInfo = _slotInfo;
+    spSlot.skillID = _slotInfo.skillID;
+    spSlot.isFightSkill = _slotInfo.isFightSkill;
+    spSlot.fightSkillType = 0;
+
+    local tagTreeNode = _slotInfo.bindNode;
+    if tagTreeNode ~= nil then
+        if tagTreeNode.preSkillList ~= nil and tagTreeNode.preSkillList.Length > 0 then
+            local preNode = nil;
+            local preSlot = nil;
+            for index = 0, tagTreeNode.preSkillList.Length - 1 do
+                preNode = tagTreeNode.preSkillList[index];
+                if preNode ~= nil then
+                    preSlot = pageView.slotList[preNode.skillID];
+                    if preSlot ~= nil then
+                        self:LinkSlotsInSkillPage(pageView, spSlot, preSlot);
+                    end
+                end
+            end
+        end
+    end
+
+    pageView.slotList[_slotInfo.skillID] = spSlot;
+    pageView.compSlots:AddChild(tagSlotBtn);
+end
+
+function SkillPagesSubWin:LinkSlotsInSkillPage(pageView, tagSlot, fromSlot)
+    if tagSlot ~= nil and fromSlot ~= nil then
+        local arrowObj = UIPackage.CreateObject(constPackageNewUI, "ui_skillpage_arrow1");
+        if arrowObj ~= nil then
+            local addArrowImg = arrowObj.asImage;
+            addArrowImg.pivot = Vector2(0.5, 0);
+            addArrowImg.pivotAsAnchor = true;
+            addArrowImg.sortingOrder = 0;
+            pageView.compSlots:AddChild(addArrowImg);
+
+            local fromPosX = fromSlot.slotPosX;
+            local fromPosY = fromSlot.slotPosY;
+            addArrowImg:SetXY(fromPosX, fromPosY);
+
+            local toPosX = tagSlot.slotPosX;
+            local toPosY = tagSlot.slotPosY;
+            local distToTagPos = CS.KTMyMath.GetPtToPtLen(fromPosX, fromPosY, toPosX, toPosY);
+            local rotVal = CS.KTMyMath.getOriginAngle(Vector2(toPosX - fromPosX, toPosY - fromPosY));
+            local constDis = 29
+            if IsMobileMode then
+                constDis = 40
+            end
+            local distOffset = constDis + math.abs(math.sin(math.rad(rotVal * 2))) * 11;
+            addArrowImg.rotation = rotVal - 90;
+            addArrowImg.height = math.max(10, distToTagPos - distOffset);
+        end
+    end
+end
+
+function SkillPagesSubWin:UpdateSkillPageSlot(_tagSlot)
+    if _tagSlot == nil or _tagSlot.slotInfo == nil then
+        return;
+    end
+    local tagSp = _tagSlot.slotInfo.bindSp;
+    if tagSp == nil then
+        return;
+    end
+
+    local tagNode = _tagSlot.slotInfo.bindNode;
+    local iconUrl = tagSp.SkillInfo.skill_icon;
+    local maxLevel = tagSp.SkillInfo.MaxLevel;
+    local equipAddSkillLevel = self.curRole:GetEquipSkillLevel(tagSp.skillID)
+    if _tagSlot.lastIconUrl ~= iconUrl then
+        _tagSlot.imgIcon.url = CS.GUIHelper.GetItemSkillPathByName(iconUrl);
+        _tagSlot.lastIconUrl = iconUrl;
+    end
+
+    local curSkillRank = self:GetSkillRank(tagSp.skillID, _tagSlot.isEquipPage);
+
+    local curState = 0;
+    _tagSlot.isEnableUpgrade = false;
+    _tagSlot.curOpCount = 0;
+    _tagSlot.fightSkillType = 0;
+    _tagSlot.fightSpCostItem = nil;
+    _tagSlot.fightSpCostNum = 0;
+    if _tagSlot.isFightSkill and self.curRole ~= nil then
+        _tagSlot.fightSkillType = GetFightSkillType(tagSp.SkillInfo:GetTagValue("fight_skill_class"));
+        _tagSlot.fightSpCostItem = tagSp.SkillInfo:GetTagValue("fight_cost_item");
+        local costNumStr = tagSp.SkillInfo:GetTagValue("fight_cost_num");
+        if not IsEmptyOrNil(costNumStr) and curSkillRank < (maxLevel + equipAddSkillLevel) then
+            local tagSpRank = math.max(1, curSkillRank + 1);
+            costNumStr = CS.GameTools.GetSkillConvertInfo(costNumStr, tagSp.SkillInfo, tagSpRank,
+                self.curRole.curRealStatu);
+            local numVal = tonumber(costNumStr);
+            if numVal ~= nil and numVal >= 0 then
+                _tagSlot.fightSpCostNum = math.floor(numVal);
+            end
+        end
+    end
+    if curSkillRank > 0 then
+        curState = 0;
+        if not _tagSlot.isEquipPage then
+            if tagNode ~= nil and self.curRole ~= nil then
+                if self:IsSkillEnableUpgrade(tagNode, tagSp.SkillInfo, curSkillRank, _tagSlot.isFightSkill) then
+                    _tagSlot.isEnableUpgrade = true;
+                end
+            end
+        end
+        _tagSlot.curOpCount = self:GetSkillSpOpCount(tagSp.skillID);
+    else
+        curState = 1;
+        if not _tagSlot.isEquipPage then
+            if tagNode ~= nil and self.curRole ~= nil then
+                if self:IsSkillEnableLearn(tagNode, curSkillRank) then
+                    if _tagSlot.isFightSkill then
+                        if _tagSlot.fightSpCostNum > 0 and not IsEmptyOrNil(_tagSlot.fightSpCostItem) then
+                            curState = 2;
+                        end
+                    else
+                        curState = 2;
+                    end
+                end
+            end
+        end
+    end
+
+    if curState == 0 or curState == 2 then
+        --_tagSlot.rankBox.visible = true;
+        local rankInfo;
+        if self:IsChangedSkill(tagSp.skillID) then
+            rankInfo = GameCoreHelper.StringFormat("[color=#14a909]{0}[/color]/{1}", curSkillRank, maxLevel);
+        else
+            rankInfo = GameCoreHelper.StringFormat("{0}/{1}", curSkillRank, maxLevel);
+        end
+        _tagSlot.txtLevel.text = rankInfo;
+    else
+        --_tagSlot.rankBox.visible = false;
+    end
+
+    _tagSlot.curRank = curSkillRank;
+    _tagSlot.curState = curState;
+    _tagSlot.ctlState.selectedIndex = curState;
+end
+
+function SkillPagesSubWin:IsSkillEnableLearn(tagNode, curRank)
+    if self.curRole == nil then
+        return false;
+    end
+    if (tagNode.preSkillList ~= nil and tagNode.preSkillList.Length > 0) then
+        local tagSp;
+        for index = 0, tagNode.preSkillList.Length - 1 do
+            tagSp = tagNode.preSkillList[index];
+            if (self:GetSkillRank(tagSp.skillID, false) < tagSp.skillLevel) then
+                return false;
+            end
+        end
+    end
+    if not IsEmptyOrNil(tagNode.limitStr) then
+        local rtArgs = GameCoreHelper.CreateEmptyRuntimeArgVal();
+        rtArgs.CurTagRoleID = self.curRole.roleID;
+
+        --填充参数
+        local tagLimitStr = tagNode:GetSkillLimitStrByLevel(curRank);
+        local cvtInfo = CS.GameUtils.ConvertRuntimeVarStr(tagLimitStr, rtArgs);
+        if not CS.GameUtils.checkConditionGroup(cvtInfo, rtArgs, true) then
+            return false;
+        end
+    end
+
+    return true;
+end
+
+function SkillPagesSubWin:IsSkillEnableUpgrade(tagNode, skillInfoPojo, curRank, _isFightSkill)
+    if self.curRole == nil then
+        return false;
+    end
+    if skillInfoPojo == nil then
+        return false;
+    end
+
+    local equipAddSkillLevel = self.curRole:GetEquipSkillLevel(skillInfoPojo.skill_id)
+    if (curRank > 0 and curRank < (skillInfoPojo.MaxLevel + equipAddSkillLevel)) then
+        if not _isFightSkill then
+            if self:GetCurUnusedSp() < 1 then
+                return false;
+            end
+        end
+        local finalLimitStr = tagNode:GetSkillLimitStrByLevel(curRank);
+        if not IsEmptyOrNil(finalLimitStr) then
+            local rtArgs = GameCoreHelper.CreateEmptyRuntimeArgVal();
+            rtArgs.CurTagRoleID = self.curRole.roleID;
+
+            local cvtInfo = CS.GameUtils.ConvertRuntimeVarStr(finalLimitStr, rtArgs);
+            if CS.GameUtils.checkConditionGroup(cvtInfo, rtArgs, true) then
+                return true;
+            end
+        else
+            return true;
+        end
+    end
+
+    return false;
+end
+
+function SkillPagesSubWin:RefreshSkillPageView(pageView, pageInfo)
+    if pageInfo ~= nil then
+        pageView.pageInfo = pageInfo;
+        if not IsEmptyOrNil(pageInfo.bgUrl) then
+            pageView.imgBg.url = pageInfo.bgUrl;
+        end
+
+        pageView.colCount = pageInfo.colCount;
+        pageView.compSlots:RemoveChildren(0, -1, true);
+
+        pageView.slotList = {};
+
+        local tagSlot;
+        for index = 0, pageInfo.spCount - 1 do
+            tagSlot = pageInfo.spList[index];
+            if tagSlot ~= nil then
+                tagSlot.isFightSkill = pageInfo.isFightPage;
+                self:AddSkillPageSlot(pageView, tagSlot);
+            end
+        end
+        self:UpdateSkillPageView(pageView);
+    end
+end
+
+function SkillPagesSubWin:UpdateSkillPages()
+    for index = 0, self.curPageCount - 1 do
+        tagPageView = self.curPageViews[index];
+        if tagPageView ~= nil then
+            self:UpdateSkillPageView(tagPageView);
+        end
+    end
+
+    self.lbSpNum.title = tostring(self:GetCurUnusedSp());
+
+    if not isMobileMode and self.curRole:IsPlayer() then
+        self.compActionBar.visible = true;
+
+        self.ctlActionBar:RefreshQuickSlots();
+    else
+        self.compActionBar.visible = false;
+    end
+
+    if self.onPageRefreshed ~= nil then
+        self.onPageRefreshed();
+    end
+
+    self:UpdateUiStats();
+    self:CancelCurDragOp();
+end
+
+function SkillPagesSubWin:UpdateSkillPageView(pageView)
+    local pageInfo = pageView.pageInfo;
+    if pageInfo ~= nil and pageView ~= nil then
+        local totalSpCount = 0;
+        local tagSlot;
+        for k, v in pairs(pageView.slotList) do
+            tagSlot = v;
+            self:UpdateSkillPageSlot(tagSlot);
+            if tagSlot.curRank ~= nil then
+                totalSpCount = totalSpCount + tagSlot.curRank;
+            end
+        end
+
+        local _pageTitle = pageInfo.pageName;
+        if totalSpCount > 0 then
+            _pageTitle = _pageTitle .. GameCoreHelper.StringFormat(" ({0})", totalSpCount);
+        end
+        pageView.txtTitle.text = _pageTitle;
+    end
+end
+
+function SkillPagesSubWin:GetCurUnusedSp()
+    local curSpCount = 0;
+    if self.curRole ~= nil then
+        curSpCount = self.curRole.unusedSp;
+    end
+    return curSpCount - self.curUsedSp;
+end
+
+function SkillPagesSubWin:GetSkillRank(_skillID, _fromEquip)
+    if self.curRole == nil then
+        return 0;
+    end
+    if _fromEquip then
+        if self.curRole.equipSpList:ContainsKey(_skillID) then
+            return self.curRole.equipSpList[_skillID];
+        end
+        return 0;
+    else
+        if self.curOpSpList ~= nil then
+            local opInfo = self.curOpSpList[_skillID];
+            if opInfo ~= nil and opInfo.skillLevel > 0 then
+                return opInfo.skillLevel;
+            end
+        end
+        if self.curFightSpList ~= nil then
+            local fightSpLevel = self.curFightSpList[_skillID];
+            if fightSpLevel ~= nil then
+                return fightSpLevel;
+            end
+        end
+        return self.curRole:GetLearnedSkillLevel(_skillID);
+    end
+end
+
+function SkillPagesSubWin:GetSkillSpOpCount(_skillID)
+    if self.curOpSpList ~= nil then
+        local opInfo = self.curOpSpList[_skillID];
+        if opInfo ~= nil then
+            return opInfo.opCount;
+        end
+    end
+    return 0;
+end
+
+function SkillPagesSubWin:IsChangedSkill(_skillID)
+    if self.curOpSpList ~= nil then
+        local opInfo = self.curOpSpList[_skillID];
+        if opInfo ~= nil and opInfo.opCount > 0 then
+            return true;
+        end
+    end
+    return false;
+end
+
+function SkillPagesSubWin:OnClickTagSkillNode(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+
+    self:UpdateActionPanelForSlot(_tagSlot);
+
+    PlayButtonSound();
+
+    if self.disableSkillSlot then
+        return
+    end
+
+    if isMobileMode then
+        local tagSp = _tagSlot.slotInfo.bindSp;
+        if tagSp == nil then
+            return;
+        end
+        local _showCard = nil;
+        if self.curRole ~= nil then
+            _showCard = self.curRole.BindCard;
+        end
+
+        --传入技能面板按钮注册信息
+        self.curOpSlotTarget = _tagSlot
+        _tagSlot.opRegInfo = {};
+        local _btnFunc = nil;
+        if _tagSlot.curState == 2 then
+            _btnFunc = GetGameString("lua_script_str_335");
+        elseif _tagSlot.curState == 0 then
+            if _tagSlot.isEnableUpgrade then
+                _btnFunc = GetGameString("lua_script_str_336");
+            end
+        end
+        _tagSlot.opRegInfo.opFuncBtn1 = _btnFunc;
+        _tagSlot.opRegInfo.opFuncBtn2 = nil;
+        _tagSlot.opRegInfo.opFuncBtnCmd = function(_btnIndex)
+            if _btnIndex == 0 then
+                self:DoOpTagSlot(_tagSlot);
+            end
+        end;
+
+        local curLevel = self:GetSkillRank(tagSp.skillID, _tagSlot.isEquipPage);
+        local showSp = GameCoreHelper.GetSkillPoint(tagSp.skillID, curLevel);
+        ShowSkillDetailInfo(showSp, _tagSlot.bindBtn, false, _tagSlot, _showCard, function(_skID)
+            return self:GetSkillRank(_skID, false);
+        end);
+
+        return;
+    end
+
+    if _tagSlot.curState == 1 then
+        return;
+    elseif _tagSlot.curState == 0 then
+        if not _tagSlot.isEnableUpgrade then
+            return;
+        end
+    end
+
+    self:DoOpTagSlot(_tagSlot);
+end
+
+function SkillPagesSubWin:DoOpTagSlot(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+
+    local isOpOk = false;
+    if _tagSlot.curState == 2 then
+        if self:TryLearnTagSkill(_tagSlot) then
+            isOpOk = true;
+        end
+    elseif _tagSlot.curState == 0 then
+        if _tagSlot.isEnableUpgrade then
+            if self:TryUpgradeTagSkill(_tagSlot) then
+                isOpOk = true;
+            end
+        end
+    end
+
+    if isOpOk then
+        if isMobileMode then
+            --self:ApplySkillDistribute();
+            self:UpdateSkillPages();
+        else
+            self:UpdateSkillPages();
+        end
+    end
+end
+
+function SkillPagesSubWin:OnRightClickTagSkillNode(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+
+    self:UpdateActionPanelForSlot(_tagSlot);
+    if _tagSlot.curState ~= 0 then
+        return;
+    end
+    if _tagSlot.curOpCount <= 0 then
+        return;
+    end
+    local tagSp = _tagSlot.slotInfo.bindSp;
+    if tagSp == nil then
+        return;
+    end
+    PlayButtonSound();
+
+    if self.disableSkillSlot then
+        return
+    end
+
+    self:ResetSpDistribute();
+    self:UpdateSkillPages();
+end
+
+function SkillPagesSubWin:UpdateActionPanelForSlot(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+    local _tagState = 0;
+    if _tagSlot.isFightSkill then
+        _tagState = 1;
+    end
+    if self.curActionBarType ~= _tagState then
+        self:SetActionBarType(_tagState);
+    end
+end
+
+function SkillPagesSubWin:OnSkillSlotRollOver(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+    --self:UpdateActionPanelForSlot(_tagSlot);
+    local tagSp = _tagSlot.slotInfo.bindSp;
+    if tagSp == nil then
+        return;
+    end
+    local _showCard = nil;
+    if self.curRole ~= nil then
+        _showCard = self.curRole.BindCard;
+    end
+
+    local curLevel = self:GetSkillRank(tagSp.skillID, _tagSlot.isEquipPage);
+    local showSp = GameCoreHelper.GetSkillPoint(tagSp.skillID, curLevel);
+    ShowSkillDetailInfo(showSp, _tagSlot.bindBtn, false, _tagSlot, _showCard, function(_skID)
+        return self:GetSkillRank(_skID, false);
+    end);
+end
+
+function SkillPagesSubWin:OnSkillSlotRollOut(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+    TryHideNoLockedSkillDetailInfoUI();
+end
+
+function SkillPagesSubWin:onSlotDragStart(_tagSlot)
+    self:UpdateActionPanelForSlot(_tagSlot);
+    if self.disableSkillSlot then
+        return
+    end
+    if not IsPageSpSlotEnableSetQuickSlot(_tagSlot) then
+        return;
+    end
+    local iconSpt = CS.GUIHelper.GetSpriteByPath(CS.GUIHelper.GetItemSkillPathByName(_tagSlot.lastIconUrl));
+    if iconSpt == nil then
+        return;
+    end
+    local iconRad = 72;
+    self.curDragingOpSlot = _tagSlot;
+    if self.curDragingOpSlot.isFightSkill then
+        self:UpdateFightQuickSlotsForSlot(_tagSlot);
+    end
+    CS.GUIHelper.StartDragCustomImg(iconSpt, iconRad, iconRad, function()
+        self:onSlotDragEnd();
+    end);
+end
+
+function SkillPagesSubWin:onSlotDragEnd()
+    if self.curDragingOpSlot ~= nil then
+        if not IsPageSpSlotEnableSetQuickSlot(self.curDragingOpSlot) then
+            return;
+        end
+        if self.curDragingOpSlot.isFightSkill then
+            self:UpdateFightQuickSlotsForSlot(nil);
+            --搏击技能快捷键设置
+            if self.ctlActionBarFight ~= nil and not IsEmptyOrNil(self.curDragingOpSlot.skillID) then
+                local tagRootPos = CS.GUIHelper.GetCurCustomDragPos();
+                if CS.GUIHelper.IsRootPosInComponentRect(self.ctlActionBarFight.bindView, tagRootPos) then
+                    local _quickSlotIndex = self.ctlActionBarFight:GetSlotIndexAtTestPoint(tagRootPos);
+                    if _quickSlotIndex >= 0 and self:IsFightActionSlotEnableFor(self.curDragingOpSlot, _quickSlotIndex) then
+                        SetFightActionBarSlot(self.curActionBarSlots, _quickSlotIndex, self.curDragingOpSlot.skillID);
+                        self:UpdateFightActionBar();
+                    end
+                end
+            end
+        else
+            if self.ctlActionBar ~= nil and not IsEmptyOrNil(self.curDragingOpSlot.skillID) then
+                local tagRootPos = CS.GUIHelper.GetCurCustomDragPos();
+                if CS.GUIHelper.IsRootPosInComponentRect(self.ctlActionBar.bindView, tagRootPos) then
+                    local _quickSlotIndex = self.ctlActionBar:GetSlotIndexAtTestPoint(tagRootPos);
+                    if _quickSlotIndex >= 0 then
+                        CS.GUIHelper.SetQuickSlotBySkill(self.curDragingOpSlot.skillID, _quickSlotIndex);
+                        self.ctlActionBar:RefreshQuickSlots();
+                    end
+                end
+            end
+        end
+    end
+    self.curDragingOpSlot = nil;
+end
+
+function SkillPagesSubWin:CancelCurDragOp()
+    if self.curDragingOpSlot ~= nil then
+        CS.GUIHelper.StopDragCustomImg();
+        self.curDragingOpSlot = nil;
+    end
+end
+
+function SkillPagesSubWin:GetOrCreateSkillOpInfo(tagSp)
+    local tagOpInfo = self.curOpSpList[tagSp.skillID];
+    if tagOpInfo == nil then
+        tagOpInfo = {};
+        tagOpInfo.skillID = tagSp.skillID;
+        tagOpInfo.skillLevel = tagSp.skillLevel;
+        tagOpInfo.opCount = 0;
+        self.curOpSpList[tagSp.skillID] = tagOpInfo;
+    end
+    return tagOpInfo;
+end
+
+function SkillPagesSubWin:DoOpTagSkill(_tagSlot, tagSp, _opLevel)
+    if _tagSlot.isFightSkill then
+        if _tagSlot.fightSpCostNum > 0 and not IsEmptyOrNil(_tagSlot.fightSpCostItem) then
+            local costItemInfo = GameCoreHelper.GetItemByInfoData(_tagSlot.fightSpCostItem);
+            if costItemInfo == nil then
+                return false;
+            end
+
+            --消耗资源学习搏击技能
+            local curItemNum = GameCoreHelper.GetItemStorageNum(_tagSlot.fightSpCostItem);
+            if curItemNum < _tagSlot.fightSpCostNum then
+                local sInfo = GameCoreHelper.StringFormat(GetGameString("lua_script_str_216"),
+                    _tagSlot.fightSpCostNum, costItemInfo:GetItemName());
+                ShowToastInfo(sInfo, 2);
+                return false;
+            end
+
+            local confirmInfo = GameCoreHelper.StringFormat(GetGameString("lua_script_str_217"),
+                _tagSlot.fightSpCostNum, costItemInfo:GetItemName());
+            ShowConfirmDlg(confirmInfo, "yesno", function(ret)
+                if ret == 1 then
+                    if self.curFightSpList ~= nil then
+                        local oldLevel = self.curFightSpList[tagSp.skillID];
+                        if oldLevel == nil then
+                            oldLevel = 0;
+                        end
+                        self.curFightSpList[tagSp.skillID] = _opLevel;
+                        SaveFightSpList(self.curFightSpList);
+                        if oldLevel <= 0 and _opLevel >= 0 then
+                            TrySetQuickSlotForFightSkill(nil, tagSp.skillID);
+                        end
+                        GameCoreHelper.RemoveItemsFormPlayerInv(_tagSlot.fightSpCostItem, _tagSlot.fightSpCostNum, true);
+                        self:UpdateSkillPages();
+                        self:UpdateFightActionBar();
+                    end
+                end
+            end);
+
+            return false;
+        else
+            return false;
+        end
+    end
+
+    if self:GetCurUnusedSp() < 1 then
+        ShowToastInfo(GetGameString("lua_script_str_218"), 2);
+        return false;
+    end
+
+    local tagOpInfo = self:GetOrCreateSkillOpInfo(tagSp);
+    tagOpInfo.skillLevel = _opLevel;
+    tagOpInfo.opCount = tagOpInfo.opCount + 1;
+    self.curUsedSp = self.curUsedSp + 1;
+
+    return true;
+end
+
+function SkillPagesSubWin:TryLearnTagSkill(_tagSlot)
+    if _tagSlot == nil then
+        return false;
+    end
+    local tagSp = _tagSlot.slotInfo.bindSp;
+    if tagSp == nil or self.curRole == nil then
+        return false;
+    end
+
+    return self:DoOpTagSkill(_tagSlot, tagSp, tagSp.skillLevel);
+end
+
+function SkillPagesSubWin:TryUpgradeTagSkill(_tagSlot)
+    if _tagSlot == nil then
+        return;
+    end
+    local tagSp = _tagSlot.slotInfo.bindSp;
+    if tagSp == nil or self.curRole == nil then
+        return;
+    end
+
+    local skillInfoPojo = tagSp.SkillInfo;
+    if skillInfoPojo == nil then
+        return false;
+    end
+    local curSkillRank = self:GetSkillRank(tagSp.skillID, false);
+    local equipSkillRank = self.curRole:GetEquipSkillLevel(tagSp.skillID)
+    local tagRank = curSkillRank + 1;
+    if tagRank > (skillInfoPojo.MaxLevel + equipSkillRank) then
+        return false;
+    end
+
+    return self:DoOpTagSkill(_tagSlot, tagSp, tagRank);
+end
+
+function SkillPagesSubWin:TryCancelTagSkillOp(tagSp, _opCount)
+    local tagOpInfo = self.curOpSpList[tagSp.skillID];
+    if tagOpInfo == nil then
+        return false;
+    end
+    local chgCount = _opCount;
+    if chgCount > tagOpInfo.opCount then
+        chgCount = tagOpInfo.opCount;
+    end
+    tagOpInfo.opCount = tagOpInfo.opCount - chgCount;
+    self.curUsedSp = self.curUsedSp - chgCount;
+    tagOpInfo.skillLevel = tagOpInfo.skillLevel - chgCount;
+    if tagOpInfo.skillLevel <= 0 then
+        self.curOpSpList[tagSp.skillID] = nil;
+    end
+    self:CheckAndRemoveAllInvalidOp();
+    return true;
+end
+
+function SkillPagesSubWin:CheckAndRemoveAllInvalidOp()
+    -- TODO
+end
+
+function SkillPagesSubWin:IsFightActionSlotEnableFor(_tagSlot, _slotIndex)
+    if _tagSlot == nil then
+        return false;
+    end
+    if not _tagSlot.isFightSkill then
+        return false;
+    end
+    local fightSkillType = _tagSlot.fightSkillType;
+    return IsFightSkillClassEnableForSlot(fightSkillType, _slotIndex);
+end
+
+function SkillPagesSubWin:UpdateFightQuickSlotsForSlot(_tagSlot)
+    if self.ctlActionBarFight == nil then
+        return;
+    end
+    local tagType = -1;
+    if _tagSlot ~= nil then
+        tagType = _tagSlot.fightSkillType;
+    end
+    local nCount = self.ctlActionBarFight:GetSlotCount();
+    local tagActionSlot;
+    for index = 0, nCount - 1 do
+        tagActionSlot = self.ctlActionBarFight:GetTagSlot(index);
+        if tagActionSlot ~= nil then
+            tagBtn = tagActionSlot.bindBtn;
+            if tagType >= 0 then
+                if self:IsFightActionSlotEnableFor(_tagSlot, index) then
+                    tagBtn.enabled = true;
+                else
+                    tagBtn.enabled = false;
+                end
+            else
+                tagBtn.enabled = true;
+            end
+        end
+    end
+end
+
+function SkillPagesSubWin:RemoveTagActionSlot(_index)
+    if self.ctlActionBarFight == nil then
+        return;
+    end
+    SetFightActionBarSlot(self.curActionBarSlots, _index, nil);
+    self:UpdateFightActionBar();
+end
+
+function SkillPagesSubWin:UpdateFightActionBar()
+    if self.ctlActionBarFight == nil then
+        return;
+    end
+    local asStr, actionSlots = GetFightActionBarInfoStr();
+    self.curActionBarSlots = actionSlots;
+    self.ctlActionBarFight:SetActionBar(asStr);
+end
+
+function SkillPagesSubWin:ApplySkillDistribute()
+    if self.curRole == nil then
+        return;
+    end
+    if self.curOpSpList == nil then
+        return;
+    end
+
+    for k, v in pairs(self.curOpSpList) do
+        if v.opCount then
+            self.curRole:LearnSkill(v.skillID, v.skillLevel, true, true, true, true);
+        end
+    end
+    self.curRole:ChangeUnusedSp(-self.curUsedSp);
+
+    self:ResetSpDistribute();
+    self:UpdateSkillPages();
+    self:UpdateParentPartyList(self.curRole.BindCard);
+end
+
+function SkillPagesSubWin:UpdateParentPartyList(_tagCard)
+    if self.RefreshParentListCallback == nil then
+        local playerTeam = GameCoreHelper.GetPlayerTeam();
+        playerTeam.isTeamUpdated = true;
+    else
+        if self.RefreshParentListCallback ~= nil then
+            self.RefreshParentListCallback(_tagCard, true);
+        end
+    end
+end
+
+function SkillPagesSubWin:CancelSkillDistribute()
+    self:ResetSpDistribute();
+    self:UpdateSkillPages();
+end

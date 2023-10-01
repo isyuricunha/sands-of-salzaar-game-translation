@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.566026" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="2" scale_y="2" rotate="0" />
+  <tile_tex tex_id="22" scale_x="3" scale_y="3" rotate="0" />
+  <tile_tex tex_id="37" scale_x="2" scale_y="2" rotate="0" />
+  <tile_obj obj_id="33063" obj_type="0" tileset_id="desert plant_03" layer_index="19" pos_x="1501.885" pos_y="-911.847" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33064" obj_type="0" tileset_id="20637" layer_index="11" pos_x="1490.1604" pos_y="-830.595764" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33072" obj_type="0" tileset_id="flower_rose" layer_index="21" pos_x="1517.04919" pos_y="-757.706848" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33088" obj_type="0" tileset_id="valley_rock02" layer_index="22" pos_x="1538.38245" pos_y="-845.040161" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33101" obj_type="0" tileset_id="bg_ts_wj_soldier_statue2" layer_index="10" pos_x="1494.60474" pos_y="-717.262451" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33154" obj_type="0" tileset_id="bg_ts_wujian_47" layer_index="10" pos_x="1529.71582" pos_y="-981.040161" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33188" obj_type="0" tileset_id="decoration3" layer_index="10" pos_x="1506.827" pos_y="-808.262451" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33189" obj_type="0" tileset_id="decoration3" layer_index="10" pos_x="1517.93811" pos_y="-799.3735" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33102" obj_type="0" tileset_id="bg_ts_wujian_57" layer_index="25" pos_x="1547.49365" pos_y="-797.706848" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="33685" obj_type="0" tileset_id="yanti_gobi13" layer_index="22" pos_x="1601.60083" pos_y="-715.9302" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="30347" obj_type="0" tileset_id="yanti_desertrock05" layer_index="20" pos_x="1528.2981" pos_y="-1223.32544" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="32547" obj_type="0" tileset_id="flower_rose" layer_index="19" pos_x="1624.42261" pos_y="-1255.9884" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="272" bind_info_type="12" center_map_x="1298.02344" center_map_y="-539.2224" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-214" aabb_min_y="-573.5" aabb_max_x="418" aabb_max_y="711">
+    <pts_info>-184,-334;-209,-752;-17,-973;-41,-1085;10,-1137;178,-995;221,-1054;413,-1041;411,1408;331,1412;280,1208;288,1108;175,1005;135,808;156,752;13,631;-5,446;33,249;-2,215;21,117</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+  <tile_areas area_id="982" bind_info_type="12" center_map_x="1478.06848" center_map_y="-2406.98071" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-210" aabb_min_y="-116.5" aabb_max_x="213" aabb_max_y="65">
+    <pts_info>-205,-26;207,-223;208,-21;-133,120</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

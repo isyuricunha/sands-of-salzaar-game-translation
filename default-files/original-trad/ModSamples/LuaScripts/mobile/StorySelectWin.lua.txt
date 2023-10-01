@@ -1,0 +1,292 @@
+require("gui/WindowUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnBack
+
+local listLeftInfo
+
+local ctlStorySelList
+local compTagsBox
+local listTags
+
+local btnConfirm
+
+local curSeledStory = nil
+
+local curEditAvataInfo = ""
+local curEditAvataGender = false
+local curEditAvataName = "Player"
+local curEditModelInfo = ""
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	btnBack = contentPane:GetChild("btn_back").asButton
+	btnConfirm = contentPane:GetChild("btn_confirm").asButton
+
+	listLeftInfo = contentPane:GetChild("left_list").asList
+
+	compTagsBox = contentPane:GetChild("tag_box").asCom
+	listTags = compTagsBox:GetChild("tags_list").asList
+
+	ctlStorySelList = CS.GUICtlStoryModeSelector.CreateComponent(contentPane:GetChild("role_list").asList)
+	ctlStorySelList:SetSelectChangedCallback(onStoryListSelectionChanged)
+
+	--绑定按钮事件
+	btnBack.onClick:Add(onClickBackBtn);
+	btnConfirm.onClick:Add(onClickConfirmBtn);
+
+	--设置默认值
+	self:SetCloseButton(btnBack)
+
+	initPageList()
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	PlayButtonSound()
+	
+	beforeLeaveScene()
+	CS.GUIHelper.SwitchToGameScene("HomeScene", false, true)
+end
+
+function onClickConfirmBtn()
+	if curSeledStory == nil then
+		return
+	end
+	PlayButtonSound()
+
+	--专家级模式，需要检查存档数量，如果没有预留存档位，则报错
+	--if (m_ExpertCheckBox.isOn)
+	--	int useableIndex;
+	--	if (GameShared.Instance.GetCurrentUsedArchiveFileCount(out useableIndex) >= GameShared.Instance.GetMaxArchiveFileCount()) then
+	--		ShowToastInfo(GetGameString("UIPageStoryMode_Confirm"));
+	--		return;
+	--	end
+	--end
+
+	beforeLeaveScene()
+	CS.GameShared.Instance.curEditedStoryModeId = curSeledStory.ModeId;
+	local curSeledAvataInfo = curSeledStory:GetStoryDefAvataInfo()
+	local defRoleGender = 0
+	if curSeledStory:GetStoryDefAvataGender() then
+		defRoleGender = 1
+	end
+	local isFixedNameVal = 0
+	local fixedDefName = ""
+	if curSeledStory:IsFixedName() then
+		isFixedNameVal = 1
+		fixedDefName = curSeledStory:GetDisplayName()
+	end
+	local isSkipAvataVal = 0
+	if curSeledStory:IsSkilpAvata() then
+		isSkipAvataVal = 1
+	end
+	local defModelID = curSeledStory.DefaultModelInfo
+
+	local genderLimitMode = curSeledStory.SexLimit
+
+	CS.GUIHelper.SetGUIGlobalStrVal("def_avata_info", curSeledAvataInfo)
+	CS.GUIHelper.SetGUIGlobalIntVal("def_avata_gender", defRoleGender)
+	CS.GUIHelper.SetGUIGlobalIntVal("is_fixed_name", isFixedNameVal)
+	CS.GUIHelper.SetGUIGlobalStrVal("def_player_name", fixedDefName)
+	CS.GUIHelper.SetGUIGlobalStrVal("def_player_model", defModelID)
+	CS.GUIHelper.SetGUIGlobalIntVal("gender_limit_mode", genderLimitMode)
+
+	if isSkipAvataVal == 1 then
+		--直接跳到游戏开始配置界面
+		CS.GUIHelper.SetGUIGlobalStrVal("edit_avata_info", curSeledAvataInfo)
+		CS.GUIHelper.SetGUIGlobalIntVal("edit_avata_gender", defRoleGender)
+		CS.GUIHelper.SetGUIGlobalStrVal("edit_player_name", fixedDefName)
+		CS.GUIHelper.SetGUIGlobalStrVal("edit_model_info", defModelID)
+		startGameConfigWin()
+	else
+		--跳至捏脸界面
+		local avataWin = CS.GUIHelper.ShowGUIWindow(constPackageName, "MCreateCharWindow", "mobile/CreateRoleWin", "", nil, true)
+		avataWin:SetExtCallback(onCreateRoleWinCallback)
+	end
+end
+
+function onCreateRoleWinCallback(ret)
+	if ret == 1 then
+		curEditAvataInfo = CS.GUIHelper.GetGUIGlobalStrVal("edit_avata_info")
+		curEditAvataGender = CS.GUIHelper.GetGUIGlobalIntVal("edit_avata_gender") == 1
+		curEditAvataName = CS.GUIHelper.GetGUIGlobalStrVal("edit_player_name")
+		curEditModelInfo = CS.GUIHelper.GetGUIGlobalStrVal("edit_model_info")
+		startGameConfigWin()
+	end
+end
+
+function startGameConfigWin()
+	CS.GUIHelper.ShowGUIWindow(constPackageName, "MStartGameConfigWindow", "mobile/GameStartConfigWin", "",
+									onStartGameConfigWinCallback, false)
+end
+
+function onStartGameConfigWinCallback(ret)
+	if ret == 1 then
+		startLaunchGame()
+	end
+end
+
+function startLaunchGame()
+	if curSeledStory == nil then
+		return
+	end
+	beforeLeaveScene();
+
+	CS.GameTools.StartPlayGame(curEditAvataName, curEditAvataGender, curEditAvataInfo, "", curEditModelInfo);
+	CS.HanFramework.ArchiveData.Current.IsExpertModeCode = false;
+	CS.HanFramework.ArchiveData.Current.PlayerClass = curSeledStory.ModeId;
+end
+
+function beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end
+
+function initPageList()
+	local allModeList = GameCoreHelper.GetAllList_StoryModePojo();
+	if allModeList.Count > 0 then
+		SelectCurStory(allModeList[0])
+	end
+end
+
+function onStoryListSelectionChanged(_tagID)
+	local _tagStory = ctlStorySelList.CurSeledStory
+	if _tagStory ~= nil then
+		SelectCurStory(_tagStory)
+	end
+end
+
+function SelectCurStory(_tagStory)
+	curSeledStory = _tagStory
+	updateTagsBox()
+end
+
+function addTagsListItem(_txtInfo)
+	local tagListObj = listTags:AddItemFromPool()
+	tagListObj.asLabel.title = _txtInfo;
+end
+
+function updateTagsBox()
+	listLeftInfo:RemoveChildren(0, -1, true)
+	listTags.numItems = 0
+	if curSeledStory ~= nil then
+		if curSeledStory:IsContainExtInfo() then
+			addStoryInfoItemTitle(curSeledStory:GetDisplayName())
+			local descInfoKey = curSeledStory:GetTagVal("ext_desc")
+			if not IsEmptyOrNil(descInfoKey) then
+				addStoryInfoItemContent(GetGameString(descInfoKey))
+			end
+
+			local skillsList = curSeledStory:GetTagVal("ext_skills")
+			if not IsEmptyOrNil(skillsList) then
+				addStoryInfoItemBlank()
+				addStoryInfoItemTitle(GetGameString("lua_script_str51"))
+				addStoryInfoSkillsList(skillsList)
+			end
+
+			local featureInfoKey = curSeledStory:GetTagVal("ext_feature")
+			if not IsEmptyOrNil(featureInfoKey) then
+				addStoryInfoItemBlank()
+				addStoryInfoItemTitle(GetGameString("lua_script_str52"))
+				addStoryInfoItemContent(GetGameString(featureInfoKey))
+			end
+
+			local attendantsList = curSeledStory:GetTagVal("ext_attendants")
+			if not IsEmptyOrNil(attendantsList) then
+				addStoryInfoItemBlank()
+				addStoryInfoItemTitle(GetGameString("lua_script_str53"))
+				addStoryInfoRolesList(attendantsList)
+			end
+		else
+			addStoryInfoItemContent(curSeledStory.Desc)
+		end
+
+		if curSeledStory:IsNewbieRecommend() then
+			addTagsListItem(GetGameString("lua_script_str54"))
+		end
+		if curSeledStory:IsExclusiveStory() then
+			addTagsListItem(GetGameString("lua_script_str55"))
+		end
+		btnConfirm.visible = true
+	else
+		btnConfirm.visible = false
+	end
+
+	if listTags.numItems > 0 then
+		listTags:ResizeToFit()
+		compTagsBox.visible = true
+	else
+		compTagsBox.visible = false
+	end
+end
+
+function addStoryInfoItemTitle(_txtInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListTitle1").asLabel
+
+	tagListItem.title = _txtInfo
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addStoryInfoItemContent(_txtInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListInfoLine1").asLabel
+
+	tagListItem.title = CS.GUIHelper.ConvertUGUIStr(_txtInfo)
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addStoryInfoSkillsList(_skillsInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListSkills1").asCom
+
+	local tagList = tagListItem:GetChild("list").asList
+	CS.GUICtlSimpleSkillList.CreateComponent(tagList, _skillsInfo)
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addStoryInfoRolesList(_rolesInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListRoles1").asCom
+
+	local tagList = tagListItem:GetChild("list").asList
+	local ctlRoleList = CS.GUICtlSimpleRoleList.CreateComponent(tagList)
+	ctlRoleList:SetRoleListByTemplateInfos(_rolesInfo)
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addStoryInfoItemBlank()
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListBlankLine1").asCom
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addTagsListItem(_txtInfo)
+	local tagListObj = listTags:AddItemFromPool()
+	tagListObj.asLabel.title = _txtInfo;
+end

@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+0.73#block_act#0#0
+0.17#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:冰魔弹;#0#unit_pos,0,0,0,2500
+0.15#b_talk#caster#狂风啊！#2.5
+0.15#add_eft#M风灵冲击#unit_pos,0,0,0#0
+0.15#add_eft#P裂地范围#unit_pos,0,0,0#0
+0.15#play_sound#EarthWave#unit_pos
+0.15#camera_shake#0.5#2
+0.1#play_sound#AirWave#unit_pos
+0.12#play_sound#Cast_Storm#unit_pos
+0.2#play_sound#Dust_Small#unit_pos

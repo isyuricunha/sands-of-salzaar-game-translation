@@ -1,0 +1,337 @@
+require("gui/WindowUtils")
+require("GameMath")
+
+require("dungeon/BsLogic_TavernFight")
+
+local windowPanel
+local windowController
+
+local btnFinish = nil
+
+local groupCmdBtns = nil
+local btnRetreat = nil
+
+local groupInfoBox = nil
+local btnSystem = nil
+
+local txtCurBuffInfo = nil;
+local strCurBuffInfo;
+local strFsCostInfo;
+
+local btnSkill;
+local skillslots;
+
+local playerInfoPanel = nil
+
+local mobileCtl;
+
+local GameCoreHelper = CS.GameCoreHelper;
+
+local isMobileUI = false;
+
+local timerTickInterval = 0.05
+
+local playersInfoBar
+local actionBar
+
+local sceneMsgHandler;
+
+local cachedSlotDatas = {};
+local cachedFsCost = {};
+
+--初始化控件
+function initPanel(_view, _controllerScript)
+    windowPanel = _view;
+    windowController = _controllerScript;
+
+    isMobileUI = CS.GameTools.IsMobileMode();
+
+    mobileCtl = windowPanel:GetController("mobile");
+
+    --绑定按钮事件
+    btnFinish = windowPanel:GetChild("btn_finish").asButton;
+    windowController:SetBattleOverBtn(btnFinish);
+
+    groupInfoBox = windowPanel:GetChild("group_infobox").asGroup;
+	btnSystem = windowPanel:GetChildInGroup(groupInfoBox, "btn_menu").asButton;
+    btnSystem.onClick:Add(OnClickBtnSystem);
+    local battleInfoGroup = windowPanel:GetChildInGroup(groupInfoBox, "group_info").asGroup;
+    local txtBattleInfo = windowPanel:GetChildInGroup(battleInfoGroup, "battle_info").asTextField;
+    local txtBattleTimeInfo = windowPanel:GetChildInGroup(battleInfoGroup, "time_info").asTextField;
+    windowController:SetBattleInfoComponents(battleInfoGroup, txtBattleInfo, txtBattleTimeInfo);
+
+    local playerPanelComp;
+    if isMobileUI then
+        playerPanelComp = windowPanel:GetChild("player_bar_m").asCom;
+    else
+        playerPanelComp = windowPanel:GetChild("player_bar").asCom;
+    end
+    playerInfoPanel = windowController:CreatePlayerPanel(playerPanelComp)
+
+    local playersInfoBarWrapper = windowPanel:GetChild("players_infobar_wraper").asCom;
+    playersInfoBar = windowController:CreatePartyPlayersInfoBar(playersInfoBarWrapper, 0)
+    playersInfoBar.bindView.visible = true;
+
+    if isMobileUI then
+        mobileCtl.selectedIndex = 1;
+
+        local actionBarComp = windowPanel:GetChild("action_bar").asCom;
+        windowController:CreateMobileActionBar(actionBarComp);
+    else
+        local actionBarComp = playerInfoPanel.bindView:GetChild("action_bar").asCom;
+        skillslots = actionBarComp:GetChild("list_slots").asList
+        local rollActionWrapper = playerInfoPanel.bindView:GetChild("rollaction_wrapper").asCom
+        windowController:CreateActionBarByUIComp(actionBarComp, rollActionWrapper, FightActionBarMaxCount, "DgBsGUI1#MyBattleSpecialSlot1");
+
+        mobileCtl.selectedIndex = 0;
+    end
+
+    txtCurBuffInfo = playerInfoPanel.bindView:GetChild("txt_buffinfo").asTextField;
+    strCurBuffInfo = GetGameString("lua_script_str_135");
+    strFsCostInfo = GetGameString("lua_script_str_136");
+
+    --btnSkill = playerInfoPanel.bindView:GetChild("btn_skills").asButton;
+    --btnSkill.onClick:Add(OnClickBtnSkill);
+
+    --本地化处理
+    local defeatTitleCN = playerInfoPanel.bindView:GetChild("defeat_tile").asImage
+    local defeatTitleEN = playerInfoPanel.bindView:GetChild("defeat_tile_en").asImage
+    if CS.GameTools.IsChineseLanguage() then
+        defeatTitleEN.visible = false
+    else
+        defeatTitleCN.visible = false
+    end
+
+    --InitBagPanel(windowPanel:GetChild("bag_box").asCom)
+
+    txtLabelKillCount = playerInfoPanel.bindView:GetChild("txt_killcount_val").asTextField;
+
+    --创建默认控件
+    windowController:CreateWindowComponent("res_box", windowPanel:GetChildInGroup(groupInfoBox, "res_box_wraper").asCom, 5, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("vars_watcher", windowPanel:GetChild("var_watcher_wraper").asCom, 2, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("minimap", windowPanel:GetChild("minimap_wraper").asCom, 8, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("revive_info", windowPanel:GetChild("revive_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("enemy_info", windowPanel:GetChild("enemy_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+
+    local blackMask = windowPanel:GetChild("black_mask").asGraph;
+    --设置场景所需UI遮罩层
+    windowController:SetSceneMaskLayer(blackMask)
+    --设置UI控制器
+    local stateCtl = windowPanel:GetController("ctl_state")
+    windowController:SetStateController(stateCtl)
+    --设置自定义UI相关
+    windowController:SetExpBarFillAmountRange(0.14, 0.44)
+    actionBar = windowController:GetBattleActionBar()
+    actionBar:RegSlotRenderCallback(OnRenderActionBarSlot)
+
+    playerInfoPanel.bindView.visible = true
+    windowController:SetBattleInfoShowMode(1);          --显示玩家资源
+
+    windowController:SetRollBtnVisible(false);
+
+    onUpdateMyInfo();
+    ResetActionBar();
+    UpdateCurFightBuffInfo();
+
+    --设置自定义技能栏位
+
+    --增加计时器事件
+	--CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+    sceneMsgHandler = CS.GUIHelper.RegSceneMsgHandler(OnSceneMsgHandler);
+
+end
+
+function onPanelDestory()
+    if sceneMsgHandler ~= nil then
+		CS.GUIHelper.RemoveSceneMsgHandler(sceneMsgHandler)
+	end
+    --移除计时器事件
+    --CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+end
+
+function OnSceneMsgHandler(msgType, msgArg)
+	if msgType == "skills_changed" then
+		ResetActionBar();
+	end
+end
+
+--热键按下事件(-1代码默认为back键)
+function onHotkeyPressed(_keycode)
+    if _keycode == -1 then
+        return OnBackKey();
+    elseif _keycode == 2001 then
+        return true;
+    elseif _keycode == 2002 then
+        if (btnSkill ~= nil) then
+            --技能界面
+            OnClickBtnSkill();
+            return true;
+        end
+    end
+    return false;
+end
+
+--游戏信息面板更新事件
+function onUpdateGameInfo()
+    --更新背包UI
+    --UpdateBagItemList()
+
+    --更新斗志信息
+    UpdateCurFightBuffInfo()
+end
+
+--面板每秒事件
+function onPanelSecondUpdate()
+    onUpdateMyInfo()
+end
+
+--自定义动作条渲染回调
+function OnRenderActionBarSlot(_tagSlot)
+    if _tagSlot == nil or _tagSlot.SlotType ~= 1 then
+        return
+    end
+    local tagBtn = _tagSlot.bindBtn
+    local bindData = cachedSlotDatas[_tagSlot]
+    if bindData == nil then
+        bindData = {}
+        local tagFsObj = tagBtn:GetChild("txt_fs_cost");
+        if tagFsObj ~= nil then
+            bindData.fsCostInfo = tagFsObj.asTextField;
+        else
+            bindData.fsCostInfo = nil;
+        end
+        cachedSlotDatas[_tagSlot] = bindData
+    end
+    if bindData.fsCostInfo ~= nil then
+        bindData.fsCostInfo.visible = false
+        local _slotIndex = _tagSlot:GetSlotIndex();
+        local fsCostVal = GetFsCostValFromSp(_slotIndex);
+        cachedFsCost[_slotIndex] = fsCostVal;
+        if fsCostVal > 0 then
+            bindData.fsCostInfo.text = GameCoreHelper.StringFormat(strFsCostInfo, fsCostVal);
+            bindData.fsCostInfo.visible = true;
+        end
+    end
+end
+
+function GetSpAtActionBar(_slotIndex)
+    local _tagSlot = actionBar:GetTagSlot(_slotIndex);
+    if _tagSlot ~= nil then
+        return _tagSlot.BindSkillInfo;
+    end
+    return nil;
+end
+
+function GetFSCostVal(_slotIndex)
+    local _tagVal = cachedFsCost[_slotIndex];
+    if _tagVal == nil then
+        _tagVal = GetFsCostValFromSp(_slotIndex);
+    end
+    return _tagVal;
+end
+
+function GetFsCostValFromSp(_slotIndex)
+    local fsCostVal = 0;
+    local tagSp = GetSpAtActionBar(_slotIndex);
+    if tagSp ~= nil then
+        fsCostVal = tagSp.SkillInfo:GetTagValueInt("fs_cost");
+    end
+    return fsCostVal;
+end
+
+function onUIMessage(_msgType, _msgArg)
+    if _msgType == "info_updated" then
+        onUpdateMyInfo();
+    elseif _msgType == "player_inited" then
+        onPlayerInited();
+    elseif _msgType == "skills_changed" then
+        ResetActionBar();
+    elseif _msgType == "settings_updated" then
+        --此消息由框架内部发送
+        --UpdateBtnNames()
+        --UpdateBagItemList()
+    elseif _msgType == "on_fs_updated" then
+        UpdateCurFightBuffInfo();
+    end
+end
+
+function onPlayerInited()
+    playerInfoPanel.bindView.visible = true
+end
+
+function onUpdateMyInfo()
+    --定制信息板更新
+    txtLabelKillCount.text = tostring(playerUnitDefeatCount)
+end
+
+function OnClickBtnSystem()
+    windowController:OnWindowCmd("system")
+end
+
+function OnClickBtnCamera()
+    windowController:OnWindowCmd("camera")
+end
+
+function OnClickBtnRetreat()
+    windowController:OnWindowCmd("retreat")
+end
+
+function ResetActionBar()
+    if actionBar == nil then
+		return;
+	end
+	actionBar:SetActionBar(GetFightActionBarInfoStr());
+end
+
+function OnBackKey()
+    return false
+end
+
+function UpdateCurFightBuffInfo()
+    txtCurBuffInfo.text = GameCoreHelper.StringFormat(strCurBuffInfo, curFightingSpiritNum);
+    --更新技能快捷栏显示
+    local tagSlot;
+    local tagBtn;
+    for index=0,FightActionBarMaxCount-1 do
+        tagSlot = actionBar:GetTagSlot(index);
+        if tagSlot ~= nil then
+            tagBtn = tagSlot.bindBtn;
+            if GetFSCostVal(index) > curFightingSpiritNum then
+                tagBtn.enabled = false;
+            else
+                tagBtn.enabled = true;
+            end
+        end
+    end
+end
+
+--检查目标技能快捷栏是否可用
+function IsCurSlotEnbaleUse(_slotIndex)
+    if GetFSCostVal(_slotIndex) > curFightingSpiritNum then
+        return false;
+    end
+    return true;
+end
+
+--快捷栏点击开始事件
+function onActionBarPressStart(_slotIndex)
+    if not IsCurSlotEnbaleUse(_slotIndex) then
+        --ShowToastInfo(GetGameString("lua_script_str_137"), 3)
+        return true;
+    end
+    return false
+end
+
+--快捷栏点击结束事件
+function onActionBarPressEnd(_slotIndex)
+    if not IsCurSlotEnbaleUse(_slotIndex) then
+        return true;
+    end
+    return false
+end
+
+function OnClickBtnSkill()
+    PlayButtonSound();
+
+    windowController:OnWindowCmd("skill");
+end

@@ -1,0 +1,262 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnConfirm;
+
+local btnReplace;
+
+local txtTitle;
+local allLv;
+local lvHeroesList;
+local lvSoldiersList;
+
+local txtTooltip
+local ctlTooltip
+
+local compRoleCard;
+local ctlRoleCard;
+local compSoldierCard;
+local ctlSoldierCard;
+
+local tagCard = nil;
+local allCardsList;
+
+local curSeledSlot = nil;
+
+--选择类型 1：英雄  0：小兵
+local selType = 0;
+
+local StringFormat = GameCoreHelper.StringFormat;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	txtTitle = contentPane:GetChild("title").asTextField;
+
+	lbListInfo = contentPane:GetChild("lb_info").asLabel;
+
+	compRoleCard = contentPane:GetChild("hero_box").asButton;
+	ctlRoleCard = CreateHeroSlotInfoByCardPUI(compRoleCard, 1, nil);
+
+	compSoldierCard = contentPane:GetChild("unit_box").asButton;
+	ctlSoldierCard = CreateSoldierSlotInfoByCardPUI(compSoldierCard, 1, nil);
+
+	if IsMobileMode then
+		txtTooltip = contentPane:GetChild("txtTooltip").asTextField
+		ctlTooltip = contentPane:GetController("tooltip_type")
+	end
+
+	allLv = contentPane:GetChild("party_list").asList;
+	local tagComp = allLv:GetChildAt(0).asCom;
+	lvHeroesList = tagComp:GetChild("items_list").asList;
+	tagComp = allLv:GetChildAt(1).asCom;
+	lvSoldiersList = tagComp:GetChild("items_list").asList;
+	allLv.scrollPane.onScroll:Add(function()
+		if curSeledSlot ~= nil then
+			SelectTagCardSlot(nil);
+		end
+	end);
+
+	btnConfirm = contentPane:GetChild("btn_confirm").asButton;
+	btnReplace = contentPane:GetChild("btn_replace").asButton;
+	btnReplace.visible = false;
+
+	--绑定按钮事件
+	btnConfirm.onClick:Set(onClickConfirmBtn);
+	btnReplace.onClick:Set(onClickReplaceBtn);
+end
+
+function SetWindowParams(args)
+	lbListInfo.text = args[0];
+end
+
+function onCustomInit()
+	allCardsList = self.CustomData;
+	tagCard = self.CustomArgObj1;
+
+	RefreshWindow();
+end
+
+function RefreshWindow()
+	if tagCard.cardType == 1 then
+		selType = 1;
+		compRoleCard.visible = true;
+		compSoldierCard.visible = false;
+		SetHeroSlotBindInfoPUI(ctlRoleCard, tagCard.BindRole);
+		UpdateHeroSlotPUI(ctlRoleCard, false);
+		if IsMobileMode then
+			txtTooltip.text = "* " .. compRoleCard.tooltips
+			ctlTooltip.selectedIndex = 0
+		end
+	else
+		selType = 0;
+		compRoleCard.visible = false;
+		compSoldierCard.visible = true;
+		SetSoldierSlotBindInfoPUI(ctlSoldierCard, tagCard)
+		UpdateSoldierSlotPUI(ctlSoldierCard, false, true);
+		if IsMobileMode then
+			txtTooltip.text = "* " .. compSoldierCard.tooltips
+			ctlTooltip.selectedIndex = 1
+		end
+	end
+
+	UpdateCurSelectList();
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	--增加计时器事件
+	--CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	--移除计时器事件
+	--CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	PlayButtonSound();
+
+	FinishSelect(nil);
+	self:Hide();
+end
+
+--按下完成按钮时
+function onClickConfirmBtn()
+	PlayButtonSound();
+
+	FinishSelect(tagCard);
+	self:Hide();
+end
+
+function FinishSelect(_seledCard)
+	local _argVal = self:GetRuntimeArgVal();
+	if _argVal ~= nil then
+		_argVal.customObj = _seledCard;
+	end
+end
+
+function onClickReplaceBtn()
+	PlayButtonSound();
+
+	if curSeledSlot ~= nil then
+		local _curTagCard = curSeledSlot.cardInfo;
+		if _curTagCard ~= nil then
+			local tagIndex = allCardsList:IndexOf(_curTagCard);
+			if (tagIndex >= 0) then
+				allCardsList:Insert(tagIndex, tagCard);
+				tagCard = _curTagCard;
+				allCardsList:Remove(_curTagCard);
+			end
+		end
+		SelectTagCardSlot(nil);
+
+		RefreshWindow();
+	end
+end
+
+function onTimerTickUpdate()
+
+end
+
+function UpdateCurSelectList()
+	lvHeroesList.numItems = 0;
+	lvSoldiersList.numItems = 0;
+
+	if allCardsList == nil then
+		return;
+	end
+
+	allSelItems = {};
+
+	local tagCard;
+	local tagRoleInfo;
+	local tagSlotInfo;
+	--local defSelCardSlot = nil;
+	for index=0,allCardsList.Count-1 do
+		tagCard = allCardsList[index];
+		tagSlotInfo = nil;
+		if tagCard.cardType == 1 then
+			tagRoleInfo = tagCard.BindRole;
+			tagSlotInfo = AddHeroSlotViewPUI(tagRoleInfo, 0, lvHeroesList, OnClickTagCardSlot);
+			UpdateHeroSlotPUI(tagSlotInfo, false);
+		elseif tagCard.cardType == 0 then
+			tagSlotInfo = AddSoldierSlotViewPUI(tagCard, 0, lvSoldiersList, OnClickTagCardSlot);
+			UpdateSoldierSlotPUI(tagSlotInfo, false, true);
+		end
+		SetCardSlotSelected(tagSlotInfo, false);
+		if tagSlotInfo ~= nil then
+			table.insert(allSelItems, tagSlotInfo);
+		end
+	end
+
+	--if defSelCardSlot ~= nil then
+	--	SelectTagCardSlot(defSelCardSlot, true);
+	--end
+
+	lvSoldiersList:ResizeToFit();
+	lvHeroesList:ResizeToFit();
+end
+
+function OnClickTagCardSlot(_tagSlot)
+	PlayButtonSound();
+
+	if _tagSlot.cardInfo ~= nil then
+		SelectTagCardSlot(_tagSlot);
+	end
+end
+
+function SetCardSlotSelected(_tagSlot, _isSeled)
+    if _tagSlot.selOnFrame ~= nil then
+        _tagSlot.selOnFrame.visible = _isSeled;
+    end
+end
+
+function SelectTagCardSlot(_tagSlot)
+	if curSeledSlot ~= nil then
+		SetCardSlotSelected(curSeledSlot, false);
+		btnReplace.visible = false;
+		curSeledSlot = nil;
+	end
+	curSeledSlot = _tagSlot;
+	if curSeledSlot ~= nil then
+		SetCardSlotSelected(curSeledSlot, true);
+		--显示替换按钮
+		MoveReplaceBtnToTagSlot(curSeledSlot.bindBtn);
+		btnReplace.visible = true;
+	end
+end
+
+function MoveReplaceBtnToTagSlot(_tagBtn)
+	local _tagbtnPos = _tagBtn.position;
+	local _vec2Pos = Vector2(_tagbtnPos.x, _tagbtnPos.y);
+	local curPos = contentPane:GlobalToLocal(_tagBtn.parent:LocalToGlobal(_vec2Pos));
+	--if (bindView.pivotAsAnchor) {
+	--   curPos = new Vector2(bindView.width * bindView.pivot.x + curPos.x, bindView.height * bindView.pivot.y + curPos.y);
+	--}
+	curPos.y = curPos.y + _tagBtn.height * 0.5 - btnReplace.height * 0.5;
+	curPos.x = btnReplace.x;
+	btnReplace:SetXY(curPos.x, curPos.y, true);
+end

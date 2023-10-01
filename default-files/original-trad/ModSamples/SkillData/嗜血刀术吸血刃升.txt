@@ -1,0 +1,14 @@
+﻿0#block_act#1#0
+0#play_sound#RenQi#unit_pos
+2.65#block_act#0#0
+0.02#add_eft#P嗜血刀术吸血刃升#unit_pos,0,0,0#0
+0.33#play_sound#RenQi#unit_pos
+0.33#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+0.5#play_sound#RenQi#unit_pos
+0.5#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+0.77#play_sound#RenQi#unit_pos
+0.77#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+1.17#play_sound#RenQi#unit_pos
+1.17#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400
+1.9#play_sound#RenQi#unit_pos
+1.9#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,0,400,400,0,0,-400

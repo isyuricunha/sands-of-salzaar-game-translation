@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="86,100" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_vfem" name="n0" src="o316b2" fileName="Images/BattlePanel_SkillSlot_Bg1.png" xy="43,43" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n2_i5tu" name="icon" src="o316br" fileName="Controllers/SpriteImage.xml" xy="43,43" size="72,72" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <image id="n15_o316" name="mask_frame" src="o316b3" fileName="Images/BattlePanel_SkillSlot_Mask1.png" xy="7,7" group="n12_i5tu"/>
+    <image id="n14_o316" name="skill_name_bg" src="o316ar" fileName="Images/BattlePanel_OpBtn_Bg1.png" xy="8,60" pivot="0.75,1" size="71,19" group="n12_i5tu" alpha="0.6">
+      <relation target="n1_vfem" sidePair="height-height"/>
+    </image>
+    <text id="n1_vfem" name="title" xy="8,60" size="71,19" group="n12_i5tu" fontSize="12" color="#ffffff" align="center" vAlign="bottom" ubb="true" autoSize="height" autoClearText="true" text="技能名称">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <text id="n23_o316" name="num" xy="8,8" size="70,27" group="n12_i5tu" fontSize="16" color="#dfdfdf" align="right" ubb="true" autoSize="none" shadowColor="#1e1e1e" shadowOffset="1,1" autoClearText="true" text="10">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <image id="n13_i5tu" name="timer_mask" src="pczr80" fileName="Images/cm_action_bar_blackmask1.png" xy="43,43" pivot="0.5,0.5" anchor="true" size="72,72" group="n12_i5tu" alpha="0.8" fillMethod="radial360" fillClockwise="false">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <image id="n5_i5tu" name="selon" src="gezp4" fileName="Images/cm_itemslot_light.png" xy="4,4" size="79,79" group="n12_i5tu"/>
+    <component id="n8_i5tu" name="eft_icon" src="o316br" fileName="Controllers/SpriteImage.xml" xy="46,60" size="80,80" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+    <image id="n6_i5tu" name="eft_frame1" src="o316bs" fileName="Images/cm_skillbox_alpha_frame1.png" xy="43,43" pivot="0.5,0.5" anchor="true" size="76,76" group="n12_i5tu" blend="add">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <component id="n9_i5tu" name="shiny_eft" src="o316bt" fileName="Controllers/BoxShinyEffect.xml" xy="7,7" size="72,72" group="n12_i5tu">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <group id="n12_i5tu" name="group_info" xy="4,4" size="82,96" advanced="true"/>
+    <text id="n11_i5tu" name="key_name" xy="9,9" pivot="0.5,0.5" anchor="true" size="24,32" fontSize="20" color="#ffffff" align="center" vAlign="middle" ubb="true" autoSize="none" bold="true" strokeColor="#000000" strokeSize="2" singleLine="true" autoClearText="true" text="Q">
+      <relation target="" sidePair="width-width,height-height,center-center,bottom-bottom"/>
+    </text>
+    <image id="n3_i5tu" name="dark" src="pczr76" fileName="Images/common_btn_darkmask_0.png" xy="7,7" size="73,73">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n4_i5tu" name="light" src="pczr77" fileName="Images/common_btn_lightmask_0.png" xy="7,7" size="73,73">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n16_o316" name="sp_bg" src="o316b0" fileName="Images/BattlePanel_SkillPoint_RankBox_Bg1.png" xy="6,86"/>
+    <image id="n17_o316" name="sp_rank1" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="0,80"/>
+    <image id="n18_o316" name="sp_rank2" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="13,80"/>
+    <image id="n19_o316" name="sp_rank3" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="26,80"/>
+    <image id="n20_o316" name="sp_rank4" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="39,80"/>
+    <image id="n21_o316" name="sp_rank5" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="52,80"/>
+    <image id="n22_o316" name="sp_rank6" src="o316b1" fileName="Images/BattlePanel_SkillPoint_RankBox_Fg1.png" xy="65,80"/>
+    <text id="n24_dydl" name="lock" xy="6,40" size="28,24" fontSize="16" color="#ff0000" vAlign="bottom" ubb="true" autoSize="none" shadowColor="#1e1e1e" shadowOffset="1,1" autoClearText="true" text="">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+  </displayList>
+  <Button/>
+</component>

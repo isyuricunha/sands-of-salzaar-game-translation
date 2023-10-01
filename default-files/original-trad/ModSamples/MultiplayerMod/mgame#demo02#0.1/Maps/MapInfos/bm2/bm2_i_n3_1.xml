@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.2" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
+  <tile_tex tex_id="8" scale_x="3" scale_y="3" rotate="0" />
+  <tile_obj obj_id="480" obj_type="0" tileset_id="yanti_desertrock07" layer_index="2" pos_x="-2669.66943" pos_y="1007.54144" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="479" obj_type="0" tileset_id="yanti_desertrock07" layer_index="2" pos_x="-2730.52539" pos_y="1037.96948" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="478" obj_type="0" tileset_id="yanti_desertrock03" layer_index="2" pos_x="-2684.8833" pos_y="1127.62866" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="477" obj_type="0" tileset_id="yanti_desertrock03" layer_index="2" pos_x="-2494.709" pos_y="1142.84253" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="476" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="-2536.54736" pos_y="1056.98682" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="475" obj_type="0" tileset_id="yanti_desertrock04" layer_index="2" pos_x="-2627.831" pos_y="1174.89478" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="45" bind_info_type="12" center_map_x="-2584.47144" center_map_y="2284.36963" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-229.861816" aabb_min_y="-170.071228" aabb_max_x="286.762451" aabb_max_y="75.74487">
+    <pts_info>-224,-254;-94,-330;148,-251;181,-50;281,18;266,141;-113,136</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

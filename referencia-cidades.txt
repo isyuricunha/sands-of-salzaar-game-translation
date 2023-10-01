@@ -1,0 +1,137 @@
+Ifrit Void Master's - Mestre do Ifrit do Vácuo - Mestre do Vazio Ifrit
+Obsidian Flame - Chama Obsidiana
+Halfmoon Hills Bazaar - Colinas da Meia-Lua
+yak - Yak
+Swordmaster - Mestre da Espada -> Mestre Espadachim
+Bazar Halfmoon Hills
+Vale Twinluna
+Vale Frost - Vale do Gelo - Vale da Geada
+Ifrit Void Master - Mestre do Vácuo dos Ifrits
+Deserto West Docana - Deserto West Docana
+Jamal City - Cidade de Jamal
+Pāhoehoe Lava Void - Vácuo de Lava Pāhoehoe
+Umbra Cliffs - Penhascos Umbra
+Crying Rock - Rocha Chorosa
+Beastmen - Homens-Besta
+Redstone Keep - Fortaleza de Pedra Vermelha
+Golden Bazaar - Bazar Dourado
+Camel Bell Bazaar - Bazar do Sino do Camelo
+Desert Brotherhood - Irmandade do Deserto
+Hunter's Valley - Vale do Caçador
+Vila Limestone - Aldeia de Calcário
+Espiritualista - Spiritmancer
+
+Agadar: Cidade do Deserto
+Amethyst Town: Cidade da Ametista
+Cotta Town: Cidade de Cotta
+Dakhn Village: Aldeia dos Dakn
+Fleur: Fleur
+Halfmoon Hills Bazaar: Mercado das Colinas da Lua Cheia
+Ilyas Mountains: Montanhas Ilyas
+Jamal City: Cidade de Jamal
+Khamsin Village: Aldeia Khamsin
+Mudflats Village: Aldeia dos Mangues
+Nasir Village: Aldeia dos Nasir
+Papyrus Village: Aldeia do Papiro
+Redstone Keep: Forte de Redstone
+Rocha Chorosa: Rocha Chorosa
+Twinluna Valley: Vale Twinluna
+Urn Village: Aldeia das Urnas
+Zargos Mountains: Montanhas Zagros
+Monstros
+
+Beastman: Homem-Besta
+Ifrit: Ifrit
+Jade Serpent: Serpente de Jade
+Kraken: Kraken
+Lion: Leão
+Manticore: Manticora
+Mummy: Múmia
+Orc: Orc
+Pirate: Pirata
+Scorpion: Escorpião
+Skeleton: Esqueleto
+Spider: Aranha
+Troll: Troll
+Wolf: Lobo
+
+Umbra Cliffs - Penhascos Umbra
+Nameless Camp - Acampamento Sem Nome
+Redstone Valley - Vale da Pedra Vermelha
+Crying Rock - Rocha Chorosa
+Twinluna Valley - Vale Gêmeo da Lua
+Zagros Mountains - Montanhas Zagros
+West Docana Desert - Deserto Docana Ocidental
+Caves - Cavernas
+Book of Fire Mirage - Mirage do Livro do Fogo
+Warrior's Memories - Memórias do Guerreiro
+Ember Mines - Minas das Brasas
+Rabia's Stronghold - Fortaleza de Rabia
+Old King's Catacomb - Catacumba do Velho Rei
+Canis Forest - Floresta de Canis
+Mysterious Oasis - Oásis Misterioso
+Swordspire Cave - Caverna da Espada Agulha
+Endless City - Cidade Infinita
+First Test - Primeiro Teste
+Karakorum Mountains - Montanhas Karakorum
+River Valley - Vale do Rio
+Zagros Caves - Cavernas Zagros
+Crying Rock Bandit Cave - Caverna dos Bandidos de Rocha Chorosa
+Frost Valley Cave Interior - Interior da Caverna do Vale do Gelo
+Ifrit Cave - Caverna dos Ifrits
+Abandoned Crying Rock Mine - Mina Abandonada de Rocha Chorosa
+Memories - Memórias
+Eerie Caves - Cavernas Sinistras
+Hunter's Valley - Vale do Caçador
+Shujae Dungeon - Masmorra de Shujae
+Redstone Valley Outskirts - Arredores do Vale da Pedra Vermelha
+Ifrit Lair - Covil dos Ifrits
+Nagukka - Nagukka
+Mirage - Mirage
+Underground Tunnel - Túnel Subterrâneo
+River Temple - Templo do Rio
+Underground Library - Biblioteca Subterrânea
+Door - Porta
+Cave of Curses - Caverna das Maldições
+Sirocco Valley - Vale de Sirocco
+Arbor Palace - Palácio Arbor
+Verdant Valley - Vale Verdejante
+Leviathan Bone Caves - Cavernas dos Ossos de Leviatã
+Abandoned Redstone Mine - Mina Abandonada da Pedra Vermelha
+Zagros Giant Formation - Formação Gigante Zagros
+Pāhoehoe Lava Void - Vazio de Lava Pāhoehoe
+Secret Hideout - Esconderijo Secreto
+Agadir Caves - Cavernas de Agadir
+Snow Caverns - Cavernas de Neve
+Forest Mirage - Mirage na Floresta
+Nameless Valley - Vale Sem Nome
+Vision of the Goddess - Visão da Deusa
+Jahim's Memories - Memórias de Jahim
+Yaya's Memories - Memórias de Yaya
+Crying Rock Verdant Valley Entrance - Entrada do Vale Verdejante de Rocha Chorosa
+Zagros Verdant Valley Entrance - Entrada do Vale Verdejante Zagros
+Swamp Verdant Valley Entrance - Entrada do Vale Verdejante do Pântano
+Desert Trade Route - Rota de Comércio no Deserto
+Epoch Caves - Cavernas da Época
+Passageway - Passagem
+Ifrit Camp - Acampamento dos Ifrits
+Unknown Ruins - Ruínas Desconhecidas
+Fire Barracks - Barracas de Fogo - Acampamento de Fogo
+White Rose Garden - Jardim das Rosas Brancas
+Riq's Memories - Memórias de Riq
+Olum's Memories - Memórias de Olum
+Riftway - Caminho da Fenda
+Book of Fire - Livro do Fogo
+Inner Demon - Demônio Interior
+Mathali's Memories - Memórias de Mathali
+Tavern Interior - Interior da Taverna
+Snowridge - 
+Frost Valley - Vale do Gelo - Vale da Geada
+Diresprings - Fontes Sinistras - Fontes Sombrias
+Wildfire Ringleader - Líder do Fogo Selvagem - Líder dos Píromantes
+Sol Warrior - Guerreiro do Sol - Guerreiro Sol
+Nasir Envoy - Mensageiro de Nasir (nao esquecer Akhal)
+Envoy - Mensageiro ou Emissário (decidi usar Emissário)
+Ifri - Demônio de Fogo
+
+Bazar ou Mercado?

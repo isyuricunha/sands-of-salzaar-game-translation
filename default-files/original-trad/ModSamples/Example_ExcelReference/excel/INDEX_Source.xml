@@ -1,0 +1,162 @@
+﻿<?xml version="1.0"?>
+<root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<convert reg="chest_info_pojo_new.xml" from="Main/B宝箱信息表_Chests.xlsx" need_translate="true" />
+	<convert reg="soldierunit_pojo_new.xml" from="Main/B兵种单位表_Soldiers.xlsx" need_translate="true" />
+	<convert reg="soldierunit_pojo_new.xml" from="Main/B兵种单位表_SoldiersNew.xlsx" need_translate="true" />
+	<convert reg="soldierunit_pojo_new.xml" from="Main/B兵种单位表_Fighters.xlsx" need_translate="true" />
+	<convert reg="achievement_point_bonus_pojo_new.xml" from="Main/C成就点数奖励表_AchievementBonus.xlsx" />
+	<convert reg="initinfo_pojo_new.xml" from="Main/C初始设定表_Init.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="Main/C触发器_Triggers_Common.xlsx" need_translate="true" />
+	<convert reg="legacy_pojo_new.xml" from="Main/C传承_Legacy.xlsx" need_translate="true" />
+	<convert reg="legacy_formula_pojo_new.xml" from="Main/C传承点数公式_LegacyFormula.xlsx" need_translate="true" />
+	<convert reg="mu_model_pojo_new.xml" from="Main/D大地图单位模型表_MapModels.xlsx" />
+	<convert reg="rolemodel_pojo_new.xml" from="Main/D单位模型定义_Models.xlsx" />
+	<convert reg="rolemodel_act_pojo_new.xml" from="Main/D单位模型动作定义_ModelsAct.xlsx" />
+	<convert reg="game_item_synth_class_pojo_new.xml" from="Main/D道具合成分类表_SynthClass.xlsx" />	
+	<convert reg="game_item_synth_pojo_new.xml" from="Main/D道具合成配方表_Synth.xlsx" />
+	<convert reg="game_item_pojo_new.xml" from="Main/D道具列表_Items.xlsx" need_translate="true" />
+	<convert reg="game_item_pojo_new.xml" from="Main/D道具列表_Items_Mounts.xlsx" need_translate="true" />
+	<convert reg="game_item_pojo_new.xml" from="Main/D道具列表_Items_Special.xlsx" need_translate="true" />
+	<convert reg="game_item_pojo_new.xml" from="Main/D道具列表_Items_Supplies.xlsx" need_translate="true" />
+	<convert reg="game_item_pojo_new.xml" from="Main/D道具列表_Items_CardGems.xlsx" need_translate="true" />
+	<convert reg="game_item_words_pojo_new.xml" from="Main/D道具装备词条表_ItemPrefixs.xlsx" need_translate="true" />
+	<convert reg="level_factor_new.xml" from="Main/D等级系数表_LevelFactor.xlsx" />
+	<convert reg="place_statu_field_pojo_new.xml" from="Main/D地点属性字段_PlaceStatus.xlsx" need_translate="true" />
+	<convert reg="gamemapblock_pojo_new.xml" from="Main/D地图区块_MapBlocks.xlsx" />
+	<convert reg="terrain_info_pojo_new.xml" from="Main/D地形影响_Terrains.xlsx" />
+	<convert reg="dungeon_map_pojo_new.xml" from="Main/F副本地图信息_DungeonMaps.xlsx" />
+	<convert reg="dungeon_info_pojo_new.xml" from="Main/F副本信息_Dungeons.xlsx" />
+	<convert reg="bazzar_items_pojo_new.xml" from="Main/J集市道具信息表_BazzarItems.xlsx" />
+	<convert reg="bazzar_pojo_new.xml" from="Main/J集市信息表_Bazzar.xlsx" />
+	<convert reg="skill_info_pojo_new.xml" from="Main/J技能列表_Skills.xlsx" need_translate="true" />
+	<convert reg="skill_info_pojo_new.xml" from="Main/J技能列表_Skills_Boss.xlsx" need_translate="true" />
+	<convert reg="skill_info_pojo_new.xml" from="Main/J技能列表_Skills_Heros.xlsx" need_translate="true" />
+	<convert reg="skill_info_pojo_new.xml" from="Main/J技能列表_Skills_HJJH.xlsx" need_translate="true" />
+	<convert reg="skill_info_pojo_new.xml" from="Main/J技能列表_Skills_Soliders.xlsx" need_translate="true" />
+	<convert reg="skill_page_pojo_new.xml" from="Main/J技能页_SkillPages.xlsx" need_translate="true" />
+	<convert reg="skill_page_pojo_new.xml" from="Main/J技能页_SkillPages_HJJH.xlsx" need_translate="true" />
+	<convert reg="statu_field_pojo_new.xml" from="Main/J角色属性字段_RoleStatus.xlsx" need_translate="true" />
+	<convert reg="statu_field_pojo_new.xml" from="Main/J角色属性字段_RoleStatus_HJJH.xlsx" need_translate="true" />
+	<convert reg="statu_field_pojo_new.xml" from="Main/J角色属性字段_RoleStatus_LeaderSkill.xlsx" need_translate="true" />
+	<convert reg="story_mode_pojo_new.xml" from="Main/J剧本设定_StoryMode.xlsx" need_translate="true" />	
+	<convert reg="storyevent_pojo_new.xml" from="Main/J剧情事件_StoryEvents_Common.xlsx" need_translate="true" />
+	<convert reg="card_probability_pojo_new.xml" from="Main/K卡牌抽取概率表_CardProbability.xlsx" />
+	<convert reg="card_def_pojo_new.xml" from="Main/K卡牌定义_Cards.xlsx" need_translate="true" />
+	<convert reg="card_def_pojo_new.xml" from="Main/K卡牌定义_CardsNew.xlsx" need_translate="true" />
+	<convert reg="sp_distribute_pojo_new.xml" from="Main/P配点模板表_Distribute.xlsx" />
+	<convert reg="sp_distribute_soldier_new.xml" from="Main/P配点模板表_Distribute_Soldiers.xlsx" />
+	<convert reg="global_buff_pojo_new.xml" from="Main/Q全局BUFF表_GlobalBuffs.xlsx" need_translate="true" />
+	<convert reg="global_statu_field_pojo_new.xml" from="Main/Q全局BUFF属性字段_GlobalBuffStatus.xlsx" />
+	<convert reg="global_loot_pojo_new.xml" from="Main/Q全局掉落表_Loots.xlsx" />
+	<convert reg="global_talent_pojo_new.xml" from="Main/Q全局天赋表_Talents.xlsx" need_translate="true" />
+	<convert reg="character_new.xml" from="Main/R人物立绘信息_CharacterDrawing.xlsx" />
+	<convert reg="role_template_pojo_new.xml" from="Main/R人物列表_Roles_Boss.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="Main/R人物列表_Roles_Common.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="Main/R人物列表_Roles_Heros.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="Main/R人物列表_Roles_Waitress.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="Main/R人物列表_Roles_Fighters.xlsx" need_translate="true" />
+	
+	<convert reg="container_pojo_new.xml" from="Main/R容器定义表_Containers.xlsx" need_translate="true" />
+	<convert reg="merchant_pojo_new.xml" from="Main/S商人列表_MerchantItems.xlsx" />
+	<convert reg="building_pojo_new.xml" from="Main/S设施列表_Buildings.xlsx" need_translate="true" />
+	<convert reg="camp_buff_pojo_new.xml" from="Main/S势力BUFF列表_CampBuffs.xlsx" />
+	<convert reg="camp_statu_field_pojo_new.xml" from="Main/S势力属性字段_CampStatus.xlsx" />
+	<convert reg="explore_point_pojo_new.xml" from="Main/T探索地图点数表_ExplorePoints.xlsx" />
+	<convert reg="local_product_pojo_new.xml" from="Main/T特产表_LocalProducts.xlsx" />
+	<convert reg="definedbattle_pojo_new.xml" from="Main/T特定战斗表_Battle.xlsx" />
+	<convert reg="text_explore_pojo_new.xml" from="Main/W文字探索地图表_TextExplore.xlsx" need_translate="true" />
+	<convert reg="text_explore_event_pojo_new.xml" from="Main/W文字探索特殊事件表_TextExploreEvents.xlsx" need_translate="true" />
+	<convert reg="armor_effect_pojo_new.xml" from="Main/W武器护甲作用表_ArmorEffect.xlsx" need_translate="true" />
+	<convert reg="project_effect_pojo_new.xml" from="Main/X项目效果_Projects.xlsx" need_translate="true" />
+	<convert reg="monster_emitter_pojo_new.xml" from="Main/Y野怪发射器_MonsterEmitters.xlsx"  need_translate="true" />
+	<convert reg="monster_info_pojo_new.xml" from="Main/Y野怪投放适配表_MonsterInfos.xlsx"  need_translate="true" />
+	<convert reg="map_building_spot_new.xml" from="Main/Y野外建筑点配置_BuildingSpots.xlsx" need_translate="true" />
+	<convert reg="audio_playlist_pojo_new.xml" from="Main/Y音频播放列表_AudioPlaylist.xlsx" />
+	<convert reg="audio_category_pojo_new.xml" from="Main/Y音频分类表_AudioCategory.xlsx" />
+	<convert reg="audio_item_pojo_new.xml" from="Main/Y音频项目表_AudioItems.xlsx" />
+	<convert reg="audio_sub_item_pojo_new.xml" from="Main/Y音频资源表_AudioSubItems.xlsx" />
+	<convert reg="audio_assets_pojo_new.xml" from="Main/Y音频资源附加表_AudioAssets.xlsx" />
+	<convert reg="audio_event_pojo_new.xml" from="Main/y音效资源调用_AudioEvents.xlsx" />
+	<convert reg="intval_config_pojo_new.xml" from="Main/Y游戏内可配置字段_IntvalConfigs.xlsx" need_translate="true" />
+	<convert reg="string_pojo_new.xml" from="Main/Y游戏内文字_Strings.xlsx" need_translate="true" />
+	<convert reg="string_pojo_new.xml" from="Main/Y游戏内文字_Strings_Tips.xlsx" need_translate="true" />
+	<convert reg="string_pojo_new.xml" from="Main/Y游戏内文字_Strings_UI.xlsx" need_translate="true" />
+	<convert reg="preload_prefabs_pojo_new.xml" from="Main/Y预加载预制体表_PreloadPrefabs.xlsx" />
+	<convert reg="battle_field_pojo_new.xml" from="Main/Z战场设置_Battlefield.xlsx" />
+	<convert reg="buff_info_pojo_new.xml" from="Main/Z战斗BUFF列表_Buffs.xlsx" />
+	<convert reg="buff_info_pojo_new.xml" from="Main/Z战斗BUFF列表_Buffs_HJJH.xlsx" />
+	<convert reg="buff_info_pojo_new.xml" from="Main/Z战斗BUFF列表_BuffsHero.xlsx" />
+	<convert reg="hit_effect_pojo_new.xml" from="Main/Z战斗受击特效表_HitEffects.xlsx" />
+	<convert reg="battle_effect_pojo_new.xml" from="Main/Z战斗特效对象_BattleEffects.xlsx" />
+	<convert reg="battle_effect_pojo_new.xml" from="Main/Z战斗特效对象_BattleEffects_Heros.xlsx" />
+	<convert reg="battle_effect_pojo_new.xml" from="Main/Z战斗特效对象_BattleEffects_HJJH.xlsx" />
+	<convert reg="gamecamp_pojo_new.xml" from="Main/Z阵营势力表_Camps.xlsx" />	
+	<convert reg="units_generator_pojo_new.xml" from="Main/Z自适应单位适配表_UnitsGenerator.xlsx" />
+	<convert reg="nobility_ranks_pojo.xml" from="Main/J爵位等级_NobilityRanks.xlsx" need_translate="true" />
+	<convert reg="npc_wander_pojo.xml" from="Main/Y游荡NPC设置_NpcWanderConfig.xlsx" />
+	
+	<convert reg="role_interaction_event_pojo.xml" from="Main/J角色互动事件池_RoleInteractionEvents.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="Main/J剧情事件_StoryEvents_RoleInteractions.xlsx" need_translate="true" />
+
+	<convert reg="chest_info_pojo_new.xml" from="沙盒/B宝箱信息表_Chests.xlsx" need_translate="true" />
+	<convert reg="plugin_info_pojo_new.xml" from="沙盒/C插件设置表_Plugins.xlsx" />	
+	<convert reg="achievement_point_bonus_pojo_new.xml" from="沙盒/C成就点数奖励表_AchievementBonus.xlsx"/>
+	<convert reg="initinfo_pojo_new.xml" from="沙盒/C初始设定表_Init.xlsx" />
+	<convert reg="event_trigger_pojo_new.xml" from="沙盒/C触发器_Triggers.xlsx" need_translate="true" />
+	<convert reg="event_trigger_pojo_new.xml" from="沙盒/C触发器_Triggers_19k.xlsx" need_translate="true" />
+	<convert reg="event_trigger_pojo_new.xml" from="沙盒/C触发器_Triggers_MainStory.xlsx" need_translate="true" />
+	<convert reg="event_trigger_pojo_new.xml" from="沙盒/C触发器_Triggers_RandomQuests.xlsx" need_translate="true" />
+	<convert reg="event_trigger_pojo_new.xml" from="沙盒/C触发器_Triggers_zyc.xlsx" need_translate="true" />
+	<convert reg="game_item_synth_class_pojo_new.xml" from="沙盒/D道具合成分类表_SynthClass.xlsx" need_translate="true" />	
+	<convert reg="game_item_synth_pojo_new.xml" from="沙盒/D道具合成配方表_Synth.xlsx" need_translate="true" />
+	<convert reg="game_item_pojo_new.xml" from="沙盒/D道具列表_Items.xlsx" need_translate="true" />
+	<convert reg="place_pojo_new.xml" from="沙盒/D地点列表_Places.xlsx" need_translate="true" />
+	<convert reg="gamemap_pojo_new.xml" from="沙盒/D地图列表_Maps.xlsx" need_translate="true" />
+	<convert reg="bazzar_items_pojo_new.xml" from="沙盒/J集市道具信息表_BazzarItems.xlsx" need_translate="true" />
+	<convert reg="bazzar_pojo_new.xml" from="沙盒/J集市信息表_Bazzar.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_19k.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_MainStory.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_MapEvents.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_RandomQuests.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_SubCamp.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_Tavern.xlsx" need_translate="true" />
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_zyc.xlsx" need_translate="true" />
+	<convert reg="scriptstring_pojo_new.xml" from="沙盒/J剧情内文字翻译.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles_19k.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles_Boss.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles_MainStory.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles_Quest.xlsx" need_translate="true" />
+	<convert reg="role_template_pojo_new.xml" from="沙盒/R人物列表_Roles_zyc.xlsx" need_translate="true" />
+	<convert reg="quest_pojo_new.xml" from="沙盒/R任务列表_Quests.xlsx" need_translate="true" />
+	<convert reg="quest_pojo_new.xml" from="沙盒/R任务列表_Quests_19k.xlsx" need_translate="true" />
+	<convert reg="quest_pojo_new.xml" from="沙盒/R任务列表_Quests_MainStory.xlsx" need_translate="true" />
+	<convert reg="quest_pojo_new.xml" from="沙盒/R任务列表_Quests_RandomQuests.xlsx" need_translate="true" />
+	<convert reg="quest_pojo_new.xml" from="沙盒/R任务列表_Quests_zyc.xlsx" need_translate="true" />
+	<convert reg="quest_group_pojo_new.xml" from="沙盒/R任务系列_QuestKinds.xlsx" need_translate="true" />
+	<convert reg="merchant_pojo_new.xml" from="沙盒/S商人列表_MerchantItems.xlsx" need_translate="true" />
+	<convert reg="building_pojo_new.xml" from="沙盒/S设施列表_Buildings.xlsx" need_translate="true" />
+	<convert reg="random_quest_pojo_new.xml" from="沙盒/S随机任务系统_RandomQuestsSys.xlsx" />
+	<convert reg="local_product_pojo_new.xml" from="沙盒/T特产表_LocalProducts.xlsx" />
+	<convert reg="definedbattle_pojo_new.xml" from="沙盒/T特定战斗表_Battle.xlsx" />
+	<convert reg="definedbattle_pojo_new.xml" from="沙盒/T特定战斗表_Battle_19k.xlsx" />
+	<convert reg="definedbattle_pojo_new.xml" from="沙盒/T特定战斗表_Battle_zyc.xlsx" />
+	<convert reg="text_explore_pojo_new.xml" from="沙盒/W文字探索地图表_TextExplore.xlsx" need_translate="true" />
+	<convert reg="text_explore_event_pojo_new.xml" from="沙盒/W文字探索特殊事件表_TextExploreEvents.xlsx" need_translate="true" />
+	<convert reg="project_effect_pojo_new.xml" from="沙盒/X项目效果_Projects.xlsx" need_translate="true" />
+	<convert reg="monster_emitter_pojo_new.xml" from="沙盒/Y野怪发射器_MonsterEmitters.xlsx"  need_translate="true" />
+	<convert reg="monster_info_pojo_new.xml" from="沙盒/Y野怪投放适配表_MonsterInfos.xlsx"  need_translate="true" />
+	<convert reg="monster_info_pojo_new.xml" from="沙盒/Y野怪投放适配表_MonsterInfos_19k.xlsx"  need_translate="true" />
+	<convert reg="monster_info_pojo_new.xml" from="沙盒/Y野怪投放适配表_MonsterInfos_zyc.xlsx"  need_translate="true" />
+	<convert reg="map_building_spot_new.xml" from="沙盒/Y野外建筑点配置_BuildingSpots.xlsx"  need_translate="true" />
+	<convert reg="battleevent_pojo_new.xml" from="沙盒/Z战斗中剧情事件_BattleEvents_Boss.xlsx" need_translate="true"/>
+	<convert reg="battleevent_pojo_new.xml" from="沙盒/Z战斗中剧情事件_BattleEvents_DG.xlsx" need_translate="true"/>
+	<convert reg="gamecamp_pojo_new.xml" from="沙盒/Z阵营势力表_Camps.xlsx" need_translate="true" />	
+
+	<convert reg="storyevent_pojo_new.xml" from="沙盒/J剧情_StoryEvents_temp.xlsx" />	
+	<convert reg="battleevent_pojo_new.xml" from="沙盒/Z战斗中剧情事件_BattleEvents_DGtemp.xlsx" />
+	
+
+</root>
+

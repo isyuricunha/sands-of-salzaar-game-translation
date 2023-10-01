@@ -1,0 +1,119 @@
+require("gui/WindowUtils")
+
+--页面访问控件
+local contentPane
+
+local btnOK
+local btnYES
+local btnNO
+
+local txtInfoContent
+local dlgMode = 0		--对话框模式 0：确认框  1：是否选择框
+
+local navCtl = nil;
+local navObjOk = nil;
+local navObjYes = nil;
+local navObjNo = nil;
+
+--local objJoystickInfo = nil;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+	--绑定按钮事件
+	btnOK = contentPane:GetChild("btn_ok").asButton
+	btnOK.onClick:Add(onClickOK);
+	btnYES = contentPane:GetChild("btn_yes").asButton
+	btnYES.onClick:Add(onClickYES);
+	btnNO = contentPane:GetChild("btn_no").asButton
+	btnNO.onClick:Add(onClickNO);
+
+	txtInfoContent = contentPane:GetChild("info_content").asTextField;
+
+	--objJoystickInfo = contentPane:GetChild("joystick_box");
+
+	--创建按键导航空间
+	navCtl = self:GetOrCreateNavCtl();
+	navObjYes = navCtl:AddNavObjByGButton(btnYES);
+	navObjOk = navCtl:AddNavObjByGButton(btnOK);
+	navObjNo = navCtl:AddNavObjByGButton(btnNO);
+	navObjOk:SetNavLeft(navObjYes);
+	navObjNo:SetNavLeft(navObjOk);
+
+	--txtInfoContent.text = self:GetWindowArgVal("title")
+	--local dlgModeVal = self:GetWindowArgVal("mode")
+	--初始化变量
+
+end
+
+function SetWindowParams(args)
+	local title = args[0];
+	local mode = args[1];
+	SetWindowInfo(title, mode)
+end
+
+function SetWindowInfo(_title, _mode)
+	txtInfoContent.text = CS.GUIHelper.ConvertUGUIStr(ConvertAllStrVal(_title))
+	if _mode == "yesno" then
+		btnOK.visible = false
+		btnYES.visible = true
+		btnNO.visible = true
+
+		dlgMode = 1
+		self:SetBackkeyButton(btnNO);
+		navCtl:SetDefaultFocus(navObjYes);
+	else
+		btnOK.visible = true
+		btnYES.visible = false
+		btnNO.visible = false
+
+		dlgMode = 0
+		self:SetBackkeyButton(btnOK);
+		navCtl:SetDefaultFocus(navObjOk);
+	end
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+
+end
+
+function onClickOK()
+	PlayButtonSound()
+
+	self.CurDialogResult = 0
+	self:Hide()
+end
+
+function onClickYES()
+	PlayButtonSound()
+
+	self.CurDialogResult = 1
+	self:Hide()
+end
+
+function onClickNO()
+	PlayButtonSound()
+
+	self.CurDialogResult = 0
+	self:Hide()
+end

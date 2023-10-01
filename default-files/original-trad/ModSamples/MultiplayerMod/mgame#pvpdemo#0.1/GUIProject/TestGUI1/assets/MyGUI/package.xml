@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="zuvkwb6m">
+  <resources>
+    <folder id="/Images/" name="Images" path="/" atlas="default"/>
+    <folder id="/SingleImage/" name="SingleImage" path="/" atlas="alone"/>
+    <component id="pczr6z" name="MyBsPanel.xml" path="/Controllers/" exported="true"/>
+    <image id="pczr72" name="cm_mapbox_mask.png" path="/Images/" scale="9grid" scale9grid="16,16,32,32"/>
+    <component id="pczr74" name="BtnMap1.xml" path="/Buttons/"/>
+    <image id="pczr75" name="cm_mapbox_btn.png" path="/Images/"/>
+    <image id="pczr76" name="common_btn_darkmask_0.png" path="/Images/"/>
+    <image id="pczr77" name="common_btn_lightmask_0.png" path="/Images/"/>
+    <image id="pczr78" name="cm_bbbox_bg.png" path="/Images/" scale="9grid" scale9grid="150,0,9,12"/>
+    <component id="pczr79" name="BtnMenu1.xml" path="/Buttons/"/>
+    <image id="pczr7a" name="cm_icon_menu1.png" path="/Images/"/>
+    <component id="pczr7b" name="BattleResInfoBox.xml" path="/Components/" exported="true"/>
+    <component id="pczr7c" name="ResBoxItemSimple1.xml" path="/Components/"/>
+    <component id="pczr7j" name="EnemyInfoBar.xml" path="/Components/" exported="true"/>
+    <component id="pczr7k" name="EnemyHpBar.xml" path="/Components/" exported="true"/>
+    <image id="pczr7l" name="cm_actionbar2_bg.png" path="/Images/" scale="9grid" scale9grid="16,16,32,32"/>
+    <image id="pczr7m" name="cm_ehp_bar_fg_1.png" path="/Images/"/>
+    <component id="pczr7n" name="RoundBtnCamera1.xml" path="/Buttons/"/>
+    <image id="pczr7o" name="cm_btn_changecamera.png" path="/Images/"/>
+    <image id="pczr7p" name="cm_round_btn_light_mask.png" path="/Images/"/>
+    <image id="pczr7q" name="cm_round_btn_dark_mask.png" path="/Images/"/>
+    <component id="pczr7r" name="FuncNormalBtn3.xml" path="/Buttons/" exported="true"/>
+    <image id="pczr7s" name="cm_actionbar4_bg.png" path="/Images/" scale="9grid" scale9grid="24,24,16,16"/>
+    <component id="pczr7t" name="MyBsPlayerPanel.xml" path="/Controllers/" exported="true"/>
+    <image id="pczr7u" name="cm_actionbar_bg.png" path="/Images/" scale="9grid" scale9grid="12,12,40,40"/>
+    <image id="pczr7v" name="cm_blank_rect9_1.png" path="/Images/" scale="9grid" scale9grid="1,1,126,30"/>
+    <component id="pczr7z" name="SpriteImage.xml" path="/Components/"/>
+    <image id="pczr80" name="cm_action_bar_blackmask1.png" path="/Images/"/>
+    <image id="pczr84" name="cm_blank_round_bg1.png" path="/Images/"/>
+    <image id="pczr85" name="cm_blank_box_1.png" path="/Images/" scale="9grid" scale9grid="8,8,16,16"/>
+    <image id="pczr86" name="cm_headbox_bg.png" path="/Images/"/>
+    <image id="pczr87" name="bs_head_expbar_bg.png" path="/Images/"/>
+    <image id="pczr88" name="bs_head_expbar_fg.png" path="/Images/"/>
+    <image id="pczr89" name="cm_lvbox_bg.png" path="/Images/"/>
+    <component id="pczr8a" name="CustomVarWatcherBox.xml" path="/Components/" exported="true"/>
+    <image id="pczr8b" name="cm_squarebox_bg1.png" path="/Images/" scale="9grid" scale9grid="18,18,28,28"/>
+    <component id="pczr8c" name="RoundBtnProfile.xml" path="/Buttons/"/>
+    <image id="pczr8d" name="cm_icon_profile.png" path="/Images/"/>
+    <component id="pczr8e" name="RoundBtnSkill.xml" path="/Buttons/"/>
+    <image id="pczr8f" name="cm_icon_book.png" path="/Images/"/>
+    <component id="pczr8g" name="CompHolder.xml" path="/Components/" exported="true"/>
+    <component id="jree8h" name="SelectInfoBox1.xml" path="/Components/"/>
+    <component id="gezp0" name="BaseItemSlot1.xml" path="/Buttons/"/>
+    <image id="gezp1" name="cm_itemslot_bg_style1.png" path="/Images/" scale="9grid" scale9grid="8,8,16,16"/>
+    <image id="gezp4" name="cm_itemslot_light.png" path="/Images/" scale="9grid" scale9grid="23,23,46,46"/>
+    <component id="gezp8i" name="BattleBagPanel.xml" path="/Controllers/" exported="true"/>
+    <component id="rbjt8j" name="SelectRoleWindow.xml" path="/Controllers/" exported="true"/>
+    <component id="rbjt8k" name="CommonWindowFrame1.xml" path="/Components/"/>
+    <image id="rbjt8l" name="common_windowframe_1.png" path="/Images/" scale="9grid" scale9grid="8,8,16,16"/>
+    <image id="rbjt8m" name="common_win_header_darkbg_0.png" path="/Images/" scale="9grid" scale9grid="10,10,12,12"/>
+    <image id="rbjt8n" name="common_win_header_gradient_1.png" path="/Images/"/>
+    <image id="rbjt8o" name="common_win_tribals_l.png" path="/Images/"/>
+    <image id="rbjt8p" name="common_win_tribals_r.png" path="/Images/"/>
+    <image id="rbjt8q" name="common_win_header_borderline_side.png" path="/Images/" scale="9grid" scale9grid="2,0,4,4"/>
+    <image id="rbjt8r" name="common_win_header_borderline_center.png" path="/Images/" scale9grid="16,0,32,14"/>
+    <component id="rbjt8s" name="WindowCloseBtn1.xml" path="/Components/"/>
+    <image id="rbjt8t" name="common_btn_close_1.png" path="/Images/"/>
+    <image id="rbjt8u" name="common_btn_darkmask_0(1).png" path="/Images/"/>
+    <image id="rbjt8v" name="common_btn_lightmask_0(1).png" path="/Images/"/>
+    <component id="rbjt8w" name="NoticeListContentItem1.xml" path="/Components/"/>
+    <component id="rbjt8x" name="ScrollBarV2.xml" path="/Components/" exported="true"/>
+    <image id="rbjt8y" name="cm_slidbar1_v_bg.png" path="/Images/" scale="9grid" scale9grid="1,18,16,28"/>
+    <component id="rbjt8z" name="ScrollBarV2_arrow1.xml" path="/Components/"/>
+    <image id="rbjt90" name="cm_scroll_btn_u_n.png" path="/Images/"/>
+    <image id="rbjt91" name="cm_scroll_btn_u_p.png" path="/Images/"/>
+    <image id="rbjt92" name="cm_scroll_btn_u_h.png" path="/Images/"/>
+    <component id="rbjt93" name="ScrollBarV2_arrow2.xml" path="/Components/"/>
+    <image id="rbjt94" name="cm_scroll_btn_d_n.png" path="/Images/"/>
+    <image id="rbjt95" name="cm_scroll_btn_d_p.png" path="/Images/"/>
+    <image id="rbjt96" name="cm_scroll_btn_d_h.png" path="/Images/"/>
+    <component id="rbjt97" name="ScrollBarV2_grip.xml" path="/Components/"/>
+    <image id="rbjt98" name="cm_slidbar1_v_handle.png" path="/Images/" scale="9grid" scale9grid="0,7,13,2"/>
+    <image id="rbjt99" name="cm_slidbar1_v_handle_p.png" path="/Images/" scale="9grid" scale9grid="0,7,13,2"/>
+    <image id="rbjt9a" name="cm_slidbar1_v_handle_h.png" path="/Images/" scale="9grid" scale9grid="0,7,13,2"/>
+    <component id="rbjt9b" name="ModalWaitBox.xml" path="/Components/"/>
+    <movieclip id="rbjt9c" name="WaitIndicator1.jta" path="/Components/"/>
+    <component id="rbjt9d" name="DialogConfirmBtn1.xml" path="/Buttons/"/>
+    <image id="rbjt9e" name="common_btn_dialogconfirm_1.png" path="/Images/"/>
+    <image id="rbjt9f" name="common_btn_darkmask_0(2).png" path="/Images/"/>
+    <image id="rbjt9g" name="common_btn_lightmask_0(2).png" path="/Images/"/>
+    <component id="rbjt9h" name="CommonWindowFrame2.xml" path="/Components/"/>
+    <component id="rbjt9i" name="SelRoleSlot1.xml" path="/Buttons/"/>
+    <component id="rbjt9j" name="ModelPrevewer.xml" path="/Components/"/>
+    <image id="rbjt9k" name="cm_card_model_bg.png" path="/Images/"/>
+    <image id="rbjt9l" name="cm_model_view_holder.png" path="/Images/"/>
+    <component id="s4q59m" name="RemoteTradeBox.xml" path="/Controllers/" exported="true"/>
+    <component id="s4q59p" name="BaseItemSlot1.xml" path="/Components/"/>
+    <component id="s4q59q" name="RoundBtnLeft1.xml" path="/Components/"/>
+    <image id="s4q59r" name="cm_round_btn_bg_1.png" path="/Images/"/>
+    <image id="s4q59s" name="cm_icon_leftarrow1.png" path="/Images/"/>
+    <component id="s4q59t" name="RoundBtnRight1.xml" path="/Components/"/>
+    <image id="s4q59u" name="cm_icon_rightarrow1.png" path="/Images/"/>
+    <component id="s4q59v" name="RoundBtnLeftBatch1.xml" path="/Components/"/>
+    <image id="s4q59w" name="cm_icon_leftbatch1.png" path="/Images/"/>
+    <component id="s4q59x" name="RoundBtnRightBatch1.xml" path="/Components/"/>
+    <image id="s4q59y" name="cm_icon_rightbatch1.png" path="/Images/"/>
+    <component id="s4q59z" name="DialogConfirmBtn1.xml" path="/Components/"/>
+    <image id="ohlga0" name="cm_icon_resiron.png" path="/Images/"/>
+    <image id="ohlga1" name="cm_icon_resjade.png" path="/Images/"/>
+    <image id="ohlga2" name="cm_icon_resmoney.png" path="/Images/"/>
+    <image id="ohlga3" name="cm_icon_reswood.png" path="/Images/"/>
+    <component id="ohlga4" name="ResBoxItem1.xml" path="/Components/"/>
+    <image id="ohlga5" name="common_resbox_bg.png" path="/Images/" scale="9grid" scale9grid="43,0,98,40"/>
+    <component id="ohlga6" name="ShopItemSlot1.xml" path="/Buttons/"/>
+    <image id="ohlga7" name="cm_price_box1_bg.png" path="/Images/" scale="9grid" scale9grid="1,0,13,25"/>
+    <component id="c2x1a8" name="RoleSelectDetailPreview.xml" path="/Components/"/>
+    <component id="d10uaa" name="DifficultyButton.xml" path="/Components/" exported="true"/>
+    <image id="o316ad" name="cm_mapbox_bg.png" path="/Images/" scale="9grid" scale9grid="16,16,32,32"/>
+    <component id="o316ae" name="BtnCamera1.xml" path="/Buttons/"/>
+    <image id="o316af" name="cm_camera1_btn.png" path="/Images/"/>
+    <image id="o316ag" name="BattlePanel_BagFrame1.png" path="/Images/"/>
+    <image id="o316ah" name="BattlePanel_BoxBg.png" path="/Images/"/>
+    <image id="o316ai" name="BattlePanel_BtnFrame1.png" path="/Images/" scale="9grid" scale9grid="8,8,69,12"/>
+    <image id="o316aj" name="BattlePanel_EquipIcon1.png" path="/Images/"/>
+    <image id="o316ak" name="BattlePanel_HpBar1.png" path="/Images/"/>
+    <image id="o316al" name="BattlePanel_InfoPanel_Bg1.png" path="/Images/" scale="9grid" scale9grid="230,3,127,44"/>
+    <image id="o316am" name="BattlePanel_ItemSlot_Bg1.png" path="/Images/" scale="9grid" scale9grid="17,17,34,34"/>
+    <image id="o316an" name="BattlePanel_ItemSlotSelFrameOn.png" path="/Images/"/>
+    <image id="o316ao" name="BattlePanel_LvFrame_Bg1.png" path="/Images/"/>
+    <image id="o316ap" name="BattlePanel_MiniMapBox1.png" path="/Images/"/>
+    <image id="o316aq" name="BattlePanel_MpBar1.png" path="/Images/"/>
+    <image id="o316ar" name="BattlePanel_OpBtn_Bg1.png" path="/Images/" scale="9grid" scale9grid="6,6,61,6"/>
+    <image id="o316as" name="BattlePanel_OpBtn_Frame1.png" path="/Images/" scale="9grid" scale9grid="12,12,73,16"/>
+    <image id="o316at" name="BattlePanel_OpBtn_Light1.png" path="/Images/"/>
+    <image id="o316au" name="BattlePanel_PlayerExpBar_Fg1.png" path="/SingleImage/" disableTrim="true"/>
+    <image id="o316av" name="BattlePanel_PlayerExpBar_Fg2.png" path="/Images/"/>
+    <image id="o316aw" name="BattlePanel_PlayerFrame_Active.png" path="/Images/"/>
+    <image id="o316ax" name="BattlePanel_PlayerFrame_Inactive.png" path="/Images/"/>
+    <image id="o316ay" name="BattlePanel_PlayerHeadFrame1.png" path="/Images/"/>
+    <image id="o316az" name="BattlePanel_Shop_Btn1.png" path="/Images/"/>
+    <image id="o316b0" name="BattlePanel_SkillPoint_RankBox_Bg1.png" path="/Images/"/>
+    <image id="o316b1" name="BattlePanel_SkillPoint_RankBox_Fg1.png" path="/Images/"/>
+    <image id="o316b2" name="BattlePanel_SkillSlot_Bg1.png" path="/Images/" scale="9grid" scale9grid="3,3,69,69"/>
+    <image id="o316b3" name="BattlePanel_SkillSlot_Mask1.png" path="/Images/" scale9grid="18,18,36,36"/>
+    <image id="o316b4" name="BattlePanel_SpBoxBg1.png" path="/Images/" scale="9grid" scale9grid="50,6,11,13"/>
+    <image id="o316b5" name="BattlePanel_System_Btn1.png" path="/Images/"/>
+    <image id="o316b6" name="BattlePanel_TeamPlayer_BoxBg1.png" path="/Images/"/>
+    <image id="o316b7" name="BattlePanel_TeamPlayer_WarnFrame1.png" path="/Images/"/>
+    <image id="o316b8" name="BattlePanel_Text_Defeat1.png" path="/Images/"/>
+    <image id="o316b9" name="BattlePanel_Text_Defeat1_en.png" path="/Images/"/>
+    <component id="o316bc" name="BattleFuncBtn1.xml" path="/Buttons/"/>
+    <font id="o316bd" name="MyBattleKillNumFont1.fnt" path="/Fonts/" exported="true"/>
+    <image id="o316be" name="BsPanel_UI_Font1_0.png" path="/Fonts/"/>
+    <image id="o316bf" name="BsPanel_UI_Font1_1.png" path="/Fonts/"/>
+    <image id="o316bg" name="BsPanel_UI_Font1_2.png" path="/Fonts/"/>
+    <image id="o316bh" name="BsPanel_UI_Font1_3.png" path="/Fonts/"/>
+    <image id="o316bi" name="BsPanel_UI_Font1_4.png" path="/Fonts/"/>
+    <image id="o316bj" name="BsPanel_UI_Font1_5.png" path="/Fonts/"/>
+    <image id="o316bk" name="BsPanel_UI_Font1_6.png" path="/Fonts/"/>
+    <image id="o316bl" name="BsPanel_UI_Font1_7.png" path="/Fonts/"/>
+    <image id="o316bm" name="BsPanel_UI_Font1_8.png" path="/Fonts/"/>
+    <image id="o316bn" name="BsPanel_UI_Font1_9.png" path="/Fonts/"/>
+    <component id="o316bo" name="MyBattleActionsBar.xml" path="/Controllers/" exported="true"/>
+    <component id="o316bp" name="MyBattleQuickSlot1.xml" path="/Controllers/" exported="true"/>
+    <image id="o316bq" name="cm_skill_box_bg.png" path="/Images/" scale="9grid" scale9grid="20,20,24,24"/>
+    <component id="o316br" name="SpriteImage.xml" path="/Controllers/"/>
+    <image id="o316bs" name="cm_skillbox_alpha_frame1.png" path="/Images/" scale="9grid" scale9grid="8,8,20,19"/>
+    <component id="o316bt" name="BoxShinyEffect.xml" path="/Controllers/"/>
+    <component id="o316bu" name="MyBattleSpecialSlot1.xml" path="/Controllers/" exported="true"/>
+    <component id="vig7bv" name="ShopBtn1.xml" path="/Buttons/"/>
+    <component id="jeg2bw" name="RecruitMercenaryBox.xml" path="/Controllers/" exported="true"/>
+    <component id="jeg2bx" name="CtlRecruitBoxItem.xml" path="/Components/"/>
+    <component id="jeg2by" name="RecruitBtn1.xml" path="/Buttons/"/>
+  </resources>
+  <publish name="MyGUI" path="D:\Unity Projects\qikanjianghu\projects\MultiplayerMod\mgame#pvpdemo#0.1\RES\UIRes" packageCount="2"/>
+</packageDescription>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="80,80" overflow="hidden" mask="n2_drma">
+  <displayList>
+    <image id="n0_i5tu" name="round_mask" src="rocsc5" fileName="Mobile/cm_blank_round_bg1.png" xy="40,40" pivot="0.5,0.5" anchor="true" scale="0.1,0.1" alpha="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_i5tu" name="shiny_mask" src="rocsc6" fileName="Mobile/cm_blank_box_1.png" xy="-51,40" pivot="0.5,0.5" anchor="true" size="42,200" alpha="0.8" rotation="-30">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_drma" name="mask" src="rocsc1" fileName="Mobile/ui_round_mask_1.png" xy="0,0" size="80,80">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <transition name="t0" frameRate="30">
+    <item time="0" type="Alpha" target="n0_i5tu" tween="true" startValue="0" endValue="0.8" duration="24"/>
+    <item time="0" type="Scale" target="n0_i5tu" tween="true" startValue="0.1,0.1" endValue="2,2" duration="12"/>
+    <item time="0" type="XY" target="n1_i5tu" value="-71,40"/>
+    <item time="12" type="XY" target="n1_i5tu" tween="true" startValue="-55,40" endValue="134,40" duration="12"/>
+    <item time="24" type="Alpha" target="n0_i5tu" tween="true" startValue="0.8" endValue="0" duration="18"/>
+    <item time="42" type="Scale" target="n0_i5tu" value="2,2"/>
+    <item time="42" type="XY" target="n1_i5tu" value="134,40"/>
+  </transition>
+</component>

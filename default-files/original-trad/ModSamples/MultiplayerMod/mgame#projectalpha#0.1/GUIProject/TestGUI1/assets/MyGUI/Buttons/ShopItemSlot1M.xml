@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="110,110" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_hr84" name="bg" src="gezp1" fileName="Images/cm_itemslot_bg_style1.png" xy="0,0" size="110,110" alpha="0.3">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n4_hr84" name="icon" xy="55,55" pivot="0.5,0.5" anchor="true" size="106,106" align="center" vAlign="middle" fill="scale">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <text id="n5_hr84" name="title" xy="4,56" size="103,50" fontSize="20" color="#cccccc" align="center" vAlign="bottom" leading="-5" autoSize="shrink" strokeColor="#101010" text="Item Name">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <text id="n6_hr84" name="count" xy="5,3" size="90,24" fontSize="16" color="#ffffff" align="right" vAlign="middle" autoSize="none" strokeColor="#484848" text="10"/>
+    <image id="n10_ohlg" name="price_box" src="ohlga7" fileName="Images/cm_price_box1_bg.png" xy="3,3" size="72,23" group="n12_ohlg"/>
+    <image id="n13_ohlg" name="coin_icon" src="ohlga2" fileName="Images/cm_icon_resmoney.png" xy="3,5" size="16,18" group="n12_ohlg"/>
+    <text id="n11_ohlg" name="price" xy="17,4" size="77,22" group="n12_ohlg" fontSize="14" color="#faea87" vAlign="middle" autoSize="none" strokeColor="#37372a" text="10"/>
+    <group id="n12_ohlg" name="price_group" xy="3,3" size="91,23" advanced="true"/>
+    <image id="n2_hr84" name="highlight" src="pczr77" fileName="Images/common_btn_lightmask_0.png" xy="2,2" size="106,106" alpha="0.4">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_hr84" name="darkmask" src="pczr76" fileName="Images/common_btn_darkmask_0.png" xy="2,2" size="106,106" alpha="0.4">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n8_lbtq" name="sel_light" src="pczr77" fileName="Images/common_btn_lightmask_0.png" xy="2,2" size="106,106" alpha="0.6">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_hr84" name="sel_frame" src="gezp4" fileName="Images/cm_itemslot_light.png" xy="0,0" size="110,110" visible="false">
+      <gearDisplay controller="button" pages=""/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,497 @@
+require("gui/WindowUtils")
+require("RemoteShopLogic")
+require("GameMath")
+--require("LuaPanda").start("127.0.0.1",8818)
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnOperate
+local btnRefresh
+
+local lvShopItemList
+local txtShopListTitle
+local strShopListTitle
+
+local lvInventoryList
+
+local lbMoneyBox
+local refreshMoneyBox
+
+local curBattleScene
+local curPlayer
+local playerRole = nil
+
+local curShopCapicity = 32
+local curShopItemsNum = 0
+
+local curBagCapicity = 8
+local curBagItemsNum = 0
+
+local curSeledItem = nil
+local curDbClickedItem = nil
+local curClickItemTimer = 0
+
+local timerTickInterval = 0.05
+
+local curHoverItemTag = nil
+local curHoverItemBtn = nil
+local curHoverTickTimer = 0
+
+local isLockedItemDetailWin = false
+local curOpTargetItem = nil
+local curRefreshCost = 100
+
+local isRefresher = false
+
+RES_ID_MONEY = "金钱"
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	local shopListGroup = contentPane:GetChild("shop_box").asGroup
+	lvShopItemList = contentPane:GetChildInGroup(shopListGroup, "tag_list1").asList
+	txtLeftListTitle = contentPane:GetChildInGroup(shopListGroup, "list_title1").asTextField
+	strShopListTitle = txtLeftListTitle.text
+	bindListViewComponent(lvShopItemList, 0)
+
+	local bagListGroup = contentPane:GetChild("inventory_box").asGroup
+	lvInventoryList = contentPane:GetChildInGroup(bagListGroup, "tag_list2").asList
+	bindListViewComponent(lvInventoryList, 1)
+
+	lbMoneyBox = contentPane:GetChild("res_box").asLabel
+	refreshMoneyBox = contentPane:GetChild("refresh_money").asLabel
+	--绑定按钮事件
+	btnOperate = contentPane:GetChild("btn_operate").asButton
+	btnOperate.onClick:Add(onClickOperate);
+
+	btnRefresh = contentPane:GetChild("refresh_button").asButton
+	btnRefresh.onClick:Add(onClickRefresh);
+
+	curBagCapicity = CS.GameCoreHelper.GetPlayerInventoryCapicity()	
+end
+
+--设置绑定的战斗场景对象
+function SetBattleScene(_tagScene)
+	curBattleScene = _tagScene
+	curPlayer = curBattleScene:GetCurPlayerInfo()
+	playerRole = GameCoreHelper.GetPlayerRole()
+
+	UpdateAll()
+	updateOperateBtnView()
+end
+
+function bindListViewComponent(_tagLv, _slotTag)
+	_tagLv.onClickItem:Add(onClickListItem)
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	--增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	--移除计时器事件
+	CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+end
+
+function onTimerTickUpdate()
+	if not isLockedItemDetailWin and curHoverItemTag ~= nil and curHoverItemBtn ~= nil then
+		--当鼠标悬停一段时间后显示物品信息
+		if curHoverTickTimer < 0.5 then
+			curHoverTickTimer = curHoverTickTimer + timerTickInterval
+		else
+			local btnData = curHoverItemBtn.data
+			if btnData ~= nil then
+				local _tagPos = curHoverItemBtn:LocalToRoot(CS.UnityEngine.Vector2(0, 0), nil);
+				ShowItemDetailInfoWindow(curHoverItemTag, _tagPos.x, _tagPos.y, false, btnData.bindTag)
+				curHoverItemTag = nil
+				curHoverItemBtn = nil
+			end
+		end
+	end
+	if curDbClickedItem ~= nil then
+		--判断双击时间
+		if curClickItemTimer < doubleClickTime then
+			curClickItemTimer = curClickItemTimer + timerTickInterval
+		else
+			curDbClickedItem = nil
+		end
+	end
+end
+
+--按下完成按钮时
+function onClickOperate()
+	PlayButtonSound()
+	OnOperateTagItem()
+end
+
+function GetRefreshCost()
+	local times = tonumber(curBattleScene:GetRemoteGameVal("refresh_shop_times"))
+	curRefreshCost = math.floor(100 * (4^(times-1)))
+	return curRefreshCost
+end
+
+function onClickRefresh()
+	local cost = GetRefreshCost()
+	if playerRole:GetResourceNum(RES_ID_MONEY, 1) < cost then
+		local errInfo = string.format(GetGameString("MG1_BsUI_Text_3"), cost)
+		ShowToastInfo(errInfo, 1.5)
+		return
+	end
+	local times = tonumber(curBattleScene:GetRemoteGameVal("refresh_shop_times"))
+	curBattleScene:SetRemoteGameVal("refresh_shop_times", times + 1, onRefreshShopCallback)
+	playerRole:ChangeResourceNum(RES_ID_MONEY, -cost, false, 1)
+	isRefresher = true
+	ShowToastInfo(GetGameString("MG1_BsUI_Text_4"), 1.5)
+end
+
+function onRefreshShopCallback(ret)
+	if ret then
+	else
+		ShowToastInfo(GetGameString("MG1_BsUI_Text_5"), 1.5)
+		UpdateBagItemList()
+	end
+end
+
+function OnOperateTagItem()
+	if curSeledItem ~= nil then
+		local btnData = curSeledItem.data
+		if btnData ~= nil then
+			if btnData.bindTag == 1 then
+				SellOutItem(btnData.bindItemInfo)
+			else
+				BuyInItem(btnData.bindItemInfo)
+			end
+		end
+	end
+end
+
+--按下完成按钮时
+function onClickListItem(context)
+	local tagBtn = context.data.asButton
+
+	if IsDoubleClick(tagBtn) then
+		OnOperateTagItem()
+	else
+		curDbClickedItem = tagBtn
+		curClickItemTimer = 0
+		SetFocusItem(tagBtn)
+
+		local btnData = tagBtn.data
+		if btnData ~= nil then
+			local itemInfo = btnData.bindItemInfo
+			if itemInfo ~= nil then
+				local tagPos = tagBtn:LocalToRoot(CS.UnityEngine.Vector2(0, 0), nil)
+        		ShowItemDetailInfoWindow(itemInfo, tagPos.x, tagPos.y, true, btnData.bindTag)
+				curHoverItemTag = nil
+				curHoverItemBtn = nil
+			end
+		end
+	end
+end
+
+function IsDoubleClick(tagBtn)
+	if curDbClickedItem == tagBtn then
+		return true
+	end
+	return false
+end
+
+function SetFocusItem(tagBtn)
+	if (curSeledItem ~= nil) then
+		SetListItemSelLight(curSeledItem, false)
+		curSeledItem = nil
+	end
+	curSeledItem = tagBtn
+	if (curSeledItem ~= nil) then
+		SetListItemSelLight(curSeledItem, true)
+	end
+
+	updateOperateBtnView()
+end
+
+function updateOperateBtnView()
+	if curSeledItem ~= nil then
+		local btnData = curSeledItem.data
+		if btnData ~= nil then
+			if btnData.bindTag == 1 then
+				btnOperate.title = GetGameString("MG1_BsUI_Text_SellOut")
+			else
+				btnOperate.title = GetGameString("MG1_BsUI_Text_BuyIn")
+			end
+		end
+		btnOperate.visible = true
+	else
+		btnOperate.visible = false 
+	end
+end
+
+function SetListItemSelLight(button, _isSelOn)
+    if button.data ~= nil then
+        button.data.selFrame.visible = _isSelOn
+    end
+end
+
+function onSetPlayerRoleCallback(ret)
+	if ret then
+
+	end
+end
+
+function DoShowItemDetailInfo(button, itemInfo)
+	curHoverItemBtn = button
+	curHoverItemTag = itemInfo
+	curHoverTickTimer = 0
+end
+
+--窗口事件接口
+function onWindowEvent(_eventID, _eventArg)
+	if _eventID == "shop_updated" then
+		UpdateShopItemList()
+		UpdateBagItemList()
+	elseif _eventID == "bag_updated" then
+        UpdateBagItemList()
+    end
+end
+
+function UpdateAll()
+	UpdateShopItemList()
+	UpdateBagItemList()
+end
+
+function GetItemInfo(_tindex, tagList)
+	if _tindex >= tagList.Count then
+		return nil
+	else
+		return tagList[_tindex]
+	end
+end
+
+function UpdateShopItemList()
+	local curNum = 0
+
+	local curShopGoodsInfo = curBattleScene:GetRemoteGameVal("shop_items_info")
+	local shopItemsList
+	if curShopGoodsInfo ~= nil and curShopGoodsInfo ~= "" then
+		shopItemsList = GameCoreHelper.GetItemsListByInfo(curShopGoodsInfo)
+	else
+		shopItemsList = GameCoreHelper.GetEmptyGameItemList()
+	end
+	if shopItemsList.Count > curShopCapicity then
+		curShopCapicity = shopItemsList.Count
+	end
+	if(not isRefresher)then
+		curShopItems = shopItemsList
+	end
+	lvShopItemList.numItems = curShopCapicity
+	for index=0,curShopCapicity-1 do
+		local obj = lvShopItemList:GetChildAt(index)
+		local itemInfo = GetItemInfo(index, shopItemsList)
+		RenderListItem(obj, itemInfo, index, 0)
+		if itemInfo ~= nil then
+			curNum = curNum + 1
+		else
+			if curSeledItem == obj then
+				SetFocusItem(nil)
+			end
+		end
+	end
+	curShopItemsNum = curNum
+
+	txtLeftListTitle.text = string.format(strShopListTitle, curShopItemsNum, curShopCapicity)
+	local cost = GetRefreshCost()
+	refreshMoneyBox.title = tostring(cost)
+	--重置刷新状态
+	isRefresher = false
+end
+
+function UpdateBagItemList()
+	local curNum = 0
+	lvInventoryList.numItems = curBagCapicity
+	local bagItemsList = GameCoreHelper.GetPlayerInventorySnapshot()
+	for index=0,curBagCapicity-1 do
+		local obj = lvInventoryList:GetChildAt(index)
+		local itemInfo = GetItemInfo(index, bagItemsList)
+		RenderListItem(obj, itemInfo, index, 1)
+		if itemInfo ~= nil then
+			curNum = curNum + 1
+		else
+			if curSeledItem == obj then
+				SetFocusItem(nil)
+			end
+		end
+	end
+	curBagItemsNum = curNum
+
+	lbMoneyBox.title = playerRole:GetResourceNum(RES_ID_MONEY, 1)
+end
+
+function RenderListItem(obj, itemInfo, _index, _slotTag)
+	local button = obj.asButton
+	local bindData = button.data
+	if bindData == nil then
+		InitBindListItemCommon(button)
+		bindData = button.data
+		bindData.priceGroup = button:GetChild("price_group").asGroup
+		bindData.priceText = button:GetChildInGroup(bindData.priceGroup, "price").asTextField
+	end
+	UpdateListItemInfoCommon(button, itemInfo, _index, _slotTag)
+	if itemInfo ~= nil then
+		bindData.priceGroup.visible = true
+		local priceVal = 0
+		if _slotTag == 1 then
+			priceVal = itemInfo:getSellPrice(false)
+        else
+			priceVal = itemInfo:getBuyInPrice(false)
+        end
+        bindData.priceText.text = tostring(priceVal)
+	else
+		bindData.priceGroup.visible = false
+    end
+
+	SetListItemRollOverInfo(button, itemInfo,
+        function ()
+            DoShowItemDetailInfo(button, itemInfo)
+        end,
+        OnHideItemDetailWinAuto)
+end
+
+local sellOutLocker = false
+local buyInLocker = false
+local curOpTagItem = nil
+function SellOutItem(itemInfo)
+	if sellOutLocker then 
+		return
+	end
+	if itemInfo == nil then
+		return 
+	end
+
+	sellOutLocker = true
+	curOpTagItem = itemInfo
+	curBattleScene:SetRemoteGameVal("try_sell", GameCoreHelper.GetItemInfoDataStr(itemInfo), onSellOutItemCallback)
+end
+
+function onSellOutItemCallback(ret)
+	if ret and curOpTagItem ~= nil then
+		local sellPrice = curOpTagItem:getSellPrice(false)
+		playerRole:ChangeResourceNum(RES_ID_MONEY, sellPrice, false, 1)
+		local removeItemList = CS.GameCoreHelper.GetEmptyGameItemList()
+		removeItemList:Add(curOpTagItem)
+		CS.GameCoreHelper.RemoveItemsFromPlayerInvByList(removeItemList)
+		local infoMsg = string.format(GetGameString("MG1_BsUI_Text_6"), curOpTagItem:GetItemName())
+		ShowToastInfo(infoMsg, 1.5)
+
+		onOpDone()
+	else
+		ShowToastInfo(GetGameString("MG1_BsUI_Text_7"), 1.5)
+	end
+	sellOutLocker = false
+end
+
+function BuyInItem(itemInfo)
+	if buyInLocker then 
+		return
+	end
+	if itemInfo == nil then
+		return 
+	end
+	local buyPrice = itemInfo:getBuyInPrice(false)
+	if playerRole:GetResourceNum(RES_ID_MONEY, 1) < buyPrice then
+		local errInfo = string.format(GetGameString("MG1_BsUI_Text_8"), buyPrice)
+		ShowToastInfo(errInfo, 1.5)
+		return
+	end
+
+	buyInLocker = true
+	curOpTagItem = itemInfo
+	local itemGID = itemInfo:GetCustomData("gid")
+	curBattleScene:SetRemoteGameVal("try_buy", itemGID, onBuyInItemCallback)
+	onOpDone()
+end
+
+function onBuyInItemCallback(ret)
+	if ret and curOpTagItem ~= nil then
+		local buyPrice = curOpTagItem:getBuyInPrice(false)
+		playerRole:ChangeResourceNum(RES_ID_MONEY, -buyPrice, false, 1)
+		local addItemList = CS.GameCoreHelper.GetEmptyGameItemList()
+		addItemList:Add(curOpTagItem)
+		curBattleScene:PlayerGetItemsList(addItemList)
+		local infoMsg = string.format(GetGameString("MG1_BsUI_Text_9"), curOpTagItem:GetItemName())
+		ShowToastInfo(infoMsg, 1.5)
+		onOpDone()
+	else
+		ShowToastInfo(GetGameString("MG1_BsUI_Text_10"), 1.5)
+	end
+	buyInLocker = false
+end
+
+function onOpDone()
+	curDbClickedItem = nil
+	SetFocusItem(nil)
+	OnHideItemDetailInfo()
+end
+
+function ShowItemDetailInfoWindow(itemInfo, _x, _y, _locked, _tagVal)
+    if itemInfo == nil then
+        CS.GUIHelper.HideItemDetailInfoWindow()
+        return
+    end
+    isLockedItemDetailWin = _locked
+    curOpTargetItem = itemInfo
+    local itemDetailWin = CS.GUIHelper.ShowItemDetailInfoWindow(itemInfo, _x, _y, 120, 0, false, function(ret)
+        curHoverItemTag = nil
+        curHoverItemBtn = nil
+        isLockedItemDetailWin = false
+    end, contentPane)
+    if itemDetailWin ~= nil then
+        if not itemDetailWin:ExsitCmdBtn("sell_out") or not itemDetailWin:ExsitCmdBtn("buy_in") then
+            itemDetailWin:ClearCmdButtons()
+            itemDetailWin:RegisterCmdButton("sell_out", GetGameString("MG1_BsUI_Text_SellOut"), OnOperateTagItem)
+            itemDetailWin:RegisterCmdButton("buy_in", GetGameString("MG1_BsUI_Text_BuyIn"), OnOperateTagItem)
+        end
+        if _tagVal == 1 then
+			itemDetailWin:SetCmdButtonVisible("sell_out", true)
+			itemDetailWin:SetCmdButtonVisible("buy_in", false)
+			itemDetailWin:SetPriceInfo(true, itemInfo:getSellPrice(false), true)
+        else
+			itemDetailWin:SetCmdButtonVisible("sell_out", false)
+			itemDetailWin:SetCmdButtonVisible("buy_in", true)
+			itemDetailWin:SetPriceInfo(true, itemInfo:getBuyInPrice(false), false)
+        end
+    end
+end
+
+function OnHideItemDetailWinAuto()
+    if not isLockedItemDetailWin then
+        OnHideItemDetailInfo()
+    end
+    curHoverItemTag = nil
+    curHoverItemBtn = nil
+end
+
+function OnHideItemDetailInfo()
+    CS.GUIHelper.HideItemDetailInfoWindow()
+    curHoverItemTag = nil
+    curHoverItemBtn = nil
+end

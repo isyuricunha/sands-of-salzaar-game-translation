@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0*[%skill_lv:近战冲锋震退强化%][=]0#dart_move#冲锋#0#5000#0#P近战冲锋震退#
+0*[%skill_lv:近战冲锋震退强化%][>]0#dart_move#冲锋#0#5000#0#P近战冲锋震退强化#
+0.52#stop_dartmove#1
+0.58#block_act#0#0
+0.02#play_sound#Charge#unit_pos
+0.22#play_sound#Palm_Attack#unit_pos
+0.22#play_sound#Palm_Hit#unit_pos
+0.12#play_sound#ClothMovement#unit_pos

@@ -1,0 +1,12 @@
+﻿0.3#play_sound#Spear_Attack#unit_pos
+0.3#dmg_check#2#type:0;dmg:[%stat:s_攻击%]/3;eft:长枪受击1#0#unit_pos,0,4,0,0,350,100,[&300+[%stat:s_攻击范围%]&],0,350,-100
+0.3#add_eft#枪攻击02#unit_pos,0,0,0#0
+0.46#play_sound#Spear_Attack#unit_pos
+0.46#dmg_check#2#type:0;dmg:[%stat:s_攻击%]/3;eft:长枪受击1#0#unit_pos,0,4,0,0,350,100,[&300+[%stat:s_攻击范围%]&],0,350,-100
+0.46#add_eft#枪攻击03#unit_pos,0,0,0#0
+0.75#dmg_check#2#type:0;dmg:[%stat:s_攻击%]/3;eft:长枪受击1#0#unit_pos,0,4,0,0,350,100,[&300+[%stat:s_攻击范围%]&],0,350,-100
+0.75#add_eft#枪攻击01#unit_pos,0,0,0#0
+0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.85#block_act#0#0
+0.73#play_sound#Spear_Attack#unit_pos

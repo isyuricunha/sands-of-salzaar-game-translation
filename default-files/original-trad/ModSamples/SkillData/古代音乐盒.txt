@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:野火刀术浴火回血空#1#unit_pos,0,0,0,300
+0.57#play_sound#Aura_Heal#unit_pos
+0.57#play_sound#Cast_Heal#unit_pos
+0.57#add_eft#P古代音乐盒#unit_pos,0,0,0#0
+0.57#camera_shake#0.1#5

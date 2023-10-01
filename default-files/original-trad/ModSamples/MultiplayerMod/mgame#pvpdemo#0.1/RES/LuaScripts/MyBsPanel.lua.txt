@@ -1,0 +1,987 @@
+require("gui/WindowUtils")
+require("GameMath")
+require("MyBattleLogic")
+
+--require("LuaPanda").start("127.0.0.1",8818)
+
+local windowPanel
+local windowController
+
+local btnBag = nil
+local btnCamera = nil
+local btnFinish = nil
+
+local groupCmdBtns = nil
+local btnRetreat = nil
+
+local groupInfoBox = nil
+local btnSystem = nil
+
+local btnFunc1 = nil
+local btnFunc1OldStr
+local btnFunc2 = nil
+local btnFunc2OldStr
+local btnFunc3 = nil
+local btnFunc3OldStr
+local btnFunc4 = nil
+local btnFunc4OldStr
+local btnFunc5 = nil
+local btnFunc5OldStr
+
+local DebugStep = 0
+local DebugSeconds = 0
+
+local btnTest
+local skillslots
+
+local txtLabelSp = nil
+local txtLabelKillCount = nil
+
+local playerInfoPanel = nil
+
+local pnSelSlotInfoBox
+local txtSelSlotInfo
+local curSelectActionBarState = -1
+
+local curActiveItem = nil
+
+local GameCoreHelper = CS.GameCoreHelper
+
+local timerTickInterval = 0.05
+
+local hasItemsInCD = false
+
+local reviveSkillSlot
+
+local playersInfoBar
+local actionBar
+
+local cachedSlotDatas = {}
+
+--初始化控件
+function initPanel(_view, _controllerScript)
+    windowPanel = _view
+    windowController = _controllerScript
+
+    --绑定按钮事件
+    btnCamera = windowPanel:GetChild("btn_camera").asButton;
+    btnCamera.onClick:Add(OnClickBtnCamera);
+
+    btnFinish = windowPanel:GetChild("btn_finish").asButton;
+    windowController:SetBattleOverBtn(btnFinish);
+
+    groupInfoBox = windowPanel:GetChild("group_infobox").asGroup;
+	btnSystem = windowPanel:GetChildInGroup(groupInfoBox, "btn_menu").asButton;
+    btnSystem.onClick:Add(OnClickBtnSystem);
+    local battleInfoGroup = windowPanel:GetChildInGroup(groupInfoBox, "group_info").asGroup;
+    local txtBattleInfo = windowPanel:GetChildInGroup(battleInfoGroup, "battle_info").asTextField;
+    local txtBattleTimeInfo = windowPanel:GetChildInGroup(battleInfoGroup, "time_info").asTextField;
+    windowController:SetBattleInfoComponents(battleInfoGroup, txtBattleInfo, txtBattleTimeInfo);
+
+    groupCmdBtns = windowPanel:GetChild("group_cmds").asGroup;
+    btnRetreat = windowPanel:GetChildInGroup(groupCmdBtns,"btn_retreat").asButton;
+    btnRetreat.onClick:Add(OnClickBtnRetreat);
+    windowController:SetRetreatBtn(btnRetreat);
+
+    local playerPanelComp = windowPanel:GetChild("player_bar").asCom;
+    playerInfoPanel = windowController:CreatePlayerPanel(playerPanelComp)
+
+    local playersInfoBarWrapper = windowPanel:GetChild("players_infobar_wraper").asCom;
+    playersInfoBar = windowController:CreatePartyPlayersInfoBar(playersInfoBarWrapper, 0)
+    playersInfoBar:SetTeamPlayerIndiactorEnable(true, windowController:GetBattleIndiactorsRoot())
+
+    local actionBarComp = playerInfoPanel.bindView:GetChild("action_bar").asCom
+    skillslots = actionBarComp:GetChild("list_slots").asList
+    local rollActionWrapper = playerInfoPanel.bindView:GetChild("rollaction_wrapper").asCom
+    local reviveSlotWrapper = playerInfoPanel.bindView:GetChild("reviveskill_wrapper").asCom
+    windowController:CreateActionBarByUIComp(actionBarComp, rollActionWrapper, actionBarSlotCount, "MyGUI#MyBattleSpecialSlot1")
+    reviveSkillSlot = CS.GUIHelper.CreateSkillQuickSlot(reviveSlotWrapper, windowController:GetBattleActionBar(), "MyGUI#MyBattleSpecialSlot1")
+
+    --本地化处理
+    local defeatTitleCN = playerInfoPanel.bindView:GetChild("defeat_tile").asImage
+    local defeatTitleEN = playerInfoPanel.bindView:GetChild("defeat_tile_en").asImage
+    if CS.GameTools.IsChineseLanguage() then
+        defeatTitleEN.visible = false
+    else
+        defeatTitleCN.visible = false
+    end
+
+    btnFunc1 = playerInfoPanel.bindView:GetChild("btn_func1").asButton;
+    btnFunc1.onClick:Add(OnClickBtnFunc1);
+    btnFunc1OldStr = btnFunc1.title
+    btnFunc2 = playerInfoPanel.bindView:GetChild("btn_func2").asButton;
+    btnFunc2.onClick:Add(OnClickBtnFunc2);
+    btnFunc2OldStr = btnFunc2.title
+    btnFunc3 = playerInfoPanel.bindView:GetChild("btn_func3").asButton;
+    btnFunc3.onClick:Add(OnClickBtnFunc3);
+    btnFunc3OldStr = btnFunc3.title
+    btnFunc4 = playerInfoPanel.bindView:GetChild("btn_func4").asButton;
+    btnFunc4.onClick:Add(OnClickBtnFunc4);
+    btnFunc4OldStr = btnFunc4.title
+    btnFunc5 = playerInfoPanel.bindView:GetChild("btn_func5").asButton;
+    btnFunc5.onClick:Add(OnClickBtnFunc5);
+    btnFunc5OldStr = btnFunc5.title
+    UpdateBtnNames()
+
+    InitBagPanel(windowPanel:GetChild("bag_box").asCom)
+
+    txtLabelSp = playerInfoPanel.bindView:GetChild("txt_curpoint_val").asTextField;
+    txtLabelKillCount = playerInfoPanel.bindView:GetChild("txt_killcount_val").asTextField;
+    local groupMyInfo = playerInfoPanel.bindView:GetChild("group_infobox").asGroup;
+    strLabel = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_strength_val").asTextField;
+    agiLabel = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_agility_val").asTextField;
+    intLabel = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_intelligence_val").asTextField;
+    endLabel = playerInfoPanel.bindView:GetChildInGroup(groupMyInfo, "txt_endurance_val").asTextField;
+
+    pnSelSlotInfoBox = playerInfoPanel.bindView:GetChild("selslot_infobox").asCom;
+    txtSelSlotInfo = pnSelSlotInfoBox:GetChild("txt_selslot_info").asTextField;
+
+    playerInfoPanel.bindView.visible = false
+
+    --创建默认控件
+    windowController:CreateWindowComponent("res_box", windowPanel:GetChildInGroup(groupInfoBox, "res_box_wraper").asCom, 5, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("vars_watcher", windowPanel:GetChild("var_watcher_wraper").asCom, 2, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("minimap", windowPanel:GetChild("minimap_wraper").asCom, 8, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("revive_info", windowPanel:GetChild("revive_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+    windowController:CreateWindowComponent("enemy_info", windowPanel:GetChild("enemy_info_wraper").asCom, 4, CS.UnityEngine.Vector2(0, 0))
+
+    local blackMask = windowPanel:GetChild("black_mask").asGraph;
+    --设置场景所需UI遮罩层
+    windowController:SetSceneMaskLayer(blackMask)
+    --设置UI控制器
+    local stateCtl = windowPanel:GetController("ctl_state")
+    windowController:SetStateController(stateCtl)
+    --设置自定义UI相关
+    windowController:SetExpBarFillAmountRange(0.14, 0.44)
+    actionBar = windowController:GetBattleActionBar()
+    actionBar:RegSlotRenderCallback(OnRenderActionBarSlot)
+
+    HideSelectActionBar()
+
+    onUpdateMyInfo()
+    ResetActionBar()
+
+    --设置自定义技能栏位
+    windowController:SetCustomActionSlot(reviveSkillSlot, "skill:OL复活队友", 10200)
+
+    --增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+
+end
+
+function InitShopButton()
+    local shopButton = windowPanel:GetChild("shopButton").asButton;
+    shopButton.onClick:Add(OpenRemoteShopWindow);
+
+    local recruitButton = windowPanel:GetChild("recruitButton").asButton;
+    recruitButton.onClick:Add(OpenRecruitWindow);
+end
+
+function onPanelDestory()
+    --移除计时器事件
+    CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+end
+
+function onTimerTickUpdate()
+	OnBagTimerUpdate(timerTickInterval)
+end
+
+function UpdateBtnNames()
+    btnFunc1.title = btnFunc1OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10001)
+    btnFunc2.title = btnFunc2OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10002)
+    btnFunc3.title = btnFunc3OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10003)
+    btnFunc4.title = btnFunc4OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10004)
+    btnFunc5.title = btnFunc5OldStr .. " " .. CS.GUIHelper.GetHotkeyDisplayName(10005)
+end
+
+--热键按下事件(-1代码默认为back键)
+function onHotkeyPressed(_keycode)
+    if _keycode == -1 then
+        return OnBackKey()
+    elseif _keycode == 10001 then
+        OnClickBtnFunc1()
+        return true
+    elseif _keycode == 10002 then
+        OnClickBtnFunc2()
+        return true
+    elseif _keycode == 10003 then
+        OnClickBtnFunc3()
+        return true
+    elseif _keycode == 10004 then
+        OnClickBtnFunc4()
+        return true
+    elseif _keycode == 10005 then
+        OnClickBtnFunc5()
+        return true
+    elseif _keycode >= 10101 and _keycode <= 10108 then
+        OnClickBagItemSlot(_keycode - 10101)
+        return true
+    elseif _keycode == 10200 then
+        OnClickReviveSkillSlot(true)
+    end
+    return false
+end
+
+--游戏信息面板更新事件
+function onUpdateGameInfo()
+    --更新背包UI
+    UpdateBagItemList()
+    --其他窗体更改通知
+    BsGameInfoUpdated()
+end
+
+--快捷栏点击开始事件
+function onActionBarPressStart(_slotIndex)
+    if curSelectActionBarState >= 0 then
+        return true
+    end
+    return false
+end
+
+--快捷栏点击结束事件
+function onActionBarPressEnd(_slotIndex)
+    if curSelectActionBarState >= 0 then
+        OnSelectTagSlot(_slotIndex)
+        return true
+    end
+    return false
+end
+
+--面板每秒事件
+function onPanelSecondUpdate()
+    onUpdateMyInfo()
+end
+
+--自定义动作条渲染回调
+function OnRenderActionBarSlot(_tagSlot)
+    if _tagSlot == nil or _tagSlot.SlotType ~= 1 then
+        return
+    end
+    local tagBtn = _tagSlot.bindBtn
+    local bindData = cachedSlotDatas[_tagSlot]
+    if bindData == nil then
+        bindData = {}
+        bindData.rankSpotBg = tagBtn:GetChild("sp_bg").asImage
+        bindData.rankSpot1 = tagBtn:GetChild("sp_rank1").asImage
+        bindData.rankSpot2 = tagBtn:GetChild("sp_rank2").asImage
+        bindData.rankSpot3 = tagBtn:GetChild("sp_rank3").asImage
+        bindData.rankSpot4 = tagBtn:GetChild("sp_rank4").asImage
+        bindData.rankSpot5 = tagBtn:GetChild("sp_rank5").asImage
+        bindData.rankSpot6 = tagBtn:GetChild("sp_rank6").asImage
+        cachedSlotDatas[_tagSlot] = bindData
+    end
+    bindData.rankSpotBg.visible = false
+    bindData.rankSpot1.visible = false
+    bindData.rankSpot2.visible = false
+    bindData.rankSpot3.visible = false
+    bindData.rankSpot4.visible = false
+    bindData.rankSpot5.visible = false
+    bindData.rankSpot6.visible = false
+    if _tagSlot.BindSkillInfo ~= nil then
+        local tagSp = GetSpInfoFromPool(_tagSlot.BindSkillInfo.skillID)
+        if tagSp ~= nil then
+            bindData.rankSpotBg.visible = true
+            local curSkillRank = tagSp[2]
+            if curSkillRank >= 1 then
+                bindData.rankSpot1.visible = true
+            end
+            if curSkillRank >= 2 then
+                bindData.rankSpot2.visible = true
+            end
+            if curSkillRank >= 3 then
+                bindData.rankSpot3.visible = true
+            end
+            if curSkillRank >= 4 then
+                bindData.rankSpot4.visible = true
+            end
+            if curSkillRank >= 5 then
+                bindData.rankSpot5.visible = true
+            end
+            if curSkillRank >= 6 then
+                bindData.rankSpot6.visible = true
+            end
+            local slotColor = GetSkillClassColor(tagSp[3])
+            bindData.rankSpot1.color = slotColor
+            bindData.rankSpot2.color = slotColor
+            bindData.rankSpot3.color = slotColor
+            bindData.rankSpot4.color = slotColor
+            bindData.rankSpot5.color = slotColor
+            bindData.rankSpot6.color = slotColor
+        end
+    end
+end
+
+function onUIMessage(_msgType, _msgArg)
+    if _msgType == "info_updated" then
+        onUpdateMyInfo()
+    elseif _msgType == "player_inited" then
+        onPlayerInited()
+    elseif _msgType == "skills_changed" then
+        ResetActionBar()
+    elseif _msgType == "settings_updated" then
+        --此消息由框架内部发送
+        UpdateBtnNames()
+        UpdateBagItemList()
+    elseif _msgType == "update_stateinfo" then
+        updatePlayerStatUI(_msgArg)
+    elseif _msgType == "on_playerdead" then
+        updatePlayerStatUI(_msgArg)
+    end
+end
+
+function onPlayerInited()
+    playerInfoPanel.bindView.visible = true
+end
+
+local curSpNum = 0
+function onUpdateMyInfo()
+    --定制信息板更新
+    curSpNum = GetPlayerUsableSp()
+    txtLabelSp.text = curSpNum
+    txtLabelKillCount.text = tostring(playerUnitDefeatCount)
+    strLabel.text = tostring(GetRoleStrength())
+    intLabel.text = tostring(GetRoleIntelligence())
+    agiLabel.text = tostring(GetRoleAgility())
+    endLabel.text = tostring(GetRoleEndurance())
+
+    if playerUnitID > 0 and curSpNum > 0 and curPlayerSkillCount < actionBarSlotCount then
+        btnFunc1.enabled = true
+    else
+        btnFunc1.enabled = false
+    end
+
+    if curPlayerSkillCount > 0 then
+        btnFunc3.enabled = true
+        btnFunc4.enabled = true
+        btnFunc5.enabled = true
+    else
+        btnFunc3.enabled = false
+        btnFunc4.enabled = false
+        btnFunc5.enabled = false
+    end
+
+    if isExistSynthSkills then
+        btnFunc2.enabled = true
+    else
+        btnFunc2.enabled = false
+    end
+end
+
+function updatePlayerStatUI(_playerIDInfo)
+    local isPlayerDead = false
+    local tagPlayerInfo = curBattleScene:GetPlayerInfo(tonumber(_playerIDInfo))
+    local isDead = false
+    if tagPlayerInfo ~= nil then
+        if tagPlayerInfo.bindLocalUnit ~= nil then
+            local _deadBuffOverlay = tagPlayerInfo.bindLocalUnit:GetBuffOverlay("濒死待救")
+            local _infoStr = ""
+            isDead = false
+            if _deadBuffOverlay > 0 then
+                _infoStr = GetGameString("MG1_BsUI_Text_1")
+                isDead = true
+            end
+            if playersInfoBar ~= nil then
+                playersInfoBar:SetPlayerStatInfo(tagPlayerInfo, _infoStr)
+            end
+        end
+    end
+end
+
+function OnClickBtnSystem()
+    windowController:OnWindowCmd("system")
+end
+
+function OnClickBtnCamera()
+    windowController:OnWindowCmd("camera")
+end
+
+function OnClickBtnBag()
+    windowController:OnWindowCmd("profile")
+end
+
+function OnClickBtnRetreat()
+    windowController:OnWindowCmd("retreat")
+end
+
+function OnClickBtnFunc1()
+    HideSelectActionBar()
+    if PlayerDrawSkill() then
+        --播放音效
+        GameCoreHelper.PlayAudio("AddBuff")
+        onUpdateMyInfo()
+    end
+end
+
+function OnClickBtnFunc2()
+    HideSelectActionBar()
+    if PlayerSynthSkill() then
+        --播放音效
+        GameCoreHelper.PlayAudio("AddBuff")
+        onUpdateMyInfo()
+    end
+end
+
+function OnClickBtnFunc3()
+    PlayButtonSound()
+    if curSelectActionBarState == 0 then
+        HideSelectActionBar()
+    else
+        ShowSelectActionBar(0)
+    end
+end
+
+function OnClickBtnFunc4()
+    PlayButtonSound()
+    if curSelectActionBarState == 1 then
+        HideSelectActionBar()
+    else
+        ShowSelectActionBar(1)
+    end
+end
+
+function OnClickBtnFunc5()
+    PlayButtonSound()
+    if curSelectActionBarState == 2 then
+        HideSelectActionBar()
+    else
+        ShowSelectActionBar(2)
+    end
+end
+
+function OnClickReviveSkillSlot(_byHotkey)
+    windowController:CallActionBarCustomSlotEvent(reviveSkillSlot, _byHotkey)
+end
+
+function OnClickBtnTest1()
+    TestAddExp(1000)
+end
+
+local curSkillSlotList = {}
+function ResetActionBar()
+    local tagSp
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] ~= nil then
+            if not IsTagSkillExist(curSkillSlotList[i][1]) then
+                curSkillSlotList[i] = nil
+            end
+        end
+    end
+    for k, v in pairs(curPlayerSkillList) do
+        if not IsTagSkillInActionBar(v[1]) then
+            local tagSlotIndex = GetEmptyActionSlot()
+            if tagSlotIndex >= 0 then
+                curSkillSlotList[tagSlotIndex] = v
+            else
+                break
+            end
+        end
+    end
+    local slotInfo = ""
+    local slotExInfo
+    for i = 0, actionBarSlotCount-1, 1 do
+        if i > 0 then
+            slotInfo = slotInfo .. "|"
+        end
+        if curSkillSlotList[i] ~= nil then
+            tagSp = curSkillSlotList[i]
+            slotInfo = slotInfo .. "skill:" .. tagSp[1]
+            slotExInfo = string.format(GetGameString("MG1_BsUI_Text_19"), tagSp[2], GetSkillClassName(tagSp[3]))
+            windowController:SetActionBarSlotExInfo(i, slotExInfo)
+            local slot = skillslots:GetChildAt(i)
+            local lockText = slot:GetChild("lock").asTextField
+            if(tagSp[4] == 1)then
+                lockText.text = GetGameString("MG1_BsUI_Text_18")
+            else
+                lockText.text = ""
+            end
+        end
+    end
+    windowController:SetActionBarSkill(slotInfo)
+end
+
+function GetTagSlotSp(_slotIndex)
+    return curSkillSlotList[_slotIndex]
+end
+
+function IsTagSkillInActionBar(_skillID)
+    local isExist = false
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] ~= nil and curSkillSlotList[i][1] == _skillID then
+            isExist = true
+            break
+        end
+    end
+    return isExist
+end
+
+function GetEmptyActionSlot()
+    for i = 0, actionBarSlotCount-1, 1 do
+        if curSkillSlotList[i] == nil then
+            return i
+        end
+    end
+    return -1
+end
+
+--打开快捷键选择模式 _opType 0:替换技能 1：遗忘技能 2:锁定技能
+function ShowSelectActionBar(_opType)
+    curSelectActionBarState = _opType
+    if _opType == 1 then
+        txtSelSlotInfo.text = GetGameString("MG1_BsUI_Text_11")
+    elseif _opType == 0 then
+        txtSelSlotInfo.text = GetGameString("MG1_BsUI_Text_12")
+    elseif _opType == 2 then
+        txtSelSlotInfo.text = GetGameString("MG1_BsUI_Text_13")
+    end
+    pnSelSlotInfoBox.visible = true
+    SelSlotsSelSate(true)
+end
+
+function HideSelectActionBar()
+    if curSelectActionBarState >= 0 then
+        SelSlotsSelSate(false)
+    end
+    curSelectActionBarState = -1
+    pnSelSlotInfoBox.visible = false
+end
+
+function SelSlotsSelSate(_isOn)
+    for i = 0, actionBarSlotCount-1, 1 do
+        windowController:SetActionBarSelState(i, _isOn)
+    end
+end
+
+function OnSelectTagSlot(_slotIndex)
+    local tagSp = GetTagSlotSp(_slotIndex)
+    if tagSp ~= nil then
+        if curSelectActionBarState == 0 then
+            local retCode, errInfo = ReplaceRndSkill(tagSp)
+            if retCode then
+                ShowToastInfo(GetGameString("MG1_BsUI_Text_14"), 3)
+            else
+                if errInfo ~= nil then
+                    ShowToastInfo(errInfo, 3)
+                end
+            end
+        elseif curSelectActionBarState == 1 then
+            if RemoveTagSkill(tagSp) then
+                ShowToastInfo(GetGameString("MG1_BsUI_Text_15"), 3)
+            end
+        elseif curSelectActionBarState == 2 then
+            if LockTagSkill(tagSp) then
+                ShowToastInfo(GetGameString("MG1_BsUI_Text_16"), 3)
+            else
+                ShowToastInfo(GetGameString("MG1_BsUI_Text_17"), 3)
+            end
+        end
+    end
+    HideSelectActionBar()
+    onUpdateMyInfo()
+end
+
+function OnBackKey()
+    if curSelectActionBarState >= 0 then
+        HideSelectActionBar()
+        return true
+    end
+    return false
+end
+
+--------------------------------------------------------------------------------------------------
+-------------------------------------------背包面板------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+local lvBagItemSlots
+
+local curSeledItem = nil
+local curActiveItemBtn = nil
+local curDbClickedItem = nil
+local curClickItemTimer = 0
+
+local curHoverItemTag = nil
+local curHoverItemBtn = nil
+local curHoverTickTimer = 0
+
+local curBagCapicity = 8
+local curBagItemsNum = 0
+
+local listPlayerItems = nil
+
+local isLockedItemDetailWin = false
+local curOpTargetItem = nil
+
+function OnBagTimerUpdate(ct)
+	if not isLockedItemDetailWin and curHoverItemTag ~= nil and curHoverItemBtn ~= nil then
+		--当鼠标悬停一段时间后显示物品信息
+		if curHoverTickTimer < 0.5 then
+			curHoverTickTimer = curHoverTickTimer + ct
+        else
+            local _tagPos = curHoverItemBtn:LocalToRoot(CS.UnityEngine.Vector2(0, 0), nil);
+            ShowItemDetailInfoWindow(curHoverItemTag, _tagPos.x, _tagPos.y, false)
+            curHoverItemTag = nil
+            curHoverItemBtn = nil
+		end
+	end
+	if curDbClickedItem ~= nil then
+		--判断双击时间
+		if curClickItemTimer < doubleClickTime then
+			curClickItemTimer = curClickItemTimer + ct
+		else
+			curDbClickedItem = nil
+		end
+    end
+    --冷却倒计时显示
+    if hasItemsInCD then
+        local needUpdateList = false
+        for index=0,curBagCapicity-1 do
+            local tagSlot = lvBagItemSlots:GetChildAt(index).asButton.data
+            if tagSlot ~= nil and tagSlot.curTimer ~= nil and tagSlot.maxTime ~= nil then
+                if tagSlot.curTimer > 0 and tagSlot.maxTime > 0 then
+                    tagSlot.curTimer = tagSlot.curTimer - ct
+                    if tagSlot.curTimer <= 0 then
+                        needUpdateList = true
+                    end
+                    UpdateItemCDTimer(tagSlot)
+                end
+            end
+        end
+        if needUpdateList then
+            UpdateBagItemList()
+        end
+    end
+end
+
+--初始化背包面板
+function InitBagPanel(bindView)
+    curBagCapicity = CS.GameCoreHelper.GetPlayerInventoryCapicity()
+
+    lvBagItemSlots = bindView:GetChild("bag_slots").asList
+    lvBagItemSlots.onClickItem:Add(onClickListItem)
+
+    lvBagItemSlots.numItems = curBagCapicity
+end
+
+function GetItemInfo(_tindex)
+    if  listPlayerItems == nil then
+        return nil
+    end
+	if _tindex >= listPlayerItems.Count then
+		return nil
+	else
+		return listPlayerItems[_tindex]
+	end
+end
+
+function UpdateBagItemList()
+    curActiveItem = nil
+    if playerRole ~= nil then
+        curActiveItem = playerRole.CurActiveItem
+    end
+    listPlayerItems = CS.GameCoreHelper.GetPlayerInventorySnapshot()
+    local curNum = 0
+    local hasActive = false
+    hasItemsInCD = false
+	for index=0,curBagCapicity-1 do
+		local obj = lvBagItemSlots:GetChildAt(index)
+		local itemInfo = GetItemInfo(index)
+        RenderListItem(obj, itemInfo, index)
+        if itemInfo ~= nil then
+            curNum = curNum + 1
+            if itemInfo == curActiveItem then
+                hasActive = true
+            end
+		else
+			if curSeledItem == obj then
+				SetFocusItem(nil)
+			end
+		end
+    end
+    if not hasActive then
+        SetActiveItem(nil)
+    end
+	curBagItemsNum = curNum
+end
+
+function InitMyBindListItem(button, _keyCode)
+    local txtTitle = button:GetChild("title").asTextField
+    local txtCount = button:GetChild("count").asTextField
+    local imgIcon = button:GetChild("icon").asLoader
+    local imgTimerMask = button:GetChild("timer_mask").asImage
+    local imgSelLight = button:GetChild("sel_light").asImage
+    local imgSelframe = button:GetChild("sel_frame").asImage
+
+    local bindData = {}
+    bindData.txtCount = txtCount
+    bindData.txtKeyName = txtTitle
+    bindData.keyCode = _keyCode
+    bindData.imgIcon = imgIcon
+    bindData.imgTimerMask = imgTimerMask
+    bindData.selLight = imgSelLight
+    bindData.selFrame = imgSelframe
+    bindData.bindIndex = 0
+    bindData.bindTag = 0
+    button.data = bindData
+
+    bindData.selLight.visible = false
+    bindData.selFrame.visible = false
+end
+
+function UpdateMyListItemInfo(button, itemInfo, _index)
+    local bindData = button.data
+    bindData.bindIndex = _index
+    bindData.bindTag = _tag
+
+    local isShow = false
+    bindData.imgTimerMask.visible = false
+    if itemInfo ~= nil then
+        isShow = true
+        bindData.imgIcon.url = GetIconPathByName(itemInfo:GetItemIconFile())
+        if bindData.txtCount ~= nil then
+            bindData.txtCount.text = itemInfo.itemCount
+        end
+        if itemInfo.ItemInfo:IsBattleUseEnable() then
+            local curTimerVal = GetBattleItemCDTimer(itemInfo.itemID)
+            if curTimerVal > 0 then
+                bindData.imgTimerMask.visible = true
+                SetItemCDTimerView(bindData, curTimerVal, itemInfo.ItemInfo.weapon_speed)
+            end
+        end
+    end
+    if bindData.txtCount ~= nil then
+        if isShow and itemInfo.itemCount > 1 then
+            bindData.txtCount.visible = true
+        else
+            bindData.txtCount.visible = false
+        end
+    end
+    if bindData.txtKeyName ~= nil and bindData.keyCode ~= nil then
+        bindData.txtKeyName.text = CS.GUIHelper.GetHotkeyDisplayName(bindData.keyCode)
+        bindData.txtKeyName.visible = true
+    end
+    bindData.imgIcon.visible = isShow
+    button.enabled = isShow
+end
+
+function SetItemCDTimerView(bindSlot, _curTimer, _maxTime)
+    bindSlot.curTimer = _curTimer
+    bindSlot.maxTime = _maxTime
+    if _curTimer > 0 then
+        hasItemsInCD = true
+    end
+    UpdateItemCDTimer(bindSlot)
+end
+
+function UpdateItemCDTimer(bindSlot)
+    local curPct = 0
+    if bindSlot.maxTime > 0 then
+        curPct = Clamp(bindSlot.curTimer / bindSlot.maxTime, 0, 1);
+    end
+    bindSlot.imgTimerMask.fillAmount = curPct
+end
+
+function RenderListItem(obj, itemInfo, _index)
+    local button = obj.asButton;
+	if button.data == nil then
+		InitMyBindListItem(button, 10101 + _index)
+		button.onDrop:Add(
+		function (context)
+			local fromBtn = context.data
+			if fromBtn ~= nil then
+				OnDropDragItem(fromBtn, button)
+			end
+		end)
+	end
+    UpdateMyListItemInfo(button, itemInfo, _index, 0)
+    SetListItemRollOverInfo(button, itemInfo,
+        function ()
+            DoShowItemDetailInfo(button, itemInfo)
+        end,
+        OnHideItemDetailWinAuto)
+    if itemInfo == curActiveItem then
+        SetActiveItem(button)
+    end
+end
+
+function IsDoubleClick(tagBtn)
+	if curDbClickedItem == tagBtn then
+		return true
+	end
+	return false
+end
+
+function SetFocusItem(tagBtn)
+	if (curSeledItem ~= nil) then
+		SetListItemSelLight(curSeledItem, false)
+		curSeledItem = nil
+	end
+	curSeledItem = tagBtn
+	if (curSeledItem ~= nil) then
+		SetListItemSelLight(curSeledItem, true)
+	end
+end
+
+function SetActiveItem(tagBtn)
+	if (curActiveItemBtn ~= nil) then
+		SetListItemSelon(curActiveItemBtn, false)
+		curActiveItemBtn = nil
+	end
+	curActiveItemBtn = tagBtn
+	if (curActiveItemBtn ~= nil) then
+		SetListItemSelon(curActiveItemBtn, true)
+	end
+end
+
+function SetListItemSelLight(button, _isSelOn)
+    if button.data ~= nil then
+        button.data.selLight.visible = _isSelOn
+    end
+end
+
+function SetListItemSelon(button, _isSelOn)
+    if button.data ~= nil then
+        button.data.selFrame.visible = _isSelOn
+    end
+end
+
+--点击物品栏事件
+function onClickListItem(context)
+	local tagBtn = context.data.asButton
+
+    local btnData = tagBtn.data
+    local itemInfo = nil
+    if btnData ~= nil then
+        itemInfo = GetItemInfo(btnData.bindIndex)
+    end
+    if itemInfo == nil then
+        return
+    end
+	if IsDoubleClick(tagBtn) then
+		--双击操作
+        local bindData = curDbClickedItem.data
+        curOpTargetItem = itemInfo
+		curDbClickedItem = nil
+		SetFocusItem(nil)
+        OnHideItemDetailInfo()
+        --激活目标道具
+        OnOperateTagItem()
+	else
+		curDbClickedItem = tagBtn
+		curClickItemTimer = 0
+		SetFocusItem(tagBtn)
+
+        local tagPos = tagBtn:LocalToRoot(CS.UnityEngine.Vector2(0, 0), nil)
+        ShowItemDetailInfoWindow(itemInfo, tagPos.x, tagPos.y, true)
+        curHoverItemTag = nil
+        curHoverItemBtn = nil
+	end
+end
+
+function OnClickBagItemSlot(slotIndex)
+    local tagBtn = nil
+    if slotIndex >= 0 and slotIndex < lvBagItemSlots.numItems then
+        tagBtn = lvBagItemSlots:GetChildAt(slotIndex).asButton
+        local btnData = tagBtn.data
+        local itemInfo = nil
+        if btnData ~= nil then
+            itemInfo = GetItemInfo(btnData.bindIndex)
+        end
+        if itemInfo ~= nil then
+            curOpTargetItem = itemInfo
+            OnOperateTagItem()
+        end
+    end
+end
+
+function DoShowItemDetailInfo(button, itemInfo)
+    curHoverItemBtn = button
+	curHoverItemTag = itemInfo
+	curHoverTickTimer = 0
+end
+
+function ShowItemDetailInfoWindow(itemInfo, _x, _y, _locked)
+    if itemInfo == nil then
+        CS.GUIHelper.HideItemDetailInfoWindow()
+        return
+    end
+    isLockedItemDetailWin = _locked
+    curOpTargetItem = itemInfo
+    local itemDetailWin = CS.GUIHelper.ShowItemDetailInfoWindow(itemInfo, _x, _y, 90, 0, false, function(ret)
+        SetFocusItem(nil)
+        curHoverItemTag = nil
+        curHoverItemBtn = nil
+        isLockedItemDetailWin = false
+    end)
+    if itemDetailWin ~= nil then
+        if not itemDetailWin:ExsitCmdBtn("drop") or not itemDetailWin:ExsitCmdBtn("active") then
+            itemDetailWin:ClearCmdButtons()
+            itemDetailWin:RegisterCmdButton("active", "Op", OnOperateTagItem)
+            itemDetailWin:RegisterCmdButton("drop", GetGameString("MG1_BsUI_Text_Drop"), OnDropTagItem)
+        end
+        itemDetailWin:SetCmdButtonVisible("drop", true)
+        if itemInfo:IsEnableActive() then
+            if curActiveItem == itemInfo then
+                itemDetailWin:SetCmdButtonName("active", GetGameString("MG1_BsUI_Text_Inactive"))
+            else
+                itemDetailWin:SetCmdButtonName("active", GetGameString("MG1_BsUI_Text_Active"))
+            end
+            itemDetailWin:SetCmdButtonVisible("active", true)
+        elseif itemInfo.ItemInfo:IsBattleUseEnable() then
+            itemDetailWin:SetCmdButtonName("active", GetGameString("MG1_BsUI_Text_Use"))
+            itemDetailWin:SetCmdButtonVisible("active", true)
+        else
+            itemDetailWin:SetCmdButtonVisible("active", false)
+        end
+    end
+end
+
+function OnDropTagItem()
+    OnHideItemDetailInfo()
+    if curOpTargetItem ~= nil then
+        PlayerDropItem(curOpTargetItem)
+    end
+end
+
+function OnOperateTagItem()
+    OnHideItemDetailInfo()
+    if curOpTargetItem == nil then
+        return
+    end
+    DoOpTagItem(curOpTargetItem)
+end
+
+function DoOpTagItem(tagItem)
+    if tagItem:IsEnableActive() then
+        if curActiveItem == tagItem then
+            SetCurActiveItem(nil)
+        else
+            SetCurActiveItem(tagItem)
+        end
+    elseif tagItem.ItemInfo:IsBattleUseEnable() then
+        UseTagItem(tagItem)
+    end
+end
+
+function SetCurActiveItem(tagItem)
+    SetPlayerActiveItem(tagItem)
+    UpdateBagItemList()
+end
+
+function UseTagItem(tagItem)
+    if tagItem ~= nil then
+        PlayerUseBattleItem(tagItem)
+    end
+end
+
+function OnHideItemDetailWinAuto()
+    if not isLockedItemDetailWin then
+        OnHideItemDetailInfo()
+    end
+    curHoverItemTag = nil
+    curHoverItemBtn = nil
+end
+
+function OnHideItemDetailInfo()
+    CS.GUIHelper.HideItemDetailInfoWindow()
+    curHoverItemTag = nil
+    curHoverItemBtn = nil
+end

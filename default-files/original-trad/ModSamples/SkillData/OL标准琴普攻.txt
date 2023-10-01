@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+0.5#add_eft#音律攻击1#cast_pos#3:0,2000#0#type:2;dmg:[%stat:s_攻击%];eft:音律受击
+0.5#play_sound#Qin_Attack#unit_pos
+0.5#block_act#0#0

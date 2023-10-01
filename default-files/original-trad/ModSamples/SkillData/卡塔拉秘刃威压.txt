@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.14#play_sound#SK_027#unit_pos
+0.32#add_eft#P卡塔拉秘刃威压#unit_pos,0,0,0#0
+0.35#play_sound#Dust_Small#unit_pos
+0.4#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:卡塔拉秘刃幻刃;buff:恐惧,3,1#0#unit_pos,0,0,0,600
+0.92#block_act#0#0

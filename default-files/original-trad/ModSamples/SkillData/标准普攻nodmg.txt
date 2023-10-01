@@ -1,0 +1,3 @@
+﻿0#block_act#1#1
+0#play_sound#Palm_Attack#unit_pos
+0.75#block_act#0#1

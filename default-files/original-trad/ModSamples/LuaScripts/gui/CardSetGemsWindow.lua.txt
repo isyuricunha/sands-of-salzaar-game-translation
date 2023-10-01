@@ -1,0 +1,750 @@
+require("gui/WindowUtils")
+
+--页面访问控件
+local contentPane
+
+local txtWinTitle;
+local lvCardList;
+local txtNoResult;
+
+local cardInfoGroup;
+local slotCurCard;
+local curGemSlots = {};
+local btnApply;
+local btnCancel;
+
+local ctlItemsList;
+local btnIsShowFilted;
+
+local curTeam;
+
+local GameCoreHelper = CS.GameCoreHelper;
+local GameTools = CS.GameTools;
+
+--当前选中的控件类型 0:无 1：卡牌  2：物品
+local curSeledSlotType = 0;
+local curSeledCardInfo = nil;
+local curSeledItemInfo = nil;
+local curSeledSlot = nil;
+local curSeledItemSlot = nil;
+
+local curOpTagGemIndex = 0;
+
+local curGemItemList;
+
+local curOpTagCard = nil;
+local curOpGems = {};
+
+local gameWorld = nil;
+local playerRole = nil;
+local playerTeam = nil;
+
+local curDlgState = 0;
+
+local timerTickInterval = 0.05;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	gameWorld = GameCoreHelper.GetCurGameWorld();
+	playerRole = GameCoreHelper.GetPlayerRole();
+	playerTeam = GameCoreHelper.GetPlayerTeam();
+
+	curGemItemList = GameCoreHelper.GetEmptyGameItemList();
+
+	local curRtArgVal = self:GetRuntimeArgVal();
+	curSeledSlotType = 0;
+	curSeledCardInfo = nil;
+	curSeledItemInfo = nil;
+	if curRtArgVal ~= nil then
+		curSeledCardInfo = curRtArgVal.tagCard;
+		curSeledItemInfo = curRtArgVal.CurTagItem;
+	end
+
+	txtWinTitle = contentPane:GetChild("frame"):GetChild("title").asTextField;
+
+	local leftListGroup = contentPane:GetChild("left_box").asGroup;
+	lvCardList = contentPane:GetChildInGroup(leftListGroup, "tag_list1").asList;
+	txtNoResult = contentPane:GetChildInGroup(leftListGroup, "txt_noresult").asTextField;
+	txtNoResult.visible = false;
+
+	cardInfoGroup = contentPane:GetChild("card_info").asGroup;
+	local objCurCard = contentPane:GetChildInGroup(cardInfoGroup, "cur_card").asCom;
+	btnApply = contentPane:GetChildInGroup(cardInfoGroup, "btn_apply").asButton;
+	btnApply.onClick:Set(onClickBtnApply);
+	btnCancel = contentPane:GetChildInGroup(cardInfoGroup, "btn_cancel").asButton;
+	btnCancel.onClick:Set(onClickBtnCancel);
+
+	slotCurCard = GetTagCardSlotBindInfo(objCurCard);
+
+	local itemsGroup = contentPane:GetChild("group_items").asGroup;
+	local itemsComp = contentPane:GetChildInGroup(itemsGroup, "item_list").asCom;
+	ctlItemsList = CS.GUIHelper.CreateItemListBox(itemsComp, curGemItemList, GameCoreHelper.GetPlayerInventoryCapicity(), 0);
+	ctlItemsList:SetUseOpEnable(false, nil);
+	ctlItemsList:SetEquipOpEnable(false);
+	ctlItemsList:SetDropOpEnable(false);
+	ctlItemsList:SetParentWindow(self.mainView);
+	ctlItemsList:SetClickSlotCallback(onClickTagItemSlotCallback);
+	ctlItemsList:SetOpTagSlotCallback(onOpTagItemSlotCallback);
+	ctlItemsList:ClearCustomDragPutAreaObjs();
+	ctlItemsList:SetCustomDragPutCallback(onDragItemPutCallback);
+
+	local tagSlotObj;
+	for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+		tagSlotObj = contentPane:GetChildInGroup(cardInfoGroup, "gem_slot_"..index);
+		if tagSlotObj ~= nil then
+			curGemSlots[index] = GetTagGemSlotBindInfo(tagSlotObj, nil);
+			ctlItemsList:AddCustomDragPutAreaObj(tagSlotObj);
+		end
+	end
+	
+	btnIsShowFilted = contentPane:GetChildInGroup(itemsGroup, "cb_showonly").asButton;
+	btnIsShowFilted.onChanged:Set(onIsShowFiltedChanged);
+
+	curDlgState = 0;
+	curTeam = GameCoreHelper.GetPlayerTeam();
+
+	--初始化变量
+	UpdateInfos();
+end
+
+function GetOpColorName(_colorType)
+	if _colorType == 1 then
+		return GetGameString("lua_script_str_119");
+	elseif _colorType == 2 then
+		return GetGameString("lua_script_str_120");
+	elseif _colorType == 3 then
+		return GetGameString("lua_script_str_121");
+	else
+		return GetGameString("lua_script_str_122");
+	end
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	--增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+
+	curDlgState = 1;
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	curDlgState = -1;
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	curDlgState = -1;
+	--移除计时器事件
+	CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+
+	--关闭所有弹出框
+	CS.GUIHelper.CloseAllPopupWindow();
+end
+
+--UI逻辑
+
+function onTimerTickUpdate()
+	ctlItemsList:RunUpdate(timerTickInterval);
+end
+
+function UpdateInfos()
+	RefreshCardList();
+	RefreshItemList();
+	UpdateCurCardInfo();
+end
+
+function RefreshCardList()
+	SetCurSeledCardSlot(nil);
+
+	local tagCardList = GameCoreHelper.GetEmptyCardsItemList();
+	--根据当前操作获取可支持的卡牌对象表
+	local teamSoldierList = curTeam.soldierCardsInTeam;
+	local tagCard;
+	for index=0,teamSoldierList.Count-1 do
+		tagCard = teamSoldierList[index];
+		if tagCard:GetCardType() == 0 then
+			--只显示有宝石孔的
+			if tagCard:GetGemSlotsCount() > 0 then
+				tagCardList:Add(tagCard);
+			end
+		end
+    end
+
+	local defSelCardSlot = nil;
+	if tagCardList.Count > 0 then
+		--渲染兵卡
+		lvCardList.numItems = tagCardList.Count;
+
+		--遍历小兵表
+		local tagSoldierCard;
+		local _isLock;
+		for index=0,tagCardList.Count-1 do
+			tagSlotInfo = GetTagCardSlotBindInfo(lvCardList:GetChildAt(index).asCom);
+
+			tagSoldierCard = tagCardList[index];
+			_isLock = false;
+			if curSeledItemInfo ~= nil then
+				if not tagSoldierCard:IsEnableSetGem(curSeledItemInfo) then
+					_isLock = true;
+				end
+			end
+			UpdateCardSlotView(tagSlotInfo, tagSoldierCard, index, 0, _isLock);
+			if tagSoldierCard ~= nil and curSeledCardInfo == tagSoldierCard then
+				defSelCardSlot = tagSlotInfo;
+			end
+		end
+		txtNoResult.visible = false;
+	else
+		lvCardList.numItems = 0;
+		txtNoResult.visible = true;
+	end
+
+	if defSelCardSlot ~= nil then
+		SelectTagSlot(1, defSelCardSlot);
+	end
+end
+
+function RefreshItemList()
+	SetCurSeledItemSlot(nil);
+
+	local isShowFilted = btnIsShowFilted.selected;
+	curGemItemList:Clear();
+	local curPlayerInvList = GameCoreHelper.GetPlayerInventoryList();
+	local tagItem;
+	for index=0,curPlayerInvList.Count-1 do
+		tagItem = curPlayerInvList[index];
+		if tagItem:IsEnableSetToCard() then
+			if GetUsedOpItemIndex(tagItem) < 0 then
+				if curSeledCardInfo ~= nil and isShowFilted then
+					if curSeledCardInfo:IsEnableSetGem(tagItem) then
+						curGemItemList:Add(tagItem);
+					end
+				else
+					curGemItemList:Add(tagItem);
+				end
+			end
+		end
+    end
+
+	ctlItemsList:UpdateItemList();
+	local defSelItemSlot = nil;
+	if ctlItemsList.curItemSlots ~= nil then
+		local tagSlot;
+		for index=0,ctlItemsList.curItemSlots.Count-1 do
+			tagSlot = ctlItemsList.curItemSlots[index];
+			if tagSlot.bindItemInfo ~= nil and tagSlot.bindItemInfo == curSeledItemInfo then
+				defSelItemSlot = tagSlot;
+			end
+		end
+	end
+	if defSelItemSlot then
+		SelectTagSlot(2, defSelItemSlot);
+	end
+end
+
+function UpdateCurCardInfo()
+	btnApply.visible = false;
+	btnCancel.visible = false;
+	if curSeledCardInfo ~= nil then
+		cardInfoGroup.visible = true;
+		--当选择卡牌改变时重置当前临时操作
+		if curOpTagCard ~= curSeledCardInfo then
+			ResetCurOpCardInfos(curSeledCardInfo);
+		end
+
+		local _isLock = false;
+		if curSeledItemInfo ~= nil then
+			if not curSeledCardInfo:IsEnableSetGem(curSeledItemInfo) then
+				_isLock = true;
+			end
+		end
+		UpdateCardSlotView(slotCurCard, curSeledCardInfo, 0, 1, _isLock);
+
+		local curCardGemSlots = curSeledCardInfo:GetGemSlotsCount();
+		local tagGemSlot;
+		local tagSlotOpGem;
+		local hasOpChanged = false;
+		for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+			tagGemSlot = curGemSlots[index];
+			if index < curCardGemSlots then
+				tagGemSlot.bindView.visible = true;
+				tagSlotOpGem = curOpGems[index];
+				tagGemSlot.parent = slotCurCard;
+				UpdateTagCardGemSlotView(tagGemSlot, curSeledCardInfo, index, tagSlotOpGem);
+				if tagSlotOpGem ~= nil then
+					hasOpChanged = true;
+				end
+			else
+				tagGemSlot.bindView.visible = false;
+			end
+		end
+		if hasOpChanged then
+			btnApply.visible = true;
+			btnCancel.visible = true;
+		end
+	else
+		cardInfoGroup.visible = false;
+	end
+end
+
+function GetTagCardSlotBindInfo(_tagSlotCom)
+	local compBindInfo = _tagSlotCom.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+		local slotBtn = _tagSlotCom:GetChild("card_ui").asButton;
+		compBindInfo = InitBindListUnitCardCommon(slotBtn, true);
+		compBindInfo.bindBtn = slotBtn;
+		slotBtn.onClick:Set(function()
+			OnClickTagCardSlot(compBindInfo);
+		end);
+		compBindInfo.groupUnlock = _tagSlotCom:GetChild("lock_group").asGroup;
+		compBindInfo.groupUnlock.visible = false;
+
+		_tagSlotCom.data = compBindInfo;
+	end
+	return compBindInfo;
+end
+
+function GetTagGemSlotBindInfo(_tagGemSlotCom, _parent)
+	local compBindInfo = _tagGemSlotCom.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+		local slotBtn = _tagGemSlotCom:GetChild("slot_ui").asButton;
+		compBindInfo = InitCardSubSlotCommon(slotBtn, _parent);
+		compBindInfo.bindView = _tagGemSlotCom;
+
+		compBindInfo.txtColorName = _tagGemSlotCom:GetChild("txt_slotcolor").asTextField;
+
+		compBindInfo.groupCover = _tagGemSlotCom:GetChild("cover_group").asGroup;
+		compBindInfo.lastCoverIconPath = nil;
+		compBindInfo.coverIcon = _tagGemSlotCom:GetChildInGroup(compBindInfo.groupCover, "cover_icon").asLoader;
+
+		compBindInfo.groupStats = _tagGemSlotCom:GetChild("group_stats").asGroup;
+		compBindInfo.lvStats = _tagGemSlotCom:GetChildInGroup(compBindInfo.groupStats, "info_content_list").asList;
+		compBindInfo.bindBtn = slotBtn;
+		compBindInfo.bindBtn.onClick:Set(function()
+			OnClickTagGemSlot(compBindInfo);
+		end);
+		compBindInfo.removeBtn = _tagGemSlotCom:GetChild("btn_remove").asButton;
+		compBindInfo.removeBtn.onClick:Set(function()
+			OnClickRemoveGemSlot(compBindInfo);
+		end);
+
+		_tagGemSlotCom.data = compBindInfo;
+	end
+	return compBindInfo;
+end
+
+function UpdateCardSlotView(_tagSlot, _cardInfo, _index, _tag, _isLock)
+	if _tagSlot ~= nil then
+		_tagSlot.cardInfo = _cardInfo;
+		UpdateListUnitCardCommon(_tagSlot.bindBtn, _cardInfo, _index, _tag);
+		if _isLock then
+			_tagSlot.groupUnlock.visible = true;
+		else
+			_tagSlot.groupUnlock.visible = false;
+		end
+	end
+end
+
+function UpdateTagCardGemSlotView(_tagGemSlot, _cardInfo, _slotIndex, _opGemItem)
+	UpdateTagCardSubSlot(_tagGemSlot, _cardInfo, _slotIndex);
+	local slotColor = _cardInfo:GetGemSlotColorType(_slotIndex);
+	_tagGemSlot.txtColorName.text = GetCardGemSlotColorName(slotColor);
+	local curSlotItem = _cardInfo:GetGemItemInSlot(_slotIndex);
+	if curSlotItem ~= nil then
+		if _opGemItem ~= nil then
+			curSlotItem = _opGemItem;
+			_tagGemSlot.removeBtn.visible = false;
+		else
+			_tagGemSlot.removeBtn.visible = true;
+		end
+	else
+		curSlotItem = _opGemItem;
+		_tagGemSlot.removeBtn.visible = false;
+	end
+	if curSlotItem ~= nil then
+		_tagGemSlot.groupStats.visible = true;
+		UpdateGemItemDescInfo(_tagGemSlot.lvStats, curSlotItem);
+	else
+		_tagGemSlot.groupStats.visible = false;
+	end
+	SetTagCardGemSlotCoverItem(_tagGemSlot, _opGemItem);
+end
+
+function UpdateGemItemDescInfo(_tagList, _tagGemItem)
+	if _tagGemItem ~= nil then
+		_tagList.numItems = 0;
+		local fieldList = CS.GUIHelper.GetEmptyStatFieldsInfoList();
+		if (_tagGemItem.ItemInfo:IsContainAddStatInfos()) then
+            if (_tagGemItem.AddStatu ~= nil) then
+                CS.GameTools.GetItemAddStatuFields(fieldList, _tagGemItem);
+			end
+            if (_tagGemItem.AddSpList ~= nil) then
+                --CS.GameTools.GetItemAddSkillFields(fieldList, _tagGemItem);
+            end
+            if (_tagGemItem.ReplaceDungeonSkill ~= nil) then
+                CS.GameTools.GetItemDungeonSkillFields(fieldList, _tagGemItem);
+            end
+        end
+		local itemInfo = _tagGemItem:GetItemDescribStr();
+        if not IsEmptyOrNil(itemInfo) then
+            CS.GameTools.GetItemDescStatuField(fieldList, itemInfo);
+		end
+		local tagField;
+		for index=0,fieldList.Count -1 do
+			tagField = fieldList[index];
+            AddDetailInfoLine(_tagList, tagField.fieldInfo, GetStatFieldColor(tagField.colorType));
+        end
+	end
+end
+
+function AddDetailInfoLine(_tagList, _statInfo, _color)
+	local newLabel = _tagList:AddItemFromPool().asLabel;
+	if newLabel ~= nil then
+		newLabel.title = CS.GUIHelper.ConvertUGUIStr(_statInfo);
+		newLabel.color = _color;
+	end
+end
+
+local DefStatFieldColor1 = CS.GUIHelper.GetColor("FF9999");
+local DefStatFieldColor2 = CS.GUIHelper.GetColor("FFFF99");
+function GetStatFieldColor(_colorT)
+	if _colorT == 2 then
+		return DefStatFieldColor2;
+	else
+		return DefStatFieldColor1;
+	end
+end
+
+function SetTagCardGemSlotCoverItem(_tagGemSlot, _tagGemItem)
+	if _tagGemItem ~= nil then
+		_tagGemSlot.groupCover.visible = true;
+		local curIconPath = _tagGemItem:GetItemIconFile();
+        if curIconPath ~= _tagGemSlot.lastCoverIconPath then
+            _tagGemSlot.coverIcon.url = CS.GUIHelper.GetItemIconPathByName(curIconPath);
+            _tagGemSlot.lastCoverIconPath = curIconPath;
+        end
+		_tagGemSlot.removeBtn.visible = false;
+	else
+		_tagGemSlot.groupCover.visible = false;
+	end
+end
+
+function onClickBtnApply()
+	PlayButtonSound();
+
+	StartSetCardGemOp();
+end
+
+function onClickBtnCancel()
+	PlayButtonSound();
+
+	if curSeledCardInfo ~= nil then
+		ResetCurOpCardInfos(curSeledCardInfo);
+		UpdateInfos();
+	end
+end
+
+function StartSetCardGemOp()
+	if curSeledCardInfo ~= nil then
+		local tagCard = curSeledCardInfo;
+		local oldSlotCount = tagCard:GetGemSlotsCount();
+		local curGemItem;
+		local setGemItem;
+		local needReplace = false;
+		for index=0,oldSlotCount-1 do
+			curGemItem = tagCard:GetGemItemInSlot(index);
+			setGemItem = curOpGems[index];
+			if curGemItem ~= nil and setGemItem ~= nil then
+				needReplace = true;
+				break;
+			end
+		end
+		if needReplace then
+			local _confirmInfo = GetGameString("lua_script_str_150");
+			ShowConfirmDlg(_confirmInfo, "yesno", function(ret)
+				if ret == 1 then
+					DoSetCardGemOp();
+				end
+			end)
+		else
+			DoSetCardGemOp();
+		end
+	end
+end
+
+function DoSetCardGemOp()
+	local tagCard = curSeledCardInfo;
+	if tagCard == nil then
+		return;
+	end
+
+	local oldSlotCount = tagCard:GetGemSlotsCount();
+	--执行改卡色操作
+	if oldSlotCount <= 0 then
+		return;
+	end
+	local tagCard = curSeledCardInfo;
+	local oldSlotCount = tagCard:GetGemSlotsCount();
+	local curGemItem;
+	local setGemItem;
+	for index=0,oldSlotCount-1 do
+		curGemItem = tagCard:GetGemItemInSlot(index);
+		setGemItem = curOpGems[index];
+		if setGemItem ~= nil then
+			if curGemItem ~= nil then
+				--卸掉并返还已有宝石
+				tagCard:RemoveTagSlotGem(index, true, true, false);
+			end
+			--从背包中移除该宝石
+			GameCoreHelper.RemovePlayerSpecificItem(setGemItem, 1, false);
+			--置入新宝石
+			tagCard:SetGemItemInSlot(index, setGemItem, false);
+		end
+	end
+
+	curSeledItemInfo = nil;
+	ResetCurOpCardInfos(curSeledCardInfo);
+	tagCard:UpdateBindUnits();
+
+	RefreshItemList();
+	RefreshCardList();
+	UpdateCurCardInfo();
+
+	--播报消息
+	--local msgInfo = GameCoreHelper.StringFormat(GetGameString("lua_script_str_152"), tagCard:GetDisplayName(), GetOpColorName(curOpColorType));
+	--ShowToastInfo(msgInfo, 2.5);
+end
+
+function OnClickTagCardSlot(_tagSlot)
+	if _tagSlot.cardInfo ~= nil then
+		PlayButtonSound();
+		if slotCurCard == _tagSlot then
+			--如果点击当前卡显示卡牌详情
+			ShowCardDetailInfo(curSeledCardInfo, slotCurCard.bindBtn, true, true);
+		else
+			SelectTagSlot(1, _tagSlot);
+			RefreshItemList();
+			UpdateCurCardInfo();
+		end
+	end
+end
+
+--点击宝石孔操作
+function OnClickTagGemSlot(_tagGemSlot)
+	PlayButtonSound();
+
+	local tagIndex = _tagGemSlot.slotIndex;
+	if curSeledCardInfo ~= nil and curSeledItemInfo ~= nil then
+		SetCurOpCardGem(curSeledCardInfo, tagIndex, curSeledItemInfo, true);
+	end
+end
+
+function OnClickRemoveGemSlot(_tagGemSlot)
+	if _tagGemSlot == nil then
+		return;
+	end
+	PlayButtonSound();
+
+	curOpTagGemIndex = _tagGemSlot.slotIndex;
+	local _confirmInfo = GetGameString("lua_script_str_151");
+	ShowConfirmDlg(_confirmInfo, "yesno", function(ret)
+		if ret == 1 then
+			DoRemoveCardGemOp();
+		end
+	end)
+end
+
+function DoRemoveCardGemOp()
+	local tagCard = curSeledCardInfo;
+	if tagCard == nil then
+		return;
+	end
+
+	local oldSlotCount = tagCard:GetGemSlotsCount();
+	--执行改卡色操作
+	if oldSlotCount <= 0 then
+		return;
+	end
+
+	--卸掉并返还已有宝石
+	tagCard:RemoveTagSlotGem(curOpTagGemIndex, true, true, true);
+
+	RefreshCardList();
+	RefreshItemList();
+	UpdateCurCardInfo();
+end
+
+function onIsShowFiltedChanged()
+	PlayButtonSound();
+
+	RefreshItemList();
+end
+
+function SelectTagSlot(_slotType, _tagSlot)
+	curSeledSlotType = _slotType;
+	if _slotType == 1 then
+		SetCurSeledCardSlot(_tagSlot);
+		if _tagSlot ~= nil then
+			curSeledCardInfo = _tagSlot.cardInfo;
+			--当选择卡牌改变时重置当前临时操作
+			if curOpTagCard ~= curSeledCardInfo then
+				ResetCurOpCardInfos(curSeledCardInfo);
+			end
+			ctlItemsList:SetCurTagCard(curSeledCardInfo);
+		end
+	elseif _slotType == 2 then
+		SetCurSeledItemSlot(_tagSlot);
+		if _tagSlot ~= nil then
+			curSeledItemInfo = _tagSlot.bindItemInfo;
+		end
+	else
+		SetCurSeledCardSlot(nil);
+		SetCurSeledItemSlot(nil);
+	end
+end
+
+function SetCurSeledCardSlot(_tagSlot)
+	if curSeledSlot ~= nil then
+		SetUnitCardSlotSelected(curSeledSlot, false);
+	end
+	curSeledSlot = _tagSlot;
+	if curSeledSlot ~= nil then
+		SetUnitCardSlotSelected(curSeledSlot, true);
+	end
+end
+
+function SetCurSeledItemSlot(_tagSlot)
+	if curSeledItemSlot ~= nil then
+		curSeledItemSlot:SetIsSelected(false);
+	end
+	curSeledItemSlot = _tagSlot;
+	if curSeledItemSlot ~= nil then
+		curSeledItemSlot:SetIsSelected(true);
+	end
+end
+
+--左键点击宝石操作
+function onClickTagItemSlotCallback(tagSlot)
+	local tagItem = tagSlot.bindItemInfo
+	if tagItem == nil then
+		return
+	end
+	SelectTagSlot(2, tagSlot);
+	RefreshCardList();
+	UpdateCurCardInfo();
+end
+
+--右键点击宝石操作
+function onOpTagItemSlotCallback(tagSlot)
+	local tagItem = tagSlot.bindItemInfo
+	if tagItem == nil or curSeledCardInfo == nil then
+		return
+	end
+	--自动置入该宝石
+	local tagIndex = GetAutoSetGemSlotIndex(curSeledCardInfo, tagItem);
+	if tagIndex < 0 then
+		ShowErrorIndfo(GetGameString("lua_script_str_153"));
+	else
+		SetCurOpCardGem(curSeledCardInfo, tagIndex, tagItem, true);
+	end
+end
+
+--拖拽宝石放下操作
+function onDragItemPutCallback(tagSlot, _tagGemIndex)
+	local tagItem = tagSlot.bindItemInfo
+	if tagItem == nil or curSeledCardInfo == nil then
+		return
+	end
+	SetCurOpCardGem(curSeledCardInfo, _tagGemIndex, tagItem, true);
+end
+
+function GetAutoSetGemSlotIndex(_tagCard, _tagItem)
+	if _tagCard == nil then
+		return -1;
+	end
+	if not _tagCard:IsEnableSetGem(_tagItem) then
+		return -1;
+	end
+	local tagGemColor = _tagItem.ItemInfo.sub_type;
+	local cardSlots = _tagCard:GetGemSlotsCount();
+	local defIndex = -1;
+	local tagSlotItem;
+	local tagSlotColor;
+	for index=0,cardSlots-1 do
+		tagSlotItem = _tagCard:GetGemItemInSlot(index);
+		tagSlotColor = _tagCard:GetGemSlotColorType(index);
+		if tagSlotColor == tagGemColor then
+			defIndex = index;
+			if tagSlotItem == nil then
+				return index;
+			end
+		end
+	end
+	return defIndex;
+end
+
+function ResetCurOpCardInfos(_tagCard)
+	curOpTagCard = _tagCard;
+	for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+		curOpGems[index] = nil;
+	end
+end
+
+function GetUsedOpItemIndex(_tagItem)
+	for index=0,CONFIG_CARD_SLOTS_COUNT -1 do
+		if curOpGems[index] == _tagItem then
+			return index;
+		end
+	end
+	return -1;
+end
+
+function SetCurOpCardGem(_tagCard, _slotIndex, _gemItem, _updateInfo)
+	if _gemItem == nil or _tagCard == nil then
+		return false;
+	end
+	--验证颜色
+	local tagGemColor = _gemItem.ItemInfo.sub_type;
+	local _tagSlotColor = _tagCard:GetGemSlotColorType(_slotIndex);
+	if tagGemColor ~= _tagSlotColor then
+		ShowErrorIndfo(GetGameString("lua_script_str_154"));
+		return false;
+	end
+	--验证条件
+	if not _tagCard:IsEnableSetGem(_gemItem) then
+		ShowErrorIndfo(GetGameString("lua_script_str_155"));
+		return false;
+	end
+
+	local usedItemIndex = GetUsedOpItemIndex(_gemItem);
+	if usedItemIndex >= 0 then
+		curOpGems[usedItemIndex] = nil;
+	end
+	curOpTagCard = _tagCard;
+	curOpGems[_slotIndex] = _gemItem;
+	if _updateInfo then
+		curSeledItemInfo = nil;
+		UpdateCurCardInfo();
+		RefreshItemList();
+	end
+	return true;
+end
+
+function ShowErrorIndfo(errMsg)
+	ShowToastInfo(errMsg, 3);
+end

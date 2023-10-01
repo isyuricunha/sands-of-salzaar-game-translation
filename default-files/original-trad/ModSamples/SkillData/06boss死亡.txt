@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+6.92#block_act#0#0
+0.08#add_eft#06boss死亡#unit_pos,0,0,0#0
+0.08#play_sound#RenQi#unit_pos

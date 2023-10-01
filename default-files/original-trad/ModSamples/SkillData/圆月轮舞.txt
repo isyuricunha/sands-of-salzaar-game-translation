@@ -1,0 +1,13 @@
+﻿0#block_act#1#0
+0#add_eft#长条预警1:0:15,1,6#unit_pos,0,0,0#0
+1.95#block_act#0#0
+0.87#add_eft#圆月轮舞#unit_pos#3:0,1500
+0.87#play_sound#SwordWhoosh#unit_pos
+0.87#play_sound#EarthWave#unit_pos
+1.22#add_eft#圆月轮舞#unit_pos#3:0,1500
+1.22#play_sound#SwordWhoosh#unit_pos
+1.22#play_sound#EarthWave#unit_pos
+1.65#add_eft#圆月轮舞#unit_pos#3:0,1500
+1.65#play_sound#SwordWhoosh#unit_pos
+1.65#play_sound#EarthWave#unit_pos
+1.67#play_sound#Slash_Moon#unit_pos

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="172,250" overflow="hidden" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_hr84" name="bg" src="pczr7u" fileName="Images/cm_actionbar_bg.png" xy="0,0" size="172,250">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n10_rbjt" name="preview" src="rbjt9j" fileName="Components/ModelPrevewer.xml" xy="6,40" size="159,175" aspect="true"/>
+    <text id="n5_hr84" name="title" xy="10,9" size="151,36" fontSize="18" color="#b9ffb9" align="center" vAlign="middle" ubb="true" autoSize="none" strokeColor="#333333" singleLine="true" autoClearText="true" text="Name">
+      <relation target="" sidePair="width-width,center-center,top-top"/>
+    </text>
+    <richtext id="n11_rbjt" name="info" xy="14,47" size="147,161" fontSize="22" color="#ffffff" vAlign="bottom" ubb="true" autoSize="none" strokeColor="#222222" autoClearText="true" text="Info">
+      <relation target="" sidePair="width-width,height-height,center-center,bottom-bottom"/>
+    </richtext>
+    <image id="n2_hr84" name="highlight" src="pczr77" fileName="Images/common_btn_lightmask_0.png" xy="2,2" size="168,246" alpha="0.4">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_hr84" name="darkmask" src="pczr76" fileName="Images/common_btn_darkmask_0.png" xy="2,2" size="168,246" alpha="0.4">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_hr84" name="sel_frame" src="gezp4" fileName="Images/cm_itemslot_light.png" xy="4,4" size="165,243" group="n16_rbjt">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n14_rbjt" name="player_bg" src="pczr7l" fileName="Images/cm_actionbar2_bg.png" xy="0,207" size="172,44" group="n16_rbjt">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </image>
+    <text id="n15_rbjt" name="player_info" xy="7,215" size="157,28" group="n16_rbjt" fontSize="18" color="#ffffff" align="center" vAlign="middle" ubb="true" autoSize="none" strokeColor="#333333" singleLine="true" autoClearText="true" text="P1 [color=#ffff00][PlayerName][/color]">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </text>
+    <group id="n16_rbjt" name="sel_group" xy="0,4" size="172,247" advanced="true"/>
+  </displayList>
+  <Button/>
+</component>

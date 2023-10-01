@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080" opaque="false">
+  <controller name="ctl_state" pages="0,显示控制按钮,1,隐藏控制按钮" selected="0"/>
+  <controller name="mobile" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n55_pczr" name="var_watcher_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="1631,165" size="280,300" touchable="false">
+      <gearXY controller="mobile" pages="0,1" values="1631,165|1636,202"/>
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <component id="n63_rocs" name="custom_ui" src="pczr8g" fileName="Components/CompHolder.xml" xy="0,0" size="1920,1080">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n65_lamw" name="action_bar" src="rocsbx" fileName="Mobile/BattleActionsBarMobile.xml" xy="1020,240" visible="false">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n66_lamw" name="msgbox_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="243,2" size="582,328" touchable="false">
+      <relation target="" sidePair="left-left,top-top"/>
+    </component>
+    <component id="n61_og04" name="players_infobar_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="4,212" size="300,630" touchable="false">
+      <relation target="" sidePair="left-left,top-top"/>
+    </component>
+    <component id="n50_pczr" name="minimap_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="8,8" size="220,200">
+      <relation target="" sidePair="left-left,top-top"/>
+    </component>
+    <component id="n51_pczr" name="revive_info_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="720,660" size="480,60" touchable="false">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n53_pczr" name="enemy_info_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="690,79" size="540,42" touchable="false">
+      <relation target="" sidePair="center-center,top-top"/>
+    </component>
+    <component id="n31_yxj7" name="btn_finish" src="pczr7r" fileName="Buttons/FuncNormalBtn3.xml" xy="960,840" pivot="0.5,0.5" anchor="true" size="200,60">
+      <relation target="" sidePair="center-center,middle-middle"/>
+      <Button title="立即结束战斗"/>
+    </component>
+    <component id="n62_is8c" name="btn_teamview" src="rbjt9d" fileName="Buttons/DialogConfirmBtn1.xml" xy="945,718" aspect="true">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <Button title="切换观察队友"/>
+    </component>
+    <component id="n52_pczr" name="player_bar" src="pczr7t" fileName="Controllers/MyBsPlayerPanel.xml" xy="440,947" pivot="0.5,1" size="990,133">
+      <gearDisplay controller="mobile" pages="0"/>
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n64_rocs" name="player_bar_m" src="rocsbw" fileName="Controllers/MyBsPlayerPanelM.xml" xy="660,930">
+      <gearDisplay controller="mobile" pages="1"/>
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n59_gezp" name="bag_box" src="gezp8i" fileName="Controllers/BattleBagPanel.xml" xy="1594,880">
+      <gearXY controller="mobile" pages="1" values="1594,1" default="1594,880"/>
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n60_dxrr" name="shopButton" src="vig7bv" fileName="Buttons/ShopBtn1.xml" xy="1810,74" size="101,87" aspect="true" tooltips="打开在线商店，商店里的商品每次切换地图时会根据当前等级重置。">
+      <gearXY controller="mobile" pages="0,1" values="1810,74|1472,78"/>
+      <gearSize controller="mobile" pages="1" values="150,129,1,1" default="101,87,1,1"/>
+      <relation target="" sidePair="right-right,top-top"/>
+      <Button title="商店" titleFontSize="20"/>
+    </component>
+    <image id="n39_lwpx" name="infobox_bg" src="o316al" fileName="Images/BattlePanel_InfoPanel_Bg1.png" xy="1865,7" pivot="1,0" anchor="true" size="360,50" group="n41_lwpx"/>
+    <component id="n40_lwpx" name="btn_menu" src="pczr79" fileName="Buttons/BtnMenu1.xml" xy="1890,33" size="54,54" group="n41_lwpx"/>
+    <component id="n54_pczr" name="res_box_wraper" src="pczr8g" fileName="Components/CompHolder.xml" xy="1506,16" size="343,33" group="n41_lwpx" touchable="false"/>
+    <text id="n56_pczr" name="battle_info" xy="1857,31" pivot="1,0.5" anchor="true" size="75,24" group="n58_f1k8" fontSize="16" color="#ffffff" align="right" vAlign="middle" singleLine="true" autoClearText="true" text="Battle Info">
+      <gearFontSize controller="mobile" pages="1" values="25" default="16"/>
+    </text>
+    <text id="n57_pczr" name="time_info" xy="1774,31" pivot="1,0.5" anchor="true" size="75,24" group="n58_f1k8" fontSize="16" color="#00ff66" align="right" vAlign="middle" singleLine="true" autoClearText="true" text="Battle Info">
+      <gearFontSize controller="mobile" pages="1" values="25" default="16"/>
+      <relation target="n56_pczr" sidePair="middle-middle,right-left"/>
+    </text>
+    <group id="n58_f1k8" name="group_info" xy="1699,19" size="158,24" group="n41_lwpx" advanced="true"/>
+    <group id="n41_lwpx" name="group_infobox" xy="1505,6" size="412,54" advanced="true">
+      <gearXY controller="mobile" pages="1" values="1188,6" default="1505,6"/>
+      <relation target="" sidePair="right-right,top-top"/>
+    </group>
+    <graph id="n25_ddmm" name="black_mask" xy="0,0" size="1920,1080" touchable="false" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+</component>

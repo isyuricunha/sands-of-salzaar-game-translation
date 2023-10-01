@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1460,820">
+  <displayList>
+    <component id="n0_x475" name="frame" src="rbjt9h" fileName="Components/CommonWindowFrame2.xml" xy="0,0" size="1460,820">
+      <relation target="" sidePair="width-width,height-height"/>
+      <Label title="请选择您的载体..."/>
+    </component>
+    <list id="n1_x475" name="role_list" xy="28,133" size="906,625" layout="flow_hz" selectionMode="none" margin="20,20,14,6" scrollBarRes="ui://zuvkwb6mrbjt8x," lineGap="30" colGap="5" lineItemCount="5" defaultItem="ui://zuvkwb6mrbjt9i">
+      <relation target="" sidePair="width-width,height-height,center-center,bottom-bottom"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <component id="n3_rbjt" name="btn_confirm" src="rbjt9d" fileName="Buttons/DialogConfirmBtn1.xml" xy="730,816">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <Button title="确定"/>
+    </component>
+    <component id="n5_c2x1" name="role_detail" src="c2x1a8" fileName="Components/RoleSelectDetailPreview.xml" xy="919,77"/>
+  </displayList>
+</component>

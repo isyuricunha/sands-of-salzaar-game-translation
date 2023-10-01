@@ -1,0 +1,595 @@
+require("gui/WindowUtils")
+require("mobile/LegacyItemDetailInfoWin")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnBack
+
+local listLeftInfo
+
+local groupMain
+local ctlTabListHeader
+local listPageList
+local txtPageInfo
+local btnPageLeft
+local btnPageRight
+
+local groupPtsBox
+local txtPtsNum
+local btnPtsHint
+
+local btnConfirm
+
+local curSeledTypeCode = ""
+local curListPageIndex = 0
+local curListPageCount = 0
+
+local curGameConfigFields = nil
+
+local allLegacyInfoList = nil
+local curDisplayedLegacyItems = nil
+local curDisplayedItemsNum = 0
+
+local curLegacyPoints = 0
+local maxLegacyPoints = 0
+
+local curFocusBtn = nil
+
+LEGACY_ITEMS_PER_PAGE = 18
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	btnBack = contentPane:GetChild("btn_back").asButton
+	btnConfirm = contentPane:GetChild("btn_confirm").asButton
+
+	local groupLeft = contentPane:GetChild("group_leftbar").asGroup
+	listLeftInfo = contentPane:GetChildInGroup(groupLeft, "left_list").asList
+
+	groupMain = contentPane:GetChild("group_main").asGroup
+	ctlTabListHeader = CS.GUICtlListHeaderTabsBar.CreateComponent(contentPane:GetChildInGroup(groupMain, "list_header").asCom)
+	listPageList = contentPane:GetChildInGroup(groupMain, "main_list").asList
+	txtPageInfo = contentPane:GetChildInGroup(groupMain, "list_pager").asTextField
+	btnPageLeft = contentPane:GetChildInGroup(groupMain, "btn_left").asButton
+	btnPageRight = contentPane:GetChildInGroup(groupMain, "btn_right").asButton
+
+	groupPtsBox = contentPane:GetChild("pts_box").asGroup
+	txtPtsNum = contentPane:GetChildInGroup(groupPtsBox, "pts_val").asTextField
+	btnPtsHint = contentPane:GetChildInGroup(groupPtsBox, "btn_hint").asButton
+
+	ctlItemDetailWin = LegacyItemDetailInfoWin:Create()
+	ctlItemDetailWin:Init(contentPane:GetChild("detail_win").asCom)
+
+	--绑定按钮事件
+	btnBack.onClick:Add(onClickBackBtn);
+	btnConfirm.onClick:Add(onClickConfirmBtn);
+	btnPageLeft.onClick:Add(onClickPageLeftBtn);
+	btnPageRight.onClick:Add(onClickPageRightBtn);
+	btnPtsHint.onClick:Add(onClickPtsHintBtn);
+
+	ctlItemDetailWin.onWindowClosed = onItemDetailWinClosed
+	ctlItemDetailWin.onItemValueChanged = onLegacyItemValChanged
+
+	--设置默认值
+	self:SetCloseButton(btnBack)
+
+	ctlTabListHeader:ClearTabList();
+	ctlTabListHeader:AddTabItem("all", GetGameString("lua_script_str40"));
+	ctlTabListHeader:AddTabItem("skill", GetGameString("lua_script_str41"));
+	ctlTabListHeader:AddTabItem("troops", GetGameString("lua_script_str42"));
+	ctlTabListHeader:AddTabItem("item", GetGameString("lua_script_str43"));
+	ctlTabListHeader:AddTabItem("setting", GetGameString("lua_script_str44"));
+
+	curSeledTypeCode = "all";
+	ctlTabListHeader:SetSeledItemByKey(curSeledTypeCode, false);
+	ctlTabListHeader:SetSelectChangeCallback(onListTypeChanged)
+
+	listPageList.scrollPane.onScrollEnd:Add(onItemListScrollEnd)
+
+	CS.LegacyData.Instance:Clear();
+	maxLegacyPoints = CS.LegacyLogic.GetMaxLegacyScore()
+
+	UpdateGameConfigList()
+	RefreshLegacyList()
+	updateCurLegacyPtsInfo()
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+function beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+	closeCurItemDetailInfoWin()
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	PlayButtonSound()
+	
+	beforeLeaveScene()
+	self.CurDialogResult = 0
+	self:Hide()
+end
+
+function onClickConfirmBtn()
+	PlayButtonSound()
+
+	--验证输入
+	local restPtsVal = GetRestPts()
+	if restPtsVal > 0 then
+		CS.AudioManager.Instance:Play("Tips");
+		local alertInfo = GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_InitDlg"), restPtsVal);
+		ShowConfirmDlg(alertInfo, "yesno", function(rst)
+			if (rst == 0) then
+				DoCommitAllGameConfigs();
+			else
+				return;
+			end
+		end);
+	else
+		DoCommitAllGameConfigs()
+	end
+end
+
+function DoCommitAllGameConfigs()
+	CS.GameTools.ClearGameInitCmdQueue()
+	--应用游戏配置信息
+	if curGameConfigFields ~= nil then
+		for k,v in pairs(curGameConfigFields) do
+			local _tagSelIndex = 0
+			if v.type == 1 then
+                if v.comboBox ~= nil then
+                    _tagSelIndex = math.floor(tonumber(v.comboBox.value));
+				end
+            elseif v.type == 0 then
+                if v.toggleBtn ~= nil and v.toggleBtn.selected then
+                    _tagSelIndex = 1
+				end
+            end
+            CS.GameTools.ApplyGameInitConfig(v.pojoInfo, _tagSelIndex)
+        end
+	end
+
+	--应用传承选项
+	if allLegacyInfoList ~= nil then
+		for k,v in pairs(allLegacyInfoList) do
+			if v.SetValue > 0 then
+				CS.LegacyData.Instance:AddLegacyByPojo(v.pojoInfo, v.SetValue)
+			end
+        end
+	end
+
+	beforeLeaveScene()
+	self.CurDialogResult = 1
+	self:Hide()
+end
+
+function onListTypeChanged(_tagKey)
+	curSeledTypeCode = _tagKey
+	curListPageIndex = 0
+	RefreshLegacyList()
+end
+
+function onClickPageLeftBtn()
+	PlayButtonSound()
+
+	ScrollToPage(curListPageIndex - 1)
+end
+
+function onClickPageRightBtn()
+	PlayButtonSound()
+
+	ScrollToPage(curListPageIndex + 1)
+end
+
+function onClickPtsHintBtn()
+	PlayButtonSound()
+
+	local _infoTxt = GetGameString("lua_script_str45")
+	local tagPos = CS.GUIHelper.GetGUIComponentRootPos(btnPtsHint, 0, 0)
+	CS.GUIHelper.ShowTextListInfoWindow(_infoTxt, tagPos, CS.UnityEngine.Vector2(-42, 72), nil, nil, 1, 1);
+end
+
+function UpdateGameConfigList()
+	listLeftInfo:RemoveChildren(0, -1, true)
+	curGameConfigFields = {}
+	local allConfigList = GameCoreHelper.GetAllList_GameIntValConfigPojo()
+	local curListIndex = 0
+	for index=0,allConfigList.Count-1 do
+		local tagConfig = allConfigList[index]
+		if not IsEmptyOrNil(tagConfig.intval_key) then
+			local newConfigField = {}
+			newConfigField.pojoInfo = tagConfig
+			if tagConfig.isBoolConfig then
+				addConfigEditFieldToggle(newConfigField, tagConfig)
+			else
+				addConfigEditFieldCombo(newConfigField, tagConfig)
+			end
+
+			curGameConfigFields[curListIndex] = newConfigField
+			curListIndex = curListIndex + 1
+		end
+	end
+end
+
+function addConfigEditFieldToggle(_tagField, _tagConfig)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MGameConfigListItemToggle1").asCom
+
+	_tagField.type = 0
+	_tagField.title = tagListItem:GetChild("title").asTextField
+	_tagField.toggleBtn = tagListItem:GetChild("btn_switch").asButton
+	_tagField.hintBtn = tagListItem:GetChild("btn_hint").asButton
+	_tagField.hintBtn.onClick:Add(function()
+		showFieldDescInfo(_tagField.hintBtn, _tagConfig.desc_info)
+	end)
+
+	_tagField.title.text = _tagConfig.display_name
+	_tagField.toggleBtn.selected = _tagConfig.defaultIndex == 1;
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function addConfigEditFieldCombo(_tagField, _tagConfig)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MGameConfigListItemCombo1").asCom
+
+	_tagField.type = 1
+	_tagField.title = tagListItem:GetChild("title").asTextField
+	_tagField.comboBox = tagListItem:GetChild("combo").asComboBox
+	_tagField.hintBtn = tagListItem:GetChild("btn_hint").asButton
+	_tagField.hintBtn.onClick:Set(function()
+		showFieldDescInfo(_tagField.hintBtn, _tagConfig.desc_info)
+	end)
+
+	_tagField.title.text = _tagConfig.display_name
+	local optionStr = ""
+	if _tagConfig.configItems ~= nil then
+		for i=0,_tagConfig.configItems.Length-1 do
+			local _tagOption = _tagConfig.configItems[i]
+			if i > 0 then
+				optionStr = optionStr .. ";"
+			end
+			optionStr = optionStr .. tostring(i) .. "," .. _tagOption.display_name;
+		end
+	end
+	CS.GUIHelper.SetComboBoxItems(_tagField.comboBox, optionStr)
+	_tagField.comboBox.value = tostring(_tagConfig.defaultIndex)
+
+	listLeftInfo:AddChild(tagListItem)
+end
+
+function showFieldDescInfo(_tagBtn, _desc)
+	local _infoTxt = CS.GUIHelper.ConvertUGUIStr(_desc)
+	local tagPos = CS.GUIHelper.GetGUIComponentRootPos(_tagBtn, 0, 0)
+	CS.GUIHelper.ShowTextListInfoWindow(_infoTxt, tagPos, CS.UnityEngine.Vector2(42, 0), nil, nil, 0, 0);
+end
+
+function RefreshLegacyList()
+	local typeCode = -1
+	if curSeledTypeCode == "skill" then
+		typeCode = 0;
+	elseif curSeledTypeCode == "troops" then
+		typeCode = 2;
+	elseif curSeledTypeCode == "item" then
+		typeCode = 3;
+	elseif curSeledTypeCode == "setting" then
+		typeCode = 4;
+	end
+
+	closeCurItemDetailInfoWin()
+	SetFocusItem(nil)
+
+	listPageList.numItems = 0
+	curDisplayedLegacyItems = {}
+
+	if allLegacyInfoList == nil then
+		local _pojoList = GameCoreHelper.GetAllList_LegacyPojo()
+		allLegacyInfoList = {}
+		local _index = 0
+		for index=0,_pojoList.Count-1 do
+			local tagPojo = _pojoList[index]
+			if tagPojo.enable ~= 0 then
+				local newItemInfo = {}
+				newItemInfo.pojoInfo = tagPojo
+				newItemInfo.strConditionInfo = ""
+				if not IsEmptyOrNil(tagPojo.checkHint) then
+					newItemInfo.strConditionInfo = CS.GameTools.GetLanStringInScript(tagPojo.checkHint)
+				end
+				newItemInfo.SetValue = 0
+				if CS.GameUtils.checkConditionGroup(tagPojo.checkCondition, nil) then
+					newItemInfo.isEnable = true
+				else
+					newItemInfo.isEnable = false
+				end
+				allLegacyInfoList[_index] = newItemInfo
+				_index = _index + 1
+			end
+		end
+	end
+	local curListIndex = 0
+	for k,v in pairs(allLegacyInfoList) do
+		local tagPojo = v.pojoInfo
+		if tagPojo.enable ~= 0 then
+			if typeCode < 0 or typeCode == tagPojo.type then
+				curDisplayedLegacyItems[curListIndex] = v
+				curListIndex = curListIndex + 1
+			end
+		end
+	end
+	curDisplayedItemsNum = curListIndex
+	if curDisplayedItemsNum > 0 then
+		curListPageCount = math.floor(curDisplayedItemsNum / LEGACY_ITEMS_PER_PAGE)
+		if curDisplayedItemsNum % LEGACY_ITEMS_PER_PAGE ~= 0 then
+			curListPageCount = curListPageCount + 1
+		end
+	else
+		curListPageCount = 0
+	end
+	listPageList.numItems = curListPageCount
+
+	local pageCount = 0
+	local _tagItemInfo = nil
+	local _itemIndex = 0
+	for pageIndex=0,curListPageCount-1 do
+		pageCount = LEGACY_ITEMS_PER_PAGE
+		if pageIndex >= curListPageCount-1 then
+			pageCount = curDisplayedItemsNum % LEGACY_ITEMS_PER_PAGE
+			if pageCount <= 0 then
+				pageCount = LEGACY_ITEMS_PER_PAGE
+			end
+		end
+		local pageObj = listPageList:GetChildAt(pageIndex)
+		if pageObj.data == nil then
+			pageObj.data = {}
+			pageObj.data.lvItems = pageObj.asCom:GetChild("list").asList;
+		end
+		local tagItemsList = pageObj.data.lvItems
+		tagItemsList.numItems = pageCount
+		for subIndex=0,pageCount-1 do
+			_itemIndex = pageIndex * LEGACY_ITEMS_PER_PAGE + subIndex
+			if _itemIndex < curDisplayedItemsNum then
+				local itemObj = tagItemsList:GetChildAt(subIndex)
+				_tagItemInfo = curDisplayedLegacyItems[_itemIndex]
+				if itemObj.data == nil then
+					itemObj.data = {}
+					local tagBtn = itemObj.asButton
+					itemObj.data.bindBtn = tagBtn
+					itemObj.data.title = tagBtn:GetChild("title").asTextField;
+					itemObj.data.price = tagBtn:GetChild("price").asTextField;
+					itemObj.data.count = tagBtn:GetChild("count").asTextField;
+					itemObj.data.toggleIcon = tagBtn:GetChild("sel_on").asImage;
+					itemObj.data.lightBg = tagBtn:GetChild("light").asImage;
+					itemObj.data.lightFrame = tagBtn:GetChild("round_on").asImage;
+					itemObj.data.imgComp = tagBtn:GetChild("icon_holder").asCom;
+					itemObj.data.headComp = tagBtn:GetChild("head_cliper").asCom;
+					itemObj.data.headImage = itemObj.data.headComp:GetChild("head_holder").asImage;
+					itemObj.data.oldTextColor = itemObj.data.price.color
+
+					itemObj.data.lightBg.visible = false
+					itemObj.data.lightFrame.visible = false
+
+					tagBtn.onClick:Add(onClickLegacyItem);
+				end
+				_tagItemInfo.curSlot = itemObj.data
+				itemObj.data.bindInfo = _tagItemInfo
+				UpdateLegacyItemSlot(itemObj.data, _tagItemInfo)
+			end
+		end
+	end
+
+	updateCurPageInfo()
+end
+
+function UpdateCurDisplayedList()
+	updateCurLegacyPtsInfo()
+	for k,v in pairs(curDisplayedLegacyItems) do
+		if v.curSlot ~= nil then
+			UpdateLegacyItemSlot(v.curSlot, v)
+		end
+	end
+end
+
+function updateCurPageInfo()
+	btnPageLeft.visible = false;
+	btnPageRight.visible = false;
+	if curListPageCount > 0 then
+		txtPageInfo.visible = true
+		txtPageInfo.text = tostring(curListPageIndex + 1) .. " / " .. tostring(curListPageCount)
+		if curListPageIndex > 0 then
+			btnPageLeft.visible = true;
+		end
+		if curListPageIndex < curListPageCount - 1 then
+			btnPageRight.visible = true;
+		end
+	else
+		txtPageInfo.visible = false
+	end
+end
+
+function updateCurLegacyPtsInfo()
+	curLegacyPoints = 0
+	for k,v in pairs(allLegacyInfoList) do
+		if v.pojoInfo ~= nil and v.isEnable and v.SetValue > 0 then
+			curLegacyPoints = curLegacyPoints + v.pojoInfo.cost_point * v.SetValue;
+		end
+	end
+
+	txtPtsNum.text = tostring(curLegacyPoints) .. " / " .. tostring(maxLegacyPoints)
+end
+
+function ScrollToPage(_tagPage)
+	if _tagPage >= 0 and _tagPage < curListPageCount then
+		listPageList:ScrollToView(_tagPage, true)
+	end
+end
+
+function onItemListScrollEnd()
+	curListPageIndex = listPageList:GetFirstChildInView()
+	updateCurPageInfo()
+end
+
+function UpdateLegacyItemSlot(_tagSlot, _itemInfo)
+	local _pojoInfo = _itemInfo.pojoInfo
+	_tagSlot.title.text = _pojoInfo.show_name;
+	_tagSlot.price.text = tostring(_pojoInfo.cost_point);
+
+	CS.GUIHelper.CreateLegacyIcon(_tagSlot.imgComp, _tagSlot.headComp, _tagSlot.headImage, _pojoInfo.icon);
+	UpdateLegacyItemSlotVal(_itemInfo)
+end
+
+function GetRestPts()
+	return maxLegacyPoints - curLegacyPoints
+end
+
+function UpdateLegacyItemSlotVal(_itemInfo)
+	local _tagSlot = _itemInfo.curSlot
+	local _pojoInfo = _itemInfo.pojoInfo
+
+	_tagSlot.bindBtn.grayed = false
+	_tagSlot.title.grayed = false
+	_tagSlot.count.visible = false
+	_tagSlot.toggleIcon.visible = false
+	_tagSlot.bindBtn.selected = false
+
+	if not _itemInfo.isEnable then
+		_tagSlot.bindBtn.grayed = true
+		_tagSlot.title.grayed = true
+	else
+		if _itemInfo.SetValue > 0 then
+			_tagSlot.bindBtn.selected = true
+			if _pojoInfo:GetMaxLevel() > 1 then
+				_tagSlot.count.visible = true
+				_tagSlot.count.text = tostring(_itemInfo.SetValue)
+			else
+				_tagSlot.toggleIcon.visible = true
+			end
+		end
+	end
+
+	if _pojoInfo.cost_point > GetRestPts() then
+		_tagSlot.price.color = CS.UnityEngine.Color(1, 0.3, 0.3, 1)
+	else
+		_tagSlot.price.color = _tagSlot.oldTextColor
+	end
+end
+
+function onClickLegacyItem(context)
+	if context.sender == nil then
+		return
+	end
+	local tagSlot = context.sender.data
+	if tagSlot == nil or tagSlot.bindInfo == nil then
+		return
+	end
+	PlayButtonSound()
+
+	local posClickPosInBtn = tagSlot.bindBtn:GlobalToLocal(Stage.inst:GetTouchPosition(-1));
+	local btnWidth = tagSlot.bindBtn.width;
+	local testRad = btnWidth * 0.4;
+	if posClickPosInBtn.x > btnWidth - testRad and posClickPosInBtn.y < testRad then
+		--点击到角标框位置
+		local _pojoInfo = tagSlot.bindInfo.pojoInfo
+		if _pojoInfo:GetMaxLevel() > 1 then
+			onClickItemSlot(tagSlot)
+		else
+			if tagSlot.bindInfo.SetValue > 0 then
+				tagSlot.bindInfo.SetValue = 0
+			else
+				if _pojoInfo.cost_point > GetRestPts() then
+					ShowAlertInfo(GetGameString("lua_script_str46"), 1)
+				elseif not tagSlot.bindInfo.isEnable then
+					ShowAlertInfo(GetGameString("UIPageLegacy_EnableSelection"), 1)
+				else
+					tagSlot.bindInfo.SetValue = 1
+				end
+			end
+			UpdateCurDisplayedList()
+			if ctlItemDetailWin:IsShowing() then
+				onClickItemSlot(tagSlot)
+			end
+		end
+	else
+		onClickItemSlot(tagSlot)
+	end
+end
+
+function onClickItemSlot(tagSlot)
+	SetFocusItem(tagSlot)
+	ctlItemDetailWin:Show(tagSlot.bindBtn, tagSlot.bindInfo, curLegacyPoints, maxLegacyPoints)
+end
+
+function onItemDetailWinClosed()
+	SetFocusItem(nil)
+end
+
+function SetFocusItem(_tagSlot)
+	if curFocusBtn ~= nil then
+		SetItemHighlight(curFocusBtn, false)
+		curFocusBtn = nil
+	end
+	curFocusBtn = _tagSlot
+	if curFocusBtn ~= nil then
+		SetItemHighlight(curFocusBtn, true)
+	end
+end
+
+function SetItemHighlight(_tagSlot, _isOn)
+	_tagSlot.lightBg.visible = _isOn
+	_tagSlot.lightFrame.visible = _isOn
+end
+
+--重载按键事件
+function onKeyDown(_keyCode)
+	if _keyCode == 27 then
+		if closeCurItemDetailInfoWin() then
+			return true
+		end
+	end
+	return false
+end
+
+function closeCurItemDetailInfoWin()
+	if ctlItemDetailWin:IsShowing() then
+		ctlItemDetailWin:Hide()
+		return true
+	end
+	return false
+end
+
+function onLegacyItemValChanged(_tagItemInfo)
+	UpdateCurDisplayedList()
+end
+
+function ShowAlertInfo(_msg, type)
+	local toastInfo = "";
+	if type == 1 then
+		toastInfo = toastInfo .. "[[red:"
+	else
+		toastInfo = toastInfo .. "[[white:"
+	end
+	toastInfo = toastInfo .. _msg .. "]]";
+	ShowToastInfo(toastInfo, 2);
+end

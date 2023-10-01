@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.54#block_act#0#0
+0.18#add_eft#T野兽血脉闪电#tag_pos,0,0,0#0
+0.18#play_sound#Thunder_Clap#unit_pos
+0.18#camera_shake#0.1#3
+0.28#play_sound#Thunder_Hit#tag_pos

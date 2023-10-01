@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.3#chain_eft_to#caster#target#深渊审判#-1#1#深渊审判#-1#1#type:2;t_dmg:[%aim_stat:s_生命%]*0.03;eft:审判受击;blk:-1000;hit:1000
+0.3#set_cmd_val#0#0
+0.17#play_sound#Darkness#tag_pos
+0.19#play_sound#BloodDagger_Hit#tag_pos
+0.1#play_sound#EvilHand#unit_pos

@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0#play_sound#RenQi#unit_pos
+0.33#play_sound#RenQi#unit_pos
+0.33#add_eft#火焰BOSS死亡爆炸1#unit_pos,0,0,0#0
+0.33#camera_shake#0.5#2
+0.33#add_eft#火焰BOSS死亡爆炸2#unit_pos,0,0,0#0
+3.92#block_act#0#0

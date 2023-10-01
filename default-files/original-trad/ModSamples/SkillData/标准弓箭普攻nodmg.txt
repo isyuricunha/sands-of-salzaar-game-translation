@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+0.55#block_act#0#0
+0.35#play_sound#Bow_Attack#unit_pos
+0.03#play_sound#Bow_Aim#unit_pos

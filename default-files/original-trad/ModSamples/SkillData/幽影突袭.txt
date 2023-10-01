@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+0#add_eft#长条预警1:0:20,1,5#unit_pos,0,0,0#0
+1.95#block_act#0#0
+1#dart_move##0#5000#800#幽影突袭冲锋##caster#
+1#add_eft#P紫雷三闪#unit_pos,0,0,0#0
+1#play_sound#ThunderMove_Start_01#unit_pos
+1#play_sound#FireBall_Shoot#unit_pos
+1#play_sound#HammerStrike#unit_pos
+1.65#dart_move##0#5000#800#幽影突袭冲锋##caster#start_pos,0,0,0
+1.65#play_sound#ThunderMove_Start_01#unit_pos
+1.65#play_sound#FireBall_Shoot#unit_pos

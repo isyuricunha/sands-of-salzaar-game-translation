@@ -1,0 +1,6 @@
+﻿0.99#block_act#0#0
+0.29#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:刀剑之术断月斩受击#0#unit_pos,0,4,0,0,400,400,600,0,400,-400
+0.02#add_eft#P刀剑之术断月斩#unit_pos,0,0,0#0
+0#block_act#1#0
+0.25#play_sound#Slash_Moon#unit_pos
+0.28#play_sound#Slash_Basic#unit_pos

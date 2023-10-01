@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="540,42">
+  <displayList>
+    <component id="n0_lwpx" name="hp_bar" src="pczr7k" fileName="BattleSceneComponents/EnemyHpBar.xml" xy="0,0" size="540,42">
+      <relation target="" sidePair="width-width,height-height"/>
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <text id="n1_lwpx" name="txt_info" xy="270,23" pivot="0.5,0.5" anchor="true" size="520,30" fontSize="16" color="#f0f0e4" align="center" vAlign="middle" ubb="true" autoSize="none" strokeColor="#333333" singleLine="true" autoClearText="true" text="Enemy Info">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+</component>

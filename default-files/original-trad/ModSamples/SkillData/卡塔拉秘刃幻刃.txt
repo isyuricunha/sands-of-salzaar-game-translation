@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+0.67#block_act#0#0
+0.43#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:卡塔拉秘刃幻刃#0#tag_pos,100,0,0,300
+0.23#set_unitpos#caster#tag_pos,-200,0,0
+0.23#camera_shake#0.1#2
+0.38#add_eft#P卡塔拉秘刃幻刃#unit_pos,0,0,0#0
+0.38#play_sound#PhamtonMove_01#unit_pos
+0.38#play_sound#Slash_Long#unit_pos
+0.38#camera_shake#0.1#2
+0.17#add_eft#T闪烁#unit_pos,0,0,0#0
+0.58#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:卡塔拉秘刃幻刃#0#tag_pos,100,0,0,300
