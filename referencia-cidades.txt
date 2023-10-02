@@ -39,6 +39,9 @@ Twinluna Valley: Vale Twinluna
 Urn Village: Aldeia das Urnas
 Zargos Mountains: Montanhas Zagros
 Monstros
+Brawler - Lutador
+Spiritmancer -> Espiritualista?
+Cidade de Amaranth
 
 Beastman: Homem-Besta
 Ifrit: Ifrit
