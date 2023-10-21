@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:铁匠之怒抡击受击#0#unit_pos,0,0,0,800
-0.6#play_sound#Ground_Hit#unit_pos
-0.57#play_sound#DragonRoar#unit_pos
-0.57#add_eft#太极玄阴引#unit_pos,0,0,0#0
-0.57#camera_shake#0.1#5
-0.7#play_sound#Dust_Small#unit_pos
-0.65#play_sound#SK_027#unit_pos

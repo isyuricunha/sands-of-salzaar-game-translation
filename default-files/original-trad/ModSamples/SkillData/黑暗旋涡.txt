@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.1#play_sound#Aura_Dark#unit_pos
-0.63#dmg_check#1#type:2;dmg:[%stat:s_魔法攻击%]*2;attack_type:900;hit:1000;blk:-1000;eft:暗魔弹#0#cast_pos,0,0,0,1000
-0.3#play_sound#DarkSwirl#unit_pos
-0.32#yell#caster#都过来吧！
-0.32#add_eft#黑暗旋涡#unit_pos,0,0,0#0

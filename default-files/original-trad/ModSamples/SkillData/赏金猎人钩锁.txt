@@ -1,4 +1,0 @@
-﻿0.12#add_eft#赏金猎人残影特效#unit_pos,0,0,0#0#0###赏金猎人钩锁地点
-0.12#replace_tag_skill#赏金猎人钩锁#赏金猎人钩锁返回#5#caster
-0.12#play_sound#PowerSpear#unit_pos
-0.05#play_sound#IceArrow#unit_pos

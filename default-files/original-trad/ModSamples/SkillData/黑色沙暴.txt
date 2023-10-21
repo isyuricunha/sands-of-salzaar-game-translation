@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.67#dmg_check#1#type:2;dmg:[%stat:s_魔法攻击%]*2;attack_type:900;hit:1000;blk:-1000;#0#unit_pos,0,0,0,1500
-0.32#b_talk#caster#黑色沙暴！#2.5
-0.32#add_eft#黑色沙暴#unit_pos,0,0,0#0
-0.22#play_sound#BlackStorm#unit_pos
-0.12#play_sound#WindSword#unit_pos
-0.25#play_sound#WildFireCast_Start#unit_pos

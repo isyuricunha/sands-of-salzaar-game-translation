@@ -1,8 +1,0 @@
-
---实现自定义的字符串查询
-function GetLuaStringVal2(valKey, contextArgVal)
-    if valKey == "test2" then
-        return "this is test 2"
-    end
-    return ""
-end

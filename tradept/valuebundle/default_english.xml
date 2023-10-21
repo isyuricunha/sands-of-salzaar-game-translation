@@ -1,60 +1,164 @@
 <?xml version="1.0"?>
 <root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<include file="Localization/Main/english/J剧情内文字翻译_hotfix.xlsx" />
-	<include file="Localization/Main/english/B宝箱信息表_Chests_hotfix.xlsx" />
-	<include file="Localization/Main/english/C触发器_Triggers_MainStory_hotfix.xlsx" />
-	<include file="Localization/Main/english/C触发器_Triggers_RandomQuests_hotfix.xlsx" />
-	<include file="Localization/Main/english/C触发器_Triggers_zyc_hotfix.xlsx" />
-	<include file="Localization/Main/english/D地图列表_Maps_hotfix.xlsx" />
-	<include file="Localization/Main/english/D地点列表_Places_hotfix.xlsx" />
-	<include file="Localization/Main/english/D道具列表_Items_hotfix.xlsx" />
-	<include file="Localization/Main/english/D道具合成配方表_Synth_hotfix.xlsx" />
-	<include file="Localization/Main/english/J集市信息表_Bazzar_hotfix.xlsx" />
-	<include file="Localization/Main/english/J集市道具信息表_BazzarItems_hotfix.xlsx" />
-	<include file="Localization/Main/english/R人物列表_Roles_Quest_hotfix.xlsx" />
-	<include file="Localization/Main/english/R人物列表_Roles_zyc_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务列表_Quests_19k_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务列表_Quests_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务列表_Quests_MainStory_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务列表_Quests_RandomQuests_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务列表_Quests_zyc_hotfix.xlsx" />
-	<include file="Localization/Main/english/R任务系列_QuestKinds_hotfix.xlsx" />
-	
-	<include file="Localization/english/Y游戏内文字_Strings_UI_hotfix.xlsx" />
-	<include file="Localization/english/Y游戏内文字_Strings_Tips_hotfix.xlsx" />
-	<include file="Localization/english/Y游戏内文字_Strings_hotfix.xlsx" />
-	<include file="Localization/english/B兵种单位表_Soldiers_hotfix.xlsx" />
-	<include file="Localization/english/B宝箱信息表_Chests_hotfix.xlsx" />
-	<include file="Localization/english/C传承_Legacy_hotfix.xlsx" />
-	<include file="Localization/english/C传承点数公式_LegacyFormula_hotfix.xlsx" />
-	<include file="Localization/english/C触发器_Triggers_Common_hotfix.xlsx" />
-	<include file="Localization/english/D地点属性字段_PlaceStatus_hotfix.xlsx" />
-	<include file="Localization/english/D道具列表_Items_hotfix.xlsx" />
-	<include file="Localization/english/D道具列表_Items_Mounts_hotfix.xlsx" />
-	<include file="Localization/english/D道具列表_Items_Special_hotfix.xlsx" />
-	<include file="Localization/english/D道具列表_Items_Supplies_hotfix.xlsx" />
-	<include file="Localization/english/D道具装备词条表_ItemPrefixs_hotfix.xlsx" />
-	<include file="Localization/english/J剧本设定_StoryMode_hotfix.xlsx" />
-	<include file="Localization/english/J技能列表_Skills_Boss_hotfix.xlsx" />
-	<include file="Localization/english/J技能列表_Skills_Heros_hotfix.xlsx" />
-	<include file="Localization/english/J技能列表_Skills_HJJH_hotfix.xlsx" />
-	<include file="Localization/english/J角色属性字段_RoleStatus_HJJH_hotfix.xlsx" />
-	<include file="Localization/english/J角色属性字段_RoleStatus_hotfix.xlsx" />
-	<include file="Localization/english/K卡牌定义_Cards_hotfix.xlsx" />
-	<include file="Localization/english/Q全局BUFF表_GlobalBuffs_hotfix.xlsx" />
-	<include file="Localization/english/Q全局天赋表_Talents_hotfix.xlsx" />
-	<include file="Localization/english/R人物列表_Roles_Boss_hotfix.xlsx" />
-	<include file="Localization/english/R人物列表_Roles_Common_hotfix.xlsx" />
-	<include file="Localization/english/R人物列表_Roles_Heros_hotfix.xlsx" />
-	<include file="Localization/english/R人物列表_Roles_Waitress_hotfix.xlsx" />
-	<include file="Localization/english/R容器定义表_Containers_hotfix.xlsx" />
-	<include file="Localization/english/S设施列表_Buildings_hotfix.xlsx" />
-	<include file="Localization/english/W文字探索地图表_TextExplore_hotfix.xlsx" />
-	<include file="Localization/english/W文字探索特殊事件表_TextExploreEvents_hotfix.xlsx" />
-	<include file="Localization/english/W武器护甲作用表_ArmorEffect_hotfix.xlsx" />
-	<include file="Localization/english/X项目效果_Projects_hotfix.xlsx" />
-	<include file="Localization/english/Y游戏内可配置字段_IntvalConfigs_hotfix.xlsx" />
-	<include file="Localization/english/Y野外建筑点配置_BuildingSpots_hotfix.xlsx" />
-	<include file="Localization/english/Y野怪发射器_MonsterEmitters_hotfix.xlsx" />
-	<include file="Localization/english/Y野怪投放适配表_MonsterInfos_hotfix.xlsx" />
+
+	<include file="Main/Localization/english/B兵种单位表_Fighters_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/B兵种单位表_Soldiers_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/B兵种单位表_SoldiersNew_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/B宝箱信息表_Chests_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/C成就点数奖励表_AchievementBonus_hotfix.xlsx" />
+	<include file="Main/C成就点数奖励表_AchievementBonus.xlsx" />
+	<include file="Main/C初始设定表_Init.xlsx" />
+	<include file="Main/Localization/english/C触发器_Triggers_Common_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/C传承_Legacy_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/C传承点数公式_LegacyFormula_hotfix.xlsx" need_translate="true" />
+	<include file="Main/D大地图单位模型表_MapModels.xlsx" />
+	<include file="Main/D单位模型定义_Models.xlsx" />
+	<include file="Main/D单位模型动作定义_ModelsAct.xlsx" />
+	<include file="Main/D道具合成分类表_SynthClass.xlsx" />	
+	<include file="Main/D道具合成配方表_Synth.xlsx" />
+	<include file="Main/Localization/english/D道具列表_Items_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/D道具列表_Items_Mounts_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/D道具列表_Items_Special_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/D道具列表_Items_Supplies_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/D道具列表_Items_CardGems_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/D道具装备词条表_ItemPrefixs_hotfix.xlsx" need_translate="true" />
+	<include file="Main/D等级系数表_LevelFactor.xlsx" />
+	<include file="Main/Localization/english/D地点属性字段_PlaceStatus_hotfix.xlsx" need_translate="true" />
+	<include file="Main/D地图区块_MapBlocks.xlsx" />
+	<include file="Main/D地形影响_Terrains.xlsx" />
+	<include file="Main/F副本地图信息_DungeonMaps.xlsx" />
+	<include file="Main/F副本信息_Dungeons.xlsx" />
+	<include file="Main/J集市道具信息表_BazzarItems.xlsx" />
+	<include file="Main/J集市信息表_Bazzar.xlsx" />
+	<include file="Main/Localization/english/J技能列表_Skills_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能列表_Skills_Boss_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能列表_Skills_Heros_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能列表_Skills_HJJH_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能列表_Skills_Soliders_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能页_SkillPages_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J技能页_SkillPages_HJJH_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J角色属性字段_RoleStatus_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J角色属性字段_RoleStatus_HJJH_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J角色属性字段_RoleStatus_LeaderSkill_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/J剧本设定_StoryMode_hotfix.xlsx" need_translate="true" />	
+	<include file="Main/Localization/english/J剧情事件_StoryEvents_Common_hotfix.xlsx" need_translate="true" />
+	<include file="Main/K卡牌抽取概率表_CardProbability.xlsx" />
+	<include file="Main/Localization/english/K卡牌定义_Cards_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/K卡牌定义_CardsNew_hotfix.xlsx" need_translate="true" />
+	<include file="Main/P配点模板表_Distribute.xlsx" />
+	<include file="Main/P配点模板表_Distribute_Soldiers.xlsx" />
+	<include file="Main/Localization/english/Q全局BUFF表_GlobalBuffs_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Q全局BUFF属性字段_GlobalBuffStatus.xlsx" />
+	<include file="Main/Q全局掉落表_Loots.xlsx" />
+	<include file="Main/Localization/english/Q全局天赋表_Talents_hotfix.xlsx" need_translate="true" />
+	<include file="Main/R人物立绘信息_CharacterDrawing.xlsx" />
+	<include file="Main/Localization/english/R人物列表_Roles_Boss_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/R人物列表_Roles_Common_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/R人物列表_Roles_Heros_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/R人物列表_Roles_Waitress_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/R人物列表_Roles_Fighters_hotfix.xlsx" need_translate="true" />
+
+	<include file="Main/Localization/english/R容器定义表_Containers_hotfix.xlsx" need_translate="true" />
+	<include file="Main/S商人列表_MerchantItems.xlsx" />
+	<include file="Main/Localization/english/S设施列表_Buildings_hotfix.xlsx" need_translate="true" />
+	<include file="Main/S势力BUFF列表_CampBuffs.xlsx" />
+	<include file="Main/S势力属性字段_CampStatus.xlsx" />
+	<include file="Main/T探索地图点数表_ExplorePoints.xlsx" />
+	<include file="Main/T特产表_LocalProducts.xlsx" />
+	<include file="Main/T特定战斗表_Battle.xlsx" />
+	<include file="Main/Localization/english/W文字探索地图表_TextExplore_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/W文字探索特殊事件表_TextExploreEvents_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/W武器护甲作用表_ArmorEffect_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/X项目效果_Projects_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y野怪发射器_MonsterEmitters_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y野怪投放适配表_MonsterInfos_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y野外建筑点配置_BuildingSpots_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Y音频播放列表_AudioPlaylist.xlsx" />
+	<include file="Main/Y音频分类表_AudioCategory.xlsx" />
+	<include file="Main/Y音频项目表_AudioItems.xlsx" />
+	<include file="Main/Y音频资源表_AudioSubItems.xlsx" />
+	<include file="Main/Y音频资源附加表_AudioAssets.xlsx" />
+	<include file="Main/y音效资源调用_AudioEvents.xlsx" />
+	<include file="Main/Localization/english/Y游戏内可配置字段_IntvalConfigs_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y游戏内文字_Strings_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y游戏内文字_Strings_Tips_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Localization/english/Y游戏内文字_Strings_UI_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Y预加载预制体表_PreloadPrefabs.xlsx" />
+	<include file="Main/Z战场设置_Battlefield.xlsx" />
+	<include file="Main/Z战斗BUFF列表_Buffs.xlsx" />
+	<include file="Main/Z战斗BUFF列表_Buffs_HJJH.xlsx" />
+	<include file="Main/Z战斗BUFF列表_BuffsHero.xlsx" />
+	<include file="Main/Z战斗受击特效表_HitEffects.xlsx" />
+	<include file="Main/Z战斗特效对象_BattleEffects.xlsx" />
+	<include file="Main/Z战斗特效对象_BattleEffects_Heros.xlsx" />
+	<include file="Main/Z战斗特效对象_BattleEffects_HJJH.xlsx" />
+	<include file="Main/Z阵营势力表_Camps.xlsx" />
+	<include file="Main/Z自适应单位适配表_UnitsGenerator.xlsx" />
+	<include file="Main/Localization/english/J爵位等级_NobilityRanks_hotfix.xlsx" need_translate="true" />
+	<include file="Main/Y游荡NPC设置_NpcWanderConfig.xlsx" />
+
+	<include file="Main/Localization/english/J角色互动事件池_RoleInteractionEvents_hotfix.xlsx" need_translate="true" />
+	<include file="Main/J剧情事件_StoryEvents_RoleInteractions.xlsx" />
+
+	<include file="Sandbox/Localization/english/B宝箱信息表_Chests_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/C插件设置表_Plugins.xlsx" />
+	<include file="Sandbox/Localization/english/C成就点数奖励表_AchievementBonus_hotfix.xlsx" />
+	<include file="Sandbox/C成就点数奖励表_AchievementBonus.xlsx" />
+	<include file="Sandbox/C初始设定表_Init.xlsx" />
+	<include file="Sandbox/Localization/english/C触发器_Triggers_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/C触发器_Triggers_19k_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/C触发器_Triggers_MainStory_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/C触发器_Triggers_RandomQuests_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/C触发器_Triggers_zyc_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/D道具合成分类表_SynthClass_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/D道具合成配方表_Synth_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/D道具列表_Items_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/D地点列表_Places_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/D地图列表_Maps_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J集市道具信息表_BazzarItems_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J集市信息表_Bazzar_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_19k_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_MainStory_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_MapEvents_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/J剧情_StoryEvents_RandomQuests.xlsx" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_SubCamp_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_Tavern_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情_StoryEvents_zyc_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/J剧情内文字翻译_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_19k_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_Boss_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_MainStory_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_Quest_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R人物列表_Roles_zyc_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务列表_Quests_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务列表_Quests_19k_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务列表_Quests_MainStory_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务列表_Quests_RandomQuests_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务列表_Quests_zyc_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/R任务系列_QuestKinds_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/S商人列表_MerchantItems_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/S设施列表_Buildings_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/S随机任务系统_RandomQuestsSys.xlsx" />
+	<include file="Sandbox/T特产表_LocalProducts.xlsx" />
+	<include file="Sandbox/T特定战斗表_Battle.xlsx" />
+	<include file="Sandbox/T特定战斗表_Battle_19k.xlsx" />
+	<include file="Sandbox/T特定战斗表_Battle_zyc.xlsx" />
+	<include file="Sandbox/Localization/english/W文字探索地图表_TextExplore_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/W文字探索特殊事件表_TextExploreEvents_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/X项目效果_Projects_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Y野怪发射器_MonsterEmitters_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Y野怪投放适配表_MonsterInfos_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Y野怪投放适配表_MonsterInfos_19k_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Y野怪投放适配表_MonsterInfos_zyc_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Y野外建筑点配置_BuildingSpots_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Z战斗中剧情事件_BattleEvents_Boss_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Z战斗中剧情事件_BattleEvents_DG_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Z阵营势力表_Camps_hotfix.xlsx" need_translate="true" />
+	<include file="Sandbox/Localization/english/Z阵营势力表_Camps_hotfix.xlsx" need_translate="true" />
+
+	<include file="Sandbox/J剧情_StoryEvents_temp.xlsx" />
+	<include file="Sandbox/Z战斗中剧情事件_BattleEvents_DGtemp.xlsx" />
+
 </root>

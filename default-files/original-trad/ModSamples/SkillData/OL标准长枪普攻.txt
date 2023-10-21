@@ -1,5 +1,0 @@
-﻿0.23#play_sound#Spear_Attack#unit_pos
-0.23#dmg_check#2#type:0;dmg:[%stat:s_攻击%];eft:长枪受击1#0#unit_pos,0,4,0,0,350,100,[&300+[%stat:s_攻击范围%]&],0,350,-100
-0.23#add_eft#枪攻击01#unit_pos,0,0,0#0
-0.32#block_act#0#0
-0#block_act#1#0

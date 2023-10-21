@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.6#dmg_check#1#type:2;dmg:2*[%stat:s_攻击%];hit:1000;blk:-1000;eft:野火刀术浴火回血空;buff:嘲讽效果,8,1#0#unit_pos,0,0,0,300
-0.57#play_sound#Cast_Sound#unit_pos
-0.57#play_sound#Roar#unit_pos
-0.57#add_eft#震慑之吼#unit_pos,0,0,0#0
-0.57#camera_shake#0.1#5

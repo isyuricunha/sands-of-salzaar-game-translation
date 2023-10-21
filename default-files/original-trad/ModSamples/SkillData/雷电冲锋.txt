@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.28#dart_move#冲锋#0#5000#0#P雷电冲锋#
-0.28#play_sound#ThunderMove_01#unit_pos
-0.28#camera_shake#0.05#5
-0.38#play_sound#Thunder_Hit#unit_pos

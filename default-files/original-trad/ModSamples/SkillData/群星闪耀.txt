@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.63#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;act:0;#2#unit_pos,0,0,0,1500
-0.32#yell#caster#群星闪耀
-0.32#add_eft#群星闪耀#tag_pos#0
-0.1#play_sound#WindSword#unit_pos
-0.3#play_sound#Nova#unit_pos

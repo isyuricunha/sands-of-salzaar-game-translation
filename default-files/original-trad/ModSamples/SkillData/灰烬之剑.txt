@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0#add_eft#长条预警1:0:10,1,3#unit_pos,0,0,0#0
-1.67#block_act#0#0
-0.17#add_eft#灰烬之剑#unit_pos,0,0,0#0
-0.25#play_sound#BladeWave#unit_pos
-0.6#play_sound#Slash_Moon#unit_pos
-0.8#play_sound#WildFireWhoosh#unit_pos
-1.2#dart_move##0#3000#800#灰烬之剑冲锋##caster#unit_pos,1000,0,0
-0.67#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*2.5;cri:1000;eft:嗜血刀术狂暴斩受击#0#unit_pos,0,4,0,0,282,282,400,0,282,-282

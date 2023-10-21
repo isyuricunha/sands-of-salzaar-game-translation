@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.187117681" need_tex_file="1">
-  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
-  <tile_tex tex_id="8" scale_x="2" scale_y="2" rotate="0" />
-</blend_map_tileinfo>

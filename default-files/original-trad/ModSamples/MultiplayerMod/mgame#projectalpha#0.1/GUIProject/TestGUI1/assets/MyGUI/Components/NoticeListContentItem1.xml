@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="520,39">
-  <displayList>
-    <richtext id="n1_x475" name="title" xy="2,3" size="513,32" fontSize="18" color="#f0f0e4" leading="5" ubb="true" autoSize="height" text="Content Text&#xA;">
-      <relation target="" sidePair="width-width"/>
-    </richtext>
-  </displayList>
-  <relation target="n1_x475" sidePair="height-height"/>
-</component>

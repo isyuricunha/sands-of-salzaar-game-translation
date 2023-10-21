@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.33#play_sound#EarthWave#unit_pos
-0.35#play_sound#Ground_Hit#unit_pos
-0.35#add_eft#P铁匠之怒震击#unit_pos,0,0,0#0
-0.35#camera_shake#0.1#5
-0.38#dmg_check#1#type:2;dmg:[&[%stat:s_攻击%]*3&];hit:1000;blk:-1000;eft:野火刀术浴火回血空#0#unit_pos,0,0,0,600
-0.4#play_sound#Dust_Small#unit_pos
-0.69#block_act#0#0

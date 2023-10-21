@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-1.25#block_act#0#0
-0.6#dmg_check#1#type:2;hit:1000;blk:-1000#2#unit_pos,0,0,0,[&@min(500+[%this_level%]*50,1000)&]
-0.6#dmg_check#1#type:3;dmg:[&300+[%stat:b_精神%]*10&];hit:1000;blk:-1000;eft:治疗命中#1#unit_pos,0,0,0,[&@min(500+[%this_level%]*50,1000)&]
-0.6#dmg_check#1#type:4;dmg:[&300+[%stat:b_精神%]*10&];hit:1000;blk:-1000;eft:治疗命中#1#unit_pos,0,0,0,[&@min(500+[%this_level%]*50,1000)&]
-0.08#add_eft#西河之舞#unit_pos,0,0,0#0
-0.08#play_sound#AddBuff#unit_pos

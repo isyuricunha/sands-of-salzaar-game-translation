@@ -1,6 +1,0 @@
-﻿0#add_eft#幽影魔弹攻击#eft_pos=幽影魔弹地点,0,0,0#0
-0#replace_tag_skill#暗月幽影幽影魔弹返回##0#caster
-0#dart_move#冲锋#0#10000#0#幽影魔弹位移##caster#eft_pos=幽影魔弹地点,0,0,0
-0#dmg_check#0#type:3;t_dmg:[&[%stat:s_生命%]*0.1&];eft:治疗命中#caster
-0.1#replace_eft#幽影魔弹地点#-1##hit_pos,0,0,0#0
-0.15#play_sound#Cost_Morph#unit_pos

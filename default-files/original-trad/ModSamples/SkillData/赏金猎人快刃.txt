@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0#dart_move##0#10000#800#幻光秘刃幻光位移##caster#
-0.03#add_eft#赏金猎人快刃#unit_pos#0
-0.03#play_sound#Slash_Basic#unit_pos
-0.13#play_sound#Slash_Basic#unit_pos
-0.05#play_sound#Blade_Attack#unit_pos
-0.2#play_sound#IceBall_Shoot#unit_pos
-0.3#block_act#0#0

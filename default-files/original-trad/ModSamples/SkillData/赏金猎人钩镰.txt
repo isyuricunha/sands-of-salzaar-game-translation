@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.16#chain_eft_to#caster#target#锁链特效#8000#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:踢击受击
-0.2#play_sound#WildFireCast_Start#unit_pos
-0.33#play_sound#BodyLock#unit_pos
-1#block_act#0#0

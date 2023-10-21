@@ -1,3 +1,0 @@
-﻿0#block_act#1#0
-0.17#play_sound#SwordWhoosh#unit_pos
-0.45#block_act#0#0

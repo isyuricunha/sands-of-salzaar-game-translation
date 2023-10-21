@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.3#dmg_check#1#type:2;eft:无声空受击;hit:1000;blk:-1000#1#unit_pos,0,0,0,800
-0.57#play_sound#RenQi#unit_pos
-0.57#add_eft#天平之境#unit_pos,0,0,0#0
-0.57#camera_shake#0.1#5

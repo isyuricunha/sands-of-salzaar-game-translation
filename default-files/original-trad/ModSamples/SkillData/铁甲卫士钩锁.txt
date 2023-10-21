@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.08#add_buff#霸体#caster#3#1
-0.08#chain_eft_to#caster#target#锁链特效#8000#1#type:2;dmg:0;hit:1000;blk:-1000;eft:光魔弹2
-0.16#play_sound#WildFireCast_Start#unit_pos
-0.18#play_sound#HammerLandStrike#unit_pos
-0.75#block_act#0#0

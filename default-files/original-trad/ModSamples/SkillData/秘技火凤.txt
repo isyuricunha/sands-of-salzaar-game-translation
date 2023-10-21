@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.27#play_sound#Cast_Storm#unit_pos
-0.47#dmg_check#1#type:2;dmg:[&@min([%stat:s_攻击%]*(1.5+[%stat:this_level%]*0.1),[%stat:s_攻击%]*3.5)&];hit:1000;blk:-1000;eft:枪术狂风受击#0#unit_pos,0,0,0,[&@min(800,300+[%stat:b_身法%]*5+[%stat:b_臂力%]*5)&]
-0.47#add_eft#秘技火凤#unit_pos,100,0,0#0
-0.47#play_sound#JumpUp#unit_pos
-1#dart_move#跳跃#1#1200#1000##秘技火凤落地,1,0.4
-1#add_buff#火凤飞行#caster#1.2#1
-1#play_sound#PhoenixOut#unit_pos

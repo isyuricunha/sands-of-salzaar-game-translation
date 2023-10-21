@@ -1,5 +1,0 @@
-﻿0.3#add_eft#P刀气#cast_pos,0,0,0#3:0,1000#0#type:2;dmg:[%base_atk%]*0.3+[%stat:s_攻击%]*0.3;hit:1000;blk:-1000;eft:普通受击兵刃
-0.11#add_eft#P出刀横#cast_pos,0,0,0#0
-0#block_act#1#0
-0#play_sound#BladeWave#unit_pos
-0.19#block_act#0#0

@@ -1,6 +1,0 @@
-﻿0#unit_sound_dic#攻击吼叫#caster
-0#block_act#1#0
-0.13#dmg_check#2#type:0;dmg:[%stat:s_攻击%];eft:长枪受击1#0#unit_pos,0,4,0,0,300,300,[&150+[%stat:s_攻击范围%]&],0,300,-300
-0.13#add_eft#剑攻击02#unit_pos,150,0,0#0
-0.13#play_sound#Spear_Attack#unit_pos
-0.65#block_act#0#0

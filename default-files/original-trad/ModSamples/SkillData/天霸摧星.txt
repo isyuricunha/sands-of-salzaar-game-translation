@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.1#dart_move#跳跃#1#8000#4000##
-0.1#add_eft#T闪烁#unit_pos,0,0,0#0
-0.78#set_active#caster#0#0
-2.83#set_active#caster#1#1  
-2.85#add_eft#摧星剑2#unit_pos,0,0,0#0
-3.05#replace_eft#摧星剑#-1#摧星剑3#hit_pos,0,0,0#0
-3.05#camera_shake#0.1#5
-3.32#dart_move##2#2000#0###caster#unit_pos,-1000,0,0

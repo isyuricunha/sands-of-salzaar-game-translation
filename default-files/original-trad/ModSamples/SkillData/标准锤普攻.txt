@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.2#play_sound#HandHammer_Attack#unit_pos
-0.23#dmg_check#2#type:0;dmg:[%stat:s_攻击%];eft:锤受击#0#unit_pos,0,4,0,0,300,250,[&300+[%stat:s_攻击范围%]&],0,300,-250
-0.23#add_eft#剑攻击05#unit_pos,0,0,0#0
-0.53#block_act#0#0

@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.33#play_sound#RenQi#unit_pos
-0.33#add_eft#斩Q2#unit_pos,0,0,0#0
-0.33#dmg_check#2#type:2;dmg:[%stat:s_攻击%];hit:1000;blk:-1000;eft:刀剑斩击受击#0#unit_pos,0,4,0,0,1400,1400,2000,0,1400,-1400
-0.34#replace_tag_skill#瑞文Q1#瑞文Q3#10#caster
-0.52#block_act#0#0

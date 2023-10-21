@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0.48#add_eft#龙爪击#unit_pos,0,0,0#0
-0.48#play_sound#Spear_Attack#unit_pos
-0.48#camera_shake#0.1#2
-0.5#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:铁匠之怒抡击受击#0#unit_pos,0,4,0,0,0,800,800,0,0,-800
-0.5#add_eft#野兽血脉龙冲击波#unit_pos,0,0,0#3:0,1000#0#type:2;dmg:[&[%stat:s_攻击%]*2&];hit:1000;blk:-1000;eft:风魔弹
-0.76#block_act#0#0

@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0.3#play_sound#FireBall_Shoot#SwordFire#unit_pos
-0.82#add_eft#P赫炎喷火管#unit_pos,0,0,0#0
-0.82#play_sound#SwordFire#unit_pos
-0.82#camera_shake#0.1#2
-0.83#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*0.5;hit:1000;blk:-1000;eft:天火受击#0#unit_pos,0,4,0,0,0,500,500,0,0,-500
-1.72#block_act#0#0

@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.17#add_buff#刀剑之术剑誓回血#caster#5#2
-0.15#play_sound#SK_006#unit_pos
-0.13#add_eft#P刀剑之术剑誓#unit_pos,0,0,0#0

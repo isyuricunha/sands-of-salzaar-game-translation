@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.27#add_eft#P大出刀#unit_pos,150,0,150#0
-0.3#play_sound#Palm_Attack#unit_pos
-0.32#play_sound#Slash_Moon#unit_pos
-0.32#camera_shake#0.1#4
-0.33#dmg_check#1#type:2;dmg:[%stat:s_攻击%];buff:昏迷效果,2,1#0#unit_pos,250,0,0,800
-0.35#play_sound#SK_020#unit_pos
-0.42#play_sound#Dust_Small#unit_pos
-0.78#block_act#0#0

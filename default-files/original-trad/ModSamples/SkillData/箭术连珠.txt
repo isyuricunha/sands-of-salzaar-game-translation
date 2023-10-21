@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.42#add_eft#箭术连珠伤害判定#unit_pos#3:0,3000#0#type:2;dmg:[&[%stat:s_攻击%]*1&];hit:1000;blk:-1000;eft:箭术普通受击特效
-0.42#play_sound#Bow_Attack#unit_pos
-0.51#add_eft#箭术连珠伤害判定#unit_pos#3:0,3000#0#type:2;dmg:[&[%stat:s_攻击%]*1&];hit:1000;blk:-1000;eft:箭术普通受击特效
-0.51#play_sound#Bow_Attack#unit_pos
-0.67#add_eft#箭术连珠伤害判定#unit_pos#3:0,3000#0#type:2;dmg:[&[%stat:s_攻击%]*2&];hit:1000;blk:-1000;eft:箭术普通受击特效
-0.67#play_sound#Bow_Attack#unit_pos
-0.67#play_sound#CrossBow_Attack#unit_pos
-1.13#block_act#0#0

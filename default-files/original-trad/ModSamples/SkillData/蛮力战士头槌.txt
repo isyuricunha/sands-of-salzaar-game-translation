@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.22#block_act#0#0
-0.08*[%skill_lv:蛮力战士头槌强化2%][=]0#dmg_check#0#type:2;dmg:[%stat:s_攻击%]*2;eft:踢击受击;hit:1000;blk:-1000#target
-0.08*[%skill_lv:蛮力战士头槌强化2%][>]0#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;eft:踢击受击;hit:1000;blk:-1000#0#tag_pos,0,0,0,200
-0.1#play_sound#HeadHammer#unit_pos

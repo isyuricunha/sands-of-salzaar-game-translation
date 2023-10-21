@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.79#block_act#0#0
-0.32#set_unitpos#caster#tag_pos,0,0,0
-0.32#add_eft#T闪电#tag_pos,0,0,0#0
-0.32#play_sound#RenQi#unit_pos
-0.32#camera_shake#0.1#3
-0.23#add_eft#T闪电#unit_pos,0,0,0#0
-0.2#play_sound#RenQi#unit_pos
-0.2#add_eft#T闪烁#unit_pos,0,0,0#0

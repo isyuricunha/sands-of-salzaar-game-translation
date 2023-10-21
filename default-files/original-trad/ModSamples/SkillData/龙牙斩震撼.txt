@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.02#add_eft#龙牙斩3#tag_pos,0,0,0#0
-0.03#dmg_check#1#type:2;dmg:0;eft:无声空受击#0#tag_pos,0,0,0,800
-0.03#camera_shake#0.1#4
-0.03#block_act#0#0

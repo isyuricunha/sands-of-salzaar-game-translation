@@ -1,3 +1,0 @@
-﻿0#block_act#1#0
-0#play_sound#JumpUp#unit_pos
-0.1#play_sound#ClothMovement#unit_pos
