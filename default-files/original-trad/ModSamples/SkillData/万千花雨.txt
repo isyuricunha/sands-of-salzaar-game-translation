@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.6#dmg_check#1#type:2;dmg:[%stat:s_攻击%];eft:野火刀术浴火回血空#0#tag_pos,0,0,0,300
-0.57#play_sound#RenQi#unit_pos
-0.57#add_eft#P小丑之书#tag_pos,0,0,0#0
-0.57#camera_shake#0.1#5

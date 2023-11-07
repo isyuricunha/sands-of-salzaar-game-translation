@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.87#block_act#0#0
-0.25#add_eft#冰霜散射大箭#unit_pos#3:0,4000#0#
-0.2#play_sound#Cast_Ice#unit_pos
-0.27#play_sound#IceArrow#unit_pos
-0.27#play_sound#SP_Arrow#unit_pos

@@ -1,4 +1,0 @@
-﻿0#block_act#1#0
-0.05#play_sound#SP_Weapon_Start#unit_pos
-0.1#dart_move#跳跃#1#2500#800##近战冲锋跃击冲击波,1,0.4
-0.1#play_sound#JumpUp#unit_pos

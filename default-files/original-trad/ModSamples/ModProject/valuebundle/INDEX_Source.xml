@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <convert reg="legacy_pojo.xml" from="C传承.xlsx"/>
-    <convert reg="scriptstring_pojo.xml" from="J剧情内文字翻译.xlsx" need_translate="true" />
-</root>

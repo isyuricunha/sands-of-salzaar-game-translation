@@ -1,4 +1,0 @@
-﻿0#block_act#1#0
-0#unit_sound_dic#攻击吼叫#caster
-0.55#play_sound#HandHammer_Land#unit_pos
-0.67#block_act#0#0

@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.67#dmg_check#1#type:2;dmg:[%stat:s_魔法攻击%]*2;attack_type:900;hit:1000;blk:-1000;#0#cast_pos,0,0,0,1000
-0.32#yell#caster#迷惑之月
-0.32#play_sound#Aura_Dark#unit_pos
-0.32#add_eft#迷惑之月#unit_pos,0,0,0#0
-0.22#play_sound#MirageMoon#unit_pos
-0.12#play_sound#Flower_Buff_01#unit_pos

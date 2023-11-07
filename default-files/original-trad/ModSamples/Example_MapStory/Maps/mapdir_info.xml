@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<map_dir_set xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" cur_max_index="4" map_namespace="localtest#localtest#0.1">
-  <map_dir_info map_id="不知名的小地方" index_key="bm1" map_type="0" map_namespace="localtest#localtest#0.1" />
-  <map_dir_info map_id="战斗地图" index_key="bm2" map_type="1" map_namespace="localtest#localtest#0.1" />
-  <map_dir_info map_id="另一个城镇" index_key="bm3" map_type="0" map_namespace="localtest#localtest#0.1" />
-</map_dir_set>

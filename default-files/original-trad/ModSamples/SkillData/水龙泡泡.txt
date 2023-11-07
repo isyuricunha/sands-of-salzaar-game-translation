@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.79#block_act#0#0
-0.32#add_eft#T水龙泡泡#tag_pos,0,0,0#0
-0.32#play_sound#DragonBubble#unit_pos
-0.32#camera_shake#0.1#3

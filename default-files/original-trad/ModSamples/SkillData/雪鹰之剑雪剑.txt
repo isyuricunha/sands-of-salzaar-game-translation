@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.35#dart_move##1#0#800###caster#unit_pos,-10,0,0
-0.75#add_eft#雪鹰之剑雪剑#tag_pos,0,0,0#0
-0.83#play_sound#Slash_Moon#unit_pos
-0.83#dmg_check#1#type:2;dmg:[&@min(([%stat:s_攻击%]+[%stat:s_魔法攻击%])*(0.5+[%stat:b_身法%]*0.01),([%stat:s_攻击%]+[%stat:s_魔法攻击%])*2)&];eft:无声空受击#0#tag_pos,0,0,0,800
-0.83#camera_shake#0.1#4
-0.83#block_act#0#0
-0.84#play_sound#EarthWave#unit_pos

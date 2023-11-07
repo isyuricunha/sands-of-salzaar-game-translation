@@ -1,4 +1,0 @@
-﻿0#block_act#1#0
-0#add_eft#R咆哮#cast_pos,-50,0,-200#0
-0#dmg_check#2#type:0;dmg:[%stat:s_攻击%];hit:1000;eft:普通受击#0#unit_pos,0,4,0,0,300,300,300,0,300,-300
-0.5#block_act#0#0

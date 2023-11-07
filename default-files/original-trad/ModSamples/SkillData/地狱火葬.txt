@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.02#add_eft#地狱火葬#tag_pos,0,0,0#0
-0.12#play_sound#HellFire_ACT_01#unit_pos
-0.32#play_sound#SoulMagic_01#unit_pos
-1.38#dmg_check#1#type:2;dmg:[%stat:s_攻击%];hit:1000;buff:燃烧效果,10,1;blk:-1000;eft:箭术火焰受击特效#0#tag_pos,0,0,0,250
-1.38#play_sound#HellFire_ACT_02#unit_pos
-1.38#camera_shake#0.5#3
-1.42#play_sound#WildFireCast_Start#unit_pos

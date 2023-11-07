@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.47#yell#caster#觉醒吧！
-0.47#add_buff#潜能觉醒#target
-0.33#play_sound#Aura_PowerUp#unit_pos
-0.43#play_sound#Flower_Buff_01#tag_pos

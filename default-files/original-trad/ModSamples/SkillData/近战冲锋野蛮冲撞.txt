@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0*[%skill_lv:近战冲锋野蛮冲撞强化%][=]0#dart_move#冲锋#0#600#0#P近战冲锋震退#
-0*[%skill_lv:近战冲锋野蛮冲撞强化%][>]0#dart_move#冲锋#0#600#0#P近战冲锋震退强化#
-0.58#block_act#0#0
-0.12#play_sound#Charge#unit_pos
-0.42#play_sound#Dust_Small#unit_pos

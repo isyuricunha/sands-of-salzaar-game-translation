@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="76,32" extention="Label">
-  <displayList>
-    <text id="n2_jpin" name="title" xy="31,4" size="36,29" fontSize="18" color="#dacbaa" singleLine="true" autoClearText="true" text="999"/>
-    <loader id="n3_jpin" name="icon" xy="16,16" pivot="0.5,0.5" anchor="true" size="28,28" fill="scaleFree"/>
-  </displayList>
-  <relation target="n2_jpin" sidePair="width-width"/>
-</component>

@@ -1,5 +1,0 @@
-﻿<?xml version="1.0"?>
-<map_dir_set xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" _HSFrameWork_Inner_HotFix="false" cur_max_index="3" map_namespace="localtest#localtest#0.1">
-  <map_dir_info map_id="测试地图" index_key="bm1" map_type="0" map_namespace="localtest#localtest#0.1" />
-  <map_dir_info map_id="RPG_Map" index_key="bm2" map_type="2" map_namespace="localtest#localtest#0.1" />
-</map_dir_set>

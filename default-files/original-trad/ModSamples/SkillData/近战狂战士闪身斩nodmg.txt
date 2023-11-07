@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0#dart_move##0#8000#0##
-0#add_buff#极#caster#1.5#1
-0.52#stop_dartmove#1
-0.58#block_act#0#0
-0.58#remove_buff#caster#1#极,1
-0.27#play_sound#PhantomMove_01#unit_pos
-0.32#play_sound#Slash_Moon#unit_pos
-0.32#play_sound#Slash_Basic#unit_pos

@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.52#add_buff#为了太阳#caster#15#1
-0.37#play_sound#ForTheSun#unit_pos
-0.27#play_sound#Arua_PowerUp#unit_pos
-0.33#yell#caster#为了太阳

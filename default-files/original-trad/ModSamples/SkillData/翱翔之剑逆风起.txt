@@ -1,2 +1,0 @@
-﻿0#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*1;hit:1000;blk:-1000;eft:枪术狂风受击#0#unit_pos,0,0,0,400
-0.43#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*1;hit:1000;blk:-1000;eft:枪术狂风受击#0#unit_pos,0,0,0,400

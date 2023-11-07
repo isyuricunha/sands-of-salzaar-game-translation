@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.02#add_eft#P箭术穿云释放#unit_pos#0
-0.4#play_sound#Bow_Aim#unit_pos
-0.62#play_sound#Bow_Attack#unit_pos
-0.67#add_eft#P箭术穿云#unit_pos#3:0,5000#0#type:2;dmg:[&[%stat:s_攻击%]*2&];hit:1000;blk:-1000;eft:箭术普通受击特效;
-0.67#camera_shake#0.05#5
-0.72#play_sound#SP_Arrow#unit_pos
-0.82#play_sound#Dust_Small#unit_pos
-1.22#block_act#0#0

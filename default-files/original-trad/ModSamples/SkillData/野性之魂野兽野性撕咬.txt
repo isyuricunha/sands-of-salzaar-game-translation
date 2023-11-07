@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0.27#add_eft#野性撕咬#unit_pos,0,0,0#0
-0.27#play_sound#Spear_Attack#unit_pos
-0.27#camera_shake#0.1#2
-0.29#dmg_check#2#type:2;dmg:[&@min([%stat:b_臂力%]*[%stat:s_攻击%]*0.02+2*[%stat:s_攻击%],4*[%stat:s_攻击%])&];hit:1000;blk:-1000;eft:铁匠之怒抡击受击#0#unit_pos,0,4,0,0,0,800,800,0,0,-800
-0.76#block_act#0#0

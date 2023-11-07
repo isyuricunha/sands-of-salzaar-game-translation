@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.92#block_act#0#0
-0.58#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*1;eft:刺击受击特效#0#unit_pos,0,4,0,100,0,-100,500,-100,500,100
-0.45#add_eft#P枪术刺击#unit_pos,0,0,0#0
-0.45#play_sound#Power_Spear#unit_pos
-0.37#play_sound#Slash_Moon#unit_pos
-0.37#play_sound#attack_Spear#unit_pos
-0.1#play_sound#SP_Weapon_Start#unit_pos

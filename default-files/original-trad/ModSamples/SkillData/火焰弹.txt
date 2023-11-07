@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.58#block_act#0#0
-0.23#add_eft#M火魔弹2#cast_pos#3:0,2500#0#type:2;dmg:[%stat:s_魔法攻击%]*3;attack_type:900;eft:火焰受击4#
-0.23#play_sound#FireBall_Shoot#unit_pos
-0.22#add_eft#M火魔弹出手#cast_pos#0

@@ -1,5 +1,0 @@
-﻿1.72#block_act#0#0
-0.87#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*1.5;hit:1000;blk:-1000;eft:P铁匠之怒抡击升#0#unit_pos,0,4,0,0,0,500,500,0,0,-500
-0.82#add_eft#P铁匠之怒抡击升#unit_pos,0,0,0#0
-0#block_act#1#0
-0.42#play_sound#RenQi#unit_pos

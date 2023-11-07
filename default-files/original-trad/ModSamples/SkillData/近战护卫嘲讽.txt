@@ -1,8 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.13#play_sound#Casting_01#unit_pos
-0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:野火刀术浴火回血空;buff:嘲讽效果,8,1#0#unit_pos,0,0,0,500
-0.6*[%skill_lv:近战护卫嘲讽强化%][>]0#add_buff#霸体#caster#3#1
-0.57#play_sound#GuardTaunt#unit_pos
-0.57#add_eft#P近战护卫嘲讽#unit_pos,0,0,0#0
-0.57#camera_shake#0.1#5

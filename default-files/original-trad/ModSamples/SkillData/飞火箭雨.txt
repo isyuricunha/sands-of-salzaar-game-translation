@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0#add_eft#圆形预警1:1:5#tag_pos,0,0,0#0
-1.82#block_act#0#0
-1#dart_move#跳跃#1#2500#800##飞空踩踏冲击波,1,0.4
-1.63#add_eft#P翱翔之剑翱翔#unit_pos,100,0,0#0

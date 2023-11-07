@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "*.lua.txt":"lua"
-    },
-    "luaide.apiType": "xlua",
-}

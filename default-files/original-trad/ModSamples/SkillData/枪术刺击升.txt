@@ -1,5 +1,0 @@
-﻿0#block_act#1#0
-0.37#add_eft#P枪术刺击升#unit_pos,0,0,0#0
-0.37#play_sound#RenQi#unit_pos
-0.53#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*2;eft:刺击受击特效#0#unit_pos,0,4,0,120,0,-120,800,-120,800,120
-0.75#block_act#0#0

@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0#unit_sound_dic#攻击吼叫#caster
-0.22#add_eft#OL火焰斩击1#unit_pos,0,0,0#0
-0.28#play_sound#WildFireCast_Start#unit_pos
-0.38#dmg_check#2#type:2;dmg:[%stat:s_攻击%];eft:大剑受击#0#unit_pos,0,4,0,0,300,150,460,0,300,-150
-0.38#block_act#0#0

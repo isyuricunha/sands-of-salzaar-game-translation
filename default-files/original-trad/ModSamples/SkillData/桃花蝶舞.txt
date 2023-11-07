@@ -1,9 +1,0 @@
-﻿0#block_act#1#0
-0.98#block_act#0#0
-0.6#dmg_check#1#type:3;dmg:0;hit:1000;blk:-1000;eft:野火刀术浴火回血空;buff:护盾,10,[&@min((0.1+0.002*[%stat:s_精神%])*[%aim_stat:s_生命%],0.3*[%aim_stat:s_生命%])&]#1#unit_pos,0,0,0,800
-0.27#play_sound#Cast_Storm#unit_pos
-0.37#play_sound#Aura_Forest#unit_pos
-0.57#play_sound#Aura_DevilSword#unit_pos
-0.57#add_eft#桃花蝶舞#tag_pos,0,0,0#0
-0.57#camera_shake#0.1#5
-0.67#play_sound#Aura_PowerUp#unit_pos

@@ -1,6 +1,0 @@
-﻿0#block_act#1#0
-0#play_sound#RenQi#unit_pos
-1.58#block_act#0#0
-0.47#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:巨人重剑巨人怒吼;buff:昏迷效果,5,1#0#unit_pos,0,0,0,500
-0.25#play_sound#RenQi#unit_pos
-0.25#add_eft#P巨人重剑巨人怒吼#unit_pos,0,0,0#0

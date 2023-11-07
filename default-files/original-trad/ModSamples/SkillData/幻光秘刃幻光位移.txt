@@ -1,7 +1,0 @@
-﻿0#block_act#1#0
-0#block_act#1#0
-0.28#dart_move#冲锋#0#2500#0#幻光秘刃幻光位移#
-0.28#play_sound#PhantomMove_01#unit_pos
-0.28#play_sound#ClothMovement#unit_pos
-0.28#camera_shake#0.05#5
-0.92#block_act#0#0
