@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.68#add_eft#P箭术冻五只箭#unit_pos#3:0,3000#0#type:2;dmg:[&[%stat:s_攻击%]*1&];hit:1000;blk:-1000;eft:箭术冰冻受击特效;buff:箭术冻气麻痹,7,1
+0.68#play_sound#IceArrow#unit_pos
+0.68#camera_shake#0.1#2
+1.52#block_act#0#0
+0.4#add_eft#P箭术冻五只释放#unit_pos#0

@@ -1,0 +1,3 @@
+﻿0#block_act#1#0
+1.12#block_act#0#0
+0.42#dmg_check#0#type:2;dmg:[&@min(1*[%stat:s_攻击%]+0.02*[%stat:b_臂力%]*[%stat:s_攻击%],3*[%stat:s_攻击%])&];eft:空手受击#target

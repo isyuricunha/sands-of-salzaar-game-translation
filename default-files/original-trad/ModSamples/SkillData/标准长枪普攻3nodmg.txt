@@ -1,0 +1,4 @@
+﻿0#play_sound#Spear_Attack#unit_pos
+0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.83#block_act#0#0

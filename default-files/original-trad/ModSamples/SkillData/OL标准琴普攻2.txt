@@ -1,0 +1,11 @@
+﻿0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.57#add_eft#音律攻击1#cast_pos#3:0,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:15,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:30,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:45,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:300,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:315,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#音律攻击1#cast_pos#3:330,2000#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#play_sound#QinPlay#unit_pos
+0.57#block_act#0#0

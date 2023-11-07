@@ -1,0 +1,588 @@
+require("gui/WindowUtils")
+
+local GameCoreHelper = CS.GameCoreHelper;
+
+local fadeAnim1;
+local fadeAnim2;
+local fadeAnimHead;
+
+local ctlPartSelList;
+local genderCtl;
+local subPartsCtl;
+
+local groupGenderSel;
+local btnGenderMale;
+local btnGenderFemale;
+
+local sliderParamsList;
+
+local inputName;
+local btnRndName;
+local graphAvataHolder;
+
+local curAvata;
+
+local imgModelHolder;
+local btnModelLeft;
+local btnModelRight;
+
+local compNameInput;
+
+local isEnableSelGender = true;
+local isFixedPlayerName = false;
+
+local curSeledModelIndex = -1;
+local defModelListMale;
+local defModelListFemale;
+local curModelList;
+local defPlayerModel;
+local curModelCtl;
+local curModelDir = 0;
+local curSeledModelID = nil;
+
+local liBeardItem = nil;
+
+--页面访问控件
+
+SubWinCharCustomize = {
+	onCloseCallback = nil,
+	curCustomizePhase = 0,
+
+	curEditedAvataInfo = nil;
+	curEditedName = nil;
+}
+
+SubWinCharCustomize.meta = {__index = SubWinCharCustomize}
+
+--窗体初始化时
+function SubWinCharCustomize:Create(_mainView, _onCloseCallback)
+	self.mainView = _mainView;
+	self.onCloseCallback = _onCloseCallback;
+
+	contentPane = _mainView;
+
+	fadeAnim1 = _mainView:GetTransition("fade1");
+	fadeAnim2 = _mainView:GetTransition("fade2");
+	fadeAnimHead = _mainView:GetTransition("head_fade");
+
+	self.btnBack = contentPane:GetChild("btn_back").asButton;
+
+	subPartsCtl = contentPane:GetController("show_subparts");
+
+	local groupLeft = contentPane:GetChild("g_left").asGroup;
+	local listMainTabs = contentPane:GetChildInGroup(groupLeft, "mainpart_tabs").asList;
+	local listSubTabs = contentPane:GetChildInGroup(groupLeft, "subparts_tabs").asList;
+	self.ctlMainPartTypes = CS.GUICtlListHeaderTabsBar.CreateComponentByList(listMainTabs, true);
+	self.ctlSubPartTypes = CS.GUICtlListHeaderTabsBar.CreateComponentByList(listSubTabs, true);
+
+	self.ctlMainPartTypes:ClearTabList();
+	self.ctlMainPartTypes:AddTabItem("0", GetGameString("HeadAvataPanelUI_Awake_1"));
+	self.ctlMainPartTypes:AddTabItem("1", GetGameString("HeadAvataPanelUI_Awake_LianBu"));
+	self.ctlMainPartTypes:AddTabItem("2", GetGameString("HeadAvataPanelUI_Awake_Body"));
+	self.ctlMainPartTypes:AddTabItem("3", GetGameString("HeadAvataPanelUI_Awake_ShiPin"));
+
+	self.ctlSubPartTypes:ClearTabList();
+	self.ctlSubPartTypes:AddTabItem("0", GetGameString("HeadAvataPanelUI_Awake"));
+	self.ctlSubPartTypes:AddTabItem("1", GetGameString("HeadAvataPanelUI_MeiMao"));
+	self.ctlSubPartTypes:AddTabItem("2", GetGameString("HeadAvataPanelUI_Eye"));
+	self.ctlSubPartTypes:AddTabItem("3", GetGameString("HeadAvataPanelUI_BiZi"));
+	self.ctlSubPartTypes:AddTabItem("4", GetGameString("HeadAvataPanelUI_Zui"));
+	liBeardItem = self.ctlSubPartTypes:AddTabItem("5", GetGameString("HeadAvataPanelUI_HuZi"));
+
+	self.curSeledMainPartType = 0;
+	self.curSeledSubPartType = 0;
+
+	local groupMid = contentPane:GetChild("g_mid").asGroup;
+	sliderParamsList = contentPane:GetChildInGroup(groupMid, "param_list").asList;
+
+	groupGenderSel = contentPane:GetChild("g_gendersel").asGroup;
+	btnGenderMale = contentPane:GetChildInGroup(groupGenderSel, "btn_male").asButton;
+	btnGenderFemale = contentPane:GetChildInGroup(groupGenderSel, "btn_female").asButton;
+	genderCtl = contentPane:GetController("ctl_gender");
+
+	local partSelComp = contentPane:GetChild("part").asCom;
+	ctlPartSelList = CS.GUICtlLegacyAvataPartsSelector.CreateComponent(partSelComp, sliderParamsList);
+	ctlPartSelList:SetListItemImageSize(112, 112);
+
+	compNameInput = contentPane:GetChild("name_input").asCom;
+	inputName = compNameInput:GetChild("txt_input_val").asTextInput;
+	btnRndName = compNameInput:GetChild("btn_rndname").asButton;
+
+	graphAvataHolder = contentPane:GetChild("avata_holder").asGraph
+	curAvata = CS.GUIHelper.CreateHeadAvataView("", graphAvataHolder, true)
+	curAvata.gameObject:SetActive(true)
+
+	local modelSelComp = contentPane:GetChild("model_sel").asCom
+	imgModelHolder = modelSelComp:GetChild("model_holder").asImage
+	btnModelLeft = modelSelComp:GetChild("btn_left").asButton
+	btnModelRight = modelSelComp:GetChild("btn_right").asButton
+
+	self.compExportBox = contentPane:GetChild("avata_info").asCom;
+	self.inputExporter = self.compExportBox:GetChild("txt_input_val").asTextInput;
+	self.btnExportUpdate = self.compExportBox:GetChild("btn_update").asButton;
+	self.compExportBox.visible = false;
+	self.btnExportUpdate.onClick:Add(function()
+		self:ImportAvataInfo();
+	end);
+
+	--绑定按钮事件
+	self.btnBack.onClick:Add(function()
+		self:onClickBackBtn();
+	end);
+
+	btnGenderMale.onClick:Add(function()
+		self:onClickGenderMaleBtn();
+	end);
+	btnGenderFemale.onClick:Add(function()
+		self:onClickGenderFemaleBtn();
+	end);
+
+	btnRndName.onClick:Add(onClickRndNameBtn);
+	btnModelLeft.onClick:Add(onClickModelLeftBtn);
+	btnModelRight.onClick:Add(onClickModelRightBtn);
+	
+	self.ctlMainPartTypes.OnSeledItemChanged = function()
+		self:onPartTypeSelChanged();
+	end
+	self.ctlSubPartTypes.OnSeledItemChanged = function()
+		self:onPartTypeSelChanged();
+	end
+
+	CS.GUIHelper.SetSwipeGestureCallback(modelSelComp, nil, function(deltaMove)
+		if math.abs(deltaMove.x) < 2 then
+			--消除手抖影响
+			return
+		end
+		SetModelDir(GetModelDir() - deltaMove.x)
+	end, nil);
+
+	initPageList();
+
+	return self;
+end
+
+function SubWinCharCustomize:onPartTypeSelChanged()
+	self:TryChangeImgCharFace(function()
+		self:updatePartTypeSelection(false);
+	end, curAvata.headGender);
+end
+
+function SubWinCharCustomize:ShowUpScene()
+	self.curCustomizePhase = 0;
+
+	local _curStoryID = CS.GUIHelper.GetGUIGlobalStrVal("cur_story_id");
+
+	local initAvataInfo = CS.GUIHelper.GetGUIGlobalStrVal("def_avata_info");
+
+	local defAvataGender = 0
+	local isFemale = false
+	if CS.GUIHelper.GetGUIGlobalIntVal("def_avata_gender") == 1 then
+		defAvataGender = 1;
+		isFemale = true;
+	end
+	curAvata:SetAvataGender(isFemale, false);
+	genderCtl.selectedIndex = defAvataGender;
+	local isLimitGenderVal = CS.GUIHelper.GetGUIGlobalIntVal("gender_limit_mode");
+	if isLimitGenderVal == 0 then
+		genderCtl.selectedIndex = 0;
+		isEnableSelGender = false;
+	elseif isLimitGenderVal == 1 then
+		genderCtl.selectedIndex = 1;
+		isEnableSelGender = false;
+	else
+		isEnableSelGender = true;
+	end
+	updateGenderBtnVisible();
+
+	--更新模型显示
+	if not IsEmptyOrNil(initAvataInfo) then
+		curAvata:Show(initAvataInfo);
+	else
+		self:doGenRandomAvata(false);
+	end
+
+	ctlPartSelList:SetAvataUI(curAvata);
+
+	if CS.GUIHelper.GetGUIGlobalIntVal("is_fixed_name") == 1 then
+		local _defPlayerName = CS.GUIHelper.GetGUIGlobalStrVal("def_player_name");
+		inputName.text = _defPlayerName;
+		inputName.enabled = false;
+		isFixedPlayerName = true;
+		self.curEditedName = _defPlayerName;
+	else
+		GenRandomName();
+		inputName.enabled = true;
+		isFixedPlayerName = false;
+	end
+	updateRndNameBtn();
+
+	curSeledModelIndex = -1;
+	defPlayerModel = CS.GUIHelper.GetGUIGlobalStrVal("def_player_model");
+
+	defModelListMale = CS.GUIHelper.GetAllEnabledPlayerModels(false, _curStoryID);
+	defModelListFemale = CS.GUIHelper.GetAllEnabledPlayerModels(true, _curStoryID);
+
+	self.ctlMainPartTypes:SetSeledItemByKey("0", false);
+	self.ctlSubPartTypes:SetSeledItemByKey("0", false);
+	self:updatePartTypeSelection(true);
+
+	updateModelList();
+
+	--播放淡入动画
+	CommonShowWindowAnim(self.mainView, nil);
+	if fadeAnim1 ~= nil then
+		fadeAnim1:Play();
+	end
+	if fadeAnim2 ~= nil then
+		fadeAnim2:Play(1, 0, 0, 0, nil);
+	end
+	if fadeAnimHead ~= nil then
+		fadeAnimHead:Play();
+	end
+end
+
+function SubWinCharCustomize:GotoNextStep()
+	if self.curCustomizePhase == 0 then
+		if isFixedPlayerName then
+			return false;
+		else
+			self:SwitchCustomizePhase(1);
+			return true;
+		end
+	else
+		return false;
+	end
+end
+
+function SubWinCharCustomize:TryConfirmCurEdit()
+	beforeLeaveScene();
+
+	if self.curCustomizePhase == 1 then
+		if not isFixedPlayerName then
+			local _inputName = CS.GUIHelper.TrimStr(inputName.text);
+			if _inputName == nil or #_inputName < 2 then
+				ShowAlertInfo(GetGameString("CreateRolePanel_NameTooShortAlert1"), 1);
+				return false;
+			end
+
+			if not CS.GameUtils.VerifyPlayerInputInfo(_inputName) then
+				ShowAlertInfo(GetGameString("CreateRolePanel_StartCreateRole"), 1);
+				inputName.text = CS.GameUtils.FixPlayerInputStr(_inputName);
+				return false;
+			end
+
+			local word = CS.GameTools.GetSensitiveWord(_inputName);
+			if not IsEmptyOrNil(word) then
+				ShowAlertInfo(GameCoreHelper.StringFormat(GetGameString("CreateRolePanel_StartCreateRole_1"), word), 1);
+				return false;
+			end
+
+			if not CS.GameTools.IsNameValid(_inputName) then
+				ShowAlertInfo(GetGameString("CreateRolePanel_StartCreateRole_2"), 1);
+				return false;
+			end
+
+			self.curEditedName = nil;
+			CS.GUIHelper.SetGUIGlobalStrVal("edit_player_name", _inputName);
+		end
+	else
+		local avataInfo = curAvata.curShowingData;
+		local genderVal = 0
+		if curAvata.headGender then
+			genderVal = 1
+		end
+		self.curEditedAvataInfo = avataInfo;
+		CS.GUIHelper.SetGUIGlobalIntVal("edit_avata_gender", genderVal);
+		CS.GUIHelper.SetGUIGlobalStrVal("edit_avata_info", avataInfo);
+		CS.GUIHelper.SetGUIGlobalStrVal("edit_model_info", curSeledModelID);
+	end
+	return true;
+end
+
+function SubWinCharCustomize:SetExportBoxVisible(_isShow)
+	self.compExportBox.visible = _isShow;
+end
+
+function SubWinCharCustomize:UpdateExportInfo()
+	self.inputExporter.text = curAvata.curShowingData;
+end
+
+function SubWinCharCustomize:ImportAvataInfo()
+	local _curAvataStr = self.inputExporter.text;
+	curAvata:Show(_curAvataStr);
+	UpdateSetsByAvata();
+	self:updatePartTypeSelection(true);
+end
+
+function SubWinCharCustomize:SwitchCustomizePhase(_toPhase)
+	if self.curCustomizePhase ~= _toPhase then
+		local fromPhase = self.curCustomizePhase;
+		self.curCustomizePhase = _toPhase;
+		if fromPhase == 0 and self.curCustomizePhase == 1 then
+			if fadeAnim2 ~= nil then
+				fadeAnim2:Play();
+			end
+			if fadeAnim1 ~= nil then
+				fadeAnim1:PlayReverse();
+			end
+		else
+			self.curCustomizePhase = 0;
+			if fadeAnim2 ~= nil then
+				fadeAnim2:PlayReverse();
+			end
+			if fadeAnim1 ~= nil then
+				fadeAnim1:Play();
+			end
+		end
+	end
+end
+
+function SubWinCharCustomize:updatePartTypeSelection(_forceUpdate)
+	local curSeledMainKey = self.ctlMainPartTypes.CurSeledTabID;
+	if not IsEmptyOrNil(curSeledMainKey) then
+		self.curSeledMainPartType = math.floor(tonumber(curSeledMainKey));
+	else
+		self.curSeledMainPartType = 0;
+	end
+	local curSeledSubKey = self.ctlSubPartTypes.CurSeledTabID;
+	if not IsEmptyOrNil(curSeledSubKey) then
+		self.curSeledSubPartType = math.floor(tonumber(curSeledSubKey));
+	else
+		self.curSeledSubPartType = 0;
+	end
+	
+	if (self.curSeledMainPartType == 1) then
+		subPartsCtl.selectedIndex = 1;
+	else
+		subPartsCtl.selectedIndex = 0;
+	end
+
+	if curAvata:IsCharacterImage() then
+		--如果当前为固定立绘
+		self.curSeledMainPartType = -1;
+		self.curSeledSubPartType = -1;
+
+		self.ctlMainPartTypes:SetSeledItemByKey(nil, false);
+		self.ctlSubPartTypes:SetSeledItemByKey(nil, false);
+	end
+
+	ctlPartSelList:SetPartTypeCode(self.curSeledMainPartType, self.curSeledSubPartType, _forceUpdate);
+
+	self:UpdateExportInfo();
+end
+
+--按下后退按钮时
+function SubWinCharCustomize:onClickBackBtn()
+	PlayButtonSound();
+
+	beforeLeaveScene();
+	if self.curCustomizePhase == 1 then
+		self:SwitchCustomizePhase(0);
+		if self.ResetBtnPhaseCallback ~= nil then
+			self.ResetBtnPhaseCallback(0)
+		end
+	else
+		if fadeAnim1 ~= nil then
+			fadeAnim1:PlayReverse();
+		end
+		if fadeAnimHead ~= nil then
+			fadeAnimHead:PlayReverse();
+		end
+		CommonHideWindowAnim(self.mainView, function()
+			if self.onCloseCallback ~= nil then
+				self.onCloseCallback();
+			end
+		end);
+	end
+end
+
+function ShowAlertInfo(_msg, type)
+	local toastInfo = "";
+	if type == 1 then
+		toastInfo = toastInfo .. "[[red:"
+	else
+		toastInfo = toastInfo .. "[[white:"
+	end
+	toastInfo = toastInfo .. _msg .. "]]";
+	ShowToastInfo(toastInfo, 2);
+end
+
+function SubWinCharCustomize:TryChangeImgCharFace(_callback, _defGender)
+	if curAvata:IsCharacterImage() then
+		ShowConfirmDlg(GetGameString("HeadAvataPanelUI_Random"), "yesno", function(ret)
+			if ret == 1 then
+				curAvata:SetAvataGender(_defGender, true);
+				self:doGenRandomAvata(false);
+				if curSeledModelIndex < 0 then
+					curSeledModelIndex = 0
+				end
+				updateModelList();
+			else
+				updateGenderSelViewState();
+			end
+		end);
+	else
+		if _callback ~= nil then
+			_callback();
+		end
+	end
+end
+
+function beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end
+
+function updateGenderBtnVisible()
+	if isEnableSelGender then
+		groupGenderSel.visible = true;
+	else
+		groupGenderSel.visible = false;
+	end
+end
+
+function updateGenderSelViewState()
+	if curAvata.headGender then
+		genderCtl.selectedIndex = 1;
+	else
+		genderCtl.selectedIndex = 0;
+	end
+end
+
+function SubWinCharCustomize:onClickGenderMaleBtn()
+	PlayButtonSound()
+
+	self:TryChangeImgCharFace(function()
+		self:changeGender(false);
+	end, false)
+end
+
+function SubWinCharCustomize:onClickGenderFemaleBtn()
+	PlayButtonSound()
+
+	self:TryChangeImgCharFace(function()
+		self:changeGender(true)
+	end, true)
+end
+
+function SubWinCharCustomize:changeGender(_isFemale)
+	defPlayerModel = nil;
+	curAvata:SetAvataGender(_isFemale, true);
+	UpdateSetsByAvata()
+	if curSeledModelIndex < 0 then
+		curSeledModelIndex = 0
+	end
+	updateModelList();
+	self:updatePartTypeSelection(true);
+end
+
+
+function SubWinCharCustomize:OnClickRndAvataBtn()
+	PlayButtonSound()
+
+	self:TryChangeImgCharFace(function()
+		self:doGenRandomAvata(false)
+	end, curAvata.headGender);
+end
+
+function SubWinCharCustomize:doGenRandomAvata(_forceUpdate)
+	curAvata:Random();
+	ctlPartSelList:RefreshPartsList(_forceUpdate);
+	updateGenderBtnVisible();
+	self:updatePartTypeSelection(_forceUpdate);
+end
+
+function UpdateSetsByAvata()
+	ctlPartSelList:RefreshPartsList(true);
+
+	local _isFemale = curAvata.headGender;
+	if _isFemale then
+		liBeardItem.bindBtn.visible = false;
+	else
+		liBeardItem.bindBtn.visible = true;
+	end
+end
+
+function onClickRndNameBtn()
+	PlayButtonSound()
+
+	GenRandomName()
+end
+
+function updateRndNameBtn()
+	if not isFixedPlayerName and CS.GameTools.IsChineseLanguage() then
+		btnRndName.visible = true;
+	else
+		btnRndName.visible = false;
+	end
+end
+
+function GenRandomName()
+	if not isFixedPlayerName and CS.GameTools.IsChineseLanguage() then
+		inputName.text = CS.GameTools.GetRandomPlayerName(curAvata.headGender)
+	end
+end
+
+function onClickModelLeftBtn()
+	PlayButtonSound()
+
+	switchModelIndex(curSeledModelIndex - 1)
+end
+
+function onClickModelRightBtn()
+	PlayButtonSound()
+
+	switchModelIndex(curSeledModelIndex + 1)
+end
+
+function switchModelIndex(nextPage)
+	curSeledModelIndex = nextPage;
+	if curSeledModelIndex < 0 then
+		curSeledModelIndex = curModelList.Count - 1
+	elseif curSeledModelIndex >= curModelList.Count then
+		curSeledModelIndex = 0
+	end
+	updateModelList()
+end
+
+function initPageList()
+	
+end
+
+function updateModelList()
+	local curModelInfo
+	if curAvata.headGender then
+		curModelList = defModelListFemale
+	else
+		curModelList = defModelListMale
+	end
+	if curSeledModelIndex < 0 and not IsEmptyOrNil(defPlayerModel) then
+		curModelInfo = defPlayerModel
+	elseif curModelList.Count > 0 then
+		if curSeledModelIndex < 0 then
+			curSeledModelIndex = curModelList.Count - 1
+		elseif curSeledModelIndex >= curModelList.Count then
+			curSeledModelIndex = 0
+		end
+		curModelInfo = curModelList[curSeledModelIndex]
+	end
+	if not IsEmptyOrNil(curModelInfo) then
+		curSeledModelID = curModelInfo
+		curModelInfo = "3D#" .. curModelInfo .. "#男空手1#r_weapon:null;l_weapon:null"
+		curModelCtl = CS.GUIHelper.CreateModelViewToTagGraphHolder(curModelInfo, imgModelHolder, true)
+	end
+end
+
+function GetModelDir()
+	return curModelDir
+end
+
+function SetModelDir(_tagDir)
+	curModelDir = _tagDir
+	UpdateModelDir()
+end
+
+function UpdateModelDir()
+	if curModelCtl ~= nil then
+		curModelCtl:SetModelDir(curModelDir)
+	end
+end

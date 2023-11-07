@@ -1,0 +1,12 @@
+﻿0.78#block_act#0#0
+0.41#dmg_check#1#type:2;dmg:0#0#unit_pos,250,0,0,800
+0.41#play_sound#Burning#unit_pos
+0#block_act#1#0
+0.4#add_eft#地狱镰刀火海#unit_pos,0,0,0#0
+0.4#play_sound#Slash_Moon#unit_pos
+0.4#camera_shake#0.1#4
+0.45#play_sound#FireBall_Shoot#unit_pos
+0.38#play_sound#Palm_Attack#unit_pos
+0.5#play_sound#Dust_Small#unit_pos
+0.43#play_sound#SK_020#unit_pos
+0.08#add_eft#地狱镰刀#unit_pos,0,0,0#0

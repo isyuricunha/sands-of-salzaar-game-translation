@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0#dart_move#冲锋#0#8000#0#P位移#
+0#play_sound#Thunder_Move_01#unit_pos
+0.52#stop_dartmove#1
+0.58#block_act#0#0
+0.32#play_sound#Slash_Basic#unit_pos
+0.32#add_eft#P刀剑之术瞬斩斩击#unit_pos,0,0,0#0
+0.35#play_sound#Slash_Super#unit_pos
+0.02#add_eft#P刀剑之术瞬斩#unit_pos,0,0,0#0

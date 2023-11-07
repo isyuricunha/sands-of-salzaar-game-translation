@@ -1,0 +1,2 @@
+﻿RES\LuaScripts\* > :\BuildSource\LuaScripts\*
+RES\UIRes\* > :\BuildSource\UIRes\*

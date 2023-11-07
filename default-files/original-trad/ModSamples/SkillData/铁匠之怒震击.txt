@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.6#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*1.5;hit:1000;blk:-1000;eft:铁匠之怒抡击受击;buff:昏迷效果,3,1#0#unit_pos,0,0,0,300
+0.6#play_sound#HammerLandStrike#unit_pos
+0.57#play_sound#Ground_Hit#unit_pos
+0.57#add_eft#P铁匠之怒震击#unit_pos,0,0,0#0
+0.57#camera_shake#0.1#5
+0.62#play_sound#HammerStrike#unit_pos
+0.67#play_sound#Dust_Small#unit_pos

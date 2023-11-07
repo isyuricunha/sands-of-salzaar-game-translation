@@ -1,0 +1,5 @@
+﻿0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.47#play_sound#Dart_Attack#unit_pos
+0.53#play_sound#Palm_Attack#unit_pos
+0.75#block_act#0#0

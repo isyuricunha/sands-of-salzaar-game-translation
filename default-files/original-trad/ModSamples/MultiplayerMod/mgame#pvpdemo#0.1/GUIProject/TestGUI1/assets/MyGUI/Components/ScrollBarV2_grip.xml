@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="18,20" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_mhkc" name="n0" src="rbjt98" fileName="Images/cm_slidbar1_v_handle.png" xy="2,0" size="13,19">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_mhkc" name="n1" src="rbjt99" fileName="Images/cm_slidbar1_v_handle_p.png" xy="2,0" size="13,19">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_mhkc" name="n2" src="rbjt9a" fileName="Images/cm_slidbar1_v_handle_h.png" xy="2,0" size="13,19">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_mhkc" name="n3" src="rbjt99" fileName="Images/cm_slidbar1_v_handle_p.png" xy="2,0" size="13,19">
+      <gearDisplay controller="button" pages="3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

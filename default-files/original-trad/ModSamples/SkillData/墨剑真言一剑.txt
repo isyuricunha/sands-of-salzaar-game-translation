@@ -1,0 +1,10 @@
+﻿0.83#block_act#0#0
+0.16*[%skill_lv:墨剑真言一剑强化1%][>]0#dmg_check#2#type:2;dmg:[&@min([%stat:s_攻击%]*1.5+[%stat:s_攻击%]*[%stat:b_臂力%]*0.01+[%stat:s_攻击%]*[%stat:b_精神%]*0.01,[%stat:s_攻击%]*3)&];hit:1000;blk:-1000;eft:天火受击;buff:燃烧效果,10,10;trig:0#0#unit_pos,0,4,0,0,0,1000,1000,0,0,-1000
+0.16*[%skill_lv:墨剑真言一剑强化1%][=]0#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*1;hit:1000;blk:-1000;eft:天火受击;buff:燃烧效果,10,10;trig:0#0#unit_pos,0,4,0,0,0,1000,1000,0,0,-1000
+0.16#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000#0#unit_pos,0,0,0,500
+0#block_act#1#0
+0.15#add_eft#真言一剑#unit_pos,0,0,0#0
+0.15#play_sound#FireBall_Shoot#unit_pos
+0.15#camera_shake#0.1#2
+0.1#play_sound#EarthWave#unit_pos
+0.05#play_sound#SwordFire#unit_pos

@@ -1,0 +1,1038 @@
+﻿--require("LuaPanda").start("127.0.0.1",8818)
+
+require("RemoteShopLogic")
+require("GameMath")
+
+curBattleScene = nil
+
+playerUnitDefeatCount = 0
+
+playerUnitID = 0
+
+playerUnit = nil
+playerRole = nil
+playerCamp = 0
+playerCurLevel = 1
+playerCount = 1
+mapLevel = 1
+defenceWave = 0
+
+curPlayerInfo = nil
+playerActorID = 0
+
+totalPlayerGainedSp = 1
+totalPlayerUsedSp = 0
+
+MyRole = nil
+actionBarSlotCount = 4
+
+RES_ID_MONEY = "金钱"
+
+local GameCoreHelper = CS.GameCoreHelper
+local GameTools = CS.GameTools
+local isRemoteHost = false
+local selRoleWindow = nil
+local curRemoteShopWindow = nil
+local curRecruitWindow = nil
+
+MonsterCount = 0
+
+local isNeedRecover = true
+
+local isStartDetecte = false
+local isGameFinished = false
+
+local curBonusTimer = 0
+
+local tagPosInfoA
+local tagPosInfoB
+
+--场景初始化
+function initBattleScene(_bs)
+    curBattleScene = _bs
+    curPlayerInfo = curBattleScene:GetCurPlayerInfo()
+    playerActorID = curPlayerInfo.actorID
+    isRemoteHost = not curBattleScene.isRemoteClient
+    isStartDetecte = false
+    if curBattleScene:GetDungeonIntVal("自定义初始化主角") <= 0 then
+        local newWindow = CS.GUIHelper.ShowGUIWindow("MyGUI", "SelectRoleWindow", "MySelectRoleWindow", "", onSelRoleDlgCallback)
+        newWindow:SetBattleScene(curBattleScene)
+        newWindow:SetWindowParams("testArg1", "testArg2")
+        selRoleWindow = newWindow
+
+        curBattleScene:SetDungeonIntVal("自定义初始化主角", 1)
+    else
+        curBattleScene:SendUIMessage("player_inited", "1")
+    end
+    tagPosInfoA = "-3100,0";
+    tagPosInfoB = "3000,-210";
+    playerCount = curBattleScene:GetAllPlayersInBattle().Count
+    --判定当前地图，不同的地图执行不同的逻辑
+    if curBattleScene:IsHostClient() then
+        curBattleScene:SetRemoteGameVal("refresh_shop_times", 1, onInitRefreshShopCallback)
+        
+        --主机初始化刷新商店
+        InitRemoteShop(curBattleScene)
+    else
+        --客机商店设置
+        SetRemoteShopScene(curBattleScene)
+    end
+    InitShopButton()
+end
+
+function onSelRoleDlgCallback(ret)
+    selRoleWindow = nil
+    if curBattleScene:IsHostClient() then
+        --初始化操作
+
+    end
+end
+
+function onSetGameModeCallback(ret)
+    -- body
+end
+
+function onGameStart()
+    --初始化游戏事件
+end
+
+function onSeledPlayerRole(tagPlayer, templateRoleID)
+    if not isRemoteHost then
+        return
+    end
+    if tagPlayer == nil then
+        return
+    end
+
+    local tagSide = (tagPlayer.actorID - 1) % 2
+    local randomInt = GameCoreHelper.GetRandomInt(-100, 100)
+    local unitPosX = 0
+    local unitPosY = 0
+    local initDir = 0
+    if (tagSide == 1) then
+        unitPosX = 2800
+        unitPosY = -210
+        initDir = 180
+    else
+        unitPosX = -2900
+        unitPosY = 0
+        initDir = 0
+    end
+    local tagPos = curBattleScene:GetBattleRealPosByMapPos(unitPosX, unitPosY)
+    curBattleScene:SetPlayerUnit(tagPlayer.actorID, templateRoleID, tagSide, tagPos.x+randomInt, tagPos.y+randomInt, initDir)
+end
+
+function UpdateReviveTime()
+    local curReviveTime = 8 + math.floor(curBattleScene.curBattleTime / 30.0)
+    curBattleScene:SetPlayerReviveTime(curReviveTime)
+end
+
+--销毁场景接口
+function onBattleSceneDestory()
+    
+end
+
+--场景事件
+function onSceneEvent(_eventType, _eventArg)
+    if _eventType == "on_teleport" then
+        --此事件中_eventArg为目标的副本地图ID
+        --保存本地的技能信息
+        SaveSkillInfos()
+    elseif _eventType == "roominfo_updated" then
+        onRoomInfoUpdate()
+    end
+end
+
+local playerSelRolesDic = {}
+--尝试设置游戏全局变量值接口（只会在主机端生效 成功返回0  失败返回1
+function trySetRemoteVal(_key, _val)
+    if _key == "player_sel_role" then
+        local nFindIndex = string.find(_val, "#", 0)
+        if nFindIndex > 0 then
+            local tagRoleID = string.sub(_val, 0, nFindIndex - 1)
+            local tagPlayerID = string.sub(_val, nFindIndex + 1, string.len(_val))
+            if playerSelRolesDic[tagRoleID] ~= nil then
+                return 1
+            end
+        end
+    elseif _key == "try_buy" then
+        if not RequestBuyItemByGID(_val) then
+            return 1
+        end
+    elseif _key == "try_sell" then
+        if not RequestSellOutItem(_val) then
+            return 1
+        end
+    elseif _key == "try_recruit" then
+        local nFindIndex = string.find(_val, "#", 0)
+        if nFindIndex > 0 then
+            local reqPlayerID = string.sub(_val, 0, nFindIndex - 1)
+            local recInfo = string.sub(_val, nFindIndex + 1, string.len(_val))
+            if not RequestRecruitUnits(reqPlayerID, recInfo) then
+                return 1
+            end
+        end
+        
+    elseif _key == "refresh_shop_times" then
+        RefreshShopGoods()
+    end
+    return 0
+end
+
+--尝试招募逻辑
+function RequestRecruitUnits(sPlayerID, recInfo)
+    local nPlayerID = tonumber(sPlayerID)
+    tagPlayerInfo = curBattleScene:GetPlayerInfo(nPlayerID)
+    --招募
+    if tagPlayerInfo ~= nil then
+        if tagPlayerInfo.bindBattleUnit ~= nil then
+            local tagUnit = tagPlayerInfo.bindBattleUnit
+            local sCmd
+            if tagUnit.unitCamp == 1 then
+                sCmd = "AREA_SPAWN*AREA_B##" .. recInfo .. "#0#3:" .. tagPosInfoA .. "#招募标记#"
+            else
+                sCmd = "AREA_SPAWN*AREA_A##" .. recInfo .. "#0#3:" .. tagPosInfoB .. "#招募标记#"
+            end
+            curBattleScene:ClientExecBsCmdLines(sCmd, 0)
+            return true
+        end
+    end
+    return false
+end
+
+--房间信息改变或者玩家状态信息改变事件处理
+function onRoomInfoUpdate()
+
+end
+
+--全局变量值更新接口
+function onRemoteValUpdate(_key, _val)
+    if _key == "player_sel_role" then
+        local nFindIndex = string.find(_val, "#", 0)
+        if nFindIndex > 0 then
+            local tagRoleID = string.sub(_val, 0, nFindIndex - 1)
+            local tagPlayerID = string.sub(_val, nFindIndex + 1, string.len(_val))
+            --还原旧的选择
+            for _roleID, _tagPlayerID in pairs(playerSelRolesDic) do
+                if _tagPlayerID == tagPlayerID then
+                    playerSelRolesDic[_roleID] = nil
+                end
+            end
+            playerSelRolesDic[tagRoleID] = tagPlayerID
+            --更新选人界面
+            if selRoleWindow ~= nil then
+                selRoleWindow:OnWindowEvent("player_sel_role", tagRoleID .. "#" .. tagPlayerID)
+            end
+        end
+    elseif _key == "shop_items_info" then
+        --更新商店界面
+        if curRemoteShopWindow ~= nil then
+            curRemoteShopWindow:OnWindowEvent("shop_updated", _val)
+        end
+    elseif _key == "game_mode" then
+        GameMode = _val
+    end
+end
+
+--联机自定义事件
+function onRemoteEvent(_eventType, _eventArg, _callerPlayer)
+    if _eventType == "seled_player" then
+        --自定义选定角色模板事件
+        if isRemoteHost and _callerPlayer ~= nil then
+            onSeledPlayerRole(_callerPlayer, _eventArg)
+        end 
+    end
+end
+
+--单位事件
+function onUnitEvent(_tagUnit, _eventType, _eventArg)
+    if _eventType == "set_player" then
+        --设置玩家控制单位事件
+        onSetPlayerUnit(_tagUnit)
+    elseif _eventType == "level_changed" then
+        --单位等级发生改变事件
+        onUnitLevelChanged(_tagUnit, tonumber(_eventArg))
+    elseif _eventType == "on_die" then
+        --单位被击倒事件
+        onUnitDie(_tagUnit)
+    end
+end
+
+--场景每秒事件
+function onSecondUpdate()
+    if curBattleScene:IsHostClient() then
+        if isStartDetecte and not isGameFinished then
+            --监测游戏是否已结束
+            local allPlayers = curBattleScene:GetAllPlayersInBattle()
+            local tagPlayer
+            local isAllDead = true
+            local activePlayersCount = 0
+            for index=0,allPlayers.Count-1 do
+                tagPlayer = allPlayers[index]
+                if tagPlayer.bindBattleUnit ~= nil then
+                    if tagPlayer:GetPlayerState("is_dead") <= 0 then
+                        isAllDead = false
+                        break
+                    end
+                    activePlayersCount = activePlayersCount + 1
+                end
+            end
+            isAllDead = false
+            if isAllDead and activePlayersCount > 0 then
+                curBattleScene:ClientExecBsCmdLines("DUNGEON_OVER*2", 0)
+                isGameFinished = true
+            end
+        end
+
+        --更新复活时间
+        UpdateReviveTime()
+    end
+
+    --定期发工资
+    curBonusTimer = curBonusTimer + 1
+    if curBonusTimer >= 10 then
+        curBattleScene:PlayerGetItems("金钱," .. getBonusMoney(), false)
+        curBonusTimer = 0
+    end
+end
+
+function getBonusMoney()
+    local curBonusMoney = 10 + math.floor(curBattleScene.curBattleTime / 30.0)
+    return curBonusMoney
+end
+
+--单位BUFF状态更改
+function onUnitBuffChanged(_tagUnit, _tagBuff, _newOverlay)
+    --监视玩家角色BUFF状态
+    if _tagUnit == playerUnit and playerUnit ~= nil then
+        if _tagBuff.buffID == '濒死待救' then
+            local isDeadStr
+            if _newOverlay > 0 then
+                curBattleScene:SetControlPanelEnable(false)
+                isDeadStr = "1"
+            else
+                curBattleScene:SetControlPanelEnable(true)
+                SwitchWatchPlayer(playerUnit)
+                isDeadStr = "0"
+            end
+            curBattleScene:SendUIMessage("on_playerdead", isDeadStr)
+        end
+    end
+
+    if _tagBuff.buffID == '濒死待救' then
+        if _tagUnit.isMuliplayerUnit == 1 then
+            local tagPlayer = curBattleScene:GetPlayerInfo(_tagUnit.userID)
+            if tagPlayer ~= nil then
+                local isDeadCode = 0
+                if _newOverlay > 0 then
+                    isDeadCode = 1
+                    isStartDetecte = true
+                end
+                if curBattleScene:IsHostClient() then
+                    tagPlayer:SetPlayerState("is_dead", isDeadCode)
+                end
+                curBattleScene:SendUIMessage("update_stateinfo", tostring(_tagUnit.userID))
+            end
+        end
+    end
+end
+
+--击败单位接口
+function onUnitDefeatEnemy(_thisUnit, _tagUnit)
+    if (_thisUnit == playerUnit) then
+        if _tagUnit.unitType == 0 then
+            --当击杀英雄时获得奖金
+            curBattleScene:PlayerGetItems("金钱,200", false)
+
+            --增加击杀英雄统计接口
+            playerUnitDefeatCount = playerUnitDefeatCount + 1
+            curBattleScene:SendUIMessage("info_updated", "")
+        end
+    end
+end
+
+--设置主角控制单位
+function onSetPlayerUnit(_tagUnit)
+    playerUnit = _tagUnit
+    if playerUnit ~= nil then
+        playerUnitID = playerUnit.unitID
+        playerCurLevel = playerUnit.unitLevel
+        playerCamp = playerUnit.unitCamp
+        playerRole = GameCoreHelper.GetPlayerRole()
+        MyRole = playerUnit.unitRoleInfo
+        curBattleScene:SetDungeonStrVal("MyRole",MyRole)
+        if isNeedRecover then
+            RecoverRoleSkills()
+            isNeedRecover = false
+        end
+        updatePlayerSpNum()
+    else
+        playerUnitID = 0
+    end
+    curBattleScene:SendUIMessage("info_updated", "")
+end
+
+function onUnitLevelChanged(_tagUnit, _newLevel)
+    if (_tagUnit == playerUnit) then
+        playerCurLevel = _newLevel
+        updatePlayerSpNum()
+        curBattleScene:SendUIMessage("info_updated", "")
+    end
+end
+
+function updatePlayerSpNum()
+    totalPlayerGainedSp = playerCurLevel
+end
+
+function onUnitDie(_tagUnit)
+    --do nothing
+end
+
+function GetPlayerUsableSp()
+    return math.max(totalPlayerGainedSp - totalPlayerUsedSp, 0)
+end
+
+function func()
+    -- body
+end
+
+--玩家当前的技能表
+curPlayerSkillList = {}
+curPlayerSkillCount = 0
+isExistSynthSkills = false
+
+skillPoolMaxLevel = 6
+--玩家可供抽取的技能池
+drawSpPool = {
+    --一级技能
+    {"OL钩镰",1,"力量",0},{"OL闪身斩",1,"力量",0},{"OL野蛮抡击",1,"力量",0},{"OL突刺",1,"力量",0},
+    {"OL背刺",1,"敏捷",0},{"OL毒针",1,"敏捷",0},{"OL雾遁",1,"敏捷",0},{"OL药剂瓶",1,"敏捷",0},
+    {"OL火球术",1,"精神",0},{"OL雷光",1,"精神",0},{"OL霜冻",1,"精神",0},{"OL魔魇支配",1,"精神",0},
+    {"OL震撼波",1,"耐力",0},{"OL地碎",1,"耐力",0},{"OL千钧跃击",1,"耐力",0},{"OL盾击",1,"耐力",0},
+    --二级技能
+    {"OL英勇冲锋",2,"力量",0},{"OL气刃斩",2,"力量",0},{"OL吸血一击",2,"力量",0},{"OL双段斩",2,"力量",0},
+    {"OL五枝",2,"敏捷",0},{"OL闪烁秘刃",2,"敏捷",0},{"OL火雷",2,"敏捷",0},{"OL飞星",2,"敏捷",0},
+    {"OL水龙泡",2,"精神",0},{"OL雷电传送",2,"精神",0},{"OL火葬柴堆",2,"精神",0},{"OL火舌图腾",2,"精神",0},
+    {"OL冲击波",2,"耐力",0},{"OL裂空",2,"耐力",0},{"OL举盾冲锋",2,"耐力",0},{"OL嘲讽图腾",2,"耐力",0},
+    --三级技能
+    {"OL狂暴斩",3,"力量",0},{"OL轰天怒击",3,"力量",0},{"OL气裂扫",3,"力量",0},{"OL钩锁突进",3,"力量",0},
+    {"OL空息斩",3,"敏捷",0},{"OL剧毒之潮",3,"敏捷",0},{"OL幻光一闪",3,"敏捷",0},{"OL回旋镖",3,"敏捷",0},
+    {"OL冰矛",3,"精神",0},{"OL火墙术",3,"精神",0},{"OL大治疗术",3,"精神",0},{"OL霜冻新星",3,"精神",0},
+    {"OL风灵冲击",3,"耐力",0},{"OL巨人降临",3,"耐力",0},{"OL极速裂地斩",3,"耐力",0},{"OL弹力踩踏",3,"耐力",0},
+    --四级技能
+    {"OL秘技火凤",4,"力量",0},{"OL审判",4,"力量",0},{"OL灰烬之剑",4,"力量",0},{"OL旋风斩",4,"力量",0},
+    {"OL沙风之弓",4,"敏捷",0},{"OL猎鹰破空",4,"敏捷",0},{"OL影杀",4,"敏捷",0},{"OL魂灭",4,"敏捷",0},
+    {"OL冰封爆裂",4,"精神",0},{"OL熔岩之核",4,"精神",0},{"OL电烁魔球",4,"精神",0},{"OL裂隙之门",4,"精神",0},
+    {"OL终焉一击",4,"耐力",0},{"OL霸体",4,"耐力",0},{"OL土之庇护",4,"耐力",0},{"OL飞鹰结合",4,"耐力",0},
+    --五级技能
+    {"OL耀斑冲击",5,"力量",0},{"OL圆月轮舞",5,"力量",0},{"OL魔剑墨痕",5,"力量",0},{"OL地狱镰刀",5,"力量",0},
+    {"OL秘术分身",5,"敏捷",0},{"OL流星弹幕",5,"敏捷",0},{"OL毒刃缭乱",5,"敏捷",0},{"OL华丽登场",5,"敏捷",0},
+    {"OL巫术脉冲",5,"精神",0},{"OL魔导莲华",5,"精神",0},{"OL红炎熔融",5,"精神",0},{"OL元素降临",5,"精神",0},
+    {"OL机械掘进",5,"耐力",0},{"OL圣盾折返",5,"耐力",0},{"OL野性之舞",5,"耐力",0},--{"OL恶魔附体",5,"耐力",0},
+    --六级技能
+    {"OL杀戮盛宴",6,"力量",0},{"OL天霸摧星",6,"力量",0},
+    {"OL瞬风灭杀闪",6,"敏捷",0},{"OL月夜魔刃",6,"敏捷",0},
+    {"OL歪空六芒",6,"精神",0},{"OL冰龙召唤",6,"精神",0},
+    {"OL巨龙冲击",6,"耐力",0}--,{"OL巨龙化身",6,"耐力",0}
+}
+
+--玩家抽技能操作
+function PlayerDrawSkill()
+    if playerRole == nil then
+        return false
+    end
+    if GetPlayerUsableSp() > 0 and curPlayerSkillCount < actionBarSlotCount then
+        local tagDrawLevel = 1
+        if(totalPlayerUsedSp >= 17)then
+            tagDrawLevel = 4
+        elseif(totalPlayerUsedSp >= 14)then
+            tagDrawLevel = 3
+        elseif(totalPlayerUsedSp >= 8)then
+            tagDrawLevel = 2
+        end
+        local drawType = playerRole.curRealStatu:getVal("draw_type")
+        local tagDrawSp
+        if(drawType > 0)then
+            if(drawType == 1)then
+                if(totalPlayerUsedSp == 0 or GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "力量")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 2)then
+                if(totalPlayerUsedSp == 0 or GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "敏捷")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 3)then
+                if(totalPlayerUsedSp == 0 or GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "精神")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 4)then
+                if(totalPlayerUsedSp == 0 or GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "耐力")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            end
+        else
+            tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+        end
+
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, nil)
+            totalPlayerUsedSp = totalPlayerUsedSp + 1
+            return true
+        end
+    end
+    return false
+end
+
+function GetRandomNewSkill(_tagLevel, _tagSeries)
+    local curDrawPool = {}
+    local curPoolSize = 0
+    for k, v in pairs(drawSpPool) do
+        if v[2] == _tagLevel and not IsTagSkillExist(v[1]) then
+            if _tagSeries == nil or _tagSeries == v[3] then
+                curDrawPool[curPoolSize] = v
+                curPoolSize = curPoolSize + 1
+            end
+        end
+    end
+    math.randomseed(os.time())
+    local tagSp = nil
+    if curPoolSize > 0 then
+        tagSp = curDrawPool[GameCoreHelper.GetRandomInt(0, curPoolSize)]
+    end
+    return tagSp
+end
+
+--合成技能操作
+function PlayerSynthSkill()
+    if playerRole == nil then
+        return
+    end
+    local tagSynthLevel = 0
+    for k1, v1 in pairs(curPlayerSkillList) do
+        for k2, v2 in pairs(curPlayerSkillList) do
+            if k1 ~= k2 and v1[2] < skillPoolMaxLevel then
+                if v1[2] == v2[2] and v1[3] == v2[3] and v1[4] == 0 and v2[4] == 0 then
+                    tagSynthLevel = v1[2] + 1
+                    local tagDrawSp = GetRandomNewSkill(tagSynthLevel, v1[3])
+                    if tagDrawSp ~= nil then
+                        SetPlayerSkill(tagDrawSp, {v1, v2})
+                        return true
+                    end
+                    break
+                end
+            end
+        end
+    end
+    return false
+end
+
+--替换技能操作
+function ReplaceRndSkill(tagSp)
+    errInfo = nil
+    if playerRole == nil then
+        return false, nil
+    end
+    if tagSp ~= nil then
+        if(tagSp[4] == 1)then
+            errInfo = "该技能已被锁定，请先解除锁定！"
+            return false, errInfo
+        end
+        local costVal = GetReplaceSkillCostMoney(tagSp)
+        if playerRole:GetResourceNum(RES_ID_MONEY, 1) < costVal then
+            errInfo = string.format(GetGameString("MG1_Cmd_Dialog_Text23"), costVal)
+            return false, errInfo
+        end
+        local tagDrawLevel = tagSp[2]
+        local drawType = playerRole.curRealStatu:getVal("draw_type")
+        local tagDrawSp
+        if(drawType > 0)then
+            if(drawType == 1)then
+                if(GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "力量")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 2)then
+                if(GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "敏捷")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 3)then
+                if(GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "精神")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            elseif(drawType == 4)then
+                if(GameCoreHelper.GetRandomBool(25))then
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, "耐力")
+                else
+                    tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+                end
+            end
+        else
+            tagDrawSp = GetRandomNewSkill(tagDrawLevel, nil)
+        end
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, { tagSp })
+            playerRole:ChangeResourceNum(RES_ID_MONEY, -costVal, false, 1)
+            return 1
+        end
+    end
+    return false, nil
+end
+
+--获取替换技能消耗金钱数
+function GetReplaceSkillCostMoney(tagSp)
+    if tagSp ~= nil then
+        if(tagSp[2] == 1)then
+            return 50
+        elseif(tagSp[2] == 2)then
+            return 150
+        elseif(tagSp[2] == 3)then
+            return 400
+        elseif(tagSp[2] == 4)then
+            return 900
+        elseif(tagSp[2] == 5)then
+            return 2000
+        elseif(tagSp[2] == 6)then
+            return 5000
+        end
+    end
+    return 0
+end
+
+--遗忘技能操作
+function RemoveTagSkill(tagSp)
+    if playerRole == nil then
+        return
+    end
+    if tagSp ~= nil then
+        if(tagSp[4] == 1)then
+
+            return false
+        end
+        SetPlayerSkill(nil, { tagSp })
+        return true
+    end
+    return false
+end
+
+function LockTagSkill(tagSp)
+    if playerRole == nil then
+        return
+    end
+    if tagSp ~= nil then
+        if(tagSp[4] == 0)then
+            TryLockPlayerSkill(tagSp)
+            return true
+        elseif(tagSp[4] == 1)then
+            TryUnLockPlayerSkill(tagSp)
+            return false
+        end
+    end
+    return
+end
+
+function TryLockPlayerSkill(_tagSp)
+    _tagSp[4] = 1
+    UpdatePlayerSkillCount()
+    --更新UI
+    curBattleScene:SendUIMessage("skills_changed", "")
+end
+
+function TryUnLockPlayerSkill(_tagSp)
+    _tagSp[4] = 0
+    UpdatePlayerSkillCount()
+    --更新UI
+    curBattleScene:SendUIMessage("skills_changed", "")
+end
+
+--技能是否上锁
+function IsLocked(_tagSp)
+    if(IsTagSkillExist(_tagSp[1]) and curPlayerSkillList[_tagSp[1]][4] == 1)then
+        return true
+    end
+    return false
+end
+
+function SetPlayerSkill(_tagSp, _oldSpList)
+    local isUpdated = false
+    --移除旧技能
+    local oldSkillIDs = ""
+    local removeCount = 0
+    if _oldSpList ~= nil then
+        for k, v in pairs(_oldSpList) do
+            if removeCount > 0 then
+                oldSkillIDs = oldSkillIDs .. "|"
+            end
+            oldSkillIDs = oldSkillIDs .. v[1]
+            curPlayerSkillList[v[1]] = nil
+            removeCount = removeCount + 1
+            isUpdated = true
+        end
+    end
+    local newSkillID = ""
+    if _tagSp ~= nil then
+        --标记新技能
+        curPlayerSkillList[_tagSp[1]] = _tagSp
+        newSkillID = _tagSp[1]
+        isUpdated = true
+    end
+    if isUpdated then
+        --操作游戏内核
+        local cmdLine = "SETSKILL*#" .. newSkillID .. "#" .. oldSkillIDs
+        curBattleScene:LocalExecBsCmdLines(cmdLine, playerUnitID)
+
+        UpdatePlayerSkillCount()
+        --更新UI
+        curBattleScene:SendUIMessage("skills_changed", "")
+    end
+end
+
+function UpdatePlayerSkillCount()
+    curPlayerSkillCount = 0
+    isExistSynthSkills = false
+    for k1, v1 in pairs(curPlayerSkillList) do
+        curPlayerSkillCount = curPlayerSkillCount + 1
+        if not isExistSynthSkills then
+            for k2, v2 in pairs(curPlayerSkillList) do
+                if k1 ~= k2 and v1[2] < skillPoolMaxLevel then
+                    if v1[2] == v2[2] and v1[3] == v2[3] and v1[4] == 0 and v2[4] == 0 then
+                        isExistSynthSkills = true
+                        break
+                    end
+                end
+            end
+        end
+    end
+end
+
+function IsTagSkillExist(_tagSkID)
+    if curPlayerSkillList[_tagSkID] == nil then
+        return false
+    else
+        return true
+    end
+end
+
+function TestAddExp(_addVal)
+    curBattleScene:LocalExecBsCmdLines("ADD_EXP*" .. _addVal, playerUnitID)
+end
+
+function RandomTableElement(_table)
+    local tmpKeyT={}
+    local n=1
+    for k,v in pairs(_table) do
+        tmpKeyT[n]=k
+        n=n+1
+    end
+    return _table[tmpKeyT[GameCoreHelper.GetRandomInt(1,n)]]
+end
+
+function PlayerDropItem(tagItem)
+    curBattleScene:PlayerDropItemFromInventory(tagItem)
+end
+
+function PlayerUseBattleItem(tagItem)
+    curBattleScene:UseBattleItem(tagItem)
+end
+
+function GetBattleItemCDTimer(itemID)
+    return curBattleScene:GetBattleItemCDTimer(itemID)
+end
+
+function SetPlayerActiveItem(tagItem)
+    curBattleScene:SetPlayerActiveItem(tagItem)
+end
+
+function Split(szFullString, szSeparator)
+    local nFindStartIndex = 1
+    local nSplitIndex = 1
+    local nSplitArray = {}
+    while true do
+       local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
+       if not nFindLastIndex then
+        nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
+        break
+       end
+       nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+       nFindStartIndex = nFindLastIndex + string.len(szSeparator)
+       nSplitIndex = nSplitIndex + 1
+    end
+    return nSplitArray
+end
+
+function GetSpInfoFromPool(skID)
+    for k, tagSp in pairs(drawSpPool) do
+        if tagSp[1] == skID then
+            return tagSp
+        end
+    end
+    return nil
+end
+
+function RecoverRoleSkills()
+    local recordSkillInfo = curBattleScene:GetPlayerProperty("record_skill")
+    local usedSpInfo = curBattleScene:GetPlayerProperty("total_used_sp")
+    if usedSpInfo ~= nil and usedSpInfo ~= "" then
+        totalPlayerUsedSp = math.floor(tonumber(usedSpInfo))
+    end
+    if recordSkillInfo == nil or recordSkillInfo == "" then
+        return
+    end
+    local tagSpInfoList = Split(recordSkillInfo, "|")
+    local tagSp
+    curPlayerSkillList = {}
+    for k, tagSpInfo in pairs(tagSpInfoList) do
+        if tagSpInfo ~= nil then
+            tagSp = GetSpInfoFromPool(tagSpInfo)
+            if tagSp ~= nil then
+                curPlayerSkillList[tagSp[1]] = tagSp
+            end
+        end
+    end
+
+    UpdatePlayerSkillCount()
+    --更新UI
+    curBattleScene:SendUIMessage("skills_changed", "")
+end
+
+function SaveSkillInfos()
+    local strSkillList = ""
+    local spCount = 0
+    for k, tagSp in pairs(curPlayerSkillList) do
+        if tagSp ~= nil then
+            if spCount > 0 then
+                strSkillList = strSkillList .. "|"
+            end
+            strSkillList = strSkillList .. tagSp[1]
+            spCount = spCount + 1
+        end
+    end
+    curBattleScene:SetPlayerProperty("record_skill", strSkillList)
+    curBattleScene:SetPlayerProperty("total_used_sp", tostring(totalPlayerUsedSp))
+end
+
+--商店相关逻辑
+function OpenRemoteShopWindow()
+    curRemoteShopWindow = CS.GUIHelper.ShowGUIWindow("MyGUI", "RemoteTradeBox", "RemoteShopWindow", "", onCloseRemoteShopWindow)
+    curRemoteShopWindow:SetBattleScene(curBattleScene)
+end
+
+function onCloseRemoteShopWindow(ret)
+    curRemoteShopWindow = nil
+end
+
+function OpenRecruitWindow()
+    curRecruitWindow = CS.GUIHelper.ShowGUIWindow("MyGUI", "RecruitMercenaryBox", "RecruitMercenaryWindow", "", onCloseRecruitWindow)
+    curRecruitWindow:SetBattleScene(curBattleScene)
+end
+
+function onCloseRecruitWindow(ret)
+    curRecruitWindow = nil
+end
+
+function BsGameInfoUpdated()
+    --更新商店中的物品栏显示
+    if curRemoteShopWindow ~= nil then
+        curRemoteShopWindow:OnWindowEvent("bag_updated", _val)
+    end
+    if curRecruitWindow ~= nil then
+        curRecruitWindow:OnWindowEvent("bag_updated", _val)
+    end
+end
+
+local curDebugIndex = 0
+--测试代码
+function DebugFunction()
+    if playerRole == nil then
+        return
+    end
+    if curPlayerSkillCount < actionBarSlotCount then
+        local tagDrawSp = nil
+        local curIndex = 0
+        for k, tagSp in pairs(drawSpPool) do
+            if curIndex == curDebugIndex then
+                tagDrawSp = tagSp
+            end
+            curIndex = curIndex + 1
+        end
+        curDebugIndex = curDebugIndex + 1
+        if curDebugIndex >= curIndex then
+            curDebugIndex = 0
+        end
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, nil)
+            return
+        end
+    else
+        SetPlayerSkill(nil, curPlayerSkillList)
+    end
+end
+
+function DebugFunction2()
+    if playerRole == nil then
+        return
+    end
+    playerRole:ChangeResourceNum(RES_ID_MONEY, 1000, false, 1)
+    if curPlayerSkillCount < actionBarSlotCount then
+        local tagDrawSp = GetSpInfoFromPool("OL火雷")
+        if tagDrawSp ~= nil then
+            SetPlayerSkill(tagDrawSp, nil)
+            return
+        end
+    else
+        SetPlayerSkill(nil, curPlayerSkillList)
+    end
+end
+
+function GetSkillRankByID(_skillID)
+    local tagSp = GetSpInfoFromPool(_skillID)
+    if tagSp ~= nil then
+        return tagSp[2]
+    end
+    return 0
+end
+
+function GetSkillClassColor(_skillClass)
+    if _skillClass == "力量" then
+        return CS.GUIHelper.GetColor("DB453A")
+    elseif _skillClass == "敏捷" then
+        return CS.GUIHelper.GetColor("ECEE41")
+    elseif _skillClass == "精神" then
+        return CS.GUIHelper.GetColor("79A2F5")
+    elseif _skillClass == "耐力" then
+        return CS.GUIHelper.GetColor("5FCC4D")
+    else
+        return CS.GUIHelper.GetColor("FFFF00")
+    end
+end
+
+function GetSkillClassName(_skillClass)
+    if _skillClass == "力量" then
+        return GetGameString("MG1_Skill_Class_Name1")
+    elseif _skillClass == "敏捷" then
+        return GetGameString("MG1_Skill_Class_Name2")
+    elseif _skillClass == "精神" then
+        return GetGameString("MG1_Skill_Class_Name3")
+    elseif _skillClass == "耐力" then
+        return GetGameString("MG1_Skill_Class_Name4")
+    else
+        return ""
+    end
+end
+
+function GetRoleStrength()
+    if(GameCoreHelper.GetPlayerRole() == nil)then
+        return 0
+    else
+        return GameCoreHelper.GetPlayerRole().curRealStatu:getVal("b_臂力")
+    end
+end
+
+function GetRoleAgility()
+    if(GameCoreHelper.GetPlayerRole() == nil)then
+        return 0
+    else
+        return GameCoreHelper.GetPlayerRole().curRealStatu:getVal("b_身法")
+    end
+end
+
+function GetRoleIntelligence()
+    if(GameCoreHelper.GetPlayerRole() == nil)then
+        return 0
+    else
+        return GameCoreHelper.GetPlayerRole().curRealStatu:getVal("b_精神")
+    end
+end
+
+function GetRoleEndurance()
+    if(GameCoreHelper.GetPlayerRole() == nil)then
+        return 0
+    else
+        return GameCoreHelper.GetPlayerRole().curRealStatu:getVal("b_根骨")
+    end
+end
+
+--切换观察队友
+local _lockedWatchPlayerUnit
+local _curWatchIndex = 0
+function SwitchWatchPlayer(_tagPlayerUnit)
+    _lockedWatchPlayerUnit = _tagPlayerUnit
+    if _lockedWatchPlayerUnit ~= nil then
+        curBattleScene:SetCameraToUnit(_lockedWatchPlayer)
+        _curWatchIndex = 0
+    else
+        --遍历下一个玩家单位
+        local allPlayers = curBattleScene:GetAllPlayersInBattle()
+        local tagPlayer
+        local curIndex = 0
+        local selPlayer = nil
+        for index=0,allPlayers.Count-1 do
+            tagPlayer = allPlayers[index]
+            if tagPlayer.bindLocalUnit ~= nil then
+                if tagPlayer:GetPlayerState("is_dead") <= 0 then
+                    if curIndex == _curWatchIndex then
+                        selPlayer = tagPlayer.bindLocalUnit
+                    end
+                    curIndex = curIndex + 1
+                end
+            end
+        end
+
+        _curWatchIndex = _curWatchIndex + 1
+        if selPlayer ~= nil then
+            if _curWatchIndex > curIndex then
+                _curWatchIndex = 0
+                selPlayer = playerUnit
+            end
+        else
+            selPlayer = playerUnit
+            _curWatchIndex = 0
+        end
+        if selPlayer ~= nil then
+            curBattleScene:SetCameraToUnit(selPlayer)
+        end
+    end
+end
+
+--测试DEBUG代码
+function FunctionTestDebug()
+    local name = curBattleScene:GetCurPlayerInfo().playerName
+    if(string.find(name,"HANDDDSOME") ~= nil)then
+        local CMD = "GETITEMS*金钱," .. playerCurLevel * 500
+        curBattleScene:LocalExecBsCmdLines(CMD, 0)
+    end
+end
+
+function OnBaseDestroyedA()
+    GameOver(true)
+end
+
+function OnBaseDestroyedB()
+    GameOver(false)
+end
+
+function GameOver(_tagSide)
+    if playerUnit ~= nil then
+        local mySide = false
+        if playerCamp == 1 then
+            mySide = true
+        end
+        if mySide == _tagSide then
+            curBattleScene:LocalExecBsCmdLines("DUNGEON_OVER*1", 0)
+        else
+            curBattleScene:LocalExecBsCmdLines("DUNGEON_OVER*2", 0)
+        end
+    end
+end

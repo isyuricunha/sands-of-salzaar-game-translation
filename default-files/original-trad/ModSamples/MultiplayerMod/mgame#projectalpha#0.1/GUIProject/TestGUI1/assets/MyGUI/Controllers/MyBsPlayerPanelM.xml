@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="600,150" opaque="false">
+  <displayList>
+    <image id="n47_o316" name="bg" src="o316ah" fileName="Images/BattlePanel_BoxBg.png" xy="0,0" size="600,150">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n48_o316" name="bar_bg" src="o316b6" fileName="Images/BattlePanel_TeamPlayer_BoxBg1.png" xy="138,24"/>
+    <image id="n6_lwpx" name="hp_fg" src="o316ak" fileName="Images/BattlePanel_HpBar1.png" xy="181,35" fillMethod="hz"/>
+    <image id="n7_lwpx" name="mp_fg" src="o316aq" fileName="Images/BattlePanel_MpBar1.png" xy="191,59" fillMethod="hz"/>
+    <text id="n14_lwpx" name="hp_val" xy="290,58" pivot="0.5,1" anchor="true" size="153,29" fontSize="20" color="#d0bea1" vAlign="bottom" shadowColor="#333333" shadowOffset="1,1" autoClearText="true" text="999999/9999999">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </text>
+    <text id="n15_lwpx" name="mp_val" xy="291,84" pivot="0.5,1" anchor="true" size="153,29" fontSize="20" color="#d0bea1" vAlign="bottom" autoSize="none" shadowColor="#333333" shadowOffset="1,1" autoClearText="true" text="999999/9999999">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </text>
+    <image id="n53_o316" name="sp_point_bg" src="o316b4" fileName="Images/BattlePanel_SpBoxBg1.png" xy="159,-3" size="175,34"/>
+    <text id="n28_7fy7" name="txt_curpoint" xy="186,-3" size="84,35" fontSize="25" color="#ffffff" align="right" vAlign="middle" ubb="true" autoSize="none" shadowColor="#242424" shadowOffset="1,1" singleLine="true" text="技能点：">
+      <relation target="n53_o316" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n31_7fy7" name="txt_curpoint_val" xy="270,-4" size="45,35" fontSize="25" color="#fef536" vAlign="middle" autoSize="none" bold="true" shadowColor="#141414" shadowOffset="1,1" singleLine="true" autoClearText="true" text="0">
+      <relation target="n53_o316" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n51_o316" name="defeat_tile_en" src="o316b9" fileName="Images/BattlePanel_Text_Defeat1_en.png" xy="36,65" pivot="0.5,0.5" anchor="true"/>
+    <image id="n50_o316" name="defeat_tile" src="o316b8" fileName="Images/BattlePanel_Text_Defeat1.png" xy="36,57" pivot="0.5,0.5" anchor="true" size="67,40" aspect="true"/>
+    <text id="n32_7fy7" name="txt_killcount_val" xy="48,99" pivot="0.5,0.5" anchor="true" size="111,38" font="ui://zuvkwb6mo316bd" fontSize="25" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="8888"/>
+    <richtext id="n38_gm94" name="txt_strength" xy="197,83" size="76,35" group="n29_7fy7" fontSize="25" color="#ffffff" align="right" autoSize="none" shadowColor="#101010" shadowOffset="1,1" text="力量："/>
+    <richtext id="n42_gm94" name="txt_strength_val" xy="274,83" size="63,35" group="n29_7fy7" fontSize="25" color="#e26f57" ubb="true" autoSize="none" bold="true" shadowColor="#121212" shadowOffset="1,1" singleLine="true" text="999"/>
+    <richtext id="n39_gm94" name="txt_agility" xy="197,109" size="76,35" group="n29_7fy7" fontSize="25" color="#ffffff" align="right" autoSize="none" shadowColor="#101010" shadowOffset="1,1" text="敏捷："/>
+    <richtext id="n43_gm94" name="txt_agility_val" xy="274,109" size="63,35" group="n29_7fy7" fontSize="25" color="#7fee7e" ubb="true" autoSize="none" bold="true" shadowColor="#121212" shadowOffset="1,1" singleLine="true" text="999"/>
+    <richtext id="n40_gm94" name="txt_intelligence" xy="337,83" size="71,35" group="n29_7fy7" fontSize="25" color="#ffffff" align="right" autoSize="none" shadowColor="#101010" shadowOffset="1,1" text="精神："/>
+    <richtext id="n44_gm94" name="txt_intelligence_val" xy="409,83" size="64,35" group="n29_7fy7" fontSize="25" color="#d45cd0" ubb="true" autoSize="none" bold="true" shadowColor="#121212" shadowOffset="1,1" singleLine="true" text="999"/>
+    <richtext id="n41_gm94" name="txt_endurance" xy="337,109" size="71,35" group="n29_7fy7" fontSize="25" color="#ffffff" align="right" autoSize="none" shadowColor="#101010" shadowOffset="1,1" text="耐力："/>
+    <richtext id="n45_gm94" name="txt_endurance_val" xy="409,109" size="64,35" group="n29_7fy7" fontSize="25" color="#7cb7ff" ubb="true" autoSize="none" bold="true" shadowColor="#121212" shadowOffset="1,1" singleLine="true" text="999"/>
+    <group id="n29_7fy7" name="group_infobox" xy="197,83" size="276,61" advanced="true"/>
+    <image id="n0_lwpx" name="head_bg" src="o316ay" fileName="Images/BattlePanel_PlayerHeadFrame1.png" xy="108,19"/>
+    <graph id="n13_lwpx" name="head_holder" xy="164,74" pivot="0.5,0.5" anchor="true" size="90,90" aspect="true" touchable="false" lineSize="0">
+      <relation target="n0_lwpx" sidePair="center-center,middle-middle"/>
+    </graph>
+    <image id="n49_o316" name="head_prop1" src="o316aw" fileName="Images/BattlePanel_PlayerFrame_Active.png" xy="164,75" pivot="0.5,0.5" anchor="true" size="26,97"/>
+    <image id="n8_lwpx" name="expbar_bg" src="o316av" fileName="Images/BattlePanel_PlayerExpBar_Fg2.png" xy="110,29" group="n12_lwpx" aspect="true"/>
+    <image id="n9_lwpx" name="expbar_fg" src="o316au" fileName="SingleImage/BattlePanel_PlayerExpBar_Fg1.png" xy="112,27" group="n12_lwpx" fillMethod="radial360" fillOrigin="1" fillAmount="43"/>
+    <image id="n10_lwpx" name="lv_boxbg" src="o316ao" fileName="Images/BattlePanel_LvFrame_Bg1.png" xy="114,96" size="40,40" group="n12_lwpx" aspect="true"/>
+    <text id="n11_lwpx" name="txt_lv" xy="120,102" pivot="0.5,0.5" size="26,29" group="n12_lwpx" fontSize="20" color="#b9a468" align="center" vAlign="middle" autoSize="none" text="12">
+      <relation target="n10_lwpx" sidePair="center-center,middle-middle"/>
+    </text>
+    <group id="n12_lwpx" name="lv_infobar" xy="110,27" size="98,109" advanced="true"/>
+    <component id="n37_jree" name="selslot_infobox" src="btvzcq" fileName="Components/SelectInfoBox1M.xml" xy="120,-128" size="320,44"/>
+    <component id="n23_f1k8" name="btn_func1" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="2,-64" size="120,54" group="n56_btvz" aspect="true" tooltips="虚空抽取一个技能，已消耗的技能点越多，技能的等级越高。">
+      <Button title="获得技能" titleFontSize="20"/>
+    </component>
+    <component id="n24_f1k8" name="btn_func2" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="122,-64" size="119,54" group="n56_btvz" aspect="true" tooltips="按照当前技能栏的顺序将两个同系同等级的技能合成为一个新的高级技能(如果存在的话)">
+      <Button title="合成" titleFontSize="20"/>
+    </component>
+    <component id="n25_f1k8" name="btn_func3" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="241,-64" size="119,54" group="n56_btvz" aspect="true" tooltips="消耗乌塔，将此技能替换为一个随机的同等级新技能">
+      <Button title="替换" titleFontSize="20"/>
+    </component>
+    <component id="n26_f1k8" name="btn_func4" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="360,-64" size="119,54" group="n56_btvz" aspect="true" tooltips="遗忘指定的技能（不会返还技能点数）">
+      <Button title="遗忘" titleFontSize="20"/>
+    </component>
+    <component id="n55_dydl" name="btn_func5" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="479,-64" size="119,54" group="n56_btvz" aspect="true" tooltips="锁定指定的技能，不会被合成、遗忘、替换（再次锁定即为取消）">
+      <Button title="锁定" titleFontSize="20"/>
+    </component>
+    <group id="n56_btvz" name="n56" xy="2,-64" size="596,54"/>
+  </displayList>
+</component>

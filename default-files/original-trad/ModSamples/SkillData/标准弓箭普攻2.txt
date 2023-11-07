@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.75#block_act#0#0
+0.33#add_eft#英雄箭矢#cast_pos#3:0,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]*0.6;eft:弓箭受击
+0.33#play_sound#Bow_Attack#unit_pos
+0.55#add_eft#英雄箭矢#cast_pos,0,0,-50#3:0,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]*0.6;eft:弓箭受击
+0.55#play_sound#Bow_Attack#unit_pos
+0.03#play_sound#Bow_Aim#unit_pos

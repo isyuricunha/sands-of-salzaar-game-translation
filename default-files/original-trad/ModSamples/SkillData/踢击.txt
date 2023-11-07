@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.89#block_act#0#0
+0.35#play_sound#Palm_Attack#unit_pos
+0.15#play_sound#SuperKick#unit_pos
+0.37#play_sound#Block_Palm#tag_pos
+0.37#dmg_check#0#type:2;dmg:[&@min([%stat:s_攻击%]*(1.5+[%this_level%]*0.15),[%stat:s_攻击%]*3.5)&];hit:1000;blk:-1000;eft:踢击受击##

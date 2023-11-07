@@ -1,0 +1,10 @@
+﻿0#block_act#1#0
+0.58#block_act#0#0
+0.23#add_eft#M暗魔弹2#cast_pos#3:0,2500#0#type:2;dmg:[%stat:s_魔法攻击%]*1.5;attack_type:900;buff:恐惧,5,2;eft:暗魔弹2#
+0.23#add_eft#M暗魔弹2#cast_pos#3:[%rnd:-30,30%],2500#0#type:2;dmg:[%stat:s_魔法攻击%]*1.5;attack_type:900;buff:恐惧,5,2;eft:暗魔弹2#
+0.23#add_eft#M暗魔弹2#cast_pos#3:[%rnd:-30,30%],2500#0#type:2;dmg:[%stat:s_魔法攻击%]*1.5;attack_type:900;buff:恐惧,5,2;eft:暗魔弹2#
+0.2#play_sound#FearBall_Shoot#unit_pos
+0.25#play_sound#FearBall_Shoot#unit_pos
+0.3#play_sound#FearBall_Shoot#unit_pos
+0.22#add_eft#M暗魔弹出手#cast_pos#0
+0.22#play_sound#RenQi#unit_pos

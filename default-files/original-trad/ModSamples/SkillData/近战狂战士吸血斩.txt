@@ -1,0 +1,13 @@
+﻿0#block_act#1#0
+0#dart_move#冲锋#0#8000#0#近战狂战士冲刺#
+0#play_sound#ThunderMove_01#unit_pos
+0#add_buff#极#caster#1.5#1
+0.52#stop_dartmove#1
+0.52#play_sound#BladeWave#unit_pos
+0.58#block_act#0#0
+0.58#play_sound#Splash_Basic#unit_pos
+0.58#play_sound#BloodSword_Hit#unit_pos
+0.58*[%skill_lv:近战狂战士吸血斩强化%][=]0#dmg_check#0#type:3;t_dmg:[%cmd_argval%]*0.1;trig:0;eft:吸血#caster
+0.58*[%skill_lv:近战狂战士吸血斩强化%][>]0#dmg_check#0#type:3;t_dmg:[%cmd_argval%]*0.3;trig:0;eft:吸血#caster
+0.58#remove_buff#caster#1#极,1
+0.02#add_eft#P刀剑之术瞬斩#unit_pos,0,0,0#0

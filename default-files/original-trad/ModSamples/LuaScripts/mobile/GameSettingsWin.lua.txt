@@ -1,0 +1,893 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnBack
+local btnConfirm
+
+local ctlTabListHeader
+local groupPages
+
+local compPage1
+local listOptions1
+
+local compPage2
+local listOptions2
+
+local compPage3
+local listOptions3
+
+local compPage4
+local listOptions4
+
+local compPage5
+local listOptions5
+
+local compPage6
+local listOptions6
+
+local curSeledPageCode = nil
+
+local cmbLanguageSet;
+local cmbShowItemName;
+local cmbFixedJoystick;
+local numSoundVolum;
+local numMusicVolum;
+local numAmbianceVolum;
+local cmbCameraZoom;
+local cmdStoryTextSize;
+
+local cmbFixedRes;
+local cmbResolutionSet;
+local cmbPerformanceLevel;
+local cmbAntiAliasing;
+local toggleVSync;
+local cmbFPS;
+local cmbWeather;
+local cmbOutline;
+local cmbShadow;
+local numFollowSize;
+
+local numBattleMax;
+local cmbAutoAttack;
+local cmbDisableBgSim;
+local cmbRollBtnPos;
+local cmbActPanelPos;
+
+local toggleQuickCastUnit;
+local toggleQuickCastPoint;
+local toggleQuickCastDir;
+local toggleQuickCastSelMark;
+
+local txtTIps;
+
+local isInGame = false;
+local isInSandbox = false;
+
+local oldLanguageSet = "";
+
+local curGameConfigFields;
+
+local isMobileMode = true;
+local isPhoneMode = true;
+
+local maxAntiAltasVal = 2;
+local maxFPSVal = 2;
+
+local popupMask;
+
+local oldResolutionVal;
+
+local oldWindowVal;
+
+local oldFixedResVal;
+
+local initMusicVolume = 0;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	self.CustomData = {};
+	self.CustomData.changeLanguageCallback = nil;
+
+	isMobileMode = CS.GameTools.IsMobileMode();
+	isPhoneMode = CS.GameTools.IsPhoneMode();
+
+	oldLanguageSet = CS.LocalData.Instance:GetString("language", CS.HanFramework.GameSettings.DEFAULT_LANGUAGE);
+
+	if self:GetWindowArgVal("in_game") == "1" then
+		isInGame = true
+	end
+	if self:GetWindowArgVal("in_sandbox") == "1" then
+		isInSandbox = true
+	end
+
+	btnBack = contentPane:GetChild("close_button").asButton
+	btnConfirm = contentPane:GetChild("btn_confirm").asButton
+
+	ctlTabListHeader = CS.GUICtlListHeaderTabsBar.CreateComponent(contentPane:GetChild("list_header").asCom)
+
+	groupPages = contentPane:GetChild("group_pages").asGroup
+
+	compPage1 = contentPane:GetChildInGroup(groupPages, "page1").asCom
+	listOptions1 = compPage1:GetChild("list").asList
+
+	compPage2 = contentPane:GetChildInGroup(groupPages, "page2").asCom
+	listOptions2 = compPage2:GetChild("list").asList
+
+	compPage3 = contentPane:GetChildInGroup(groupPages, "page3").asCom
+	listOptions3 = compPage3:GetChild("list").asList
+
+	compPage4 = contentPane:GetChildInGroup(groupPages, "page4").asCom
+	listOptions4 = compPage4:GetChild("list").asList
+
+	compPage5 = contentPane:GetChildInGroup(groupPages, "page5").asCom
+	listOptions5 = compPage5:GetChild("list").asList
+
+	compPage6 = contentPane:GetChildInGroup(groupPages, "page6").asCom
+	listOptions6 = compPage6:GetChild("list").asList
+
+	txtTIps = contentPane:GetChild("txt_tips").asTextField
+
+	ctlTabListHeader:ClearTabList();
+	ctlTabListHeader:AddTabItem("common", GetGameString("lua_script_str07"));
+	ctlTabListHeader:AddTabItem("video", GetGameString("lua_script_str08"));
+	ctlTabListHeader:AddTabItem("audio", GetGameString("lua_script_str_340"));
+	if isInGame then
+		ctlTabListHeader:AddTabItem("tools", GetGameString("lua_script_str11"));
+	end
+	ctlTabListHeader:AddTabItem("battle", GetGameString("lua_script_str09"));
+	if isPhoneMode then
+		ctlTabListHeader:AddTabItem("information", GetGameString("lua_script_str_341"));
+	end
+
+	curSeledPageCode = "common";
+	ctlTabListHeader:SetSeledItemByKey(curSeledPageCode, false);
+	ctlTabListHeader:SetSelectChangeCallback(onTabPageChanged);
+
+	local _pObj = contentPane:GetChild("mask");
+	if _pObj ~= nil then
+		popupMask = _pObj.asGraph;
+		popupMask:MakeFullScreen()
+		popupMask:Center()
+	end
+	SetBlockMask(false);
+
+	--绑定按钮事件
+	btnBack.onClick:Set(onClickBackBtn);
+	btnConfirm.onClick:Add(onClickConfirmBtn);
+
+	--设置默认值
+	self:SetCloseButton(btnBack)
+
+	initAllConfigOptions();
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	PlayButtonSound()
+
+	beforeLeaveScene()
+
+	self.CurDialogResult = 0
+	self:Hide()
+end
+
+function onClickConfirmBtn()
+	PlayButtonSound()
+
+	beforeLeaveScene();
+	--应用配置
+	ApplyChanges();
+
+	--处理语言
+
+	local _curSelLang = "";
+	if not isInGame and cmbLanguageSet ~= nil then
+		if IsMobileMode then
+			local _curSelLangIndex = cmbLanguageSet.GetValue()
+			if _curSelLangIndex == 1 then
+				_curSelLang = "english";
+			else
+				_curSelLang = "schinese";
+			end
+		else
+			local _curSelLangIndex = cmbLanguageSet.GetValue()
+			if _curSelLangIndex == 1 then
+				_curSelLang = "english";
+			else
+				_curSelLang = "schinese";
+			end
+		end
+	end
+	CS.LocalData.Instance:SetString("set_language", "");
+	if not IsEmptyOrNil(_curSelLang) and _curSelLang ~= oldLanguageSet then
+		local isHandelLan = false;
+		if self.CustomData ~= nil then
+			if self.CustomData.changeLanguageCallback ~= nil then
+				self.CustomData.changeLanguageCallback(_curSelLang);
+				isHandelLan = true;
+			end
+		end
+		if not isHandelLan then
+			CS.LocalData.Instance:SetString("set_language", _curSelLang);
+			ShowConfirmDlg(GetGameString("UISettingsDlg_OnApplyBtnClicked"), "ok", function(ret)
+				DoCloseWindow();
+			end);
+		end
+	else
+		DoCloseWindow();
+	end
+end
+
+function DoCloseWindow()
+	self.CurDialogResult = 1
+	self:Hide()
+end
+
+function ApplyChanges()
+
+	local resolutionChanged = false;
+
+	local IsShowItemName = cmbShowItemName.GetValue() == 0
+	CS.LocalData.Instance:SetInt("enable_itemshowname", IsShowItemName and 1 or 0);
+
+	if isMobileMode then
+		local IsFixedJoystick = cmbFixedJoystick.GetValue() == 0
+		CS.LocalData.Instance:SetInt("enable_fixedjoystick", IsFixedJoystick and 1 or 0);
+
+		--移动模式设置
+		local perfomLevel = cmbPerformanceLevel.GetValue();
+		local antiAlias = maxAntiAltasVal - perfomLevel
+		if antiAlias < 0 then
+			antiAlias = 0
+		end
+		CS.LocalData.Instance:SetInt("performance_level", perfomLevel);
+		CS.LocalData.Instance:SetInt("anti_aliasing", antiAlias);
+		local curFpsVal = maxFPSVal - cmbFPS.GetValue();
+		if curFpsVal < 0 then
+			curFpsVal = 0;
+		end
+		CS.LocalData.Instance:SetInt("limit_fps", curFpsVal);
+
+		--镜头缩放倍率
+		CS.LocalData.Instance:SetInt("camera_zoom", cmbCameraZoom.GetValue());
+
+		CS.LocalData.Instance:SetInt("story_text_size", cmdStoryTextSize.GetValue());
+
+		--天气/迷雾
+		CS.LocalData.Instance:SetInt("weather", cmbWeather.GetValue());
+
+		--描边
+		CS.LocalData.Instance:SetInt("outline", cmbOutline.GetValue());
+
+		--阴影
+		CS.LocalData.Instance:SetInt("shadow", cmbShadow.GetValue());
+
+		--队伍跟随数量
+		CS.LocalData.Instance:SetInt("follow_size", numFollowSize.GetValue());
+
+		--自适应屏幕分辨率
+		--local curFixedResVal = cmbFixedRes.GetValue();
+		--CS.LocalData.Instance:SetInt("fixed_res", curFixedResVal);
+		--if curFixedResVal ~= oldFixedResVal then
+		--	resolutionChanged = true;
+		--end
+	else
+		--分辨率
+		CS.LocalData.Instance:SetString("cur_resolution_new", cmbResolutionSet.GetValue());
+
+		--画质
+		CS.LocalData.Instance:SetInt("performance_level", cmbPerformanceLevel.GetValue());
+
+		--抗锯齿
+		CS.LocalData.Instance:SetInt("anti_aliasing", cmbAntiAliasing.GetValue());
+
+		--垂直同步
+		CS.LocalData.Instance:SetInt("enable_vsync", toggleVSync.GetValue());
+
+		--锁帧
+		CS.LocalData.Instance:SetInt("limit_fps", cmbFPS.GetValue());
+
+	end
+
+	--战斗规模
+	CS.LocalData.Instance:SetInt("cur_battle_max_num", numBattleMax.GetValue());
+
+	--自动攻击
+	local isEnableAutoAttack = cmbAutoAttack.GetValue() == 0
+	CS.LocalData.Instance:SetInt("enable_auto_attack", isEnableAutoAttack and 1 or 0);
+
+	--禁用战斗后台
+	local isDisableBgSim = cmbDisableBgSim.GetValue() == 1;
+	CS.LocalData.Instance:SetInt("disable_bg_sim", isDisableBgSim and 1 or 0);
+
+	--战斗按钮位置
+	local rollbtnPosType = cmbRollBtnPos.GetValue() == 1;
+	CS.LocalData.Instance:SetInt("roll_btn_pos", rollbtnPosType and 1 or 0);
+	CS.LocalData.Instance:SetInt("act_panel_pos", cmbActPanelPos.GetValue());
+
+	OnUpdateAudioSettings(resolutionChanged);
+
+	--快捷施法
+	--CS.LocalData.Instance:SetInt("enable_quickcast_unit", toggleQuickCastUnit.GetValue());
+	--CS.LocalData.Instance:SetInt("enable_quickcast_point", toggleQuickCastPoint.GetValue());
+	--CS.LocalData.Instance:SetInt("enable_quickcast_direction", toggleQuickCastDir.GetValue());
+	--CS.LocalData.Instance:SetInt("enable_quickcast_selmark", toggleQuickCastSelMark.GetValue());
+
+    CS.LocalData.Instance:Save();
+
+    CS.GameShared.Instance:UpdatePerformanceSetting(resolutionChanged);
+	GameCoreHelper.SendSceneUIMessage("update_gamesetting", "");
+	CS.GUIManager.Instance:ResetResolutionScaleFactor();
+
+	ApplyGameConfigs();
+end
+
+function ApplyGameConfigs()
+	if curGameConfigFields ~= nil then
+		for k,v in pairs(curGameConfigFields) do
+			if v.bindPojo.config_type ~= 1 and v.IsChanged() then
+				CS.IntvalConfigLogic.SetIntvalConfigByInfo(v.bindPojo, v.GetValue())
+			end
+        end
+	end
+end
+
+function OnUpdateAudioSettings()
+	local curMusicVolume = numMusicVolum.GetValue();
+	CS.AudioManager.Instance.SoundVolum = numSoundVolum.GetValue() * 0.01;
+	CS.AudioManager.Instance.MusicVolum = curMusicVolume * 0.01;
+
+	if isMobileMode then
+		CS.AudioManager.Instance.AmbianceVolum = CS.AudioManager.Instance.SoundVolum;
+	else
+		CS.AudioManager.Instance.AmbianceVolum = numAmbianceVolum.GetValue() * 0.01;
+	end
+
+	CS.AudioManager.Instance:UpdateAudioVolum();
+
+	if initMusicVolume <= 0 and curMusicVolume > 0 then
+		--如果重新开启音乐则重播背景音乐
+		CS.AudioManager.Instance:ReplayBGM();
+	end
+end
+
+function beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end
+
+function onTabPageChanged(_tagKey)
+	curSeledPageCode = _tagKey
+	UpdatePageView()
+end
+
+function initAllConfigOptions()
+	--初始化通用设置选项
+	local defSelIndex = 0;
+	if oldLanguageSet == "english" then
+		defSelIndex = 1;
+	end
+	if not IsMobileMode then
+		if not isInGame then
+			cmbLanguageSet = addSettingOptionSwitch(listOptions1, "SettingsOptionToggleLanguageSelM",
+				GetGameString("lua_script_str13"), "", defSelIndex);
+		end
+	end
+
+	--- 因为设置是1开启，0关闭，故做此翻转
+	--物品显示名称开关
+	local defShowItemNameVal = CS.LocalData.Instance:GetInt("enable_itemshowname", 0) == 1 and 0 or 1
+	cmbShowItemName = addSettingOptionToggle(listOptions1, GetGameString("lua_script_str_342"),
+		GetGameString("lua_script_str_343"), defShowItemNameVal);
+	if isMobileMode then
+	    --固定摇杆开关
+		local defFixedJoystick = CS.LocalData.Instance:GetInt("enable_fixedjoystick", 0) == 1 and 0 or 1
+		cmbFixedJoystick = addSettingOptionToggle(listOptions1, GetGameString("lua_script_str_354"),
+			"", defFixedJoystick);
+		--local curFixResVal = CS.LocalData.Instance:GetInt("fixed_res", 0);
+		--cmbFixedRes = addSettingOptionToggle(listOptions1, GetGameString("lua_script_str_344"), "", curFixResVal);
+		--oldFixedResVal = curFixResVal;
+
+        --镜头缩放选项
+        local curCameraZoomVal = CS.LocalData.Instance:GetInt("camera_zoom", 0);
+		local cameraZoomItemTitle = GetGameString("Camera_Zoom_set");
+        cmbCameraZoom = addSettingOptionSwitch(listOptions1, "SettingsOptionToggleCameraZoomSelM", GetGameString("lua_script_str_350"), "", curCameraZoomVal, cameraZoomItemTitle)
+
+		local curTextSizeVal = CS.LocalData.Instance:GetInt("story_text_size", 0);
+		local textSizeItemTitle = GetGameString("Camera_Zoom_set");
+		cmdStoryTextSize = addSettingOptionSwitch(listOptions1, "SettingsOptionToggleTextSizeM",
+			GetGameString("lua_script_str_355"), "", curTextSizeVal,textSizeItemTitle);
+
+		-- cmbLanguageSet = addSettingOptionSwitch(listOptions1, "SettingsOptionToggleLanguageSelM",
+		-- 	GetGameString("lua_script_str13"), "", defSelIndex);
+
+        --画质选项
+		curQualityVal = CS.LocalData.Instance:GetInt("performance_level", 1)
+		local curRecomDescInfo = GetGameString("lua_script_str14");
+		cmbPerformanceLevel = addSettingOptionSwitch(listOptions2, "SettingsOptionToggleQualitySelM", GetGameString("lua_script_str15"), curRecomDescInfo, curQualityVal);
+
+        --帧率选项
+		local curFPSIndex = maxFPSVal - CS.LocalData.Instance:GetInt("limit_fps", 1);
+		if curFPSIndex < 0 then
+			curFPSIndex = 0;
+		end
+		cmbFPS = addSettingOptionSwitch(listOptions2, "SettingsOptionToggleFPSSelM", GetGameString("lua_script_str16"), "", curFPSIndex);
+
+        --天气开关
+		local curWeatherVal = CS.LocalData.Instance:GetInt("weather", 0);
+		cmbWeather = addSettingOptionToggle(listOptions2, GetGameString("lua_script_str_301"), "", curWeatherVal);
+
+		--模型描边开关
+		local curOutlineVal = CS.LocalData.Instance:GetInt("outline", 0);
+		cmbOutline = addSettingOptionToggle(listOptions2, GetGameString("lua_script_str_302"), "", curOutlineVal);
+
+		--模型阴影开关
+		local curShadowVal = CS.LocalData.Instance:GetInt("shadow", 0);
+		cmbShadow = addSettingOptionToggle(listOptions2, GetGameString("lua_script_str_303"), "", curShadowVal);
+
+        --队伍跟随数量滚动条
+        local curFollowSizeVal = CS.LocalData.Instance:GetInt("follow_size", 6);
+        numFollowSize = addSettingOptionSlider(listOptions2, GetGameString("lua_script_str_349"), 0, 30, "", curFollowSizeVal)
+	end
+
+    --音效音量滚动条
+	local curSoundVal = math.floor(CS.AudioManager.Instance.SoundVolum * 100)
+	numSoundVolum = addSettingOptionSlider(listOptions3, GetGameString("lua_script_str17"), 0, 100, "", curSoundVal)
+
+    --音乐音量滚动条
+	local curMusicVal = math.floor(CS.AudioManager.Instance.MusicVolum * 100)
+	numMusicVolum = addSettingOptionSlider(listOptions3, GetGameString("lua_script_str18"), 0, 100, "", curMusicVal)
+	initMusicVolume = curMusicVal;
+
+	if not isMobileMode then
+		local curAmbianceVal = math.floor(CS.AudioManager.Instance.AmbianceVolum * 100)
+		numAmbianceVolum = addSettingOptionSlider(listOptions1, GetGameString("lua_script_str19"), 0, 100, "", curAmbianceVal)
+	end
+
+	if not isMobileMode then
+		--初始化画质设置选项
+		local curResolutionVal = CS.LocalData.Instance:GetString("cur_resolution_new", "1920x1080");
+		local optionVals = "1280x720,1280x720 (16:9)"
+		optionVals = optionVals .. ";1920x1080,1920x1080 (16:9)";
+		optionVals = optionVals .. ";2560x1440,2560x1440 (16:9)";
+		cmbResolutionSet = addSettingOptionCombo(listOptions2, GetGameString("lua_script_str20"), optionVals, "", curResolutionVal);
+		oldResolutionVal = curResolutionVal;
+
+        --画质选项
+		local optionQualitys = ""
+		optionQualitys = optionQualitys .. "3," .. GetGameString("UISettingsDlg_InitDialog_3");
+		optionQualitys = optionQualitys .. ";2," .. GetGameString("UISettingsDlg_InitDialog_4");
+		optionQualitys = optionQualitys .. ";1," .. GetGameString("UISettingsDlg_InitDialog_5");
+		optionQualitys = optionQualitys .. ";0," .. GetGameString("UISettingsDlg_InitDialog_6");
+		curQualityVal = CS.LocalData.Instance:GetInt("performance_level", 0)
+		cmbPerformanceLevel = addSettingOptionCombo(listOptions2, GetGameString("lua_script_str21"), optionQualitys, "", curQualityVal);
+
+        --抗锯齿选项
+		local antiAliasVals = ""
+		antiAliasVals = antiAliasVals .. "0," .. GetGameString("UISettingsDlg_InitDialog_8");
+		antiAliasVals = antiAliasVals .. ";1," .. GetGameString("UISettingsDlg_InitDialog_9");
+		antiAliasVals = antiAliasVals .. ";2," .. GetGameString("UISettingsDlg_InitDialog_10");
+		curAntiAliasVal = CS.LocalData.Instance:GetInt("anti_aliasing", 0);
+		local descInfo = GetGameString("lua_script_str22");
+		cmbAntiAliasing = addSettingOptionCombo(listOptions2, GetGameString("lua_script_str23"), antiAliasVals, descInfo, curAntiAliasVal);
+
+        --垂直同步选项
+		curVSyncVal = CS.LocalData.Instance:GetInt("enable_vsync", 0);
+		toggleVSync = addSettingOptionToggle(listOptions2, GetGameString("lua_script_str24"), "", curVSyncVal);
+
+        --帧率选项
+		local optionsFPS = ""
+		optionsFPS = optionsFPS .. "0," .. GetGameString("UISettingsDlg_InitDialog_13");
+		optionsFPS = optionsFPS .. ";1," .. GetGameString("UISettingsDlg_InitDialog_14");
+		optionsFPS = optionsFPS .. ";2," .. GetGameString("UISettingsDlg_InitDialog_15");
+		curFPSval = CS.LocalData.Instance:GetInt("limit_fps", 0);
+		cmbFPS = addSettingOptionCombo(listOptions2, GetGameString("lua_script_str25"), optionsFPS, "", curFPSval);
+	end
+
+	--初始化战斗设置选项
+	local curBattleVal = CS.LocalData.Instance:GetInt("cur_battle_max_num", CS.HanFramework.GameSettings.DEF_MAX_BATTLE_UNITS);
+	local descBattleNum = GetGameString("lua_script_str26");
+	numBattleMax = addSettingOptionSlider(listOptions4, GetGameString("lua_script_str27"), 40, 200, descBattleNum, curBattleVal)
+
+	local defDisBgSim = CS.LocalData.Instance:GetInt("disable_bg_sim", 1) == 1 and 1 or 0;
+	cmbDisableBgSim = addSettingOptionToggle(listOptions4, GetGameString("lua_script_str_358"), GetGameString("lua_script_str_357"), defDisBgSim);
+
+	local defActPanelPos = CS.LocalData.Instance:GetInt("act_panel_pos", 0);
+	cmbActPanelPos = addSettingOptionSwitch(listOptions4, "SettingsOptionPosTypeSelM", GetLanString("战斗按键布局"), "", defActPanelPos);
+
+	local defRollBtnPos = CS.LocalData.Instance:GetInt("roll_btn_pos", 1) == 1 and 1 or 0;
+	local _rollBtnOptTexts = GetLanString("左下|右上");
+	cmbRollBtnPos = addSettingOptionToggle(listOptions4, GetLanString("翻滚按钮位置"), "", defRollBtnPos, _rollBtnOptTexts);
+
+	local defAutoAttack = CS.LocalData.Instance:GetInt("enable_auto_attack", 0) == 1 and 0 or 1
+	cmbAutoAttack = addSettingOptionToggle(listOptions4, GetGameString("lua_script_str_356"), "", defAutoAttack);
+
+	--初始化工具选项
+	addSettingOptionButton(listOptions5, GetGameString("lua_script_str35"), GetGameString("lua_script_str36"), "", onOpenConsoleUI);
+
+	if isInSandbox then
+		local descConsole = CS.GUIHelper.ConvertUGUIStr(GetGameString("lua_script_str37"));
+		addSettingOptionButton(listOptions5, GetGameString("lua_script_str38"), GetGameString("lua_script_str39"), descConsole, onStackFixTools);
+	end
+
+		--BUG汇报
+		addSettingOptionButton(listOptions5, GetGameString("lua_script_str_359"), GetGameString("lua_script_str_360"), "", onBugReport);
+
+	--隐私协议
+	addSettingOptionButton(listOptions6, GetGameString("lua_script_str_347"), GetGameString("lua_script_str_345"), "", onOpenProtocol1);
+	addSettingOptionButton(listOptions6, GetGameString("lua_script_str_348"), GetGameString("lua_script_str_346"), "", onOpenProtocol2);
+	--账号注销
+	addSettingOptionButton(listOptions6, GetGameString("Cancel_Account_1"), GetGameString("Cancel_Account_2"), "", CancelAccount);
+
+	UpdatePageView()
+end
+
+function initAllGameConfigOptions()
+	curGameConfigFields = {}
+	local allConfigList = GameCoreHelper.GetAllList_GameIntValConfigPojo()
+	local curListIndex = 0
+	local isEnable = false
+	for index=0,allConfigList.Count-1 do
+		local tagConfig = allConfigList[index]
+		if not IsEmptyOrNil(tagConfig.intval_key) then
+			isEnable = true;
+			if (tagConfig.config_type == 1) then
+				isEnable = false;
+			end
+
+			local tagConfigOpt;
+			local optionName = tagConfig.display_name;
+            if not isEnable then
+                optionName = optionName .. GetGameString("UIIntvalConfigPage_UpdateConfigList");
+			end
+
+			--根据当前变量值选择选中项
+			local curIntval = GameCoreHelper.GetIntVar(tagConfig.intval_key);
+			local optionDesc = CS.GUIHelper.ConvertUGUIStr(tagConfig.desc_info);
+			if tagConfig.isBoolConfig then
+				tagConfigOpt = addSettingOptionToggle(listOptions4, optionName, optionDesc, curIntval);
+				tagConfigOpt.toggleBtn.enabled = isEnable
+			else
+				local optionVals = ""
+				local _initIndex = 0
+				if (tagConfig.configItems ~= nil) then
+					local tagOptField
+					for j=0,tagConfig.configItems.Length-1 do
+						tagOptField = tagConfig.configItems[j];
+						if j > 0 then
+							optionVals = optionVals .. ";"
+						end
+						optionVals = optionVals .. j .. "," .. tagOptField.display_name;
+						if tagOptField.config_val == curIntval then
+							_initIndex = j
+						end
+					end
+				end
+				tagConfigOpt = addSettingOptionCombo(listOptions4, optionName, optionVals, optionDesc, _initIndex);
+				tagConfigOpt.comboBox.enabled = isEnable
+			end
+			tagConfigOpt.bindPojo = tagConfig;
+
+			curGameConfigFields[curListIndex] = tagConfigOpt;
+			curListIndex = curListIndex + 1
+		end
+	end
+end
+
+function addSettingOptionCombo(_tagList, _title, _options, _desc, _defVal)
+	local tagListItem = UIPackage.CreateObject(constPackageNewUI, "SettingsOptionComboM").asCom
+
+	local _newOption = {}
+	_newOption.type = 1
+	_newOption.defVal = _defVal
+	_newOption.title = tagListItem:GetChild("title").asTextField
+	_newOption.comboBox = tagListItem:GetChild("combo").asComboBox
+	--_newOption.desc = tagListItem:GetChild("desc_info").asTextField
+
+	_newOption.title.text = _title
+	CS.GUIHelper.SetComboBoxItems(_newOption.comboBox, _options)
+	_newOption.comboBox.value = _newOption.defVal
+	--_newOption.desc.text = _desc
+
+	_newOption.GetValue = function()
+		return _newOption.comboBox.value;
+	end
+	_newOption.IsChanged = function()
+		if _newOption.comboBox.value ~= _newOption.defVal then
+			return true
+		end
+		return false
+	end
+
+	_tagList:AddChild(tagListItem)
+
+	return _newOption;
+end
+
+function addSettingOptionSwitch(_tagList, _compName, _title, _desc, _defVal)
+	local tagListItem = UIPackage.CreateObject(constPackageNewUI, _compName).asCom
+
+	local _newOption = {}
+	_newOption.type = 1
+	_newOption.defVal = _defVal
+	_newOption.title = tagListItem:GetChild("title").asTextField
+	 local selCtlCom = tagListItem:GetChild("selector").asCom
+
+	 _newOption.selList = selCtlCom:GetChild("tab_list").asList
+	 _newOption.selLightImg = selCtlCom:GetChild("tab_list").asImage
+
+	_newOption.title.text = _title
+
+	local descObj = tagListItem:GetChild("desc_info")
+	if descObj ~= nil then
+		_newOption.desc = descObj.asTextField
+		_newOption.desc.text = _desc
+	end
+
+	_newOption.selList.selectedIndex = _newOption.defVal
+
+	_newOption.GetValue = function()
+		return _newOption.selList.selectedIndex;
+	end
+	_newOption.IsChanged = function()
+		if _newOption.selList.selectedIndex ~= _newOption.defVal then
+			return true
+		end
+		return false
+	end
+
+	_tagList:AddChild(tagListItem)
+
+	return _newOption;
+end
+
+function addSettingOptionToggle(_tagList, _title, _desc, _defVal, _optTexts)
+	local isShowDesc = not IsEmptyOrNil(_desc);
+	local tagListItem;
+	if isShowDesc then
+		tagListItem = UIPackage.CreateObject(constPackageNewUI, "SettingsOptionToggleSelM_Tip").asCom;
+	else
+		tagListItem = UIPackage.CreateObject(constPackageNewUI, "SettingsOptionToggleSelM").asCom;
+	end
+
+	local _newOption = {}
+	_newOption.type = 2
+	_newOption.defVal = _defVal == 1
+	_newOption.title = tagListItem:GetChild("title").asTextField
+	_newOption.toggleBtn = tagListItem:GetChild("btn_switch").asButton
+
+	_newOption.title.text = _title;
+	_newOption.toggleBtn.selected = _newOption.defVal;
+
+	if not IsEmptyOrNil(_optTexts) and _newOption.toggleBtn ~= nil then
+		local txtOn = _newOption.toggleBtn:GetChild("txt_on").asTextField;
+		local txtOff = _newOption.toggleBtn:GetChild("txt_off").asTextField;
+		if txtOn ~= nil and txtOff ~= nil then
+			local tagLines = SplitStr(_optTexts, "|");
+			local curIndex = 0;
+			for k, tagLine in pairs(tagLines) do
+				if curIndex == 0 then
+					txtOn.text = tagLine;
+				elseif curIndex == 1 then
+					txtOff.text = tagLine;
+				end
+				curIndex = curIndex + 1;
+			end
+		end
+	end
+
+	if isShowDesc then
+		local _descObj = tagListItem:GetChild("desc_info");
+		if _descObj ~= nil then
+			_newOption.desc = _descObj.asTextField;
+			_newOption.desc.text = _desc;
+		end
+	end
+
+	_newOption.GetValue = function()
+		if _newOption.toggleBtn.selected then
+			return 1;
+		else
+			return 0;
+		end
+	end
+	_newOption.IsChanged = function()
+		if _newOption.toggleBtn.selected ~= _newOption.defVal then
+			return true
+		end
+		return false
+	end
+
+	_tagList:AddChild(tagListItem)
+
+	return _newOption;
+end
+
+function addSettingOptionSlider(_tagList, _title, _minVal, _maxVal, _desc, _defVal)
+	local tagListItem = UIPackage.CreateObject(constPackageNewUI, "SettingsOptionSlider1M").asCom
+
+	local _newOption = {}
+	_newOption.type = 3
+	_newOption.defVal = _defVal
+	_newOption.title = tagListItem:GetChild("title").asTextField
+	_newOption.desc = tagListItem:GetChild("desc_info").asTextField
+	_newOption.numVal = tagListItem:GetChild("num").asTextField
+	_newOption.sliderNum = tagListItem:GetChild("slider").asSlider
+	_newOption.sliderNum.wholeNumbers = true;
+	_newOption.sliderNum.min = _minVal;
+	_newOption.sliderNum.max = _maxVal;
+	_newOption.sliderNum.value = _newOption.defVal;
+
+	onSliderNumChanged(_newOption.numVal, _newOption.sliderNum)
+	_newOption.sliderNum.onChanged:Add(function()
+		onSliderNumChanged(_newOption.numVal, _newOption.sliderNum)
+	end);
+	_newOption.IsChanged = function()
+		if _newOption.sliderNum.value ~= _newOption.defVal then
+			return true
+		end
+		return false
+	end
+
+	_newOption.title.text = _title
+	_newOption.desc.text = _desc
+
+	_newOption.GetValue = function()
+		return math.floor(_newOption.sliderNum.value)
+	end
+
+	_tagList:AddChild(tagListItem)
+
+	return _newOption;
+end
+
+function addSettingOptionButton(_tagList, _title, _btnText, _desc, _callback)
+	local tagListItem = UIPackage.CreateObject(constPackageNewUI, "SettingsOptionButton1M").asCom
+
+	local _newOption = {}
+	_newOption.type = 4
+	_newOption.title = tagListItem:GetChild("title").asTextField
+	--_newOption.desc = tagListItem:GetChild("desc_info").asTextField
+	_newOption.funcBtn = tagListItem:GetChild("btn_func").asButton
+	_newOption.funcBtn.text = _btnText
+
+	_newOption.title.text = _title
+	--_newOption.desc.text = _desc
+
+	_newOption.funcBtn.onClick:Add(_callback);
+
+	_newOption.IsChanged = function()
+		return false
+	end
+
+	_tagList:AddChild(tagListItem)
+
+	return _newOption;
+end
+
+function onSliderNumChanged(_txtNum, _slider)
+	_txtNum.text = math.floor(_slider.value)
+end
+
+function onOpenConsoleUI()
+	PlayButtonSound()
+
+	SetBlockMask(true);
+	CS.GUIHelper.ShowConsoleUI(function(ret)
+		SetBlockMask(false);
+		self.CurDialogResult = 110;
+		self:Hide();
+	end);
+end
+
+function CancelAccount()
+	CS.GUIHelper.CancelAccount();
+end
+
+function onOpenProtocol1()
+	PlayButtonSound()
+
+	CS.GUIHelper.ShowWebView(GetGameString("lua_script_str_347"), "https://www.xd.com/user_protocol/#xieyi", nil);
+end
+
+function onOpenProtocol2()
+	PlayButtonSound()
+
+	CS.GUIHelper.ShowWebView(GetGameString("lua_script_str_348"), "https://www.xd.com/privacy/#privacy", nil);
+end
+
+function onBugReport()
+	PlayButtonSound()
+
+	CS.GUIHelper.ShowBugReportUI(nil);
+end
+
+function onStackFixTools()
+	PlayButtonSound()
+
+	if not CS.GUIHelper.CheckRepairPosCD() then
+		ShowConfirmDlg(GetGameString("UISettingsDlg_OnRepairStuckPosBtnClicked"), "ok", nil);
+		return
+	end
+
+	ShowConfirmDlg(GetGameString("UISettingsDlg_OnRepairStuckPosBtnClicked_1"), "yesno", function(ret)
+		if ret == 1 then
+			CS.GUIHelper.UpdateRepairPosCD();
+			self.CurDialogResult = 120;
+			self:Hide();
+		end
+	end);
+end
+
+function UpdatePageView()
+	compPage1.visible = false
+	compPage2.visible = false
+	compPage3.visible = false
+	compPage4.visible = false
+	compPage5.visible = false
+	compPage6.visible = false
+	if curSeledPageCode == "video" then
+		compPage2.visible = true
+	elseif curSeledPageCode == "audio" then
+		compPage3.visible = true
+	elseif curSeledPageCode == "battle" then
+		compPage4.visible = true
+	elseif curSeledPageCode == "tools" then
+		compPage5.visible = true
+	elseif curSeledPageCode == "information" then
+		compPage6.visible = true
+	else
+		compPage1.visible = true
+	end
+
+	if txtTIps ~= nil then
+		if curSeledPageCode == "video" or curSeledPageCode == "common" then
+			txtTIps.visible = true;
+		else
+			txtTIps.visible = false;
+		end
+	end
+end
+
+function SetBlockMask(_isShow)
+	if popupMask ~= nil then
+		popupMask.visible = _isShow;
+	end
+end
+
+function IsBlockMaskShow()
+	if popupMask ~= nil then
+		return popupMask.visible;
+	end
+	return false;
+end

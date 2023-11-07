@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <convert reg="chest_info_pojo.xml" from="B宝箱信息表.xlsx"/>
+    <convert reg="initinfo_pojo.xml" from="C初始设定表.xlsx"/>
+    <convert reg="event_trigger_pojo.xml" from="C触发器.xlsx"/>
+    <convert reg="legacy_pojo.xml" from="C传承.xlsx"/>
+    <convert reg="mu_model_pojo.xml" from="D大地图单位模型表.xlsx"/>
+    <convert reg="game_item_pojo.xml" from="D道具列表.xlsx"/>
+    <convert reg="place_pojo.xml" from="D地点列表.xlsx"/>
+    <convert reg="gamemap_pojo.xml" from="D地图列表.xlsx"/>
+    <convert reg="story_mode_pojo.xml" from="J剧本设定.xlsx"/>
+    <convert reg="storyevent_pojo.xml" from="J剧情.xlsx"/>
+    <convert reg="character.xml" from="R人物立绘信息.xlsx"/>
+    <convert reg="role_template_pojo.xml" from="R人物列表.xlsx"/>
+    <convert reg="quest_pojo.xml" from="R任务列表.xlsx"/>
+    <convert reg="merchant_pojo.xml" from="S商人列表.xlsx"/>
+    <convert reg="definedbattle_pojo.xml" from="T特定战斗表.xlsx"/>
+    <convert reg="monster_emitter_pojo.xml" from="Y野怪发射器.xlsx"/>
+    <convert reg="monster_info_pojo.xml" from="Y野怪投放适配表.xlsx"/>
+    <convert reg="gamecamp_pojo.xml" from="Z阵营势力表.xlsx"/>
+    <convert reg="scriptstring_pojo.xml" from="J剧情内文字翻译.xlsx" need_translate="true" />
+</root>

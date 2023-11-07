@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+0.56#block_act#0#0
+0.56#use_skill#蛮力战士野蛮冲撞冲锋#caster#target#
+0.17#dmg_check#1#type:2#0#unit_pos,0,0,0,300

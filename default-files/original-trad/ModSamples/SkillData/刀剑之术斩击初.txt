@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.33*[%skill_lv:刀剑之术斩击提升1%][=]0#dmg_check#0#type:2;dmg:[%stat:s_攻击%]*1.5;hit:1000;blk:-1000;eft:刀剑之术斩击受击#
+0.33*[%skill_lv:刀剑之术斩击提升1%][>]0#dmg_check#0#type:2;dmg:[%stat:s_攻击%]*2.5;hit:1000;blk:-1000;eft:刀剑之术斩击受击#
+0.32#add_eft#P刀剑之术斩击#unit_pos,0,0,0#0
+0.32#play_sound#Slash_Basic#unit_pos

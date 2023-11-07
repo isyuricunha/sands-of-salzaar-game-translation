@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.65#add_eft#雷雨云特效#tag_pos,[%rnd:-1000,1000%],[%rnd:-1000,1000%],0#3:[%rnd:0,360%],1000
+0.65#add_eft#雷雨云特效#tag_pos,[%rnd:-1000,1000%],[%rnd:-1000,1000%],0#3:[%rnd:0,360%],1000
+0.65#add_eft#雷雨云特效#tag_pos,[%rnd:-1000,1000%],[%rnd:-1000,1000%],0#3:[%rnd:0,360%],1000
+0.32#b_talk#caster#雷电的神力！#1
+0.01#play_sound#Cast_Storm#unit_pos
+0.15#play_sound#Thunder_01#unit_pos

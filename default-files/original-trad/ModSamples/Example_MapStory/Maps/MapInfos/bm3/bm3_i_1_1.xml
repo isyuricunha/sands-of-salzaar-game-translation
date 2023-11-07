@@ -1,0 +1,56 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.001" need_tex_file="0">
+  <tile_tex tex_id="17" scale_x="1" scale_y="1" rotate="0" />
+  <tile_obj obj_id="32" obj_type="0" tileset_id="bg_ts_shortpine" layer_index="3" pos_x="555.6089" pos_y="486.7834" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="34" obj_type="0" tileset_id="bg_ts_shorttrunkpine_snow" layer_index="3" pos_x="568.781555" pos_y="425.3838" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="115" obj_type="0" tileset_id="tile_ground3_15A" layer_index="4" pos_x="1184" pos_y="512" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="124" obj_type="0" tileset_id="tile_ground3_15C" layer_index="4" pos_x="1152" pos_y="496" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="127" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1184" pos_y="480" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="118" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1216" pos_y="496" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="119" obj_type="0" tileset_id="tile_ground3_02" layer_index="4" pos_x="1248" pos_y="512" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="120" obj_type="0" tileset_id="tile_ground3_09B" layer_index="4" pos_x="1216" pos_y="528" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="121" obj_type="0" tileset_id="tile_ground3_01" layer_index="4" pos_x="1184" pos_y="544" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="122" obj_type="0" tileset_id="tile_ground3_12B" layer_index="4" pos_x="1152" pos_y="528" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="128" obj_type="0" tileset_id="tile_ground3_12B" layer_index="4" pos_x="1120" pos_y="512" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="125" obj_type="0" tileset_id="tile_ground3_11B" layer_index="4" pos_x="1120" pos_y="480" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="129" obj_type="0" tileset_id="tile_ground3_04" layer_index="4" pos_x="1088" pos_y="496" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="38" obj_type="0" tileset_id="bg_ts_shortpine_snow" layer_index="3" pos_x="821.6904" pos_y="731.7888" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="39" obj_type="0" tileset_id="bg_ts_shortpine_snow" layer_index="3" pos_x="792.7112" pos_y="631.679" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="40" obj_type="0" tileset_id="bg_ts_shortpine_snow" layer_index="3" pos_x="1040.35083" pos_y="826.6297" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="55" obj_type="0" tileset_id="tile_ground3_15C" layer_index="4" pos_x="1568" pos_y="736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="53" obj_type="0" tileset_id="tile_ground3_12B" layer_index="4" pos_x="1568" pos_y="768" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="65" obj_type="0" tileset_id="tile_ground3_05" layer_index="4" pos_x="1536" pos_y="752" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="64" obj_type="0" tileset_id="tile_ground3_07" layer_index="4" pos_x="1536" pos_y="720" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="57" obj_type="0" tileset_id="tile_ground3_03" layer_index="4" pos_x="1568" pos_y="704" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="61" obj_type="0" tileset_id="tile_ground3_15C" layer_index="4" pos_x="1504" pos_y="736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="69" obj_type="0" tileset_id="tile_ground3_15B" layer_index="4" pos_x="1472" pos_y="720" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="72" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1504" pos_y="704" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="66" obj_type="0" tileset_id="tile_ground3_01" layer_index="4" pos_x="1504" pos_y="768" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="67" obj_type="0" tileset_id="tile_ground3_12" layer_index="4" pos_x="1472" pos_y="752" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="73" obj_type="0" tileset_id="tile_ground3_12" layer_index="4" pos_x="1440" pos_y="736" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="75" obj_type="0" tileset_id="tile_ground3_15C" layer_index="4" pos_x="1440" pos_y="704" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="86" obj_type="0" tileset_id="tile_ground3_06" layer_index="4" pos_x="1472" pos_y="688" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="79" obj_type="0" tileset_id="tile_ground3_12" layer_index="4" pos_x="1408" pos_y="720" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="87" obj_type="0" tileset_id="tile_ground3_08" layer_index="4" pos_x="1408" pos_y="688" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="81" obj_type="0" tileset_id="tile_ground3_15A" layer_index="4" pos_x="1440" pos_y="672" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="80" obj_type="0" tileset_id="tile_ground3_04" layer_index="4" pos_x="1376" pos_y="704" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="89" obj_type="0" tileset_id="tile_ground3_15A" layer_index="4" pos_x="1408" pos_y="656" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="92" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1440" pos_y="640" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="84" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1472" pos_y="656" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="85" obj_type="0" tileset_id="tile_ground3_02" layer_index="4" pos_x="1504" pos_y="672" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="93" obj_type="0" tileset_id="tile_ground3_12B" layer_index="4" pos_x="1376" pos_y="672" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="95" obj_type="0" tileset_id="tile_ground3_15B" layer_index="4" pos_x="1376" pos_y="640" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="106" obj_type="0" tileset_id="tile_ground3_06" layer_index="4" pos_x="1408" pos_y="624" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="99" obj_type="0" tileset_id="tile_ground3_12B" layer_index="4" pos_x="1344" pos_y="656" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="107" obj_type="0" tileset_id="tile_ground3_08" layer_index="4" pos_x="1344" pos_y="624" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="101" obj_type="0" tileset_id="tile_ground3_15B" layer_index="4" pos_x="1376" pos_y="608" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="100" obj_type="0" tileset_id="tile_ground3_04" layer_index="4" pos_x="1312" pos_y="640" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="109" obj_type="0" tileset_id="tile_ground3_15A" layer_index="4" pos_x="1344" pos_y="592" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="112" obj_type="0" tileset_id="tile_ground3_10" layer_index="4" pos_x="1376" pos_y="576" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="104" obj_type="0" tileset_id="tile_ground3_10B" layer_index="4" pos_x="1408" pos_y="592" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="105" obj_type="0" tileset_id="tile_ground3_02" layer_index="4" pos_x="1440" pos_y="608" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="113" obj_type="0" tileset_id="tile_ground3_12" layer_index="4" pos_x="1312" pos_y="608" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="110" obj_type="0" tileset_id="tile_ground3_11" layer_index="4" pos_x="1312" pos_y="576" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="111" obj_type="0" tileset_id="tile_ground3_03" layer_index="4" pos_x="1344" pos_y="560" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+  <tile_obj obj_id="114" obj_type="0" tileset_id="tile_ground3_04" layer_index="4" pos_x="1280" pos_y="592" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" />
+</blend_map_tileinfo>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.296739519" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="3" scale_y="3" rotate="0" />
+  <tile_tex tex_id="14" scale_x="3" scale_y="4" rotate="0" />
+  <tile_obj obj_id="171" obj_type="0" tileset_id="yellowbigtree" layer_index="1" pos_x="2270.17188" pos_y="391.985168" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="170" obj_type="0" tileset_id="yellowbigtree" layer_index="1" pos_x="1768.44739" pos_y="508.364746" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="232" obj_type="0" tileset_id="yanti_gobi14" layer_index="1" pos_x="2502.40942" pos_y="676.2968" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="233" obj_type="0" tileset_id="yanti_gobi14" layer_index="1" pos_x="2351.11621" pos_y="702.1589" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="244" obj_type="0" tileset_id="yanti_gobi09" layer_index="1" pos_x="2382.66846" pos_y="494.227783" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="245" obj_type="0" tileset_id="yanti_gobi06" layer_index="1" pos_x="2523.6167" pos_y="650.434753" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="302" obj_type="0" tileset_id="yanti_gobi07" layer_index="1" pos_x="1574.47217" pos_y="400.8661" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+</blend_map_tileinfo>

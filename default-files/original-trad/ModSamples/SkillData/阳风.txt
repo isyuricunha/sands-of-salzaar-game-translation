@@ -1,0 +1,10 @@
+﻿0#block_act#1#0
+0#add_eft#扇形预警0_5:1:15#unit_pos,0,0,0#0
+0.92#block_act#0#0
+0.5#add_eft#阳风#unit_pos#3:0,2000#0#
+0.5#add_eft#阳风#unit_pos#3:45,2000#0#
+0.5#add_eft#阳风#unit_pos#3:-45,2000#0#
+0.5#camera_shake#1#3
+0.5#play_sound#StormMagic_01#unit_pos
+0.2#play_sound#SK_033#unit_pos
+0.4#play_sound#SK_045#unit_pos

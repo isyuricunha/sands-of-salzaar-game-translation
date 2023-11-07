@@ -1,0 +1,150 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnClose;
+local btnReturn;
+local txtTitle;
+local graphMapViewHolder;
+local ctlMapView;
+
+local defMapID;
+
+local sceneMsgHandler;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	txtTitle = contentPane:GetChild("title").asTextField;
+
+	graphMapViewHolder = contentPane:GetChild("map_holder").asGraph;
+
+	--绑定按钮事件
+	btnClose = contentPane:GetChild("btn_close").asButton;
+	btnClose.onClick:Add(onClickBtnClose);
+
+	btnReturn = contentPane:GetChild("btn_return").asButton;
+	btnReturn.onClick:Add(onClickBtnReturn);
+
+	--设置默认值
+	self:SetCloseButton(btnClose);
+end
+
+--自定义初始化事件
+function onCustomInit()
+	local locInfo = self.CustomArgObj1;
+	defMapID = self:GetWindowArgVal("map_id");
+
+	ctlMapView = CS.GUIHelper.CreateGameMapUI(graphMapViewHolder, defMapID, locInfo);
+	graphMapViewHolder.visible = true;
+	ctlMapView:SetMapViewStateChangedCallback(function(_curState)
+		UpdateCurMapViewState();
+	end);
+
+	UpdateCurMapViewState();
+end
+
+--设置窗口参数
+function SetWindowParams(args)
+
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	sceneMsgHandler = CS.GUIHelper.RegSceneMsgHandler(OnSceneMsgHandler)
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	graphMapViewHolder.visible = false;
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	ctlMapView:DestroyView();
+	CS.GUIHelper.HideCurMouseOverView();
+	if sceneMsgHandler ~= nil then
+		CS.GUIHelper.RemoveSceneMsgHandler(sceneMsgHandler)
+	end
+end
+
+--重载按键事件
+function onKeyDown(_keyCode)
+	if ctlMapView ~= nil and ctlMapView:IsIMEEnable() then
+		return;
+	end
+
+	local hotkeyCode = CS.GUIHelper.GetHotkeyValByKeycode(_keyCode, "common");
+	if hotkeyCode > 0 then
+		if hotkeyCode == 3 then
+			onClickBtnClose();
+			return true;
+		end
+	end
+	return false
+end
+
+function OnSceneMsgHandler(msgType, msgArg)
+	if msgType == "update_mapmarks" then
+		if ctlMapView ~= nil then
+			if not IsEmptyOrNil(msgArg) and msgArg ~= ctlMapView:GetCurrentMapID() then
+				return;
+			end
+			ctlMapView:UpdateMapMarks();
+		end
+	elseif msgType == "close_map_ui" then
+		onClickBtnClose();
+	end
+end
+
+function onClickBtnClose()
+	PlayButtonSound();
+
+	self.CurDialogResult = -1;
+	self:Hide();
+end
+
+function onClickBtnReturn()
+	PlayButtonSound();
+
+	local curState = ctlMapView:GetCurMapViewState();
+	if curState == 0 then
+		if ctlMapView:EnableWorldMap() then
+			ctlMapView:ShowWorldMap();
+		end
+	elseif curState == 1 then
+		ctlMapView:ReturnCurrentMap();
+	end
+end
+
+function UpdateCurMapViewState()
+	local curState = ctlMapView:GetCurMapViewState();
+	if curState == 0 then
+		txtTitle.text = GetGameString("UIGameMapPage_ShowTapMap") .. ":" .. ctlMapView:GetCurMapAreaName();
+		btnReturn.title = GetGameString("lua_script_str_267");
+		if ctlMapView:EnableWorldMap() then
+			btnReturn.visible = true;
+		else
+			btnReturn.visible = false;
+		end
+	elseif curState == 1 then
+		txtTitle.text = GetGameString("UIGameMapPage_ShowWorldMap");
+		btnReturn.title = GetGameString("lua_script_str_268");
+		btnReturn.visible = true;
+	end
+end

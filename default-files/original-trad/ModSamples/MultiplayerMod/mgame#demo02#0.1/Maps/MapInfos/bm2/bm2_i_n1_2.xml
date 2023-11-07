@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.2" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
+  <tile_tex tex_id="8" scale_x="3" scale_y="3" rotate="0" />
+  <tile_obj obj_id="469" obj_type="0" tileset_id="yanti_desertrock01" layer_index="2" pos_x="-1328.56" pos_y="1679.23743" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_areas area_id="32" bind_info_type="12" center_map_x="-1279.11438" center_map_y="3331.08984" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-252.702026" aabb_min_y="-101.1333" aabb_max_x="161.418335" aabb_max_y="92.38489">
+    <pts_info>-247,-30;-45,-192;156,35;-12,174</pts_info>
+    <properties>
+      <property name="control_id" value="" />
+      <property name="init_state" value="0" />
+      <property name="collide_type" value="0" />
+    </properties>
+  </tile_areas>
+</blend_map_tileinfo>

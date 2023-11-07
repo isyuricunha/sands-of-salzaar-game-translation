@@ -1,0 +1,313 @@
+require("gui/WindowUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+LegacyItemDetailInfoWin = {
+	curItemInfo = nil,
+	isShowing = false,
+	onWindowClosed = nil,
+	onItemValueChanged = nil,
+	pojoMaxVal = 1,
+	maxSetVal = 1,
+	curPoints = 0,
+	maxPoints = 0,
+}
+
+LegacyItemDetailInfoWin.meta = {__index = LegacyItemDetailInfoWin}
+
+function LegacyItemDetailInfoWin:Create()
+	local tagClass = {}
+    setmetatable(tagClass, self.meta)
+    return tagClass
+end
+
+function LegacyItemDetailInfoWin:Init(_tagComp)
+	self.mainView = _tagComp
+
+	local frameComp = _tagComp:GetChild("frame").asCom
+	self.txtTitle = frameComp:GetChild("title").asTextField;
+	self.closeBtn = frameComp:GetChild("closeButton").asButton
+	self.selInfo = _tagComp:GetChild("sel_info").asTextField
+	self.btnAdd = _tagComp:GetChild("btn_plus").asButton
+	self.btnMinus = _tagComp:GetChild("btn_minus").asButton
+	self.lvInfos = _tagComp:GetChild("info_list").asList;
+
+	self.sliderGroup = _tagComp:GetChild("slider_group").asGroup
+	self.sliderNum = _tagComp:GetChildInGroup(self.sliderGroup, "slider").asSlider
+	self.sliderNum.wholeNumbers = true;
+	self.sliderNum.onChanged:Add(function()
+		self:onSliderValChanged();
+	end);
+
+	self.closeBtn.onClick:Add(function()
+		self:onClickCloseBtn();
+	end);
+
+	self.btnAdd.onClick:Add(function()
+		self:onClickAddBtn();
+	end);
+	self.btnMinus.onClick:Add(function()
+		self:onClickMinusBtn();
+	end);
+
+	self.oldAlertInfoColor = self.selInfo.color
+	self.errorAlertInfoColor = CS.UnityEngine.Color(1, 0.1, 0.1, 1)
+	self.strCheckedOn = GetGameString("lua_script_str48")
+	self.strNoPoints = GetGameString("lua_script_str49")
+	self.strConditionFailed = GetGameString("lua_script_str50")
+
+	self.mainView.visible = false
+	self.isShowing = false
+end
+
+function LegacyItemDetailInfoWin:IsShowing()
+	return self.isShowing
+end
+
+function LegacyItemDetailInfoWin:Show(_tagViewObj, _itemInfo, _curPts, _maxPts)
+	if not self.mainView.visible then
+		self.mainView.visible = true
+		self.mainView.alpha = 0
+		CS.FairyGUI.GTween.Kill(self.mainView)
+		self.mainView:TweenFade(1.0, 0.2)
+		self.isShowing = true
+	end
+	self.mainView.alpha = 1
+
+	self.curItemInfo = _itemInfo
+	self.curPoints = _curPts
+	self.maxPoints = _maxPts
+	self:UpdateItemInfo()
+end
+
+function LegacyItemDetailInfoWin:Hide()
+	self.isShowing = false
+	CS.FairyGUI.GTween.Kill(self.mainView)
+	self.mainView:TweenFade(0, 0.2):OnComplete(function()
+		self:onHideDone()
+	end)
+end
+
+function LegacyItemDetailInfoWin:onHideDone()
+	self.mainView.visible = false
+	if self.onWindowClosed ~= nil then
+		self.onWindowClosed()
+	end
+end
+
+function LegacyItemDetailInfoWin:onClickCloseBtn()
+	PlayButtonSound()
+
+	self:Hide()
+end
+
+function LegacyItemDetailInfoWin:onClickAddBtn()
+	PlayButtonSound()
+
+	if self.curItemInfo ~= nil then
+		self:SetItemVal(self.curItemInfo.SetValue + 1, true)
+	end
+end
+
+function LegacyItemDetailInfoWin:onClickMinusBtn()
+	PlayButtonSound()
+	
+	if self.curItemInfo ~= nil then
+		self:SetItemVal(self.curItemInfo.SetValue - 1, true)
+	end
+end
+
+function LegacyItemDetailInfoWin:SetItemVal(_tagVal, _updateSlider)
+	if self.curItemInfo ~= nil then
+		local _newVal = _tagVal
+		if _newVal < 0 then
+			_newVal = 0
+		else
+			if self.pojoMaxVal > 1 then
+				if _newVal > self.maxSetVal then
+					_newVal = self.maxSetVal
+				end
+			else
+				if _newVal > 1 then
+					_newVal = 1
+				end
+			end
+		end
+		if _newVal ~= self.curItemInfo.SetValue then
+			self.curItemInfo.SetValue = _newVal
+			self:UpdateSetInfo(_updateSlider)
+
+			if self.onItemValueChanged ~= nil then
+				self.onItemValueChanged(self.curItemInfo)
+			end
+		end
+	end
+end
+
+function LegacyItemDetailInfoWin:UpdateItemInfo()
+	if self.curItemInfo ~= nil then
+		local pojoInfo = self.curItemInfo.pojoInfo
+		self.txtTitle.text = pojoInfo.show_name
+
+		self.pojoMaxVal = pojoInfo:GetMaxLevel()
+		self.maxSetVal = self.pojoMaxVal
+		self.costPrice = pojoInfo.cost_point
+		local enableNum = math.floor((self.maxPoints - self.curPoints) / self.costPrice)
+		if enableNum >= 0 and enableNum < self.maxSetVal then
+			self.maxSetVal = enableNum
+		end
+		if self.pojoMaxVal > 1 then
+			self.sliderGroup.visible = true
+			self.sliderNum.min = 0;
+			self.sliderNum.max = self.maxSetVal;
+			self.selInfo.visible = false
+		else
+			self.sliderGroup.visible = false
+			self.selInfo.visible = true
+		end
+
+		self.lvInfos:RemoveChildren(0, -1, true)
+		--消耗提示
+        if self.costPrice ~= 0 then
+            if (self.costPrice > 0 and self.pojoMaxVal > 1) then
+                self:addListInfoDescPrice1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo"), self.costPrice));
+            elseif (self.costPrice > 0 and self.pojoMaxVal <= 1) then
+                self:addListInfoDescPrice1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo_1"), self.costPrice));
+            elseif (self.costPrice < 0 and self.pojoMaxVal > 1) then
+                self:addListInfoDescPrice1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo_2"), -self.costPrice));
+            elseif (self.costPrice < 0 and self.pojoMaxVal <= 1) then
+                self:addListInfoDescPrice1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo_3"), -self.costPrice));
+			end
+		end
+		
+		--可叠加提示
+        if (self.pojoMaxVal > 1) then
+            self:addListInfoDescLine1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo_4"), self.pojoMaxVal));
+		end
+
+		--解锁条件提示
+        if (not IsEmptyOrNil(self.curItemInfo.strConditionInfo)) then
+            self:addListInfoDescLine1(GetGameString("UIPageLegacy_RefreshDescInfo_5"));
+            self:addListInfoDescLine1(self.curItemInfo.strConditionInfo);
+		end
+
+		--读入详细描述信息
+		local detailLines = CS.GUIHelper.GetLegacyItemDetailInfoLines(pojoInfo.desc);
+		if detailLines ~= nil and detailLines.Count > 0 then
+			for index=0,detailLines.Count-1 do
+				local tagLine = detailLines[index]
+				if tagLine.itemType == 1 then
+					self:addListInfoItemsLine1(tagLine.itemInfo);
+				elseif tagLine.itemType == 2 then
+					self:addListInfoSkillsLine1(tagLine.itemInfo);
+				elseif tagLine.itemType == 3 then
+					local rolePojo = GameCoreHelper.GetRoleTemplateInfo(tagLine.itemInfo)
+					self:addListInfoDescLine1(GameCoreHelper.StringFormat(GetGameString("UIPageLegacy_RefreshDescInfo_6"),
+													CS.GameTools.GetWeaponName(rolePojo.use_weapon)));
+					if not IsEmptyOrNil(rolePojo.init_skills) then
+						self:addListInfoDescLine1(GetGameString("UIPageLegacy_RefreshDescInfo_8"));
+						self:addListInfoSkillsLine1(rolePojo.init_skills);
+					end
+
+					--可学习技能页：
+					if not IsEmptyOrNil(rolePojo.skill_pages) then
+						self:addListInfoDescLine1(GetGameString("UIPageLegacy_RefreshDescInfo_9"));
+						local skillPageSkills = CS.GameTools.GetAllSkillsInPage(rolePojo.skill_pages)
+						self:addListInfoSkillsLine1(skillPageSkills);
+					end
+				else
+					self:addListInfoDescLine1(tagLine.itemInfo);
+				end
+			end
+		end
+
+		--初始角色位提示
+        if (pojoInfo.type == 2) then
+            self:addListInfoDescLine1(GetGameString("UIPageLegacy_RefreshDescInfo_10"));
+		end
+	end
+	self:UpdateSetInfo(true)
+end
+
+function LegacyItemDetailInfoWin:addListInfoDescPrice1(_addInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MLegacyItemInfoPrice1").asLabel
+
+	tagListItem.title = CS.GUIHelper.ConvertUGUIStr(_addInfo)
+	self.lvInfos:AddChild(tagListItem)
+end
+
+function LegacyItemDetailInfoWin:addListInfoDescLine1(_addInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MLegacyItemInfoLine1").asLabel
+
+	tagListItem.title = CS.GUIHelper.ConvertUGUIStr(_addInfo)
+	self.lvInfos:AddChild(tagListItem)
+end
+
+function LegacyItemDetailInfoWin:addListInfoItemsLine1(_itemsInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MSimpleItemsInfoList1").asCom
+
+	local tagList = tagListItem:GetChild("list").asList
+	CS.GUICtlSimpleItemsList.CreateComponent(tagList, _itemsInfo)
+	self.lvInfos:AddChild(tagListItem)
+end
+
+function LegacyItemDetailInfoWin:addListInfoSkillsLine1(_skillsInfo)
+	local tagListItem = UIPackage.CreateObject(constPackageName, "MStorySelListSkills1").asCom
+
+	local tagList = tagListItem:GetChild("list").asList
+	CS.GUICtlSimpleSkillList.CreateComponent(tagList, _skillsInfo)
+	self.lvInfos:AddChild(tagListItem)
+end
+
+function LegacyItemDetailInfoWin:UpdateSetInfo(_changeSlider)
+	self.btnAdd.enabled = false;
+	self.btnMinus.enabled = false;
+	self.selInfo.visible = false;
+	if self.curItemInfo ~= nil then
+		if not self.curItemInfo.isEnable then
+			self:SetAlertInfo(self.strConditionFailed, true)
+			return
+		end
+		if self.pojoMaxVal > 1 then
+			if _changeSlider then
+				self.sliderNum.value = self.curItemInfo.SetValue
+			end
+			self:SetAlertInfo(tostring(self.curItemInfo.SetValue), false)
+			if self.curItemInfo.SetValue > 0 then
+				self.btnMinus.enabled = true
+			end
+			if self.curItemInfo.SetValue < self.maxSetVal then
+				self.btnAdd.enabled = true
+			end
+		else
+			if self.curItemInfo.SetValue > 0 then
+				self.btnMinus.enabled = true
+				self:SetAlertInfo(self.strCheckedOn, false)
+			else
+				if self.maxPoints - self.curPoints < self.costPrice then
+					self:SetAlertInfo(self.strNoPoints, true)
+				else
+					self.btnAdd.enabled = true
+				end
+			end
+		end
+	end
+end
+
+function LegacyItemDetailInfoWin:SetAlertInfo(_info, _isError)
+	self.selInfo.visible = true;
+	self.selInfo.text = _info
+	if _isError then
+		self.selInfo.color = self.errorAlertInfoColor
+	else
+		self.selInfo.color = self.oldAlertInfoColor
+	end
+end
+
+function LegacyItemDetailInfoWin:onSliderValChanged()
+	if self.curItemInfo ~= nil then
+		self:SetItemVal(math.floor(self.sliderNum.value), true)
+	end
+end
+
+

@@ -8,7 +8,5 @@
   "include_main_game": "1",
   "homepage_background": "",
   "audioControllerAdditional": "",
-  "build_version": "1.0.32",
-  "mod_uuid": "44200e457b930",
-  "dependency": "dlc#hanjiajianghu#1;dlc#hanjiajianghu_basic#1;blywd#baisc#0.1"
+  "build_version": "1.0.32"
 }

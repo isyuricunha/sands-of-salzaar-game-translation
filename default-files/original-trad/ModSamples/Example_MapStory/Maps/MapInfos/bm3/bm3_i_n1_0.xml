@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.001" need_tex_file="0">
+  <tile_tex tex_id="17" scale_x="1" scale_y="1" rotate="0" />
+  <tile_obj obj_id="21" obj_type="0" tileset_id="yanti_snow04" layer_index="2" pos_x="-783.2279" pos_y="-482.108154" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="22" obj_type="0" tileset_id="yanti_snow04" layer_index="2" pos_x="-878.068665" pos_y="-563.7766" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="439" obj_type="0" tileset_id="bg_ts_shortpine" layer_index="3" pos_x="-737.7035" pos_y="-511.2589" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="19" obj_type="0" tileset_id="yanti_snow06" layer_index="2" pos_x="-517.1466" pos_y="-384.632843" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="20" obj_type="0" tileset_id="yanti_snow11" layer_index="2" pos_x="-654.1389" pos_y="-439.956665" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+</blend_map_tileinfo>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.187117681" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="1" scale_y="1" rotate="0" />
+  <tile_tex tex_id="8" scale_x="2" scale_y="2" rotate="0" />
+  <tile_obj obj_id="269" obj_type="0" tileset_id="yanti_desertrock01" layer_index="1" pos_x="-1408.36292" pos_y="-1884.2478" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="270" obj_type="0" tileset_id="yanti_desertrock03" layer_index="1" pos_x="-1614.11865" pos_y="-1956.22607" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+</blend_map_tileinfo>

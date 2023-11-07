@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+1.17#block_act#0#0
+0.3#play_sound#WildFireCast_Start#unit_pos
+0.87#play_sound#EvilHand#unit_pos
+0.97#dmg_check#0#type:2;dmg:[%stat:s_魔法攻击%];attack_type:900;hit:1000;blk:-1000;eft:暗魔弹#
+0.32#yell#caster#过来吧！
+0.32#add_eft#M暗魔弹出手#cast_pos#0
+0.32#add_eft#黑暗之爪#unit_pos,0,0,0#0

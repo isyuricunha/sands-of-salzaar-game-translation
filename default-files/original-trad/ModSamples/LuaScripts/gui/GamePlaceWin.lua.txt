@@ -1,0 +1,998 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local curPlaceInfo
+
+local mainForm;
+local btnBack;
+
+local txtPlaceName;
+local lvPlaceInfo;
+local comCampFlag;
+local lordImg;
+
+local tabBtnBar;
+local tabBtnCityCenter;
+local tabBtnCityHall;
+
+local imgListBg;
+local lvVisitList;
+
+local lvBtnList;
+
+local btnSetHome;
+local btnSeige;
+local btnBuild;
+local btnRecruit;
+local btnStorage;
+local btnDispose;
+
+local btnBarChallenge;
+
+local tFadin
+local tFadout
+
+local sceneMsgHandler
+
+local StringFormat = GameCoreHelper.StringFormat
+
+local timerTickInterval = 0.05
+
+local gameState = 0;
+
+local playerRole
+local gameWorld
+local playerTeam
+
+local leavePlaceFlag = false;
+
+local curVisitRoleList;
+
+local popupMask;
+
+local isInEvent = false;
+
+local isMobileMode = false;
+
+local curPageIndex = 0;
+local oldListBgAlpha = 0;
+local colorNormalBar = CS.GUIHelper.GetColor("797979");
+
+local curLordHeadInfo = nil;
+
+local curSpace = "";
+
+--手柄操作相关
+local navCtl = nil;
+local listNavCtlTabs = nil;
+local listNavCtlVisit = nil;
+local listNavCtlBtns = nil;
+local navObjVisit = nil;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane;
+
+	isMobileMode = CS.GameTools.IsMobileMode();
+
+	tFadin = contentPane:GetTransition("fadin");
+	tFadout = contentPane:GetTransition("fadout");
+
+	--获取当前地点对象实例
+	curPlaceInfo = GameCoreHelper.GetCurVisitPlace();
+	playerRole = GameCoreHelper.GetPlayerRole();
+	gameWorld = GameCoreHelper.GetCurGameWorld();
+	playerTeam = GameCoreHelper.GetPlayerTeam();
+
+	mainForm = contentPane:GetChild("place_form").asCom;
+	popupMask = contentPane:GetChild("mask").asGraph;
+
+	btnBack = mainForm:GetChild("btn_close").asButton;
+
+	lordImg = mainForm:GetChild("head_holder").asImage;
+	lordImg.visible = false;
+
+	local groupInfo = mainForm:GetChild("g_topinfo").asGroup;
+	txtPlaceName = mainForm:GetChildInGroup(groupInfo, "txt_placename").asTextField;
+	lvPlaceInfo = mainForm:GetChildInGroup(groupInfo, "detail_list").asList;
+	comCampFlag = mainForm:GetChildInGroup(groupInfo, "img_flag").asCom;
+
+	local groupTabs = mainForm:GetChild("g_btns").asGroup;
+	tabBtnBar = mainForm:GetChildInGroup(groupTabs, "btn_bar").asButton;
+	tabBtnCityCenter = mainForm:GetChildInGroup(groupTabs, "btn_center").asButton;
+	tabBtnCityHall = mainForm:GetChildInGroup(groupTabs, "btn_cityhall").asButton;
+
+	local groupVisit = mainForm:GetChild("g_list").asGroup;
+	imgListBg = mainForm:GetChildInGroup(groupVisit, "bg_img").asLoader;
+	oldListBgAlpha = imgListBg.alpha;
+	imgListBg.visible = false;
+	lvVisitList = mainForm:GetChildInGroup(groupVisit, "vist_list").asList;
+	lvVisitList.visible = false;
+
+	--初始化地点功能按钮
+	lvBtnList = mainForm:GetChild("btn_list").asList;
+
+	btnSetHome = lvBtnList:GetChildAt(0).asButton
+	btnSetHome.onClick:Add(onClickBtnSetHome);
+	btnSetHome.tooltips = GetGameString("UIPlacePage_Panel_Content_Actions_btnSetHome_1");
+
+	btnBuild = lvBtnList:GetChildAt(1).asButton
+	btnBuild.onClick:Add(onClickBtnBuild);
+	btnBuild.tooltips = GetGameString("UIPlacePage_Panel_Content_Actions_btnDevelop_1");
+
+	btnRecruit = lvBtnList:GetChildAt(2).asButton
+	btnRecruit.onClick:Add(onClickBtnRecruit);
+	btnRecruit.tooltips = GetGameString("UIPlacePage_Panel_Content_Actions_btnGuardManage_2");
+
+	btnStorage = lvBtnList:GetChildAt(3).asButton
+	btnStorage.onClick:Add(onClickBtnStorage);
+	btnStorage.tooltips = GetGameString("lua_script_str_157");
+
+	btnBarChallenge = lvBtnList:GetChildAt(4).asButton
+	btnBarChallenge.onClick:Add(onClickBtnBarChallenge);
+	btnBarChallenge.tooltips = GetGameString("lua_script_str_158");
+
+	btnDispose = lvBtnList:GetChildAt(5).asButton
+	btnDispose.onClick:Add(onClickBtnCardsDispose);
+	btnDispose.tooltips = GetGameString("lua_script_str_261");
+
+	btnSeige = lvBtnList:GetChildAt(6).asButton
+	btnSeige.onClick:Add(onClickBtnSeige);
+	btnSeige.tooltips = GetGameString("UIPlacePage_Panel_Content_Actions_btnSiege_2");
+	--btnSeige.titleColor = CS.UnityEngine.Color(1, 0.4, 0.4, 1);
+
+	--绑定按钮事件
+	btnBack.onClick:Set(onClickBackBtn);
+
+	tabBtnBar.onClick:Add(onClickBtnBar);
+	tabBtnCityCenter.onClick:Add(onClickBtnCityCenter);
+	tabBtnCityHall.onClick:Add(onClickBtnCityHall);
+
+	--创建按键导航空间
+	navCtl = self:GetOrCreateNavCtl();
+
+	local navObjTabs = navCtl:AddNavObjSubSpace();
+	listNavCtlTabs = navObjTabs.subNavSpace;
+	local navObjTabBar = listNavCtlTabs:AddNavObjByGButton(tabBtnBar);
+	local navObjTabCenter = listNavCtlTabs:AddNavObjByGButton(tabBtnCityCenter);
+	navObjTabCenter:SetNavLeft(navObjTabBar);
+	local navObjTabHall = listNavCtlTabs:AddNavObjByGButton(tabBtnCityHall);
+	navObjTabHall:SetNavLeft(navObjTabCenter);
+
+	navObjVisit = navCtl:AddNavObjSubSpace();
+	navObjTabs:SetNavDown(navObjVisit);
+	listNavCtlVisit = navObjVisit.subNavSpace;
+
+	local navObjBtnList = navCtl:AddNavObjSubSpace();
+	listNavCtlBtns = navObjBtnList.subNavSpace;
+	navObjBtnList:SetNavUp(navObjVisit);
+
+	--定位按钮表导航方向
+	listNavCtlBtns:ClearNavObjects();
+	local thisNavObj = nil;
+	local lastNavObj = nil;
+	local tagBtn = nil;
+	for index=0,lvBtnList.numItems-1 do
+		tagBtn = lvBtnList:GetChildAt(index).asButton
+		--建立按键导航
+		thisNavObj = listNavCtlBtns:AddNavObjByGButton(tagBtn);
+		if lastNavObj ~= nil then
+			thisNavObj:SetNavLeft(lastNavObj);
+		end
+		lastNavObj = thisNavObj;
+	end
+
+	UpdatePlaceInfos();
+
+	gameState = 0;
+
+	--刷新列表，播放动画
+	SetCurListPage(1, false);
+
+	--设置默认值
+	self:SetCloseButton(btnBack)
+
+	if isMobileMode then
+		self:MakeFullScreen();
+
+		--手机端点击空白处关闭
+		local graph = CS.FairyGUI.GGraph()
+		graph.alpha = 0
+		contentPane:AddChildAt(graph, 0)
+		graph:SetSize(GRoot.inst.width, GRoot.inst.height)
+		graph:DrawRect(graph.width, graph.height, 0,
+			CS.GUIHelper.GetColor("FFFFFF"), CS.GUIHelper.GetColor("FFFFFF"))
+		graph:SetPivot(1, 0, true)
+		graph:SetXY(mainForm.x + mainForm.width, 0)
+		graph.onClick:Add(onClickBackBtn)
+	end
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+
+	mainForm.visible = true;
+	SetBlockMask(false);
+	tFadin:Play();
+
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	CS.GUIHelper.CloseAllPopupWindow();
+
+	sceneMsgHandler = CS.GUIHelper.RegSceneMsgHandler(OnSceneMsgHandler);
+	--增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+
+	gameState = 1;
+	--进入地点相关
+	onEnterPlace();
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	tFadout:Play();
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	--移除计时器事件
+	CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+	if sceneMsgHandler ~= nil then
+		CS.GUIHelper.RemoveSceneMsgHandler(sceneMsgHandler)
+	end
+end
+
+--进入地点时事件
+function onEnterPlace()
+	if (gameWorld.executeBattleReturned) then
+		gameWorld.executeBattleReturned = false;
+	else
+		if not CS.HanFramework.ArchiveData.Current.IsIgnoreEnterPlaceEvent then
+			local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+			curRtVals.CurTagPlace = curPlaceInfo;
+			--"enter_place"事件触发器
+			gameWorld:OnTriggerEventCheck("enter_place", curPlaceInfo.PlaceInfo.placeType, curPlaceInfo.PlaceID, curRtVals, true);
+		end
+	end
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	if gameState ~= 1 then
+		return;
+	end
+
+	PlayButtonSound();
+	IntentLeavePlace();
+end
+
+function SetBlockMask(_isShow)
+	popupMask.visible = _isShow;
+end
+
+function IsBlockMaskShow()
+	return popupMask.visible;
+end
+
+function OnSceneMsgHandler(msgType, msgArg)
+	if msgType == "player_placepos_changed" then
+		if playerRole.whereType == 1 then
+			RefreshCurPlaceCmds();
+		else
+			playerRole.whereType = 2;
+			IntentLeavePlace();
+		end
+	elseif msgType == "reload_place" then
+		if IsEmptyOrNil(msgArg) or (curPlaceInfo ~= nil and msgArg == curPlaceInfo.PlaceID) then
+			RefreshCurPlaceCmds();
+		end
+	elseif msgType == "update_placeinfo" then
+		if IsEmptyOrNil(msgArg) or (curPlaceInfo ~= nil and msgArg == curPlaceInfo.PlaceID) then
+			UpdatePlaceInfos();
+			SetCurListPage(curPageIndex, true);
+		end
+	elseif msgType == "enter_space" then
+		DoGotoTagSpace(msgArg);
+	end
+end
+
+function onTimerTickUpdate()
+	if curPlaceInfo ~= nil then
+		if curPlaceInfo.isPlaceInfoUpdated then
+			RefreshCurPlaceCmds();
+			curPlaceInfo.isPlaceInfoUpdated = false;
+		end
+	end
+
+	if leavePlaceFlag then
+		PlayerLeavePlace();
+		leavePlaceFlag = false;
+    end
+
+	if not IsBlockMaskShow() and gameWorld:IsEventQueueBusying() then
+		isInEvent = true;
+		SetBlockMask(true);
+	elseif isInEvent and not gameWorld:IsEventQueueBusying() then
+		SetBlockMask(false);
+		isInEvent = false;
+	end
+end
+
+
+function SetFuncBtnVisible(_isVisible, _tagBtn)
+	_tagBtn.visible = _isVisible;
+end
+
+function RefreshCurPlaceCmds()
+	--刷新指令绑定
+	RefreshFunctionEventMapping();
+end
+
+function RefreshFunctionEventMapping()
+	if curPlaceInfo == nil then
+		return;
+	end
+
+	local placePojo = curPlaceInfo.PlaceInfo;
+
+	SetFuncBtnVisible(false, btnSeige);
+	SetFuncBtnVisible(false, btnSetHome);
+	SetFuncBtnVisible(false, btnBuild);
+	SetFuncBtnVisible(false, btnRecruit);
+	SetFuncBtnVisible(false, btnStorage);
+	SetFuncBtnVisible(false, btnBarChallenge);
+	SetFuncBtnVisible(false, btnDispose);
+	if curPageIndex == 0 then
+		SetFuncBtnVisible(true, btnBarChallenge);
+	elseif curPageIndex == 1 then
+		--围攻
+		if curPlaceInfo:PlayerCanForceSiege() then
+			SetFuncBtnVisible(true, btnSeige);
+		end
+		--集结点
+		local setHomeEvent = placePojo:GetFunctionEventMap("set_home");
+		if not IsEmptyOrNil(setHomeEvent) then
+			SetFuncBtnVisible(true, btnSetHome);
+		end
+		--处置队伍卡牌
+		SetFuncBtnVisible(true, btnDispose);
+	elseif curPageIndex == 2 then
+		--建设与驻军管理
+		if placePojo:IsCity() then
+			SetFuncBtnVisible(true, btnBuild);
+			SetFuncBtnVisible(true, btnRecruit);
+			SetFuncBtnVisible(true, btnStorage);
+		end
+
+	end
+
+end
+
+function RefreshRoleList()
+	lvVisitList.numItems = 0;
+
+	if curPlaceInfo == nil then
+		return;
+	end
+
+	--添加地点项目
+	curVisitRoleList = curPlaceInfo:GetNpcListInPlace(curSpace);
+
+	--遍历添加地点内所有建筑的项目
+	local allBdInfoList = curPlaceInfo:GetAllBuildingList();
+	if allBdInfoList ~= nil and allBdInfoList.Count > 0 then
+		for index=0,allBdInfoList.Count-1 do
+			local tagInfo = allBdInfoList[index];
+			local tagBuilding = tagInfo.buildingInfo;
+			if tagBuilding ~= nil then
+				--添加绑定NPC
+				AddPlaceRoles(curPlaceInfo:GetNpcListInBuilding(tagBuilding, curSpace));
+			end
+		end
+	end
+
+	--遍历添加当前地点所有可访问角色
+	AddPlaceRoles(curPlaceInfo:GetAllVisitableRoleList(curSpace));
+
+	--排序结果
+	CS.GameTools.SortPlaceVisitInfo(curVisitRoleList);
+
+	local quickVisitRoleCount = curVisitRoleList.Count;
+	for i=0,quickVisitRoleCount-1 do
+		local curVisitRole = curVisitRoleList[i];
+		AddVisitCardItem(curVisitRole);
+	end
+end
+
+function AddPlaceRoles(_roleList)
+	curVisitRoleList:AddRange(_roleList)
+end
+
+function UpdatePlaceInfos()
+	lvPlaceInfo.numItems = 0;
+	comCampFlag.visible = false;
+	if curPlaceInfo ~= nil then
+		txtPlaceName.text = curPlaceInfo:GetPlaceName();
+
+		if curPlaceInfo.PlaceInfo:IsStronghold() then
+			--声望
+			local rep = curPlaceInfo:GetReputation();
+			local reputationStr = GetPlaceRepStateDescWithColor(rep);
+			AddPlaceInfoText(GetGameString("info_place_optrepval"), reputationStr);
+		end
+
+		local campInfo = curPlaceInfo:getCampInfo();
+        if campInfo ~= nil then
+            comCampFlag.visible = true;
+            local flagSpt = CS.GameTools.GetCampFlag(campInfo);
+            CS.GUIHelper.CreateSpriteForTarget(comCampFlag, flagSpt);
+		end
+
+		local lordRole = curPlaceInfo:GetLordRole();
+		lordImg.visible = false;
+        if lordRole ~= nil then
+            local lordName = lordRole:GetRoleName();
+			AddPlaceInfoText(GetGameString("lua_script_str_159"), lordName);
+			lordImg.visible = true;
+			local _lordImg = lordRole.HeadAvata;
+			if curLordHeadInfo ~= _lordImg then
+				CS.GUIHelper.GenerateRoleHeadAvataImage(_lordImg, lordImg);
+				curLordHeadInfo = _lordImg;
+			end
+		end
+
+		local descInfo = GetPlaceDescInfoStr(curPlaceInfo);
+		AddPlaceInfoText("", descInfo);
+
+	end
+end
+
+function legacyInfoCode()
+	if curPlaceInfo.PlaceInfo:IsStronghold() then
+		--声望
+		local rep = curPlaceInfo:GetReputation();
+		local reputationStr = GetGameString("info_place_optrepval") .. rep;
+		--声望评估
+		reputationStr = reputationStr .. StringFormat("({0})", CS.GameUtils.ConvertDialogStr(curPlaceInfo:GetReputationDesc()));
+
+		AddPlaceInfoText(reputationStr, 0);
+
+		--繁荣
+		--AddPlaceInfoText(StringFormat(GetGameString("info_field_prosperity"), curPlaceInfo.CurProsperity), 0);
+
+		--防御
+		--AddPlaceInfoText(StringFormat(GetGameString("info_field_defence"), curPlaceInfo.CurDefence), 0);
+
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_2"), curPlaceInfo:GetPlaceStat("ps_武装")), 0);
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_3"), curPlaceInfo:GetPlaceStat("ps_繁荣度")), 0);
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_4"), curPlaceInfo:GetPlaceStat("ps_训练")), 0);
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_5"), curPlaceInfo:GetMaxCardsCapcity()), 0);
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_6"), curPlaceInfo:GetPlaceStat("ps_增加商队")), 0);
+		AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_7"), curPlaceInfo.CurProjectConcurrent), 0);
+
+		local curRunningProjs = curPlaceInfo:GetCurWorkingProjectList();
+		if curRunningProjs ~= nil and curRunningProjs.Count > 0 then
+			local newSb = "";
+			for index=0,curRunningProjs.Count-1 do
+				local tagProj = curRunningProjs[index]
+				if index > 0 then
+					newSb = newSb .. ",";
+				end
+				newSb = newSb .. tagProj.ProjectInfo.showProjectName;
+			end
+			AddPlaceInfoText(StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_8"), newSb), 0);
+		end
+
+		--生产
+		if lordRole ~= nil and lordRole:IsPlayer() then
+			local pdtInfo = StringFormat(GetGameString("PlaceScene_UpdatePlaceInfoBox_9"), CS.GameTools.GetItemsDesc(curPlaceInfo:GetProductResources()));
+			pdtInfo = string.gsub(pdtInfo,"\n", "");
+			AddPlaceInfoText(pdtInfo, 1);
+		end
+
+		--驻军
+		local unitsInfo = curPlaceInfo:GetAllUnitsInfoDesc();
+		if not IsEmptyOrNil(unitsInfo) then
+			AddPlaceInfoText(unitsInfo, 1);
+		end
+	end
+end
+
+function AddPlaceInfoText(_title, _info)
+	local newLabel = lvPlaceInfo:AddItemFromPool().asLabel;
+	if newLabel ~= nil then
+		newLabel.title = _title;
+		local txtInfoObj = newLabel:GetChild("info");
+		if txtInfoObj ~= nil then
+			txtInfoObj.asTextField.text = CS.GUIHelper.ConvertUGUIStr(_info);
+		end
+	end
+end
+
+function onClickBtnBar()
+	PlayButtonSound();
+
+	TrySwitchCurPage(0);
+end
+
+function onClickBtnCityCenter()
+	PlayButtonSound();
+
+	TrySwitchCurPage(1);
+end
+
+function onClickBtnCityHall()
+	PlayButtonSound();
+
+	TrySwitchCurPage(2);
+end
+
+function GetSpaceByIndex(_index)
+	_space = "";
+	if _index == 0 then
+		_space = "bar";
+	elseif _index == 1 then
+		_space = "center";
+	elseif _index == 2 then
+		_space = "hall";
+	end
+	return _space;
+end
+
+function TrySwitchCurPage(_tagPageIndex)
+	local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	curRtVals.CurTagPlace = curPlaceInfo;
+	if not IsEmptyOrNil(curSpace) then
+		if (gameWorld:OnTriggerEventCheck("space_move", "leave", curSpace, curRtVals)) then
+			return;
+		end
+	end
+
+	local nextSpace = GetSpaceByIndex(_tagPageIndex);
+	if not gameWorld.eventExecutor.isExecutingEvent then
+		if (gameWorld:OnTriggerEventCheck("space_move", "enter", nextSpace, curRtVals)) then
+			return;
+		end
+	end
+
+	DoGotoTagSpace(nextSpace);
+end
+
+function DoGotoTagSpace(_tagSpace)
+	local tagIndex = 1;
+	if _tagSpace == "bar" then
+		tagIndex = 0;
+	elseif _tagSpace == "center" then
+		tagIndex = 1;
+	elseif _tagSpace == "hall" then
+		tagIndex = 2;
+	end
+	SetCurListPage(tagIndex, true);
+end
+
+function SetCurListPage(_pageIndex, _playAnim)
+
+	curPageIndex = _pageIndex;
+	tabBtnBar.enabled = true;
+	tabBtnCityCenter.enabled = true;
+	tabBtnCityHall.enabled = true;
+	if curPageIndex == 0 then
+		tabBtnBar.enabled = false;
+	elseif curPageIndex == 1 then
+		tabBtnCityCenter.enabled = false;
+	elseif curPageIndex == 2 then
+		tabBtnCityHall.enabled = false;
+	end
+
+	RefreshCurPlaceCmds();
+	if _playAnim then
+		PlayListFadoutAnim(function()
+			PlayListFadinAnim(false);
+		end);
+	else
+		PlayListFadinAnim(true);
+	end
+end
+
+function PlayListFadoutAnim(_finishedAct)
+	local fadTween = imgListBg:TweenFade(0, 0.35);
+	fadTween:OnComplete(_finishedAct);
+	local tagListObj;
+	local cardSlot;
+	for index=0,lvVisitList.numItems-1 do
+		tagListObj = lvVisitList:GetChildAt(index);
+		cardSlot = tagListObj.data;
+		if cardSlot ~= nil then
+			if index % 2 == 1 then
+				if cardSlot.fadoutAnimR ~= nil then
+					cardSlot.fadoutAnimR:Play();
+				end
+			else
+				if cardSlot.fadoutAnimL ~= nil then
+					cardSlot.fadoutAnimL:Play();
+				end
+			end
+		end
+	end
+end
+
+function PlayListFadinAnim(_setDefFocus)
+	curSpace = GetSpaceByIndex(curPageIndex);
+	if curPageIndex == 0 then
+		imgListBg.url = "ui://zuvkwb6n7wq8eq";
+	elseif curPageIndex == 1 then
+		imgListBg.url = "ui://zuvkwb6n7wq8er";
+	elseif curPageIndex == 2 then
+		imgListBg.url = "ui://zuvkwb6n7wq8es";
+	end
+	imgListBg.visible = true;
+	imgListBg.alpha = 0;
+	imgListBg:TweenFade(oldListBgAlpha, 0.5);
+
+	RefreshRoleList();
+	lvVisitList.visible = true;
+
+	local tagListObj;
+	local cardSlot;
+	local delayT = 0.1;
+	listNavCtlVisit:ClearNavObjects();
+	local thisNavObj = nil;
+	local lastObjL = nil;
+	local lastObjR = nil;
+	for index=0,lvVisitList.numItems-1 do
+		tagListObj = lvVisitList:GetChildAt(index);
+		cardSlot = tagListObj.data;
+		if cardSlot ~= nil then
+			--建立按键导航
+			thisNavObj = listNavCtlVisit:AddNavObjByGButton(cardSlot.bindBtn);
+			thisNavObj:SetFocusEventCallback(function()
+				lvVisitList:ScrollToView(index, true);
+			end, nil);
+			cardSlot.navObj = thisNavObj;
+			if index % 2 == 1 then
+				if cardSlot.fadinAnimR ~= nil then
+					cardSlot.bindBtn.alpha = 0;
+					cardSlot.fadinAnimR:Play(1, delayT, nil);
+				end
+				--导航方向定位
+				if lastObjR ~= nil then
+					thisNavObj:SetNavUp(lastObjR);
+				end
+				if lastObjL ~= nil then
+					thisNavObj:SetNavLeft(lastObjL);
+				end
+				lastObjR = thisNavObj;
+			else
+				if cardSlot.fadinAnimL ~= nil then
+					cardSlot.bindBtn.alpha = 0;
+					cardSlot.fadinAnimL:Play(1, delayT, nil);
+				end
+				--导航方向定位
+				if lastObjL ~= nil then
+					thisNavObj:SetNavUp(lastObjL);
+				end
+				lastObjL = thisNavObj;
+			end
+		end
+		delayT = delayT + 0.1;
+	end
+
+	if _setDefFocus then
+		navCtl:SetDefaultFocus(navObjVisit);
+	end
+end
+
+function onClickBtnSeige()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound()
+
+	if curPlaceInfo.BattleState ~= 0 then
+		ShowToastInfo(GetGameString("PlaceScene_OnSiege"), 3);
+		return;
+	end
+        --判断阵营关系
+		local rl = GameCoreHelper.GetCampRelation(playerRole.CurRoleCampID, curPlaceInfo.CurCamp);
+		if rl ~= nil then
+			if rl.curState >= 2 then
+				--友方地点
+				ShowToastInfo(GetGameString("PlaceScene_FriendCity"), 3);
+				return;
+			end
+		end
+
+        local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+		curRtVals.CurTagPlace = curPlaceInfo;
+        curRtVals.CurTagCamp = curPlaceInfo:getCampInfo();
+
+        --如果城主在，则城主说话
+        local lord = curPlaceInfo:GetLordRole();
+        if lord ~= nil then
+            curRtVals.CurTagRoleID = lord.roleID;
+		end
+
+        leavePlaceFlag = true;
+        PlayerLeavePlace();
+        gameWorld:OnTriggerEventCheck("on_siege", "", "", curRtVals);
+end
+
+function onClickBtnRecruit()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound()
+
+	if (curPlaceInfo:getCampInfo() ~= playerRole:GetRoleCamp()) then
+		ShowToastInfo(GetGameString("PlaceScene_OnDevelop"), 3);
+		return;
+    end
+
+	CS.GUIHelper.ShowTroopsManageUI(curPlaceInfo, function(ret)
+		RefreshCurPlaceCmds();
+	end);
+end
+
+function onClickBtnBuild()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound()
+
+	--建设开发按钮
+	if (curPlaceInfo:GetLordRole() ~= playerRole) then
+		ShowToastInfo(GetGameString("PlaceScene_OnDevelop"), 3);
+		return;
+	end
+
+	--否则开启建设
+	gameWorld:ExecuteDebugCmdLines("OPEN_PLACE_BUILD_UI*");
+end
+
+function onClickBtnStorage()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound();
+
+	local runtimeArgvs = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	runtimeArgvs.CurTagPlace = curPlaceInfo;
+	gameWorld:ExecuteDebugCmdLines("OPEN_CONTAINER_GUI*测试仓库_[%tagplace:id%]#测试仓库", nil, runtimeArgvs);
+end
+
+function onClickBtnBarChallenge()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound();
+
+	--执行酒馆战斗逻辑
+	local fightCmd = "BAR_FIGHT*" .. curPlaceInfo.PlaceID;
+	gameWorld:ExecuteDebugCmdLines(fightCmd, nil, nil);
+end
+
+function onClickBtnCardsDispose()
+	PlayButtonSound();
+
+	ShowPartyCardsDisposeWindow(function(ret)
+		if ret == 1 then
+			RefreshCurPlaceCmds();
+		end
+	end)
+end
+
+function onClickBtnSetHome()
+	if isInEvent then
+		return
+	end
+
+	PlayButtonSound()
+
+	local setHomeEvent = curPlaceInfo.PlaceInfo:GetFunctionEventMap("set_home");
+	if (IsEmptyOrNil(setHomeEvent)) then
+		setHomeEvent = "通用城市集结点";
+	end
+
+	local runtimeArgvs = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	runtimeArgvs.CurTagPlace = curPlaceInfo;
+	runtimeArgvs.CurTagRoleID = curPlaceInfo:GetManagerRoleId();
+	gameWorld:ExecuteDebugCmdLines("EVENT*" .. setHomeEvent, nil, runtimeArgvs);
+end
+
+function IntentLeavePlace()
+	local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	curRtVals.CurTagPlace = curPlaceInfo;
+	if not gameWorld.eventExecutor.isExecutingEvent then
+		if (gameWorld:OnTriggerEventCheck("before_leave_place", curPlaceInfo.PlaceInfo.placeType, curPlaceInfo.PlaceID, curRtVals)) then
+			return;
+		end
+		gameWorld:OnTriggerEventCheck("leave_place", curPlaceInfo.PlaceInfo.placeType, curPlaceInfo.PlaceID, curRtVals, true);
+	end
+	leavePlaceFlag = true;
+end
+
+function PlayerLeavePlace()
+	gameState = -1;
+	playerTeam:TeamLeavePlace();
+	CS.RoleLogic.SetRolePos(playerRole, 2, playerTeam.TeamID, nil, "主角移动");
+
+	ClosePlaceScene();
+end
+
+function ClosePlaceScene()
+	self:Hide();
+end
+
+function AddVisitCardItem(curVisitRole)
+	local newItemObj = lvVisitList:AddItemFromPool().asCom;
+	if newItemObj ~= nil then
+		local compBindInfo = newItemObj.data;
+		if compBindInfo == nil then
+			compBindInfo = {};
+			compBindInfo.bindView = newItemObj;
+			local cardComp = newItemObj:GetChild("card").asButton;
+
+			compBindInfo.txtNameInfo = cardComp:GetChild("name_info").asTextField;
+			compBindInfo.txtDetailInfo = cardComp:GetChild("detail_info").asTextField;
+			compBindInfo.txtRlInfo = cardComp:GetChild("rl_info").asTextField;
+			compBindInfo.bindBtn = cardComp;
+			compBindInfo.compHead = cardComp:GetChild("role_head").asCom
+			compBindInfo.cachedHead = nil;
+			compBindInfo.imgHead = compBindInfo.compHead:GetChild("head_holder").asImage;
+			compBindInfo.imgNameBar = cardComp:GetChild("namebar_bg").asImage
+
+			compBindInfo.fadinAnimL = newItemObj:GetTransition("fadin_l");
+			compBindInfo.fadinAnimR = newItemObj:GetTransition("fadin_r");
+			compBindInfo.fadoutAnimL = newItemObj:GetTransition("fadout_l");
+			compBindInfo.fadoutAnimR = newItemObj:GetTransition("fadout_r");
+
+			newItemObj.data = compBindInfo;
+		end
+		compBindInfo.imgNameBar.color = colorNormalBar;
+		local infoStr = "";
+		local showRlInfo = false;
+		local fv2Player = 0;
+		if curVisitRole.bindRole ~= nil then
+			local tagCamp = curVisitRole.bindRole:GetRoleCamp();
+			if (tagCamp ~= nil) then
+				infoStr = tagCamp:GetCampName();
+				local nobleInfo = curVisitRole.bindRole:GetNobilityRankInfo();
+				if nobleInfo ~= nil then
+					infoStr = infoStr .. "\n[" .. nobleInfo.title_name .. "]";
+				end
+				compBindInfo.imgNameBar.color = tagCamp:GetCampColor();
+			else
+				infoStr = GetNoCampRoleIdentityInfo(curVisitRole.bindRole:getRoleTemplate(), false);
+			end
+			local nameInfo = "LV." .. curVisitRole.bindRole.roleLevel .. " " .. CS.GUIHelper.ConvertUGUIStr(curVisitRole.infoName);
+			compBindInfo.txtNameInfo.text = nameInfo;
+
+			if not curVisitRole.bindRole:getRoleTemplate():IsTemplateRole() then
+				showRlInfo = true;
+				fv2Player = playerRole:GetRelationValWithOtherRole(curVisitRole.bindRole.roleID);
+			end
+
+			compBindInfo.bindBtn.onClick:Set(function()
+				OnVisitTagRoleCard(curVisitRole.bindEvent, curVisitRole.bindRole.roleID);
+			end);
+			local _roleImg = curVisitRole.bindRole.HeadAvata;
+			if compBindInfo.cachedHead ~= _roleImg then
+				CS.GUIHelper.GenerateRoleHeadAvataImage(_roleImg, compBindInfo.imgHead);
+				compBindInfo.cachedHead = _roleImg;
+			end
+			compBindInfo.compHead.visible = true;
+
+		elseif (curVisitRole.bindRolePojo ~= nil) then
+			compBindInfo.txtNameInfo.text = CS.GUIHelper.ConvertUGUIStr(curVisitRole.bindRolePojo.displayName);
+			infoStr = GetNoCampRoleIdentityInfo(curVisitRole.bindRolePojo, true);
+
+			if not curVisitRole.bindRolePojo:IsTemplateRole() then
+				showRlInfo = true;
+				fv2Player = playerRole:GetRelationValWithOtherRole(curVisitRole.bindRolePojo.roleID);
+			end
+
+			compBindInfo.bindBtn.onClick:Set(function()
+				OnVisitTagRoleCard(curVisitRole.bindEvent, curVisitRole.bindRolePojo.roleID);
+			end);
+
+			local _roleImg = curVisitRole.bindRolePojo.role_img;
+			if compBindInfo.cachedHead ~= _roleImg then
+				CS.GUIHelper.GenerateRoleHeadAvataImage(_roleImg, compBindInfo.imgHead);
+				compBindInfo.cachedHead = _roleImg;
+			end
+			compBindInfo.compHead.visible = true;
+		else
+			compBindInfo.txtInfo.text = CS.GUIHelper.ConvertUGUIStr(curVisitRole.infoName);
+			compBindInfo.compHead.visible = false;
+		end
+		compBindInfo.txtDetailInfo.text = infoStr;
+
+		if showRlInfo then
+			compBindInfo.txtRlInfo.visible = true;
+			compBindInfo.txtRlInfo.text = CS.GUIHelper.GetRoleRelationStateInfoStr(fv2Player);
+			compBindInfo.txtRlInfo.color = GetRoleRelationStateColor(fv2Player);
+		else
+			compBindInfo.txtRlInfo.visible = false;
+		end
+	end
+end
+
+function GetNoCampRoleIdentityInfo(_rolePojo, _isNpc)
+	local idInfo = "";
+	if _rolePojo ~= nil then
+		idInfo = _rolePojo:GetTagValue("IdentityStr");
+		if not IsEmptyOrNil(idInfo) then
+			idInfo = CS.GameTools.GetLanStringInTable(idInfo);
+		else
+			if not _rolePojo:IsTemplateRole() then
+				if not _isNpc then
+					idInfo = GetGameString("lua_script_str_160");
+				end
+			end
+		end
+	end
+	return idInfo;
+end
+
+function OnVisitTagRoleCard(_event, _roleID)
+	if (curPlaceInfo == nil) then
+		return
+	end
+	if isInEvent then
+		return
+	end
+	if (not IsEmptyOrNil(_event)) then
+		local argVal = GameCoreHelper.CreateEmptyRuntimeArgVal();
+		argVal.CurTagPlace = curPlaceInfo;
+		argVal.CurTagRoleID = _roleID;
+		argVal.CurTagCamp = curPlaceInfo:getCampInfo();
+		gameWorld:ExecuteDebugCmdLines(_event, nil, argVal);
+	else
+		OnSpeakToTagRole(_roleID);
+	end
+end
+
+function OnSpeakToTagRole(_roleID)
+	local curRtVals = GameCoreHelper.CreateEmptyRuntimeArgVal();
+	curRtVals.CurTagPlace = curPlaceInfo;
+	local roleTplt = CS.HanFramework.ArchiveData.Current:GetRoleTemplateByID(_roleID);
+	curRtVals.CurTagRoleID = roleTplt.roleID;
+	local role = GameCoreHelper.GetRole(_roleID);
+	if (role ~= nil and not role:IsTemplateRole()) then
+		role:SetPlayerContactActive();
+		curRtVals.CurTagCamp = role:GetRoleCamp();
+	end
+	local tagTrigger = gameWorld:GetBindTrigger("talk", "CITYHERO", roleTplt.roleID, curRtVals);
+	if (tagTrigger ~= nil) then
+		if (gameWorld:CheckTrigger(tagTrigger.Key, curRtVals)) then
+			return true;
+		end
+	end
+	local defTalks = roleTplt:getDefTalks();
+	if (not IsEmptyOrNil(defTalks)) then
+		SetBlockMask(true);
+		CS.GUIHelper.ShowRoleTalkDialog(roleTplt.roleID, defTalks, function(ret)
+			SetBlockMask(false);
+		end);
+		return true;
+	end
+	return false;
+end

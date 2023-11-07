@@ -1,0 +1,15 @@
+﻿0#block_act#1#0
+0.74#block_act#0#0
+0.32#add_eft#白蔷薇之剑#unit_pos,0,0,0#0
+0.32#dmg_check#1#type:2;dmg:[&@min([%stat:s_攻击%]*(1.5+[%stat:b_身法%]*0.02),[%stat:s_攻击%]*3)&];hit:1000;blk:-1000;eft:枪术狂风受击#0#unit_pos,0,0,0,[&@min(300+[%this_level%]*50,1000)&]
+0.32#dmg_check#1#type:3;t_dmg:[&@min([%stat:s_攻击%]*(0.5+[%stat:b_精神%]*0.02),[%stat:s_攻击%]*2)&];hit:1000;blk:-1000;eft:治疗受击#1#unit_pos,0,0,0,[&@min(300+[%this_level%]*50,1000)&]
+0.32#play_sound#TwoHandSword_Attack#unit_pos
+0.28#play_sound#EarthWave#unit_pos
+0.28#camera_shake#0.5#3
+0.34#play_sound#Slash_Basic#unit_pos
+0.38#play_sound#Sword_Attack#unit_pos
+0.44#play_sound#Sword_Attack#unit_pos
+0.5#play_sound#Sword_Attack#unit_pos
+0.55#play_sound#Sword_Attack#unit_pos
+0.65#play_sound#Slash_Basic#unit_pos
+0.7#play_sound#Slash_Basic#unit_pos

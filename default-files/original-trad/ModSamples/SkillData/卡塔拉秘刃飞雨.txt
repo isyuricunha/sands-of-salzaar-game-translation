@@ -1,0 +1,4 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.32#add_eft#P卡塔拉秘刃飞雨释放#unit_pos,0,0,0#0
+0.32#play_sound#Cast_Storm#unit_pos

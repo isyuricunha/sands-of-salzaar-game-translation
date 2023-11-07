@@ -1,0 +1,79 @@
+require("gui/WindowUtils")
+
+--equire("LuaPanda").start("127.0.0.1",8818)
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local btnBack
+
+local btnStoryMode
+local btnCustomBattle
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	btnBack = contentPane:GetChild("btn_back").asButton
+
+	btnStoryMode = contentPane:GetChild("btn_startgame").asButton
+	btnCustomBattle = contentPane:GetChild("btn_customgame").asButton
+
+	--绑定按钮事件
+	btnBack.onClick:Add(onClickBackBtn);
+	btnStoryMode.onClick:Add(onClickStoryModeBtn);
+	btnCustomBattle.onClick:Add(onClickCustomBattleBtn);
+
+	--设置默认值
+	btnStoryMode:GetChild("info").asTextField.text = btnStoryMode.tooltips
+	btnStoryMode.tooltips = nil
+	btnCustomBattle:GetChild("info").asTextField.text = btnCustomBattle.tooltips
+	btnCustomBattle.tooltips = nil
+
+	self:SetCloseButton(btnBack)
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	
+end
+
+--按下完成按钮时
+function onClickBackBtn()
+	PlayButtonSound()
+	
+	self:Hide()
+end
+
+function onClickStoryModeBtn()
+	PlayButtonSound()
+	
+	CS.GUIHelper.OpenGUIInIndepScene(constPackageName, "MStorySelectorWindow", "mobile/StorySelectWin", "", nil, true);
+end
+
+function onClickCustomBattleBtn()
+	PlayButtonSound()
+	
+
+end

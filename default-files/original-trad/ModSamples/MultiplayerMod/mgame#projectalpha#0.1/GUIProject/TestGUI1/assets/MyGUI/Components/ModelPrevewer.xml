@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="260,260" overflow="hidden">
+  <displayList>
+    <image id="n0_d98x" name="model_bg" src="rbjt9k" fileName="Images/cm_card_model_bg.png" xy="130,129" pivot="0.5,0.5" anchor="true" size="260,260">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <graph id="n3_pj4i" name="head_holder" xy="0,-3" size="260,260" type="rect" lineSize="0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+</component>

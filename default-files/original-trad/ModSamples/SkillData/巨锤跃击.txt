@@ -1,0 +1,5 @@
+﻿0#block_act#1#0
+0#add_eft#圆形预警0_75:1:3#tag_pos,0,0,0#0
+0.1#dart_move#跳跃#1#2500#800##巨锤跃击冲击波,1,0.4
+0.1#play_sound#JumpUp#unit_pos
+0.12#play_sound#FireBall_Shoot#unit_pos

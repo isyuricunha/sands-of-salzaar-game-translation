@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.27#add_eft#跃击冲击波#tag_pos,100,0,0#0
+0.27#play_sound#BladeWave#unit_pos
+0.27#camera_shake#0.1#4
+0.33#play_sound#Dust_Small#unit_pos
+0.33#camera_shake#0.1#5
+0.35#dmg_check#1#type:2;dmg:[%stat:s_攻击%]*2;hit:1000;blk:-1000;eft:跃击冲击波#0#tag_pos,100,0,0,300
+0.95#block_act#0#0

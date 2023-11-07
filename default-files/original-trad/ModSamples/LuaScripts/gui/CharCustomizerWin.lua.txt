@@ -1,0 +1,136 @@
+require("gui/WindowUtils")
+require("GameUtils")
+require("gui/SubWinCharCustomize")
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--页面访问控件
+local contentPane
+
+local compCharCustomize;
+local ctlCharCustomize;
+
+local btnClose;
+
+local btnConfirm;
+local btnRandom;
+
+local isShowExportBox = false;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+	self:MakeFullScreen();
+
+	compCharCustomize = contentPane:GetChild("char_custom").asCom;
+
+	local groupBottom = contentPane:GetChild("g_bottom").asGroup;
+	btnConfirm = contentPane:GetChildInGroup(groupBottom, "btn_confirm").asButton;
+	btnRandom = contentPane:GetChildInGroup(groupBottom, "btn_random").asButton;
+
+	btnClose = contentPane:GetChild("btn_close").asButton;
+
+	btnConfirm.onClick:Add(onClickConfirmBtn);
+	btnRandom.onClick:Add(onClickRandomBtn);
+
+	btnClose.onClick:Add(onClickBackBtn);
+
+	--初始化变量
+	ctlCharCustomize = SubWinCharCustomize:Create(compCharCustomize, function()
+		onClickBackBtn();
+	end);
+
+	self:SetBackkeyButton(btnClose);
+end
+
+--自定义初始化事件
+function onCustomInit()
+
+	local curRole = self.CustomData;
+	local defAvataInfo = curRole.HeadAvata;
+	local defModelID = curRole.ModelInfo;
+	local curRoleGender = 0;
+	local genderLimitMode = 0;
+	if curRole:GetRoleSex() then
+		curRoleGender = 1;
+		genderLimitMode = 1;
+	end
+
+	CS.GUIHelper.SetGUIGlobalStrVal("def_avata_info", defAvataInfo);
+	CS.GUIHelper.SetGUIGlobalIntVal("def_avata_gender", curRoleGender);
+	CS.GUIHelper.SetGUIGlobalIntVal("is_fixed_name", 1);
+	CS.GUIHelper.SetGUIGlobalStrVal("def_player_name", curRole:GetRoleName());
+	CS.GUIHelper.SetGUIGlobalStrVal("def_player_model", defModelID);
+
+	ctlCharCustomize:ShowUpScene();
+end
+
+function SetWindowParams(args)
+	isShowExportBox = args[0] == "1";
+	ctlCharCustomize:SetExportBoxVisible(isShowExportBox);
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+
+end
+
+function ShowAlertInfo(_msg, type)
+	local toastInfo = "";
+	if type == 1 then
+		toastInfo = toastInfo .. "[[red:"
+	else
+		toastInfo = toastInfo .. "[[white:"
+	end
+	toastInfo = toastInfo .. _msg .. "]]";
+	ShowToastInfo(toastInfo, 2);
+end
+
+function onClickBackBtn()
+	PlayButtonSound()
+
+	self.CurDialogResult = 0;
+	self:Hide();
+end
+
+function onClickConfirmBtn()
+	PlayButtonSound()
+
+	beforeLeaveScene();
+
+	if not ctlCharCustomize:TryConfirmCurEdit() then
+		return;
+	end
+
+	self.CurDialogResult = 1;
+	self:Hide();
+end
+
+function onClickRandomBtn()
+	PlayButtonSound()
+
+	ctlCharCustomize:OnClickRndAvataBtn();
+end
+
+function beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end

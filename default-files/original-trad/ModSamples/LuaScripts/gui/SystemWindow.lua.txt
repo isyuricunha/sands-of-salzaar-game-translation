@@ -1,0 +1,265 @@
+require("gui/WindowUtils")
+
+local btnWiki;
+local btnGuideBook;
+
+local btnSaveGame;
+local btnLoadGame;
+local btnSettings;
+local btnBackToMain;
+local btnResume;
+
+local btnReturnToEditor;
+
+local isInBattle = false;
+
+local isMobileMode;
+
+local isWindowClosed = false;
+
+local popupMask;
+
+---* 手柄操作相关
+---@type UINavigationController
+local navCtl = nil;
+
+--窗体初始化时
+function onInit()
+    local contentPane = self.contentPane
+    isWindowClosed = false;
+
+    isMobileMode = CS.GameTools.IsMobileMode();
+
+    if self:GetWindowArgVal("in_battle") == "1" then
+        isInBattle = true
+    end
+
+    --绑定按钮事件
+    local tagBtnList = contentPane:GetChild("btn_list").asList
+
+    btnWiki = tagBtnList:GetChildAt(0).asButton
+    btnWiki.onClick:Add(onClickWiki);
+
+    btnGuideBook = tagBtnList:GetChildAt(1).asButton
+    btnGuideBook.onClick:Add(onClickGuideBook);
+
+    btnSaveGame = tagBtnList:GetChildAt(2).asButton
+    btnSaveGame.onClick:Add(onClickSaveGame);
+
+    btnLoadGame = tagBtnList:GetChildAt(3).asButton
+    btnLoadGame.onClick:Add(onClickLoadGame);
+
+    btnSettings = tagBtnList:GetChildAt(4).asButton
+    btnSettings.onClick:Add(onClickSettings);
+
+    btnBackToMain = tagBtnList:GetChildAt(5).asButton
+    btnBackToMain.onClick:Add(onClickBackToMain);
+
+    btnResume = contentPane:GetChild("btn_resume").asButton
+    btnResume.onClick:Add(onClickResume);
+
+    local btnObj = contentPane:GetChild("btn_editor");
+    if btnObj ~= nil then
+        btnReturnToEditor = btnObj.asButton;
+        btnReturnToEditor.onClick:Add(onClickReturn2Editor);
+        btnReturnToEditor.visible = false;
+    else
+        btnReturnToEditor = nil;
+    end
+
+    popupMask = contentPane:GetChild("mask").asGraph;
+    SetBlockMask(false);
+
+    if isMobileMode then
+        btnWiki.visible = true;
+    else
+        btnWiki.visible = false;
+    end
+
+    if isInBattle then
+        btnSaveGame.visible = false;
+    else
+        btnSaveGame.visible = true;
+    end
+
+    -- 允许战斗中读档
+    btnLoadGame.visible = true;
+
+    if btnReturnToEditor ~= nil then
+        if CS.GameShared.Instance.isGameMapEditorMode then
+            btnReturnToEditor.visible = true;
+        else
+            btnReturnToEditor.visible = false;
+        end
+    end
+
+    --设置默认值
+    self:SetCloseButton(btnResume);
+
+    navCtl = self:GetOrCreateNavCtl();
+    InitNavCtl();
+
+    if IsMobileMode then
+        CreateQuickCloseBg(contentPane, onClickResume)
+    end
+end
+
+function InitNavCtl()
+    --初始化手柄操作控件
+    local focusObj = nil;
+    navCtl:AddNavObjByGButton(btnWiki)
+
+    navCtl:AddNavObjByGButton(btnGuideBook)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnWiki))
+
+    navCtl:AddNavObjByGButton(btnSaveGame)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnGuideBook))
+
+    navCtl:AddNavObjByGButton(btnLoadGame)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnSaveGame))
+
+    navCtl:AddNavObjByGButton(btnSettings)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnLoadGame))
+
+    navCtl:AddNavObjByGButton(btnBackToMain)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnSettings))
+
+    navCtl:AddNavObjByGButton(btnResume)
+        :SetNavUp(navCtl:GetNavObjByGObject(btnBackToMain))
+
+    navCtl:ResetDefaultFocus()
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+    CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+    CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+    self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+
+end
+
+function onClickSaveGame()
+    PlayButtonSound()
+
+    SetWidowVisible(false);
+    CS.GUIHelper.DoSaveAction(function(ret)
+        SetWidowVisible(true);
+        if ret >= 0 then
+            self.CurDialogResult = 0;
+            self:Hide();
+        end
+    end);
+end
+
+function onClickLoadGame()
+    PlayButtonSound()
+
+    SetWidowVisible(false);
+    CS.GUIHelper.ShowLoadArchiveDataUI(function(ret)
+        SetWidowVisible(true);
+        if ret >= 0 then
+            self.CurDialogResult = 0;
+            self:Hide();
+        end
+    end);
+end
+
+function onClickSettings()
+    PlayButtonSound()
+
+    local settingWinArgs;
+    if isInBattle then
+        settingWinArgs = "{\"in_game\":\"1\",\"in_sandbox\":\"0\"}"
+    else
+        settingWinArgs = "{\"in_game\":\"1\",\"in_sandbox\":\"1\"}"
+    end
+
+    SetBlockMask(true);
+    CS.GUIHelper.ShowGameSettingsWindow(true, not isInBattle, onSettingsDlgCallback);
+end
+
+function onSettingsDlgCallback(ret)
+    SetBlockMask(false);
+    if (ret == 120) then
+        self.CurDialogResult = 120;
+        self:Hide()
+    elseif (ret == 110) then
+        self.CurDialogResult = 0;
+        self:Hide()
+    end
+end
+
+function onClickWiki()
+    PlayButtonSound()
+
+    CS.GUIHelper.ShowWikiPage();
+end
+
+function onClickGuideBook()
+    PlayButtonSound()
+
+    CS.GUIHelper.ShowGuideBook(0, nil);
+end
+
+function onClickBackToMain()
+    PlayButtonSound()
+
+    isWindowClosed = true;
+    self.CurDialogResult = 99;
+    self:Hide()
+end
+
+function onClickResume()
+    PlayButtonSound()
+
+    isWindowClosed = true;
+    self.CurDialogResult = 0
+    self:Hide()
+end
+
+function onClickReturn2Editor()
+    PlayButtonSound()
+
+    CS.GUIHelper.SystemReturnToEditor();
+end
+
+function onClickConsole()
+    PlayButtonSound();
+
+    SetBlockMask(true);
+    CS.GUIHelper.ShowConsoleUI(function(ret)
+        SetBlockMask(false);
+        self.CurDialogResult = 0;
+        self:Hide();
+    end);
+end
+
+function SetWidowVisible(_isHide)
+    if not isWindowClosed then
+        self.contentPane.visible = _isHide;
+    end
+end
+
+function SetBlockMask(_isShow)
+    popupMask.visible = _isShow;
+end
+
+function IsBlockMaskShow()
+    return popupMask.visible;
+end

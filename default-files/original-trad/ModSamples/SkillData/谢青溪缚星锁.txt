@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0#add_eft#圆形预警0_75:0:8,8,8#tag_pos#0
+0.98#block_act#0#0
+0.3#play_sound#Ground_Hit#unit_pos
+0.27#play_sound#DragonRoar#unit_pos
+0.27*[%skill_lv:张月缚星锁强化1%][=]0#add_eft#缚星锁谢青溪#tag_pos,0,0,0#0
+0.27#camera_shake#0.1#5
+0.4#play_sound#Dust_Small#unit_pos
+0.35#play_sound#SK_027#unit_pos

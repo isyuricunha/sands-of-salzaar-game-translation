@@ -1,0 +1,10 @@
+﻿0#block_act#1#0
+0#add_eft#圆形预警1_5:1:10#tag_pos,0,0,0#0
+0.87#block_act#0#0
+1.33#add_eft#剧毒新星#tag_pos,0,0,0#0
+1.33#dmg_check#1#type:2;hit:1000;blk:-1000;eft:枪术狂风受击#0#tag_pos,0,0,0,1000
+1.33#camera_shake#0.2#4
+1.15#play_sound#SK_033#unit_pos
+1.25#play_sound#PoisonBall_Hit#unit_pos
+1.35#play_sound#DarkBall_Hit#unit_pos
+1.43#play_sound#EvilHand#unit_pos

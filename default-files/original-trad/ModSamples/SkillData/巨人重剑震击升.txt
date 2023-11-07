@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+1.75#block_act#0#0
+0.82#dmg_check#2#type:2;dmg:[%stat:s_攻击%]*2.5;cri:1000;eft:巨人重剑震击#0#unit_pos,0,4,0,200,0,-200,900,-200,900,200
+0.8#add_eft#P巨人重剑震击#unit_pos,0,0,0#0
+0.8#add_eft#P巨人重剑震击2#unit_pos,0,0,0#0
+0.8#play_sound#HammerLandStrike#unit_pos
+0.8#camera_shake#0.1#5

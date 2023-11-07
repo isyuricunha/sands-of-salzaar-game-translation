@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- MyGUI/Buttons/BaseItemSlot1.xml -->
+  <string name="zuvkwb6mgezp0-n5_hr84" mz="title">KEY</string>
+  <!-- MyGUI/Buttons/BattleFuncBtn1.xml -->
+  <string name="zuvkwb6mo316bc-n1_kfa5" mz="title">Button</string>
+  <!-- MyGUI/Buttons/DialogConfirmBtn1.xml -->
+  <string name="zuvkwb6mrbjt9d-n6_hr84" mz="title">Button</string>
+  <!-- MyGUI/Buttons/FuncNormalBtn3.xml -->
+  <string name="zuvkwb6mpczr7r-n1_kfa5" mz="title">Button</string>
+  <!-- MyGUI/Buttons/ShopBtn1.xml -->
+  <string name="zuvkwb6mvig7bv-n1_kfa5" mz="title">Button</string>
+  <!-- MyGUI/Buttons/ShopItemSlot1.xml -->
+  <string name="zuvkwb6mohlga6-n5_hr84" mz="title">Item Name</string>
+  <!-- MyGUI/Components/BaseItemSlot1.xml -->
+  <string name="zuvkwb6ms4q59p-n5_hr84" mz="title">Item Name</string>
+  <!-- MyGUI/Components/CommonWindowFrame1.xml -->
+  <string name="zuvkwb6mrbjt8k-n1_hr84" mz="title">Title</string>
+  <!-- MyGUI/Components/CommonWindowFrame2.xml -->
+  <string name="zuvkwb6mrbjt9h-n1_hr84" mz="title">Title</string>
+  <!-- MyGUI/Components/DifficultyButton.xml -->
+  <string name="zuvkwb6md10uaa-n2_d10u" mz="title">Simple</string>
+  <!-- MyGUI/Components/ModalWaitBox.xml -->
+  <string name="zuvkwb6mrbjt9b-n1_kfa5" mz="n1">Please wait...</string>
+  <!-- MyGUI/Components/NoticeListContentItem1.xml -->
+  <string name="zuvkwb6mrbjt8w-n1_x475" mz="title">Content Text
+</string>
+  <!-- MyGUI/Components/RoleSelectDetailPreview.xml -->
+  <string name="zuvkwb6mc2x1a8-n4_c2x1" mz="desc">Spirit Master:
+Increase chance of receiving Spirit-based skills by 100%
+Honed Attention:
+Increase Mana Regen per second by 5</string>
+  <string name="zuvkwb6mc2x1a8-n5_c2x1" mz="title">Threnody</string>
+  <string name="zuvkwb6mc2x1a8-n6_c2x1" mz="str">Strength:</string>
+  <string name="zuvkwb6mc2x1a8-n8_c2x1" mz="agi">Agility:</string>
+  <string name="zuvkwb6mc2x1a8-n10_c2x1" mz="int">Spirit:</string>
+  <string name="zuvkwb6mc2x1a8-n12_c2x1" mz="end">Stamina:</string>
+  <string name="zuvkwb6mc2x1a8-n14_c2x1" mz="typeText">Spirit type</string>
+  <!-- MyGUI/Components/SelectInfoBox1.xml -->
+  <string name="zuvkwb6mjree8h-n1_jree" mz="txt_selslot_info">Select skill hotkey</string>
+  <!-- MyGUI/Controllers/MyBsPanel.xml -->
+  <string name="zuvkwb6mpczr6z-n37_lwpx-tips" mz="btn_camera">Switch camera</string>
+  <string name="zuvkwb6mpczr6z-n31_yxj7" mz="btn_finish">End battle</string>
+  <string name="zuvkwb6mpczr6z-n62_is8c" mz="btn_teamview">Spectate Party Member</string>
+  <string name="zuvkwb6mpczr6z-n60_dxrr-tips" mz="shopButton">Open the online shop. Items are refreshed based on your level each time you enter a new area.</string>
+  <string name="zuvkwb6mpczr6z-n60_dxrr" mz="shopButton">Shop</string>
+  <string name="zuvkwb6mpczr6z-n32_yxj7" mz="btn_retreat">Retreat</string>
+  <!-- MyGUI/Controllers/MyBsPlayerPanel.xml -->
+  <string name="zuvkwb6mpczr7t-n28_7fy7" mz="txt_curpoint">Skill Points:</string>
+  <string name="zuvkwb6mpczr7t-n38_gm94" mz="txt_strength">Strength:</string>
+  <string name="zuvkwb6mpczr7t-n39_gm94" mz="txt_agility">Agility:</string>
+  <string name="zuvkwb6mpczr7t-n40_gm94" mz="txt_intelligence">Spirit:</string>
+  <string name="zuvkwb6mpczr7t-n41_gm94" mz="txt_endurance">Stamina:</string>
+  <string name="zuvkwb6mpczr7t-n23_f1k8-tips" mz="btn_func1">Peer into the void and learn a skill. Skill levels increase as you spend more Skill Points.</string>
+  <string name="zuvkwb6mpczr7t-n23_f1k8" mz="btn_func1">Get skill</string>
+  <string name="zuvkwb6mpczr7t-n24_f1k8-tips" mz="btn_func2">Combine two skills of the same type and level into a higher level skill if available. Skills are selected based on the order of your skill bar.</string>
+  <string name="zuvkwb6mpczr7t-n24_f1k8" mz="btn_func2">Craft</string>
+  <string name="zuvkwb6mpczr7t-n25_f1k8-tips" mz="btn_func3">Spend Utar to replace a skill with a random skill of the same level.</string>
+  <string name="zuvkwb6mpczr7t-n25_f1k8" mz="btn_func3">Replace</string>
+  <string name="zuvkwb6mpczr7t-n26_f1k8-tips" mz="btn_func4">Forget a selected skill (does not refund Skill Points).</string>
+  <string name="zuvkwb6mpczr7t-n26_f1k8" mz="btn_func4">Forget</string>
+  <string name="zuvkwb6mpczr7t-n55_dydl-tips" mz="btn_func5">Lock a selected skill</string>
+  <string name="zuvkwb6mpczr7t-n55_dydl" mz="btn_func5">Lock</string>
+  <!-- MyGUI/Controllers/RemoteTradeBox.xml -->
+  <string name="zuvkwb6ms4q59m-n0_hr84" mz="frame">Trade</string>
+  <string name="zuvkwb6ms4q59m-n4_hr84" mz="list_title1">Sellable items: %d/%d</string>
+  <string name="zuvkwb6ms4q59m-n17_iz48" mz="refresh_button">Refresh</string>
+  <string name="zuvkwb6ms4q59m-n19_iz48" mz="refresh_hint">Prices will increase with each refresh. Resets when switching areas.</string>
+  <!-- MyGUI/Controllers/SelectRoleWindow.xml -->
+  <string name="zuvkwb6mrbjt8j-n0_x475" mz="frame">Please select your type...</string>
+  <string name="zuvkwb6mrbjt8j-n3_rbjt" mz="btn_confirm">Confirm</string>
+  <string name="zuvkwb6mrbjt8j-n6_d10u" mz="n6">Difficulty:</string>
+  <string name="zuvkwb6mrbjt8j-n10_d10u" mz="difficulty_desc">The best choice for beginners. You are looking for an easy game experience and want to save the world.
+
+
+</string>
+</resources>

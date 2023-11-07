@@ -1,0 +1,2101 @@
+﻿<?xml version="1.0"?>
+<blend_map xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" map_type="2" min_x="-4000" min_y="-3000" max_x="1500" max_y="5000" map_weather="" map_audio="" map_enter_cmd="全局刷怪初始化" max_obj_id="33417" max_area_id="846" max_se_id="1" max_layer_id="28" min_index_x="-4" min_index_y="-1" max_index_x="1" max_index_y="2">
+  <layer name="ground" tag_layer_group="0" index_id="11" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="1" />
+  <layer name="植被" tag_layer_group="0" index_id="18" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="1" />
+  <layer name="背景层岩体" tag_layer_group="0" index_id="22" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="water" tag_layer_group="0" index_id="23" pos_type="1" iso_grid_size="64" offset_x="0" offset_y="0" visible="1" is_locked="1" />
+  <layer name="overground" tag_layer_group="0" index_id="25" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="盗贼营地" tag_layer_group="1" index_id="1" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="buildings" tag_layer_group="1" index_id="10" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="achentemp" tag_layer_group="1" index_id="16" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="植被" tag_layer_group="1" index_id="19" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="岩体" tag_layer_group="1" index_id="20" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="杂草" tag_layer_group="1" index_id="21" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="effect" tag_layer_group="1" index_id="24" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="1" is_locked="0" />
+  <layer name="achentemp2" tag_layer_group="1" index_id="27" pos_type="0" iso_grid_size="128" offset_x="0" offset_y="0" visible="0" is_locked="0" />
+  <tex_tile tile_key="-1,-1" index_x="-1" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="0,-1" index_x="0" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="1,-1" index_x="1" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-1,0" index_x="-1" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="0,0" index_x="0" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="1,0" index_x="1" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-1,1" index_x="-1" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="0,1" index_x="0" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="1,1" index_x="1" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-3,-1" index_x="-3" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-2,-1" index_x="-2" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-3,0" index_x="-3" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-2,0" index_x="-2" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-3,1" index_x="-3" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-2,1" index_x="-2" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-4,-1" index_x="-4" index_y="-1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-4,0" index_x="-4" index_y="0" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-4,1" index_x="-4" index_y="1" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-4,2" index_x="-4" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-3,2" index_x="-3" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-2,2" index_x="-2" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="-1,2" index_x="-1" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="0,2" index_x="0" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tex_tile tile_key="1,2" index_x="1" index_y="2" need_info_file="1" def_blend_weight="1" def_tex_id="13" def_tex_sx="2" def_tex_sy="2" def_tex_rot="0" />
+  <tv_map_datas>BAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAsLCwsLCwsLCwsEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwsLCwsLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECwsLCwsLBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQLCwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQE</tv_map_datas>
+  <map_area area_id="523" bind_info_type="34" center_map_x="-3912.177" center_map_y="-2608.3855" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area16" />
+    </properties>
+  </map_area>
+  <map_area area_id="524" bind_info_type="34" center_map_x="-3915.08643" center_map_y="-1976.6416" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area15" />
+    </properties>
+  </map_area>
+  <map_area area_id="526" bind_info_type="34" center_map_x="-3268.31958" center_map_y="-766.893555" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area17" />
+    </properties>
+  </map_area>
+  <map_area area_id="527" bind_info_type="34" center_map_x="-2891.32764" center_map_y="-1188.9353" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area23" />
+    </properties>
+  </map_area>
+  <map_area area_id="528" bind_info_type="34" center_map_x="-2666.86377" center_map_y="-833.8075" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area24" />
+    </properties>
+  </map_area>
+  <map_area area_id="529" bind_info_type="34" center_map_x="-3039.37769" center_map_y="-2722.721" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area22" />
+    </properties>
+  </map_area>
+  <map_area area_id="532" bind_info_type="34" center_map_x="-3311.78174" center_map_y="-1880.21838" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area18" />
+    </properties>
+  </map_area>
+  <map_area area_id="535" bind_info_type="34" center_map_x="-3699.84448" center_map_y="-1302.47729" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area13" />
+    </properties>
+  </map_area>
+  <map_area area_id="536" bind_info_type="34" center_map_x="-3342.86865" center_map_y="-2487.2" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area19" />
+    </properties>
+  </map_area>
+  <map_area area_id="539" bind_info_type="34" center_map_x="-3902.69824" center_map_y="-1465.81421" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area14" />
+    </properties>
+  </map_area>
+  <map_area area_id="540" bind_info_type="34" center_map_x="-3056.77686" center_map_y="-2075.69727" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area21" />
+    </properties>
+  </map_area>
+  <map_area area_id="541" bind_info_type="34" center_map_x="-3118.675" center_map_y="-1384.41138" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area20" />
+    </properties>
+  </map_area>
+  <map_area area_id="543" bind_info_type="31" center_map_x="-6352.498" center_map_y="-1834.37866" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="fill_id" value="" />
+      <property name="control_id" value="全局刷怪控制" />
+      <property name="trig_type" value="1" />
+      <property name="conditions" value="[%dg_int_val:刷怪激活%][&gt;=]1" />
+      <property name="trig_count" value="0" />
+      <property name="cmd_lines" value="全局刷怪控制" />
+      <property name="reset_cmd" value="" />
+      <property name="init_state" value="0" />
+      <property name="tag" value="" />
+      <property name="keep_trig" value="0" />
+      <property name="reset_time" value="15" />
+    </properties>
+  </map_area>
+  <map_area area_id="548" bind_info_type="34" center_map_x="-3641.88062" center_map_y="-2086.761" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area29" />
+    </properties>
+  </map_area>
+  <map_area area_id="549" bind_info_type="34" center_map_x="-2871.03516" center_map_y="-708.933655" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area32" />
+    </properties>
+  </map_area>
+  <map_area area_id="556" bind_info_type="34" center_map_x="-3587.08374" center_map_y="-787.96814" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area30" />
+    </properties>
+  </map_area>
+  <map_area area_id="557" bind_info_type="34" center_map_x="-3452.72583" center_map_y="-1285.88257" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area31" />
+    </properties>
+  </map_area>
+  <map_area area_id="558" bind_info_type="34" center_map_x="-2482.45117" center_map_y="-499.230042" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area33" />
+    </properties>
+  </map_area>
+  <map_area area_id="559" bind_info_type="34" center_map_x="-2278.27979" center_map_y="-210.49231" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area34" />
+    </properties>
+  </map_area>
+  <map_area area_id="560" bind_info_type="34" center_map_x="-2092.54932" center_map_y="207.334381" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area202" />
+    </properties>
+  </map_area>
+  <map_area area_id="561" bind_info_type="34" center_map_x="-2016.14966" center_map_y="938.135559" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area35" />
+    </properties>
+  </map_area>
+  <map_area area_id="562" bind_info_type="34" center_map_x="-1818.30054" center_map_y="172.561066" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area36" />
+    </properties>
+  </map_area>
+  <map_area area_id="563" bind_info_type="34" center_map_x="-1618.87207" center_map_y="591.9668" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area38" />
+    </properties>
+  </map_area>
+  <map_area area_id="564" bind_info_type="34" center_map_x="-2221.63745" center_map_y="-2786.47437" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area41" />
+    </properties>
+  </map_area>
+  <map_area area_id="565" bind_info_type="34" center_map_x="-1518.76233" center_map_y="109.8591" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area39" />
+    </properties>
+  </map_area>
+  <map_area area_id="566" bind_info_type="34" center_map_x="-1250.04663" center_map_y="-69.28473" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area37" />
+    </properties>
+  </map_area>
+  <map_area area_id="567" bind_info_type="34" center_map_x="-1340.67139" center_map_y="765.84314" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area40" />
+    </properties>
+  </map_area>
+  <map_area area_id="568" bind_info_type="34" center_map_x="-1049.03955" center_map_y="835.9163" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area42" />
+    </properties>
+  </map_area>
+  <map_area area_id="569" bind_info_type="34" center_map_x="-673.8909" center_map_y="521.887451" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area44" />
+    </properties>
+  </map_area>
+  <map_area area_id="570" bind_info_type="34" center_map_x="-1012.94751" center_map_y="394.379517" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area43" />
+    </properties>
+  </map_area>
+  <map_area area_id="571" bind_info_type="34" center_map_x="-1247.93835" center_map_y="1328.03857" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area45" />
+    </properties>
+  </map_area>
+  <map_area area_id="572" bind_info_type="34" center_map_x="-970.7924" center_map_y="1458.181" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area47" />
+    </properties>
+  </map_area>
+  <map_area area_id="573" bind_info_type="34" center_map_x="-720.256958" center_map_y="1684.74023" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area48" />
+    </properties>
+  </map_area>
+  <map_area area_id="574" bind_info_type="34" center_map_x="-462.079132" center_map_y="1742.69849" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area49" />
+    </properties>
+  </map_area>
+  <map_area area_id="575" bind_info_type="34" center_map_x="-1045.61353" center_map_y="1956.09021" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area46" />
+    </properties>
+  </map_area>
+  <map_area area_id="576" bind_info_type="34" center_map_x="-725.7894" center_map_y="2353.368" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area53" />
+    </properties>
+  </map_area>
+  <map_area area_id="577" bind_info_type="34" center_map_x="-1396.26123" center_map_y="2329.13086" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area51" />
+    </properties>
+  </map_area>
+  <map_area area_id="578" bind_info_type="34" center_map_x="-1514.81226" center_map_y="1778.5271" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area50" />
+    </properties>
+  </map_area>
+  <map_area area_id="579" bind_info_type="34" center_map_x="-1039.291" center_map_y="2624.718" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area52" />
+    </properties>
+  </map_area>
+  <map_area area_id="580" bind_info_type="34" center_map_x="-698.3968" center_map_y="2842.59546" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area54" />
+    </properties>
+  </map_area>
+  <map_area area_id="599" bind_info_type="34" center_map_x="-3764.646" center_map_y="2563.60059" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area93" />
+    </properties>
+  </map_area>
+  <map_area area_id="601" bind_info_type="34" center_map_x="-3390.55835" center_map_y="1706.08667" width="150" height="200" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-55" aabb_max_x="80" aabb_max_y="55">
+    <pts_info>-75,-100;75,-100;75,100;-75,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area97" />
+    </properties>
+  </map_area>
+  <map_area area_id="602" bind_info_type="34" center_map_x="-3517.26953" center_map_y="2673.194" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area92" />
+    </properties>
+  </map_area>
+  <map_area area_id="603" bind_info_type="34" center_map_x="-3814.70068" center_map_y="3151.08667" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area91" />
+    </properties>
+  </map_area>
+  <map_area area_id="604" bind_info_type="34" center_map_x="-3816.018" center_map_y="3767.02539" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area90" />
+    </properties>
+  </map_area>
+  <map_area area_id="605" bind_info_type="34" center_map_x="-3479.86035" center_map_y="3979.89" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area87" />
+    </properties>
+  </map_area>
+  <map_area area_id="606" bind_info_type="34" center_map_x="-3506.99536" center_map_y="3262.78784" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area89" />
+    </properties>
+  </map_area>
+  <map_area area_id="607" bind_info_type="34" center_map_x="-3239.597" center_map_y="3513.06226" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area86" />
+    </properties>
+  </map_area>
+  <map_area area_id="608" bind_info_type="34" center_map_x="-2951.1228" center_map_y="3581.55835" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area84" />
+    </properties>
+  </map_area>
+  <map_area area_id="609" bind_info_type="34" center_map_x="-2957.182" center_map_y="4151.65771" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area85" />
+    </properties>
+  </map_area>
+  <map_area area_id="610" bind_info_type="34" center_map_x="-3212.462" center_map_y="4069.46143" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area88" />
+    </properties>
+  </map_area>
+  <map_area area_id="611" bind_info_type="34" center_map_x="-2729.30029" center_map_y="2827.57422" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area77" />
+    </properties>
+  </map_area>
+  <map_area area_id="612" bind_info_type="34" center_map_x="-3267.78564" center_map_y="3023.05127" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area82" />
+    </properties>
+  </map_area>
+  <map_area area_id="613" bind_info_type="34" center_map_x="-3213.779" center_map_y="2514.59888" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area81" />
+    </properties>
+  </map_area>
+  <map_area area_id="614" bind_info_type="34" center_map_x="-2988.79541" center_map_y="2836.53149" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area80" />
+    </properties>
+  </map_area>
+  <map_area area_id="615" bind_info_type="34" center_map_x="-2534.34985" center_map_y="2532.514" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area78" />
+    </properties>
+  </map_area>
+  <map_area area_id="616" bind_info_type="34" center_map_x="-2249.82837" center_map_y="3151.0874" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area75" />
+    </properties>
+  </map_area>
+  <map_area area_id="617" bind_info_type="34" center_map_x="-2929.52" center_map_y="2370.23071" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area79" />
+    </properties>
+  </map_area>
+  <map_area area_id="618" bind_info_type="34" center_map_x="-2505.1084" center_map_y="3039.91284" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area74" />
+    </properties>
+  </map_area>
+  <map_area area_id="619" bind_info_type="34" center_map_x="-2728.24658" center_map_y="3426.12524" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area76" />
+    </properties>
+  </map_area>
+  <map_area area_id="620" bind_info_type="34" center_map_x="-2308.57715" center_map_y="4130.05566" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area71" />
+    </properties>
+  </map_area>
+  <map_area area_id="621" bind_info_type="34" center_map_x="-2387.611" center_map_y="3566.27954" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area73" />
+    </properties>
+  </map_area>
+  <map_area area_id="622" bind_info_type="34" center_map_x="-2537.776" center_map_y="4114.249" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area72" />
+    </properties>
+  </map_area>
+  <map_area area_id="623" bind_info_type="34" center_map_x="-2736.94165" center_map_y="4390.86768" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area83" />
+    </properties>
+  </map_area>
+  <map_area area_id="624" bind_info_type="34" center_map_x="-2038.01746" center_map_y="4286.015" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area68" />
+    </properties>
+  </map_area>
+  <map_area area_id="625" bind_info_type="34" center_map_x="-1264.01111" center_map_y="4075.257" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area59" />
+    </properties>
+  </map_area>
+  <map_area area_id="626" bind_info_type="34" center_map_x="-1333.82446" center_map_y="4563.6875" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area60" />
+    </properties>
+  </map_area>
+  <map_area area_id="627" bind_info_type="34" center_map_x="-1569.60925" center_map_y="3956.18" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area62" />
+    </properties>
+  </map_area>
+  <map_area area_id="628" bind_info_type="34" center_map_x="-1873.36316" center_map_y="3743.315" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area65" />
+    </properties>
+  </map_area>
+  <map_area area_id="629" bind_info_type="34" center_map_x="-2101.24463" center_map_y="3682.72217" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area69" />
+    </properties>
+  </map_area>
+  <map_area area_id="630" bind_info_type="34" center_map_x="-1562.75964" center_map_y="4429.85645" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area61" />
+    </properties>
+  </map_area>
+  <map_area area_id="631" bind_info_type="34" center_map_x="-1756.12964" center_map_y="4698.57275" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area63" />
+    </properties>
+  </map_area>
+  <map_area area_id="632" bind_info_type="34" center_map_x="-1767.98474" center_map_y="4180.636" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area64" />
+    </properties>
+  </map_area>
+  <map_area area_id="633" bind_info_type="34" center_map_x="-2232.968" center_map_y="4681.185" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area67" />
+    </properties>
+  </map_area>
+  <map_area area_id="634" bind_info_type="34" center_map_x="-2003.76941" center_map_y="4781.295" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area66" />
+    </properties>
+  </map_area>
+  <map_area area_id="635" bind_info_type="34" center_map_x="-2462.957" center_map_y="4646.411" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area70" />
+    </properties>
+  </map_area>
+  <map_area area_id="636" bind_info_type="34" center_map_x="-1022.95728" center_map_y="4314.99365" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area58" />
+    </properties>
+  </map_area>
+  <map_area area_id="637" bind_info_type="34" center_map_x="-501.0692" center_map_y="4361.886" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area56" />
+    </properties>
+  </map_area>
+  <map_area area_id="638" bind_info_type="34" center_map_x="-978.961853" center_map_y="3750.163" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area57" />
+    </properties>
+  </map_area>
+  <map_area area_id="639" bind_info_type="34" center_map_x="-645.9649" center_map_y="3827.61572" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area55" />
+    </properties>
+  </map_area>
+  <map_area area_id="640" bind_info_type="34" center_map_x="1049.57764" center_map_y="4720.703" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area145" />
+    </properties>
+  </map_area>
+  <map_area area_id="641" bind_info_type="34" center_map_x="933.661" center_map_y="4156.927" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area144" />
+    </properties>
+  </map_area>
+  <map_area area_id="642" bind_info_type="34" center_map_x="1115.43933" center_map_y="3708.54" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area142" />
+    </properties>
+  </map_area>
+  <map_area area_id="643" bind_info_type="34" center_map_x="784.81366" center_map_y="3606.32275" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area141" />
+    </properties>
+  </map_area>
+  <map_area area_id="644" bind_info_type="34" center_map_x="1389.1604" center_map_y="3455.10425" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area143" />
+    </properties>
+  </map_area>
+  <map_area area_id="645" bind_info_type="34" center_map_x="1338.84229" center_map_y="2456.641" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area135" />
+    </properties>
+  </map_area>
+  <map_area area_id="646" bind_info_type="34" center_map_x="1016.64728" center_map_y="2643.423" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area138" />
+    </properties>
+  </map_area>
+  <map_area area_id="647" bind_info_type="34" center_map_x="710.2583" center_map_y="2938.22168" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area137" />
+    </properties>
+  </map_area>
+  <map_area area_id="648" bind_info_type="34" center_map_x="1205.80151" center_map_y="3073.10645" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area136" />
+    </properties>
+  </map_area>
+  <map_area area_id="649" bind_info_type="34" center_map_x="718.425232" center_map_y="2055.14844" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area133" />
+    </properties>
+  </map_area>
+  <map_area area_id="650" bind_info_type="34" center_map_x="546.1893" center_map_y="2119.76074" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area132" />
+    </properties>
+  </map_area>
+  <map_area area_id="651" bind_info_type="34" center_map_x="1080.66455" center_map_y="2035.12646" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area134" />
+    </properties>
+  </map_area>
+  <map_area area_id="652" bind_info_type="34" center_map_x="940.2468" center_map_y="1389.68176" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area131" />
+    </properties>
+  </map_area>
+  <map_area area_id="653" bind_info_type="34" center_map_x="403.343018" center_map_y="943.930237" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area123" />
+    </properties>
+  </map_area>
+  <map_area area_id="654" bind_info_type="34" center_map_x="1194.46973" center_map_y="452.0777" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area147" />
+    </properties>
+  </map_area>
+  <map_area area_id="655" bind_info_type="34" center_map_x="997.6784" center_map_y="267.925781" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area129" />
+    </properties>
+  </map_area>
+  <map_area area_id="656" bind_info_type="34" center_map_x="995.5706" center_map_y="870.6916" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area130" />
+    </properties>
+  </map_area>
+  <map_area area_id="657" bind_info_type="34" center_map_x="340.378967" center_map_y="165.180878" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area122" />
+    </properties>
+  </map_area>
+  <map_area area_id="658" bind_info_type="34" center_map_x="589.073" center_map_y="290.582275" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area124" />
+    </properties>
+  </map_area>
+  <map_area area_id="659" bind_info_type="34" center_map_x="850.6752" center_map_y="-284.2589" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area127" />
+    </properties>
+  </map_area>
+  <map_area area_id="660" bind_info_type="34" center_map_x="90.63176" center_map_y="589.329834" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area120" />
+    </properties>
+  </map_area>
+  <map_area area_id="661" bind_info_type="34" center_map_x="-218.1279" center_map_y="349.593323" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area118" />
+    </properties>
+  </map_area>
+  <map_area area_id="662" bind_info_type="34" center_map_x="328.5239" center_map_y="-482.8982" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area121" />
+    </properties>
+  </map_area>
+  <map_area area_id="663" bind_info_type="34" center_map_x="-25.8117828" center_map_y="20.2849426" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area119" />
+    </properties>
+  </map_area>
+  <map_area area_id="664" bind_info_type="34" center_map_x="908.3701" center_map_y="-1038.24365" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area126" />
+    </properties>
+  </map_area>
+  <map_area area_id="665" bind_info_type="34" center_map_x="658.885864" center_map_y="-616.2019" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area125" />
+    </properties>
+  </map_area>
+  <map_area area_id="666" bind_info_type="34" center_map_x="933.1341" center_map_y="-1581.47" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area164" />
+    </properties>
+  </map_area>
+  <map_area area_id="667" bind_info_type="34" center_map_x="665.204" center_map_y="-1771.93848" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area163" />
+    </properties>
+  </map_area>
+  <map_area area_id="668" bind_info_type="34" center_map_x="-318.764" center_map_y="-2167.376" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area195" />
+    </properties>
+  </map_area>
+  <map_area area_id="669" bind_info_type="34" center_map_x="-490.004364" center_map_y="-2554.64282" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area196" />
+    </properties>
+  </map_area>
+  <map_area area_id="670" bind_info_type="34" center_map_x="-653.3414" center_map_y="-2833.89648" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area197" />
+    </properties>
+  </map_area>
+  <map_area area_id="671" bind_info_type="34" center_map_x="-726.5795" center_map_y="-2175.27954" width="150" height="250" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-67.5" aabb_max_x="80" aabb_max_y="67.5">
+    <pts_info>-75,-125;75,-125;75,125;-75,125</pts_info>
+    <properties>
+      <property name="control_id" value="Area198" />
+    </properties>
+  </map_area>
+  <map_area area_id="672" bind_info_type="34" center_map_x="-815.830444" center_map_y="-1697.583" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area199" />
+    </properties>
+  </map_area>
+  <map_area area_id="673" bind_info_type="34" center_map_x="-1004.51587" center_map_y="-2088.342" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area201" />
+    </properties>
+  </map_area>
+  <map_area area_id="674" bind_info_type="34" center_map_x="-581.683838" center_map_y="-1780.10925" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area200" />
+    </properties>
+  </map_area>
+  <map_area area_id="675" bind_info_type="34" center_map_x="-291.1021" center_map_y="-2528.298" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area194" />
+    </properties>
+  </map_area>
+  <map_area area_id="676" bind_info_type="34" center_map_x="-45.8332825" center_map_y="-2748.53955" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area193" />
+    </properties>
+  </map_area>
+  <map_area area_id="677" bind_info_type="34" center_map_x="529.534241" center_map_y="-2568.86865" width="150" height="200" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-55" aabb_max_x="80" aabb_max_y="55">
+    <pts_info>-75,-100;75,-100;75,100;-75,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area181" />
+    </properties>
+  </map_area>
+  <map_area area_id="678" bind_info_type="34" center_map_x="206.021729" center_map_y="-2809.65942" width="150" height="350" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-92.5" aabb_max_x="80" aabb_max_y="92.5">
+    <pts_info>-75,-175;75,-175;75,175;-75,175</pts_info>
+    <properties>
+      <property name="control_id" value="Area192" />
+    </properties>
+  </map_area>
+  <map_area area_id="679" bind_info_type="34" center_map_x="659.6772" center_map_y="-2340.19678" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area180" />
+    </properties>
+  </map_area>
+  <map_area area_id="680" bind_info_type="34" center_map_x="1249.00671" center_map_y="-2467.70459" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area166" />
+    </properties>
+  </map_area>
+  <map_area area_id="681" bind_info_type="34" center_map_x="1215.28064" center_map_y="-1765.61572" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area165" />
+    </properties>
+  </map_area>
+  <map_area area_id="682" bind_info_type="34" center_map_x="1412.07642" center_map_y="-2754.5957" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area168" />
+    </properties>
+  </map_area>
+  <map_area area_id="683" bind_info_type="34" center_map_x="1409.44189" center_map_y="-2180.28174" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area167" />
+    </properties>
+  </map_area>
+  <map_area area_id="696" bind_info_type="34" center_map_x="1188.4137" center_map_y="-205.751648" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area128" />
+    </properties>
+  </map_area>
+  <map_area area_id="697" bind_info_type="34" center_map_x="1384.15173" center_map_y="589.0702" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area148" />
+    </properties>
+  </map_area>
+  <map_area area_id="710" bind_info_type="34" center_map_x="-3419.79346" center_map_y="1320.65869" width="150" height="300" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-80" aabb_max_x="80" aabb_max_y="80">
+    <pts_info>-75,-150;75,-150;75,150;-75,150</pts_info>
+    <properties>
+      <property name="control_id" value="Area99" />
+    </properties>
+  </map_area>
+  <map_area area_id="711" bind_info_type="34" center_map_x="-3364.21362" center_map_y="2090.719" width="150" height="200" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-55" aabb_max_x="80" aabb_max_y="55">
+    <pts_info>-75,-100;75,-100;75,100;-75,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area98" />
+    </properties>
+  </map_area>
+  <map_area area_id="712" bind_info_type="34" center_map_x="-3721.184" center_map_y="1749.5553" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="control_id" value="Area100" />
+    </properties>
+  </map_area>
+  <map_area area_id="714" bind_info_type="34" center_map_x="619.8955" center_map_y="1372.82129" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area139" />
+    </properties>
+  </map_area>
+  <map_area area_id="715" bind_info_type="34" center_map_x="698.4034" center_map_y="806.937866" width="150" height="400" rotate="0" aabb_state="1" aabb_min_x="-80" aabb_min_y="-105" aabb_max_x="80" aabb_max_y="105">
+    <pts_info>-75,-200;75,-200;75,200;-75,200</pts_info>
+    <properties>
+      <property name="control_id" value="Area140" />
+    </properties>
+  </map_area>
+  <map_area area_id="758" bind_info_type="35" center_map_x="-3841.054" center_map_y="-1094.0946" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱1" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="764" bind_info_type="35" center_map_x="-3475.39" center_map_y="-2541.47168" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱2" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest3Big" />
+      <property name="disable_model" value="chest3_openBig" />
+      <property name="eft_info" value="psEnemyHalo1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="0" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="767" bind_info_type="35" center_map_x="-3062.571" center_map_y="-705.774658" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱3" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="768" bind_info_type="35" center_map_x="-1651.57654" center_map_y="1809.53748" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱4" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="769" bind_info_type="35" center_map_x="-340.376648" center_map_y="1788.01233" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱5" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="770" bind_info_type="35" center_map_x="-1014.537" center_map_y="2898.17725" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱6" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="771" bind_info_type="35" center_map_x="-1897.60718" center_map_y="-127.771881" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱7" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="772" bind_info_type="35" center_map_x="-418.884033" center_map_y="3768.606" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱8" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="773" bind_info_type="35" center_map_x="-529.268" center_map_y="2811.24023" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱9" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="774" bind_info_type="35" center_map_x="-2103.886" center_map_y="-2863.93042" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱10" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="775" bind_info_type="35" center_map_x="-698.664246" center_map_y="4586.34473" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱11" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="776" bind_info_type="35" center_map_x="-1887.95" center_map_y="1144.06177" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱12" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="777" bind_info_type="35" center_map_x="-1476.35828" center_map_y="4748.10059" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱13" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="778" bind_info_type="35" center_map_x="-1517.98364" center_map_y="2274.335" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱14" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="779" bind_info_type="35" center_map_x="-3153.46069" center_map_y="-1653.656" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱15" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="780" bind_info_type="35" center_map_x="-2698.485" center_map_y="-1427.09119" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱16" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="781" bind_info_type="35" center_map_x="-2363.11719" center_map_y="640.4388" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱17" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="782" bind_info_type="35" center_map_x="-3552.05249" center_map_y="-415.4557" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱18" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="783" bind_info_type="35" center_map_x="1080.65637" center_map_y="-1432.62073" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱19" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="784" bind_info_type="35" center_map_x="871.2173" center_map_y="-2017.2124" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱20" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="785" bind_info_type="35" center_map_x="-820.6402" center_map_y="171.503235" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱21" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="786" bind_info_type="35" center_map_x="-3643.20557" center_map_y="-1825.94983" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱22" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="787" bind_info_type="35" center_map_x="-1501.03455" center_map_y="-261.338959" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱23" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="788" bind_info_type="35" center_map_x="341.424683" center_map_y="627.5332" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱24" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="789" bind_info_type="35" center_map_x="-3323.12085" center_map_y="-1350.16528" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱25" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="790" bind_info_type="35" center_map_x="-501.606018" center_map_y="1252.16284" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱26" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="791" bind_info_type="35" center_map_x="-390.8699" center_map_y="743.6226" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱27" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="792" bind_info_type="35" center_map_x="741.8637" center_map_y="74.29489" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱28" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="793" bind_info_type="35" center_map_x="-880.441833" center_map_y="906.520447" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱29" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="794" bind_info_type="35" center_map_x="-1963.20886" center_map_y="3270.69214" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱30" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="795" bind_info_type="35" center_map_x="-1648.12646" center_map_y="1343.31421" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱31" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="796" bind_info_type="35" center_map_x="-2783.8418" center_map_y="-449.703857" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱32" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="797" bind_info_type="35" center_map_x="-1680.52649" center_map_y="860.153137" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱33" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="798" bind_info_type="35" center_map_x="-2748.80371" center_map_y="-1952.40491" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱34" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="800" bind_info_type="35" center_map_x="-2591.52856" center_map_y="3725.92651" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱35" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="802" bind_info_type="35" center_map_x="-3151.353" center_map_y="4381.909" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱36" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="803" bind_info_type="35" center_map_x="-2854.44849" center_map_y="4669.06641" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱37" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="804" bind_info_type="35" center_map_x="-2365.22778" center_map_y="2388.671" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱38" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="805" bind_info_type="35" center_map_x="-3922.19849" center_map_y="4037.84741" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱39" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="806" bind_info_type="35" center_map_x="-3633.724" center_map_y="3442.45776" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱40" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="807" bind_info_type="35" center_map_x="-3561.014" center_map_y="1302.2179" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱41" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="808" bind_info_type="35" center_map_x="-3813.13184" center_map_y="2112.57983" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱42" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="809" bind_info_type="35" center_map_x="-3936.42432" center_map_y="936.553" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱43" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="810" bind_info_type="35" center_map_x="-3057.565" center_map_y="3275.43286" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱44" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="811" bind_info_type="35" center_map_x="-2388.67334" center_map_y="4946.21436" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱45" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="812" bind_info_type="35" center_map_x="-1981.91162" center_map_y="3910.86865" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱46" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="813" bind_info_type="35" center_map_x="-346.4341" center_map_y="4299.71729" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱47" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="814" bind_info_type="35" center_map_x="-935.2374" center_map_y="4054.71167" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱48" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="815" bind_info_type="35" center_map_x="-233.942261" center_map_y="-168.8667" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱49" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="816" bind_info_type="35" center_map_x="175.980774" center_map_y="856.9948" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱50" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="817" bind_info_type="35" center_map_x="308.231" center_map_y="1844.92029" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱51" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="818" bind_info_type="35" center_map_x="541.3815" center_map_y="2608.38867" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱52" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="819" bind_info_type="35" center_map_x="1416.02466" center_map_y="3785.99463" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱53" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="820" bind_info_type="35" center_map_x="763.203552" center_map_y="4583.71143" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱54" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="821" bind_info_type="35" center_map_x="1221.601" center_map_y="4728.60742" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱55" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="822" bind_info_type="35" center_map_x="956.0465" center_map_y="2918.201" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱56" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="823" bind_info_type="35" center_map_x="1470.55811" center_map_y="2413.96387" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱57" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="824" bind_info_type="35" center_map_x="1283.24744" center_map_y="1382.833" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱58" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="825" bind_info_type="35" center_map_x="874.641357" center_map_y="2048.82666" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱59" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="826" bind_info_type="35" center_map_x="901.5128" center_map_y="3657.95947" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱60" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="827" bind_info_type="35" center_map_x="745.552368" center_map_y="1223.7113" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱61" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="828" bind_info_type="35" center_map_x="1371.2384" center_map_y="-101.952911" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱62" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="829" bind_info_type="35" center_map_x="1446.05725" center_map_y="-1655.76184" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱63" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="830" bind_info_type="35" center_map_x="-1129.9248" center_map_y="-1802.23767" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱64" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="831" bind_info_type="35" center_map_x="-713.6789" center_map_y="-1320.13013" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱65" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="832" bind_info_type="35" center_map_x="-714.205933" center_map_y="-2356.52979" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱66" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="833" bind_info_type="35" center_map_x="-545.3367" center_map_y="-2916.09082" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱67" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="834" bind_info_type="35" center_map_x="317.978241" center_map_y="-2820.72266" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱68" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="835" bind_info_type="35" center_map_x="701.5567" center_map_y="-2582.566" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱69" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="836" bind_info_type="35" center_map_x="518.724731" center_map_y="-1820.15076" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱70" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="837" bind_info_type="35" center_map_x="1390.47021" center_map_y="-1933.96" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱71" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="838" bind_info_type="35" center_map_x="1145.4646" center_map_y="-2476.66016" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱72" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="839" bind_info_type="35" center_map_x="678.110046" center_map_y="-1439.20691" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱73" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="840" bind_info_type="35" center_map_x="1158.90039" center_map_y="-665.7273" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱74" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="841" bind_info_type="35" center_map_x="550.0748" center_map_y="-460.239075" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱75" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="842" bind_info_type="35" center_map_x="-2169.74976" center_map_y="4367.423" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱76" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="843" bind_info_type="35" center_map_x="-2746.69824" center_map_y="2502.22" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="宝箱77" />
+      <property name="desc_info" value="一个宝箱，相信手气的时候到了！会出什么宝贝呢？" />
+      <property name="normal_model" value="chest1Big" />
+      <property name="disable_model" value="chest1_openBig" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL开箱事件" />
+      <property name="init_state" value="2" />
+      <property name="post_act" value="2" />
+      <property name="refresh_time" value="0" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="844" bind_info_type="35" center_map_x="-4335.368" center_map_y="4463.84033" width="60" height="60" rotate="0" aabb_state="1" aabb_min_x="-35" aabb_min_y="-20" aabb_max_x="35" aabb_max_y="20">
+    <pts_info>-30,-30;30,-30;30,30;-30,30</pts_info>
+    <properties>
+      <property name="control_id" value="治疗之泉1" />
+      <property name="desc_info" value="一个不断散发出治愈能量的泉水，饮下泉水将可以恢复30%的生命值和法力值。" />
+      <property name="normal_model" value="火魔井" />
+      <property name="disable_model" value="火魔井" />
+      <property name="eft_info" value="psChestFlash1,0,0" />
+      <property name="items_info" value="" />
+      <property name="inter_event" value="OL治疗之泉" />
+      <property name="init_state" value="0" />
+      <property name="post_act" value="0" />
+      <property name="refresh_time" value="" />
+      <property name="refresh_event" value="" />
+    </properties>
+  </map_area>
+  <map_area area_id="845" bind_info_type="31" center_map_x="-5952.84229" center_map_y="-1428.4082" width="100" height="200" rotate="0" aabb_state="1" aabb_min_x="-55" aabb_min_y="-55" aabb_max_x="55" aabb_max_y="55">
+    <pts_info>-50,-100;50,-100;50,100;-50,100</pts_info>
+    <properties>
+      <property name="fill_id" value="掉血触发器" />
+      <property name="control_id" value="掉血触发器" />
+      <property name="trig_type" value="1" />
+      <property name="conditions" value="[%dg_int_val:游戏主进程超时%][&gt;=]1" />
+      <property name="trig_count" value="0" />
+      <property name="cmd_lines" value="OL祭祀仪式柱毒气扣血" />
+      <property name="reset_cmd" value="" />
+      <property name="init_state" value="0" />
+      <property name="tag" value="" />
+      <property name="keep_trig" value="0" />
+      <property name="reset_time" value="10" />
+    </properties>
+  </map_area>
+</blend_map>

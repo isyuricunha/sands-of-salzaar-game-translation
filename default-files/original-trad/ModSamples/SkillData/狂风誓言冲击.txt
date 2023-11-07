@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.73#block_act#0#0
+0.17#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:冰魔弹;#0#unit_pos,0,0,0,1000
+0.15#b_talk#caster#狂风啊！#2.5
+0.15#add_eft#M风灵冲击#unit_pos,0,0,0#0
+0.15#add_eft#P裂地范围#unit_pos,0,0,0#0
+0.15#play_sound#HammerLandStrike#unit_pos
+0.15#camera_shake#0.5#2

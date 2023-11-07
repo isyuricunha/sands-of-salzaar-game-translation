@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.28#play_sound#Coins_ACT_01#unit_pos
+0.3#add_eft#撒币特效#unit_pos,0,0,0#0
+0.35#play_sound#HammerLandStrike#unit_pos
+0.55#play_sound#Coins_ACT_02#unit_pos
+0.6#play_sound#Dust_Small#unit_pos
+0.65#play_sound#Coins_ACT_02#unit_pos
+0.74#block_act#0#0

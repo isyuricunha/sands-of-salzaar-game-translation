@@ -1,0 +1,5 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.25#add_buff#苦涩的心结#caster#[&@min(10+[%stat:b_精神%]*0.1,15)&]#1
+0.25#play_sound#WizardSmoke#unit_pos
+0.17#play_sound#Aura_PowerUp#unit_pos

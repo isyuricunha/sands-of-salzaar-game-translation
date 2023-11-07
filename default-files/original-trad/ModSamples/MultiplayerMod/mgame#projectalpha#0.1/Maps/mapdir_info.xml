@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<map_dir_set xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" _HSFrameWork_Inner_HotFix="false" cur_max_index="8" map_namespace="mgame#projectalpha#0.1">
+  <map_dir_info map_id="测试地图" index_key="bm1" map_type="0" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="RPG_Map" index_key="bm2" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="红石山谷" index_key="bm90119" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="联机地图红石谷测试2" index_key="bm90120" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="花卉密林" index_key="bm90122" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="风哭岩道" index_key="bm90125" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="环形红石山谷" index_key="bm3" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="风哭岩道环形" index_key="bm4" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="骆驼城之路" index_key="bm90127" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="花卉密林关卡" index_key="bm5" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="风哭岩道环形2" index_key="bm6" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+  <map_dir_info map_id="骆驼城之路2" index_key="bm7" map_type="2" map_namespace="mgame#projectalpha#0.1" />
+</map_dir_set>

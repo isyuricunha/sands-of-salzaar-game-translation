@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="325,200">
+  <displayList>
+    <image id="n3_gezp" name="bg" src="o316ag" fileName="Images/BattlePanel_BagFrame1.png" xy="0,0" size="325,200">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <list id="n4_gezp" name="bag_slots" xy="18,43" size="302,152" layout="flow_hz" lineGap="5" colGap="6" defaultItem="ui://zuvkwb6mgezp0" align="center" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <image id="n5_vig7" name="n5" src="o316aj" fileName="Images/BattlePanel_EquipIcon1.png" xy="32,11">
+      <relation target="" sidePair="left-left,top-top"/>
+    </image>
+  </displayList>
+</component>

@@ -1,0 +1,405 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+--页面访问控件
+local contentPane;
+
+local txtTitle;
+local lvInfoList;
+
+local btnFinish;
+
+local groupCaptures;
+local lvCapturesList;
+local btnBag;
+
+local timerTickInterval = 0.05
+
+local curDlgState = 0;
+
+local lootInfo;
+
+local GameCoreHelper = CS.GameCoreHelper;
+local GameTools = CS.GameTools;
+
+local filtedCaptureList;
+local curDisplaySlotsList = nil;
+local curCaptures = nil;
+local curDropCount = 0;
+
+local resMoneyCount = 0;
+local resWoodCount = 0;
+local resIronCount = 0;
+local resJadeCount = 0;
+
+-- 是否结束了战利品提交
+local isEndLootCommit = false
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	txtTitle = contentPane:GetChild("title").asTextField;
+	lvInfoList = contentPane:GetChild("info_list").asList;
+	btnFinish = contentPane:GetChild("btn_confirm").asButton;
+
+	groupCaptures = contentPane:GetChild("g_captures").asGroup;
+	lvCapturesList = contentPane:GetChildInGroup(groupCaptures, "item_list").asList;
+	btnBag = contentPane:GetChildInGroup(groupCaptures, "btn_bag").asButton;
+
+	btnFinish.onClick:Add(onClickBtnConfirm);
+
+	btnBag.onClick:Add(onClickBtnBag);
+
+	self:RegJoystickQuickButton(btnFinish, JoystickButton.ButtonA, false);
+
+	--设置默认值
+	self:SetBackkeyButton(btnFinish);
+
+	curDlgState = 0;
+	isEndLootCommit = false;
+end
+
+--自定义初始化事件
+function onCustomInit()
+	lootInfo = self.CustomData;
+
+	--初始事件
+	UpdateLootInfo();
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	curDlgState = 1;
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	curDlgState = -1;
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	curDlgState = -1;
+
+	--关闭所有弹出框
+	CS.GUIHelper.CloseAllPopupWindow();
+end
+
+--UI逻辑
+function UpdateLootInfo()
+	if lootInfo == nil then
+		return;
+	end
+
+	local isLose = lootInfo.winLose;
+	if isLose then
+		txtTitle.text = GetGameString("lua_script_str_290");
+		txtTitle.color = CS.GUIHelper.GetColor("A6937C");
+		CS.AudioManager.Instance:Play("BGM_Defeat1");
+	else
+		txtTitle.text = GetGameString("lua_script_str_291");
+		txtTitle.color = CS.GUIHelper.GetColor("F3A422");
+		CS.AudioManager.Instance:Play("BattleWin");
+	end
+
+	lvInfoList.numItems = 0;
+	if lootInfo.teamCards ~= nil then
+		curDisplaySlotsList = {};
+
+		local _tagCard;
+		local tagSlotInfo;
+		for index=0,lootInfo.teamCards.Count-1 do
+			_tagCard = lootInfo.teamCards[index];
+			if _tagCard.battleBalanceInfo.JoinBattle then
+				tagSlotInfo = AddBattleResInfoSlot(_tagCard, index);
+				if tagSlotInfo ~= nil then
+					table.insert(curDisplaySlotsList, tagSlotInfo);
+				end
+			end
+		end
+	end
+
+	if lootInfo.captureItems ~= nil and lootInfo.captureItems.Count > 0 then
+		groupCaptures.visible = true;
+
+		--过滤战利品表
+		local tagItem;
+		local itemID;
+		filtedCaptureList = GameCoreHelper.GetEmptyGameItemList();
+		for i = 0, lootInfo.captureItems.Count-1 do
+			tagItem = lootInfo.captureItems[i];
+			if tagItem ~= nil then
+				itemID = tagItem.itemID;
+				if itemID == ID_RES_MONEY then
+					resMoneyCount = resMoneyCount + tagItem.itemCount;
+				elseif itemID == ID_RES_WOOD then
+					resWoodCount = resWoodCount + tagItem.itemCount;
+				elseif itemID == ID_RES_IRON then
+					resIronCount = resIronCount + tagItem.itemCount;
+				elseif itemID == ID_RES_JADE then
+					resJadeCount = resJadeCount + tagItem.itemCount;
+				else
+					filtedCaptureList:Add(tagItem);
+				end
+			end
+		end
+
+		UpdateCaptureList();
+	else
+		filtedCaptureList = nil;
+		groupCaptures.visible = false;
+	end
+end
+
+function AddBattleResInfoSlot(tagCard, _index)
+	if tagCard == nil then
+		return nil;
+	end
+
+	local newItemObj = lvInfoList:AddItemFromPool().asLabel;
+	if newItemObj ~= nil then
+		local compBindInfo = newItemObj.data;
+		if compBindInfo == nil then
+			compBindInfo = {};
+			compBindInfo.isEvenCtl = newItemObj:GetController("is_even");
+			compBindInfo.tierCtl = newItemObj:GetController("tier");
+
+			compBindInfo.txtName = newItemObj:GetChild("name").asTextField;
+			compBindInfo.iconLevelup = newItemObj:GetChild("icon_levelup").asCom;
+			compBindInfo.iconDefeat = newItemObj:GetChild("icon_defeat").asCom;
+			compBindInfo.txtExp = newItemObj:GetChild("txt_exp").asTextField;
+			compBindInfo.txtDefeat = newItemObj:GetChild("txt_defeat").asTextField;
+			compBindInfo.txtTotalDmg = newItemObj:GetChild("txt_total_dmg").asTextField;
+			compBindInfo.txtTakeDmg = newItemObj:GetChild("txt_take_dmg").asTextField;
+			compBindInfo.txtTotalHeal = newItemObj:GetChild("txt_heal").asTextField;
+			compBindInfo.txtLost = newItemObj:GetChild("txt_lost").asTextField;
+			compBindInfo.txtRemain = newItemObj:GetChild("txt_remain").asTextField;
+
+			newItemObj.data = compBindInfo;
+		end
+
+		compBindInfo.bindCard = tagCard;
+
+		if _index % 2 == 1 then
+			compBindInfo.isEvenCtl.selectedIndex = 1;
+		else
+			compBindInfo.isEvenCtl.selectedIndex = 0;
+		end
+
+		local cardType = tagCard:GetCardType();
+		local tierVal = 0;
+		if cardType == 0 then
+			tierVal = tagCard:GetCardQuality();
+		end
+		if tierVal > 6 then
+			tierVal = 6;
+		end
+		compBindInfo.tierCtl.selectedIndex = tierVal;
+		if tierVal >= 6 then
+			--compBindInfo.txtName.stroke = 1.0;
+		else
+			--compBindInfo.txtName.stroke = 0;
+		end
+
+		compBindInfo.txtName.text = tagCard:GetDisplayName();
+		local battleResInfo = tagCard.battleBalanceInfo;
+		compBindInfo.iconLevelup.visible = false;
+		if tagCard.Level < tagCard:GetCardMaxLevel() then
+			local getExp = battleResInfo.ExpInBattle;
+			compBindInfo.txtExp.text = tostring(getExp);
+			if getExp > 0 then
+				if battleResInfo.IsLevelUp then
+					compBindInfo.iconLevelup.visible = true;
+				end
+			end
+		else
+			compBindInfo.txtExp.text = "Max";
+		end
+		if battleResInfo.LostCard then
+			compBindInfo.iconDefeat.visible = true;
+		else
+			compBindInfo.iconDefeat.visible = false;
+		end
+		compBindInfo.txtDefeat.text = tostring(battleResInfo.DefeatCount);
+		compBindInfo.txtTotalDmg.text = tostring(battleResInfo.TotalDamage);
+		compBindInfo.txtTakeDmg.text = tostring(battleResInfo.TakeDamage);
+		compBindInfo.txtTotalHeal.text = tostring(battleResInfo.TotalHeal);
+		compBindInfo.txtLost.text = tostring(battleResInfo.BattleLoss);
+
+		local remainNum = 1;
+		if cardType  == 0 then
+			remainNum = tagCard.CurAvailable;
+		else
+			remainNum = 1;
+		end
+		compBindInfo.txtRemain.text = tostring(remainNum);
+	end
+end
+
+function onClickBtnConfirm()
+	PlayButtonSound();
+
+	if isEndLootCommit then
+		return
+	end
+
+	--检查丢弃战利品警告
+	if curDropCount > 0 and curCaptures ~= nil then
+		local dropList = GameCoreHelper.GetEmptyGameItemList();
+		for k,v in pairs(curCaptures) do
+			if v ~= nil and v.bindItem ~= nil then
+				if v.IsDrop then
+					dropList:Add(v.bindItem);
+				end
+			end
+		end
+		if dropList.Count > 0 then
+			local sItemDescs = CS.GameTools.GetItemsDesc(dropList);
+			local confirmMsg = GameCoreHelper.StringFormat(GetGameString("lua_script_str_293"), sItemDescs);
+			ShowConfirmDlg(confirmMsg, "yesno", function(ret)
+				if ret == 1 then
+					CommitLootOp();
+				end
+			end);
+			return;
+		end
+	end
+
+	CommitLootOp();
+end
+
+function CommitLootOp()
+	if curCaptures ~= nil then
+		for k,v in pairs(curCaptures) do
+			if v ~= nil and v.bindItem ~= nil then
+				if not v.IsDrop then
+					GameCoreHelper.AddItemToPlayerInv(v.bindItem, false, false);
+				end
+			end
+		end
+	end
+
+	isEndLootCommit = true
+	self.CurDialogResult = 1;
+	self:Hide();
+end
+
+function onClickBtnBag()
+	if filtedCaptureList == nil then
+		return;
+	end
+	PlayButtonSound();
+
+	local disposeContainer = GameCoreHelper.CreateDisposeContainer();
+	disposeContainer.GameItemsList = filtedCaptureList;
+	CS.GUIHelper.ShowContainerUI(disposeContainer, function(ret)
+		UpdateCaptureList();
+	end);
+end
+
+function UpdateCaptureList()
+	--处理战利品
+	curDropCount = 0;
+
+	local tagItem;
+
+	local curItemCapacity = GameCoreHelper.GetPlayerInventoryCapicity() - GameCoreHelper.GetPlayerInvUsedCount();
+	if (curItemCapacity < 0) then
+		curItemCapacity = 0;
+	end
+
+	curCaptures = {};
+
+	lvCapturesList.numItems = 0;
+	local tagSlotInfo;
+	local _slotIndex = 0;
+	if resMoneyCount > 0 then
+		tagItem = GameCoreHelper.CreateGameItem(ID_RES_MONEY, resMoneyCount);
+		tagSlotInfo = AddItemInfoSlot(tagItem, _slotIndex);
+		_slotIndex = _slotIndex + 1;
+		tagSlotInfo.fullCtl.selectedIndex = 0;
+		tagSlotInfo.IsDrop = false;
+	end
+	if resWoodCount > 0 then
+		tagItem = GameCoreHelper.CreateGameItem(ID_RES_WOOD, resWoodCount);
+		tagSlotInfo = AddItemInfoSlot(tagItem, _slotIndex);
+		_slotIndex = _slotIndex + 1;
+		tagSlotInfo.fullCtl.selectedIndex = 0;
+		tagSlotInfo.IsDrop = false;
+	end
+	if resIronCount > 0 then
+		tagItem = GameCoreHelper.CreateGameItem(ID_RES_IRON, resIronCount);
+		tagSlotInfo = AddItemInfoSlot(tagItem, _slotIndex);
+		_slotIndex = _slotIndex + 1;
+		tagSlotInfo.fullCtl.selectedIndex = 0;
+		tagSlotInfo.IsDrop = false;
+	end
+	if resJadeCount > 0 then
+		tagItem = GameCoreHelper.CreateGameItem(ID_RES_JADE, resJadeCount);
+		tagSlotInfo = AddItemInfoSlot(tagItem, _slotIndex);
+		_slotIndex = _slotIndex + 1;
+		tagSlotInfo.fullCtl.selectedIndex = 0;
+		tagSlotInfo.IsDrop = false;
+	end
+
+	--显示战利品表
+	btnBag.visible = false;
+	if filtedCaptureList ~= nil then
+		local curPassNum = 0;
+		for i = 0, filtedCaptureList.Count-1 do
+			tagItem = filtedCaptureList[i];
+			if tagItem ~= nil then
+				tagSlotInfo = AddItemInfoSlot(tagItem, _slotIndex);
+				_slotIndex = _slotIndex + 1;
+
+				if not tagItem.ItemInfo:IsIgnoreInventorySpace() then
+					if curPassNum >= curItemCapacity then
+						tagSlotInfo.fullCtl.selectedIndex = 1;
+						tagSlotInfo.IsDrop = true;
+						curDropCount = curDropCount + 1;
+					else
+						tagSlotInfo.fullCtl.selectedIndex = 0;
+						tagSlotInfo.IsDrop = false;
+						curPassNum = curPassNum + 1;
+					end
+				end
+			end
+		end
+
+		if filtedCaptureList.Count > 0 then
+			btnBag.visible = true;
+		end
+	end
+
+end
+
+function AddItemInfoSlot(_tagItem, _index)
+	if _tagItem == nil then
+		return;
+	end
+	local tagSlot = lvCapturesList:AddItemFromPool().asCom;
+	local slotInfo = tagSlot.data;
+	if slotInfo == nil then
+		slotInfo = {};
+		slotInfo.bindBtn = tagSlot:GetChild("item_slot").asButton;
+		slotInfo.fullCtl = tagSlot:GetController("is_full");
+		slotInfo.itemSlot = InitCommonItemSlot(slotInfo.bindBtn, _index, 0, nil, true);
+	end
+
+	slotInfo.bindItem = _tagItem;
+	slotInfo.itemSlot:SetBindItem(_tagItem);
+
+	table.insert(curCaptures, slotInfo);
+	return slotInfo;
+end

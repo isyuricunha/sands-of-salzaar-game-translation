@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="900,840" opaque="false">
+  <displayList>
+    <component id="n1_drma" name="slot1" src="rocsby" fileName="Mobile/BattleQuickSlotM1.xml" xy="412,653" pivot="0.5,0.5" size="122,122">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n2_drma" name="slot2" src="rocsby" fileName="Mobile/BattleQuickSlotM1.xml" xy="429,495" pivot="0.5,0.5" size="122,122">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n3_drma" name="slot3" src="rocsby" fileName="Mobile/BattleQuickSlotM1.xml" xy="526,352" pivot="0.5,0.5" size="122,122">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n4_drma" name="slot4" src="rocsby" fileName="Mobile/BattleQuickSlotM1.xml" xy="692,271" pivot="0.5,0.5" size="122,122">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n7_ied8" name="atk_slot" src="rocsca" fileName="Mobile/BattleNormalAtkSlotM1.xml" xy="603,504" size="250,250">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n6_ied8" name="roll_act" src="rocscl" fileName="Mobile/BattleRollActSlotM1.xml" xy="597,682" size="92,92">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <component id="n15_rocs" name="revive_act" src="lamwcp" fileName="Mobile/BattleReviveActSlotM1.xml" xy="241,673" size="100,100">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+    <image id="n5_drma" name="cancel_mark" src="rocscn" fileName="Images/ui_js_skill_cancel.png" xy="720,60" pivot="0.5,0.5" anchor="true" size="100,100" visible="false">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </image>
+  </displayList>
+</component>

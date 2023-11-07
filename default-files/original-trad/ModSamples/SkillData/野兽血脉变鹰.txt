@@ -1,0 +1,17 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.9#add_buff#野兽血脉#target#20#1
+0.9#add_buff#野兽血脉燃烧光环#target#20#1
+0.9#add_buff#野兽血脉变鹰#target#20#1
+0.9#add_buff#野兽血脉变鹰属性#target#20#1
+0.9#add_buff#野兽血脉变鹰回血1#target#20#1
+0.9#add_buff#野兽血脉变鹰回蓝1#target#20#1
+0.9#add_buff#野兽血脉变鹰回血2#target#20#1
+0.9#add_buff#野兽血脉变鹰回蓝2#target#20#1
+0.9#add_buff#野兽血脉变鹰光环#target#20#1
+0.9#change_dungeon_skill#野兽血脉飞鹰龙卷风,1
+0.08#add_eft#P变身#unit_pos,0,0,0#0
+0.1#play_sound#Cast_Morph#unit_pos
+0.2#play_sound#JumpUp#unit_pos
+0.33#play_sound#HawAttack#unit_pos
+0.33#camera_shake#0.1#5

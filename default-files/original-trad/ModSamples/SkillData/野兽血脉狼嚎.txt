@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:野火刀术浴火回血空;buff:昏迷效果,5,1#0#unit_pos,0,0,0,500
+0.6#play_sound#BigFootDown#unit_pos
+0.37#play_sound#GuardTaunt#unit_pos
+0.51#play_sound#SP_WolfRoar#unit_pos
+0.57#add_eft#P狼嚎#unit_pos,0,0,0#0
+0.57#camera_shake#0.1#5

@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0#set_cmd_val#0#1
+0.32#yell#caster#闪电！
+0.32#add_eft#M暗魔弹出手#cast_pos#0
+0.35#play_sound#LightBall_Hit#unit_pos
+0.62#dmg_check#0#type:2;dmg:10;hit:1000;blk:-1000;eft:雷魔弹
+0.65#play_sound#ElectricBall_Hit#unit_pos
+0.92#block_act#0#0

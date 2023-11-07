@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="850,80">
+  <displayList>
+    <list id="n0_i5tu" name="list_slots" xy="0,0" size="850,80" layout="row" colGap="5" defaultItem="ui://zuvkwb6mpczr7x">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

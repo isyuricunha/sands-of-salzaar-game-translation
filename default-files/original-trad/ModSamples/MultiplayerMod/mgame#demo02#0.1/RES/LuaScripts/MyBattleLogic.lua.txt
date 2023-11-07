@@ -1,0 +1,139 @@
+require("LuaPanda").start("127.0.0.1",8818)
+
+require("GameMath")
+
+curBattleScene = nil
+
+playerUnitDefeatCount = 0
+
+playerUnitID = 0
+
+playerUnit = nil
+playerRole = nil
+playerCurLevel = 1
+
+totalPlayerGainedSp = 1
+totalPlayerUsedSp = 0
+
+actionBarSlotCount = 4
+
+RES_ID_MONEY = "金钱"
+
+local GameCoreHelper = CS.GameCoreHelper
+
+--场景初始化
+function initBattleScene(_bs)
+    curBattleScene = _bs
+
+    --测试初始化刷新代码
+    local tagCmd = "AREA_SPAWN*SpawnAreaA##荒沙精英武士,10|荒沙骆驼骑兵,10|荒沙弓骑,10|雪岭精英勇士,10|雪岭剑豪,10|雪岭精英驯兽师,10|蛮牛战神,10|蛮牛铁甲神射手,10|蝎族女刺客,10|雄鹰重装盾卫,10|寒霜古龙,2|堕火魔龙,2#0#1:600#LUA刷出A#s_生命,100000"
+    --local tagCmd = "AREA_SPAWN*SpawnAreaA##荒沙精英武士,2|荒沙骆驼骑兵,2|蛮牛铁甲神射手,10#0#1:600#LUA刷出A#s_生命,100000"
+    curBattleScene:LocalExecBsCmdLines(tagCmd, 0)
+    tagCmd = "AREA_SPAWN*SpawnAreaB##荒沙精英武士,10|荒沙骆驼骑兵,10|荒沙弓骑,10|雪岭精英勇士,10|雪岭剑豪,10|雪岭精英驯兽师,10|蛮牛战神,10|蛮牛铁甲神射手,10|蝎族女刺客,10|雄鹰重装盾卫,10|寒霜古龙,2|堕火魔龙,2#1#1:600#LUA刷出B#s_生命,100000"
+    --tagCmd = "AREA_SPAWN*SpawnAreaB##荒沙精英武士,2|荒沙骆驼骑兵,2|蛮牛铁甲神射手,10#1#1:600#LUA刷出A#s_生命,100000"
+    curBattleScene:LocalExecBsCmdLines(tagCmd, 0)
+
+    local allPlayers = curBattleScene:GetAllPlayersInBattle()
+    local tagPlayer
+    local tagSide
+    local templateRoleID
+    local tagPos
+    local initDir = 0
+    for index=0,allPlayers.Count-1 do
+        tagPlayer = allPlayers[index]
+        tagSide = index
+        if index > 1 then
+            templateRoleID = "主角模板3"
+            tagPos = curBattleScene:GetBattleRealPosByMapPos(2400, 3000)
+            initDir = 235
+        elseif index == 1 then
+            templateRoleID = "主角模板2"
+            tagPos = curBattleScene:GetBattleRealPosByMapPos(-1700, 2060)
+            initDir = 315
+        else
+            templateRoleID = "主角模板1"
+            tagPos = curBattleScene:GetBattleRealPosByMapPos(1865, -1899)
+            initDir = 135
+        end
+        curBattleScene:SetPlayerUnit(tagPlayer.actorID, templateRoleID, tagSide, tagPos.x, tagPos.y, initDir)
+    end
+    curBattleScene:DelayExecute(3.0, function ()
+        controllAllUnitsToFight()
+    end)
+end
+
+function controllAllUnitsToFight()
+    curBattleScene:LocalExecBsCmdLines("SET_POLICY*#0#0##LUA刷出A", 0)
+    curBattleScene:LocalExecBsCmdLines("SET_POLICY*#0#0##LUA刷出B", 0)
+end
+
+--销毁场景接口
+function onBattleSceneDestory()
+    
+end
+
+--单位事件
+function onUnitEvent(_tagUnit, _eventType, _eventArg)
+    if _eventType == "set_player" then
+        --设置玩家控制单位事件
+        onSetPlayerUnit(_tagUnit)
+    elseif _eventType == "level_changed" then
+        --单位等级发生改变事件
+        onUnitLevelChanged(_tagUnit, tonumber(_eventArg))
+    elseif _eventType == "on_die" then
+        --单位被击倒事件
+        onUnitDie(_tagUnit)
+    end
+end
+
+--场景每秒事件
+function onSecondUpdate()
+    
+end
+
+--击败单位接口
+function onUnitDefeatEnemy(_thisUnit, _tagUnit)
+    if (_thisUnit == playerUnit) then
+        --增加统计接口
+        playerUnitDefeatCount = playerUnitDefeatCount + 1
+        curBattleScene:SendUIMessage("info_updated", "")
+    end
+end
+
+--设置主角控制单位
+function onSetPlayerUnit(_tagUnit)
+    playerUnit = _tagUnit
+    if playerUnit ~= nil then
+        playerUnitID = playerUnit.unitID
+        playerCurLevel = playerUnit.unitLevel
+        playerRole = GameCoreHelper.GetPlayerRole()
+        updatePlayerSpNum()
+    else
+        playerUnitID = 0
+    end
+    curBattleScene:SendUIMessage("info_updated", "")
+end
+
+function onUnitLevelChanged(_tagUnit, _newLevel)
+    if (_tagUnit == playerUnit) then
+        playerCurLevel = _newLevel
+        updatePlayerSpNum()
+        curBattleScene:SendUIMessage("info_updated", "")
+    end
+end
+
+function updatePlayerSpNum()
+    totalPlayerGainedSp = playerCurLevel
+end
+
+function onUnitDie(_tagUnit)
+    --do nothing
+end
+
+function GetPlayerUsableSp()
+    return math.max(totalPlayerGainedSp - totalPlayerUsedSp, 0)
+end
+
+function TestAddExp(_addVal)
+    curBattleScene:LocalExecBsCmdLines("ADD_EXP*" .. _addVal, playerUnitID)
+end

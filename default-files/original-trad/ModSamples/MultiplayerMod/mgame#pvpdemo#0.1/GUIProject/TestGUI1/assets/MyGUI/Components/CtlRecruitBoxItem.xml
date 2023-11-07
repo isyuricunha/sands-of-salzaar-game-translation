@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,70">
+  <displayList>
+    <image id="n1_jeg2" name="bg" src="o316b2" fileName="Images/BattlePanel_SkillSlot_Bg1.png" xy="0,0" size="800,70" alpha="0.7">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_jeg2" name="title" xy="19,8" size="490,55" fontSize="24" color="#ffffff" vAlign="middle" autoSize="none" shadowColor="#000000" shadowOffset="1,1" text="单位信息 x 10">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <component id="n5_jeg2" name="btn_buy" src="o316bc" fileName="Buttons/BattleFuncBtn1.xml" xy="647,8" size="133,54">
+      <relation target="" sidePair="middle-middle,right-right"/>
+      <Button title="招募"/>
+    </component>
+    <text id="n6_jeg2" name="price" xy="357,7" size="273,55" fontSize="24" color="#ffff33" align="right" vAlign="middle" autoSize="none" shadowColor="#000000" shadowOffset="1,1" text="花费:100">
+      <relation target="" sidePair="middle-middle,right-right"/>
+    </text>
+  </displayList>
+</component>

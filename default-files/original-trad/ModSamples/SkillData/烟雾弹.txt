@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.32#add_eft#T烟雾弹扔#unit_pos,0,0,0#1:0,0,0
+0.32#play_sound#FireBall_Shoot#unit_pos
+1#play_sound#WhiteSmoke_Hit#unit_pos
+1#play_sound#WindSword#unit_pos
+1#add_eft#T烟雾弹烟#tag_pos,0,0,0#0

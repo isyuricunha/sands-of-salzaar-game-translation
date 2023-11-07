@@ -1,0 +1,7 @@
+﻿0#block_act#1#0
+0.48#dmg_check#0#type:2;dmg:[%stat:s_攻击%]*3;hit:1000;blk:-1000;eft:嗜血刀术吸血刃受击#target
+0.47#add_eft#P嗜血刀术吸血刃#unit_pos,0,0,0#0
+0.3#play_sound#Slash_Basic#unit_pos
+0.2#play_sound#SK_020#unit_pos
+0.33#play_sound#BloodSplash#unit_pos
+0.92#block_act#0#0

@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0.23#dmg_check#1#type:2;dmg:[%stat:s_攻击%];eft:嗜血刀术狂暴斩受击#0#unit_pos,0,0,0,600
+0.23#add_eft#龙牙斩1#unit_pos,0,0,0#0
+0.23#camera_shake#0.1#3
+0.23#play_sound#Slash_Basic#unit_pos
+0.23#play_sound#Blade_Attack#unit_pos
+0.23#play_sound#BloodDagger_Hit#unit_pos
+0.95#dart_move##0#5000#800#龙牙斩冲锋#龙牙斩震撼#caster#
+1.66#block_act#0#0

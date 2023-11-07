@@ -1,0 +1,6 @@
+﻿0#block_act#1#0
+0#add_eft#圆形预警1:1:5#tag_pos,0,0,0#0
+1.82#block_act#0#0
+0.05#play_sound#ClothMovement#unit_pos
+0.5#play_sound#BigBodyFly_01#unit_pos
+0.92#dart_move#跳跃#1#2500#800##飞空踩踏冲击波,1,0.4

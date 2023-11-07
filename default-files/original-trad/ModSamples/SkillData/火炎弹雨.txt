@@ -1,0 +1,17 @@
+﻿0#block_act#1#0
+1.78#block_act#0#0
+0.43#add_eft#M火魔弹出手#cast_pos#0
+0.43#play_sound#FireBall_Shout#unit_pos
+0.03#play_sound#FireArrowRain_01#unit_pos
+0.53#play_sound#FireBall_Shout#unit_pos
+0.63#play_sound#FireBall_Shout#unit_pos
+0.73#play_sound#FireBall_Shout#unit_pos
+0.83#play_sound#FireBall_Shout#unit_pos
+0.93#play_sound#FireBall_Shout#unit_pos
+1.03#play_sound#FireBall_Shout#unit_pos
+1.13#play_sound#FireBall_Shout#unit_pos
+1.23#play_sound#FireBall_Shout#unit_pos
+1.33#play_sound#FireBall_Shout#unit_pos
+1.43#play_sound#FireBall_Shout#unit_pos
+1.53#play_sound#FireBall_Shout#unit_pos
+1.63#play_sound#FireBall_Shout#unit_pos

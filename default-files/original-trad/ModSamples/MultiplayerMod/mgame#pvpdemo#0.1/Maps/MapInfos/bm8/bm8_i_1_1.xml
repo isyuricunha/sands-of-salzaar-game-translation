@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<blend_map_tileinfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" blend_weight="0.296739519" need_tex_file="1">
+  <tile_tex tex_id="13" scale_x="3" scale_y="3" rotate="0" />
+  <tile_tex tex_id="14" scale_x="3" scale_y="4" rotate="0" />
+  <tile_obj obj_id="12" obj_type="0" tileset_id="valley_building06" layer_index="1" pos_x="614.6149" pos_y="447.391846" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="17" obj_type="0" tileset_id="valley_hall_level2" layer_index="1" pos_x="1302.546" pos_y="558.7547" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="44" obj_type="0" tileset_id="valley_building06" layer_index="1" pos_x="578.925964" pos_y="466.0134" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="45" obj_type="0" tileset_id="valley_building06" layer_index="1" pos_x="540.132751" pos_y="478.9443" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="46" obj_type="0" tileset_id="valley_building06" layer_index="1" pos_x="509.098328" pos_y="493.168335" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="86" obj_type="0" tileset_id="desert plant_03" layer_index="1" pos_x="681.921265" pos_y="540.9344" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="119" obj_type="0" tileset_id="desert plant_04" layer_index="1" pos_x="1070.50049" pos_y="558.2885" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="120" obj_type="0" tileset_id="desert plant_01" layer_index="1" pos_x="574.457153" pos_y="570.262756" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="172" obj_type="0" tileset_id="treestyle03" layer_index="1" pos_x="896.636841" pos_y="551.8992" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="302" obj_type="0" tileset_id="yanti_gobi07" layer_index="1" pos_x="1574.47217" pos_y="400.8661" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+  <tile_obj obj_id="411" obj_type="0" tileset_id="yanti_desertrock01" layer_index="1" pos_x="678.0876" pos_y="721.814941" offset_z="0" arg_x="1" arg_y="1" arg_z="0" visible="1" is_locked="0" x_flip="0" obj_infos="" bind_tag="" control_info="" />
+</blend_map_tileinfo>

@@ -1,0 +1,363 @@
+require("gui/WindowUtils")
+require("GameUtils")
+require("gui/HeroAttributeSubWin")
+require("gui/SoldierAttributeSubWin")
+
+--页面访问控件
+local contentPane;
+--玩家队伍中的单位卡牌
+local lvPartyList;
+local lvHeroesList;
+local lvSoldiersList;
+local lbTeamInfo;
+local lbFromInfo;
+local lbCampInfo;
+
+local groupSubPages;
+local subpageHeroDetail;
+local subpageSoldierDetail;
+
+local comItemList
+local ctlItemsList
+
+local btnClose;
+
+local timerTickInterval = 0.05
+
+local curDlgState = 0;
+
+local GameCoreHelper = CS.GameCoreHelper;
+local GameTools = CS.GameTools;
+
+local curRoleCount = 0;
+local curSoldierCount = 0;
+
+local curSeledCardInfo = nil;
+local curSeledSlot = nil;
+
+local ctlCurSubPage = nil;
+
+local playerRole = nil;
+---@type TeamInMap
+local inspectTeam = nil;
+
+local curRoleSlotsList = nil;
+local curSoldierSlotsList = nil;
+
+local showRoleList = true;
+
+--窗体初始化时
+function onInit()
+	contentPane = self.contentPane
+
+	playerRole = GameCoreHelper.GetPlayerRole();
+
+	lvPartyList = contentPane:GetChild("party_list").asList;
+
+	lbTeamInfo = lvPartyList:GetChildAt(0).asLabel;
+	lbFromInfo = lvPartyList:GetChildAt(1).asLabel;
+	lbCampInfo = lvPartyList:GetChildAt(2).asLabel;
+	local tagComp = lvPartyList:GetChildAt(3).asCom;
+	lvHeroesList = tagComp:GetChild("items_list").asList;
+	tagComp = lvPartyList:GetChildAt(5).asCom;
+	lvSoldiersList = tagComp:GetChild("items_list").asList;
+
+	groupSubPages = contentPane:GetChild("sub_pages").asGroup;
+	subpageHeroDetail = contentPane:GetChildInGroup(groupSubPages, "com_herodetail").asCom;
+	subpageHeroDetail.visible = false;
+	subpageSoldierDetail = contentPane:GetChildInGroup(groupSubPages, "com_unitdetail").asCom;
+	subpageSoldierDetail.visible = false;
+
+	comItemList = contentPane:GetChild("item_list")
+
+	btnClose = contentPane:GetChild("btn_close").asButton;
+	btnClose.onClick:Add(onClickBtnClose);
+
+	--设置默认值
+	self:SetCloseButton(btnClose);
+
+	curDlgState = 0;
+
+	if IsMobileMode then
+		CreateQuickCloseBg(contentPane, onClickBtnClose)
+	end
+end
+
+--自定义初始化事件
+function onCustomInit()
+	inspectTeam = self.CustomData;
+	ctlItemsList = CS.GUIHelper.CreateItemListBox(comItemList, inspectTeam.inventoryItemList,
+		inspectTeam.inventoryItemList.Count, 0)
+	ctlItemsList:SetClickSlotCallback(function(_tagSlot)
+		if IsMobileMode then
+			ctlItemsList:SetFocusItem(_tagSlot)
+			ctlItemsList:DoShowItemDetailInfoWindow(_tagSlot, true);
+		end
+	end);
+	--初始事件
+	RefreshAllUnits();
+end
+
+--窗体开始显示并播放显示动画时
+function onDoShowAnimation()
+	CommonShowWindowAnim(self, onShown)
+end
+
+--窗体播放完显示动画时
+function onShown()
+	--增加计时器事件
+	CS.FairyGUI.Timers.inst:Add(timerTickInterval, 0, onTimerTickUpdate);
+
+	curDlgState = 1;
+end
+
+--窗体开始播放关闭动画时
+function onDoHideAnimation()
+	curDlgState = -1;
+	CommonHideWindowAnim(self, onHideAnimationDone)
+end
+
+function onHideAnimationDone()
+	self:HideImmediately();
+end
+
+--窗体隐藏时
+function onHide()
+	curDlgState = -1;
+	--移除计时器事件
+	CS.FairyGUI.Timers.inst:Remove(onTimerTickUpdate);
+
+	--关闭所有弹出框
+	CS.GUIHelper.CloseAllPopupWindow();
+end
+
+function onTimerTickUpdate()
+	if curDlgState ~= 1 then
+		return;
+	end
+	if inspectTeam ~= nil and inspectTeam.isTeamUpdated then
+		UpdateViewInfos();
+		inspectTeam.isTeamUpdated = false;
+	end
+	ctlItemsList:RunUpdate(timerTickInterval)
+end
+
+--UI逻辑
+function UpdateViewInfos()
+	RefreshAllUnits();
+
+end
+
+function RefreshAllUnits()
+	SetCurSeledCardSlot(nil);
+
+	local defSelCardSlot = nil;
+
+	if showRoleList then
+		--渲染英雄卡
+		lvHeroesList.numItems = 0;
+		curRoleSlotsList = {};
+		--遍历角色表
+		local tagRoleInfo;
+		local curRoleList = inspectTeam.rolesInTeam;
+		local tagSlotInfo;
+		curRoleCount = 0;
+		for index=0,curRoleList.Count-1 do
+			tagRoleInfo = curRoleList[index];
+			tagSlotInfo = AddHeroSlotViewPUI(tagRoleInfo, 0, lvHeroesList, OnClickTagCardSlot);
+			table.insert(curRoleSlotsList, tagSlotInfo);
+			curRoleCount = curRoleCount + 1;
+			if curSeledCardInfo == nil and defSelCardSlot == nil and tagRoleInfo:IsPlayer() then
+				defSelCardSlot = tagSlotInfo;
+			elseif tagSlotInfo.cardInfo == curSeledCardInfo then
+				defSelCardSlot = tagSlotInfo;
+			end
+		end
+	end
+
+	--渲染兵卡
+	lvSoldiersList.numItems = 0;
+	curSoldierSlotsList = {};
+	--遍历小兵表
+	local tagSoldierCard;
+	local curSoldierList = inspectTeam.soldierCardsInTeam;
+	curSoldierCount = 0;
+	for index=0,curSoldierList.Count-1 do
+		tagSoldierCard = curSoldierList[index];
+		tagSlotInfo = AddSoldierSlotViewPUI(tagSoldierCard, 0, lvSoldiersList, OnClickTagCardSlot);
+		table.insert(curSoldierSlotsList, tagSlotInfo);
+		curSoldierCount = curSoldierCount + 1;
+		if defSelCardSlot == nil then
+			if curSeledCardInfo == nil then
+				defSelCardSlot = tagSlotInfo;
+			elseif tagSlotInfo.cardInfo == curSeledCardInfo then
+				defSelCardSlot = tagSlotInfo;
+			end
+		end
+    end
+
+	--适配控件
+	lvHeroesList:ResizeToFit();
+	lvSoldiersList:ResizeToFit();
+
+	--更新队伍信息
+	lbTeamInfo.title = inspectTeam:GetTeamNameInfo();
+
+	if inspectTeam:GetTeamFromPlace() ~= nil then
+		lbFromInfo.visible = true;
+		lbFromInfo.title = GameCoreHelper.StringFormat(GetGameString("UITeamInfoViewer_UpdateTeamInfo"), inspectTeam:GetTeamFromPlace():GetPlaceName());
+	else
+		lbFromInfo.visible = false;
+	end
+
+	if inspectTeam.CurCamp ~= nil then
+		lbCampInfo.title = GameTools.GetGameString("PlaceScene_UpdatePlaceInfoBox", inspectTeam.CurCamp:GetCampName());
+		lbCampInfo.visible = true;
+	else
+		lbCampInfo.visible = false;
+	end
+
+	UpdateMemberList();
+	SelectTagCard(defSelCardSlot, true);
+
+	inspectTeam.isTeamUpdated = false;
+end
+
+function UpdateMemberList()
+	if showRoleList then
+		for k,v in pairs(curRoleSlotsList) do
+			if v ~= nil then
+				UpdateHeroSlotPUI(v, false);
+			end
+		end
+	end
+	for k,v in pairs(curSoldierSlotsList) do
+		if v ~= nil then
+			UpdateSoldierSlotPUI(v, false, true);
+		end
+	end
+end
+
+function OnClickTagCardSlot(_tagSlot)
+	PlayButtonSound();
+	if _tagSlot.cardInfo ~= nil then
+		SelectTagCard(_tagSlot, false);
+	end
+end
+
+function SelectTagCard(_tagSlot)
+	SetCurSeledCardSlot(_tagSlot);
+	if _tagSlot ~= nil then
+		curSeledCardInfo = _tagSlot.cardInfo;
+		if curSeledCardInfo ~= nil then
+			local cardType = curSeledCardInfo:GetCardType();
+			SetDetailInfoUIMode(cardType);
+			UpdateCmdBtnsByCurCard();
+		end
+	end
+end
+
+function SetCurSeledCardSlot(_tagSlot)
+	if curSeledSlot ~= nil then
+		SetMemberSlotSelected(curSeledSlot, false);
+	end
+	curSeledSlot = _tagSlot;
+	if curSeledSlot ~= nil then
+		SetMemberSlotSelected(curSeledSlot, true);
+	end
+end
+
+function SetMemberSlotSelected(_tagSlot, _isSeled)
+    if _tagSlot.bindBtn ~= nil then
+        _tagSlot.bindBtn.enabled = not _isSeled;
+    end
+	if _tagSlot.selOnFrame ~= nil then
+        _tagSlot.selOnFrame.visible = _isSeled;
+    end
+end
+
+function onClickBtnClose()
+	PlayButtonSound();
+
+	self.CurDialogResult = -1;
+	self:Hide();
+end
+
+function UpdateCmdBtnsByCurCard()
+
+end
+
+--当前详情显示类型 0：小兵 1：英雄
+function SetDetailInfoUIMode(_curMode)
+	local lastPage = ctlCurSubPage;
+	if lastPage ~= nil then
+		DoHideOldPage(lastPage);
+	end
+	if _curMode == 1 then
+		curPageComp = subpageHeroDetail;
+	else
+		curPageComp = subpageSoldierDetail;
+	end
+	if curPageComp ~= nil then
+		ctlCurSubPage = curPageComp.data;
+		if ctlCurSubPage == nil then
+			ctlCurSubPage = {};
+			--初始化子页面控件
+			ctlCurSubPage.bindView = curPageComp;
+
+			curPageComp.data = ctlCurSubPage;
+		end
+		ctlCurSubPage.pageMode = _curMode;
+	else
+		ctlCurSubPage = nil;
+	end
+	local _ctlCurPage = ctlCurSubPage;
+	if _ctlCurPage == nil then
+		return;
+	end
+	if _ctlCurPage.uiController == nil then
+		_ctlCurPage.OnUpdate = nil;
+		if _curMode == 1 then
+			--初始化角色详情界面
+			local ctlDetail = HeroAttributeSubWin:Create();
+			ctlDetail:Init(ctlCurSubPage.bindView, false);
+			ctlDetail:SetViewStyle(0);
+
+			_ctlCurPage.uiController = ctlDetail;
+			_ctlCurPage.OnUpdate = function(_curSlot)
+				if _curSlot ~= nil and _curSlot.bindRole ~= nil then
+					ctlDetail:SetCurRole(_curSlot.bindRole);
+				end
+			end;
+		else
+			--初始化兵种详情界面
+			local ctlDetail = SoldierAttributeSubWin:Create();
+			ctlDetail:Init(ctlCurSubPage.bindView, false);
+			ctlDetail:SetViewStyle(1);
+
+			_ctlCurPage.uiController = ctlDetail;
+			_ctlCurPage.OnUpdate = function(_curSlot)
+				if _curSlot ~= nil and _curSlot.cardInfo ~= nil then
+					ctlDetail:SetCurCard(_curSlot.cardInfo);
+				end
+			end;
+		end
+	end
+	_ctlCurPage.bindView.visible = true;
+	UpdateSubPageView(_ctlCurPage);
+end
+
+function DoHideOldPage(_ctlCurPage)
+	if _ctlCurPage == nil then
+		return;
+	end
+	_ctlCurPage.bindView.visible = false;
+end
+
+function UpdateSubPageView(_ctlCurPage)
+	if _ctlCurPage ~= nil then
+		if _ctlCurPage.OnUpdate ~= nil then
+			_ctlCurPage.OnUpdate(curSeledSlot);
+		end
+	end
+end

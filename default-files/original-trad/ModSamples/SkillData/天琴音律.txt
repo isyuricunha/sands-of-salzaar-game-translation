@@ -1,0 +1,13 @@
+﻿0#block_act#1#0
+0.17#play_sound#Cast_Holy#unit_pos
+0.27#play_sound#Cast_Sound#unit_pos
+0.37#play_sound#Cast_Ice#unit_pos
+0.47#play_sound#Cast_BlackPower#unit_pos
+0.57#play_sound#Aura_CriticalHit#unit_pos
+0.57#camera_shake#0.1#5
+0.57#add_eft#天琴音律#unit_pos,0,0,0#0
+0.55#play_sound#Cast_Sound#unit_pos
+0.67#play_sound#Aura_Heal#unit_pos
+0.6#dmg_check#1#type:3;t_dmg:[&@min([%stat:s_生命%]*0.1+[%stat:s_生命%]*0.002*[%stat:b_精神%],[%stat:s_生命%]*0.2)&];hit:1000;blk:-1000;eft:野火刀术浴火回血空#1#unit_pos,0,0,0,1000
+0.6#dmg_check#1#type:3;t_dmg:0;hit:1000;blk:-1000;eft:野火刀术浴火回血空#1#unit_pos,0,0,0,2000
+0.98#block_act#0#0

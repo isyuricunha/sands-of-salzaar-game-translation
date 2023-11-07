@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.98#block_act#0#0
+0.6#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;eft:铁匠之怒抡击受击;buff:错乱,5,1#0#unit_pos,0,0,0,300
+0.57#play_sound#MirageFlowers#unit_pos
+0.57#add_eft#P幻觉花粉#unit_pos,0,0,0#0
+0.57#camera_shake#0.1#5
+0.67#play_sound#Dust_Small#unit_pos
+0.55#play_sound#Smoke_Hit#unit_pos

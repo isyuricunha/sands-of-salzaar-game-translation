@@ -1,0 +1,10 @@
+﻿0.08#add_buff#极#caster#0.2#1
+0.08#stop_dartmove
+0.08#dart_move##0#4000#0###caster#dim_pos,[%rnd:-200,200%],[%rnd:-200,200%],0
+0#set_status#start_action
+0#add_eft#P刺击#cast_pos,-50,0,-150#0
+0.25#set_status#finish_action
+0.25#stop_dartmove
+0.01#play_sound#Slash_Super#unit_pos
+0.1#play_sound#Slash_Moon#unit_pos
+0.11#play_sound#TwoHandAxe_Hit##tag_pos

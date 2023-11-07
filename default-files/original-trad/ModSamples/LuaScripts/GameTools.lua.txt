@@ -1,0 +1,58 @@
+
+function DebugError(errorInfo)
+    CS.GameCoreHelper.LogError(errorInfo)
+end
+
+--判断字符串是否为空
+function IsEmptyOrNilStr(str)
+    if str == nil or str == "" then
+        return true
+    end
+    return false
+end
+
+--获取从 minVal（包含）到maxVal（包含）的随机整数
+function RandomInt(minVal, maxVal)
+    math.randomseed(os.time())
+    return math.random(minVal, maxVal)
+end
+
+---* 使用接口 IEnumerable 迭代C#对象
+---* 用例：for obj in foreach(list) doSomething(obj) end
+function foreach(IEnumerable)
+    local enumerator = IEnumerable:GetEnumerator();
+    return function()
+        if enumerator:MoveNext() then
+            return enumerator.Current
+        end
+    end
+end
+
+function table.contains(t, element)
+    if t == nil then
+        return false
+    end
+
+    for _, value in pairs(t) do
+        if value == element then
+            return true
+        end
+    end
+    return false
+end
+
+---@return number 返回0代表没找到，返回大于等于1代表索引
+function table.findIndex(t, element)
+    if t == nil then
+        return 0
+    end
+
+    local index = 1
+    for _, value in ipairs(t) do
+        if value == element then
+            return index
+        end
+        index = index + 1
+    end
+    return 0
+end

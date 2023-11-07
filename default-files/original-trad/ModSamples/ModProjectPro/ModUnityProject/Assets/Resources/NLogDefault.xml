@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nlog assertException="True">
+  <time type="AccurateLocal" />
+  <targets>
+	<target name="AliCloudAsync" type="AsyncWrapper" overflowAction="Discard" queueLimit="20000" batchSize="20000" timeToSleepBetweenBatches="5000">
+		<target name="AliCloud_DONOTUSE" type="AliCloud" layout="${message} ${exception:format=toString} ӧT${pad:padCharacter=0:padding=3:inner=${threadid}} F${framecount_gg} ${appruncount}" />
+	</target>
+	<target name="File" type="File" layout="${date:format=HH\:mm\:ss.fff} @T${pad:padCharacter=0:padding=3:inner=${threadid}} ${pad:padding=-12:inner=${logger}} ${pad:padding=5:inner=${level:uppercase=true}} ${message} ${appruncount} ${exception:format=toString}" fileName="${log_path_gg}/LOG_${appstarttime_gg}_G.log" autoClear="False" />
+	<target name="UnityConsole" type="UnityConsole" layout="${pad:padding=-12:inner=${logger}} ${message} ${appruncount} ${exception:format=toString}" />
+  </targets>
+  <rules>
+    <logger name="*" target="UnityConsole" levels="Assert, Fatal, Error, Warn, Info" namespace="*" />
+    <logger name="*" target="File,AliCloudAsync" levels="Assert, Fatal, Error, Warn,Info" namespace="*" />
+</rules>
+</nlog>

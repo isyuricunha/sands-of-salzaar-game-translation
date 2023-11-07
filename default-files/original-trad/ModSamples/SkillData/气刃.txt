@@ -1,0 +1,9 @@
+﻿0#block_act#1#0
+0.17#play_sound#WindSword#unit_pos
+0.37#add_eft#气刃#unit_pos#3:0,1000#0#
+0.37#camera_shake#0.1#3
+0.37#play_sound#Slash_Basic#unit_pos
+0.37#play_sound#Blade_Attack#unit_pos
+0.37#play_sound#BloodDagger_Hit#unit_pos
+0.57#play_sound#BladeWave#unit_pos
+0.5#block_act#0#0

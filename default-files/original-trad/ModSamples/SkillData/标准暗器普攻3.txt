@@ -1,0 +1,17 @@
+﻿0#block_act#1#0
+0#unit_sound_dic#攻击吼叫#caster
+0.57#add_eft#P秋叶刀#cast_pos#3:0,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:15,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:30,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:45,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:300,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:315,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#add_eft#P秋叶刀#cast_pos#3:330,[%stat:s_攻击范围%]#0#type:2;dmg:[%stat:s_攻击%]/6;eft:暗器攻击1
+0.57#play_sound#Dart_Attack#unit_pos
+0.01#play_sound#ClothMovement#unit_pos
+0.29#play_sound#Dart_Attack#unit_pos
+0.39#play_sound#Dart_Attack#unit_pos
+0.51#play_sound#Dart_Attack#unit_pos
+0.65#play_sound#Dart_Attack#unit_pos
+0.67#play_sound#Palm_Attack#unit_pos
+0.75#block_act#0#0

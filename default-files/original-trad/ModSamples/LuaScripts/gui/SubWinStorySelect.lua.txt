@@ -1,0 +1,310 @@
+require("gui/WindowUtils")
+require("GameUtils")
+
+local GameCoreHelper = CS.GameCoreHelper
+local GameTools = CS.GameTools
+
+--页面访问控件
+
+SubWinStorySelect = {
+	curSeledStory = nil,
+	curSeledSlot = nil,
+	onCloseCallback = nil,
+	curSlots = nil,
+}
+
+SubWinStorySelect.meta = {__index = SubWinStorySelect}
+
+--窗体初始化时
+function SubWinStorySelect:Create(_mainView, _onCloseCallback)
+	self.mainView = _mainView;
+	self.onCloseCallback = _onCloseCallback;
+
+	self.btnBack = _mainView:GetChild("btn_close").asButton;
+	self.listStorys = _mainView:GetChild("item_list").asList;
+	self.btnPrev = _mainView:GetChild("btn_prev").asButton;
+	self.btnNext = _mainView:GetChild("btn_next").asButton;
+
+	self.curSeledStory = nil;
+	self.curSeledSlot = nil;
+
+	--绑定按钮事件
+	self.btnBack.onClick:Add(function()
+		self:onClickBackBtn();
+	end);
+	self.btnPrev.onClick:Add(function()
+		self:onClickPrevItem();
+	end);
+	self.btnNext.onClick:Add(function()
+		self:onClickNextItem();
+	end);
+
+	self:InitStoryList();
+	self.listStorys.scrollPane.onScrollEnd:Add(function()
+		self:onPageScrollEnd();
+	end);
+
+	return self;
+end
+
+function SubWinStorySelect:GetCurSelectedStoryID()
+	if self.curSeledStory ~= nil then
+		return self.curSeledStory.ModeId;
+	end
+	return "";
+end
+
+function SubWinStorySelect:onPageScrollEnd()
+	if (self.listStorys.scrollPane.posX <= 0) then
+		self.btnPrev.visible = false;
+	else
+		self.btnPrev.visible = true;
+	end
+
+	local scrollRange = self.listStorys.scrollPane.contentWidth - self.listStorys.scrollPane.viewWidth;
+	if (self.listStorys.scrollPane.posX >= scrollRange) then
+		self.btnNext.visible = false;
+	else
+		self.btnNext.visible = true;
+	end
+end
+
+--按下完成按钮时
+function SubWinStorySelect:onClickBackBtn()
+	PlayButtonSound();
+
+	self:beforeLeaveScene();
+	if self.onCloseCallback ~= nil then
+		self.onCloseCallback();
+	end
+end
+
+function SubWinStorySelect:onClickPrevItem()
+	PlayButtonSound();
+
+	local curIndex = self.listStorys:GetFirstChildInView();
+	--- 计算每页数量
+	local trueWidth = self.listStorys.width - self.curSlots[curIndex].compInfoBox.width
+	local itemPerPage = math.floor(trueWidth / self.curSlots[curIndex].bindBtn.width)
+
+	local toIndex = curIndex - itemPerPage;
+	if (toIndex < 0) then
+		toIndex = 0;
+	end
+	local tagSlot = self.curSlots[toIndex];
+	if tagSlot ~= nil then
+		self:SelectStoryCard(tagSlot);
+	end
+
+	CS.FairyGUI.Timers.inst:Add(0, 1, function()
+		self.listStorys:ScrollToView(toIndex, true);
+	end)
+end
+
+function SubWinStorySelect:onClickNextItem()
+	PlayButtonSound();
+
+	local curIndex = self.listStorys:GetFirstChildInView();
+	--- 计算每页数量
+	local trueWidth = self.listStorys.width - self.curSlots[curIndex].compInfoBox.width
+	local itemPerPage = math.floor(trueWidth / self.curSlots[curIndex].bindBtn.width)
+
+	local toIndex = curIndex + itemPerPage;
+	if (toIndex >= self.listStorys.numItems) then
+		toIndex = self.listStorys.numItems - 1;
+	end
+	local tagSlot = self.curSlots[toIndex];
+	if tagSlot ~= nil then
+		self:SelectStoryCard(tagSlot);
+	end
+
+	CS.FairyGUI.Timers.inst:Add(0, 1, function()
+		self.listStorys:ScrollToView(toIndex, true);
+	end)
+end
+
+function SubWinStorySelect:beforeLeaveScene()
+	CS.GUIHelper.CloseAllPopupWindow()
+end
+
+function SubWinStorySelect:InitStoryList()
+	local curGameMode = CS.GUIHelper.GetGUIGlobalIntVal("newgame_gamemode_code");
+
+	local allModeList = GameCoreHelper.GetAllList_StoryModePojo();
+	self.curSlots = {};
+	self.listStorys.numItems = 0;
+	local defSlot = nil;
+	local tagSlot = nil;
+	if allModeList.Count > 0 then
+		local tagStory;
+		local curReadIndex = 0;
+		local noPass = false;
+		for index=0,allModeList.Count-1 do
+			tagStory = allModeList[index];
+			noPass = false;
+			if tagStory:IsLimitMode() and curGameMode ~= 1 then
+				noPass = true;
+			end
+			if tagStory.Enable == 1 and not noPass then
+				tagSlot = self:CreateStoryCard(self.listStorys, tagStory);
+				self.curSlots[curReadIndex] = tagSlot;
+				if defSlot == nil then
+					defSlot = tagSlot;
+				end
+				curReadIndex = curReadIndex + 1;
+			end
+		end
+	end
+	if defSlot ~= nil then
+		self:SelectStoryCard(defSlot);
+	end
+	CS.FairyGUI.Timers.inst:Add(0.5, 1, function()
+		self:onPageScrollEnd();
+	end);
+end
+
+function SubWinStorySelect:CreateStoryCard(_tagLv, _tagStoryInfo)
+    local _tagSlotView = _tagLv:AddItemFromPool().asCom;
+
+	local compBindInfo = _tagSlotView.data;
+	if compBindInfo == nil then
+		--初始化控件绑定信息
+		compBindInfo = {};
+		compBindInfo.bindView = _tagSlotView;
+		compBindInfo.storyInfo = nil;
+		compBindInfo.bindBtn = _tagSlotView:GetChild("btn_card").asButton;
+		compBindInfo.headImg = compBindInfo.bindBtn:GetChild("avata"):GetChild("head_holder").asImage;
+		local hardLevelBox = compBindInfo.bindBtn:GetChild("hard_level").asCom;
+		compBindInfo.ctlHardLevel = hardLevelBox:GetController("hard_level");
+		compBindInfo.txtTitle = compBindInfo.bindBtn:GetChild("title").asTextField;
+		compBindInfo.lbStoryMark = compBindInfo.bindBtn:GetChild("lb_storymark").asLabel;
+		compBindInfo.imgSelOn = compBindInfo.bindBtn:GetChild("sel_on").asGraph;
+
+		compBindInfo.compInfoBox = _tagSlotView:GetChild("info_box").asCom;
+		compBindInfo.baseSize = compBindInfo.bindBtn.width;
+		compBindInfo.addSize = compBindInfo.compInfoBox.width;
+		compBindInfo.txtStoryName = compBindInfo.compInfoBox:GetChild("title").asTextField;
+		compBindInfo.lvStoryDesc = compBindInfo.compInfoBox:GetChild("info_lines").asList;
+		compBindInfo.curAvataInfo = nil;
+        compBindInfo.oldAvataInfo = nil;
+
+		compBindInfo.compInfoBox.visible = false;
+
+		compBindInfo.bindBtn.onClick:Set(function()
+			self:OnClickStoryCard(compBindInfo);
+		end);
+
+		_tagSlotView.data = compBindInfo;
+	end
+
+	compBindInfo.storyInfo = _tagStoryInfo;
+	if _tagStoryInfo ~= nil then
+		compBindInfo.txtTitle.text = _tagStoryInfo:GetDisplayName();
+		compBindInfo.txtStoryName.text = _tagStoryInfo:GetDisplayName() .. ":";
+
+		compBindInfo.curAvataInfo = _tagStoryInfo:GetStoryDefAvataInfo();
+		if compBindInfo.curAvataInfo ~= compBindInfo.oldAvataInfo then
+			if not IsEmptyOrNil(compBindInfo.curAvataInfo) then
+				CS.GUIHelper.GenerateRoleHeadAvataImage(compBindInfo.curAvataInfo, compBindInfo.headImg);
+			else
+				CS.GUIHelper.GenerateRoleHeadAvataImage("character:unknown_man", compBindInfo.headImg);
+			end
+			compBindInfo.oldAvataInfo = compBindInfo.curAvataInfo;
+		end
+
+		local hardLevelStr = _tagStoryInfo:GetTagVal("hard_level");
+		local hardLevelVal = 0;
+		if not IsEmptyOrNil(hardLevelStr) then
+			hardLevelVal = math.floor(tonumber(hardLevelStr));
+		end
+		compBindInfo.ctlHardLevel.selectedIndex = hardLevelVal;
+		compBindInfo.lbStoryMark.visible = _tagStoryInfo:IsExclusiveStory();
+
+		compBindInfo.isUpdateDesc = false;
+	end
+
+	return compBindInfo;
+end
+
+function SubWinStorySelect:AddStoryDescLine1(_tagLv, _txtInfo)
+	local tagCom = "LabelCharStoryDescInfo1"
+	if IsMobileMode then
+		tagCom = "LabelCharStoryDescInfo1M"
+	end
+	local tagLb = UIPackage.CreateObject("NewUI", tagCom).asLabel;
+	if IsMobileMode then
+		if GameTools.UseLargeStoryText() then
+			tagLb.titleFontSize = 30
+		else
+			tagLb.titleFontSize = 25
+		end
+	end
+	_tagLv:AddChild(tagLb);
+	if tagLb ~= nil then
+		tagLb.text = CS.GUIHelper.ConvertUGUIStr(ConvertAllStrVal(_txtInfo));
+	end
+end
+
+function SubWinStorySelect:AddStoryDescIconLine(_tagLv, _iconType)
+	local tagLb = UIPackage.CreateObject("NewUI", "LabelCharStoryGroupIcon1").asLabel;
+	_tagLv:AddChild(tagLb);
+	if tagLb ~= nil then
+		if _iconType == 1 then
+			tagLb.icon = "ui://zuvkwb6nllof9td";
+		else
+			tagLb.icon = "ui://zuvkwb6nllof9tc";
+		end
+	end
+end
+
+function SubWinStorySelect:OnClickStoryCard(_tagSlot)
+	PlayButtonSound();
+
+	self:SelectStoryCard(_tagSlot)
+end
+
+function SubWinStorySelect:SelectStoryCard(_tagSlot)
+	if self.curSeledSlot ~= nil then
+		self:SetStoryCardSelected(self.curSeledSlot, false);
+	end
+	self.curSeledSlot = _tagSlot;
+	if self.curSeledSlot ~= nil then
+		self:SetStoryCardSelected(self.curSeledSlot, true);
+		self.curSeledStory = self.curSeledSlot.storyInfo;
+	end
+end
+
+function SubWinStorySelect:SetStoryCardSelected(_tagSlot, _isOn)
+	_tagSlot.bindBtn.enabled = not _isOn;
+	if _isOn then
+		_tagSlot.bindView.width = _tagSlot.baseSize + _tagSlot.addSize;
+		_tagSlot.compInfoBox.visible = true;
+		if _tagSlot.isUpdateDesc ~= true then
+			self:UpdateSlotDescInfo(_tagSlot)
+		end
+	else
+		_tagSlot.bindView.width = _tagSlot.baseSize;
+		_tagSlot.compInfoBox.visible = false;
+	end
+end
+
+function SubWinStorySelect:UpdateSlotDescInfo(_tagSlot)
+	local _tagStoryInfo = _tagSlot.storyInfo;
+	_tagSlot.lvStoryDesc.numItems = 0;
+	local tagLines = SplitStr(_tagStoryInfo.Desc, "\n");
+	for k, tagLine in pairs(tagLines) do
+		if not IsEmptyOrNil(tagLine) then
+			if tagLine == "<?ABILITY_ICON?>" then
+				self:AddStoryDescIconLine(_tagSlot.lvStoryDesc, 0);
+			elseif tagLine == "<?CHAR_ICON?>" then
+				self:AddStoryDescIconLine(_tagSlot.lvStoryDesc, 1);
+			else
+				self:AddStoryDescLine1(_tagSlot.lvStoryDesc, tagLine);
+			end
+		end
+	end
+
+	_tagSlot.isUpdateDesc = true;
+end
+
+

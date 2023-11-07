@@ -1,0 +1,8 @@
+﻿0#block_act#1#0
+0.92#block_act#0#0
+0.12#play_sound#Aura_Dark#unit_pos
+0.68#dmg_check#1#type:2;dmg:0;hit:1000;blk:-1000;#1#unit_pos,0,0,0,1500
+0.32#b_talk#caster#魔力狂暴！#1
+0.32#add_eft#魔力狂暴#unit_pos,0,0,0#0
+0.32#play_sound#Cast_BlackPower#unit_pos
+0.65#play_sound#WhiteSmoke_Hit#unit_pos
