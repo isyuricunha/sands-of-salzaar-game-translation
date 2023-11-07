@@ -10,19 +10,19 @@ Vamos lá!
 
 ## Instruções de Instalação
 
-1. Primeiro, você precisa baixar o arquivo .zip de tradução. Você pode encontrá-lo neste link: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou acessando a seção "Releases" aqui mesmo no GitHub. Certifique-se de baixar o arquivo com o nome "76561198122671177.tradept.0.1.zip" - não baixe os outros, pois são arquivos principais que não foram traduzidos.
+1. Primeiro, você precisa baixar o arquivo .zip de tradução. Você pode encontrá-lo neste link: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou acessando a seção "Releases" aqui mesmo no GitHub. Certifique-se de baixar o arquivo com o nome "source-code.zip" - não baixe os outros, pois são vai precisar.
 
-2. Após o download, não extraia o arquivo ainda. Abra a pasta onde o seu jogo está instalado. Se preferir, clique com o botão direito no ícone do jogo e escolha a opção "Abrir diretório do arquivo" ou algo semelhante.
+2. Após o download, extraia o arquivo.
 
-3. Dentro do diretório do jogo (pasta raiz), procure a pasta chamada "DeployedMods.HS" e acesse-a.
+3. Abra o jogo. Clique em "mods", e em "develop mod".
 
-4. Com a pasta "DeployedMods.HS" aberta, abra outra janela do explorador de arquivos e localize o arquivo que você baixou, com o nome "76561198122671177.tradept.0.1.zip". Em seguida, arraste ou copie este arquivo para a pasta "DeployedMods.HS".
+4. Já na seção de "develope mod", clique em "open project", procure pela pasta "tradpt" que você extraiu. Selecione ela e clique em ok.
 
-5. Com o arquivo "76561198122671177.tradept.0.1.zip" copiado para a pasta, avançamos para a etapa crucial.
+5. No final do menu lateral esquerdo, tera a opção "build", clique e espere até aparecer "build success" ou "build complete". 
 
-6. Se você estiver usando o 7-Zip (https://7zip.rnbastos.com/), clique na opção "Extrair para 76561198122671177.tradept.0.1.zip". Se estiver usando o WinRAR, verifique se ele possui uma opção semelhante. Caso não encontre a opção de extrair diretamente, crie uma pasta com o nome "76561198122671177.tradept.0.1" (SEM O .ZIP NO FINAL), mova o arquivo ZIP para esta pasta e clique em "Extrair aqui".
+7. Volte para o menu inicial (clicando no X no canto superior direito), clique em "mods", depois em "manage mods", e, ative o mod.
 
-7. Agora, abra o jogo e vá até a seção "MODS" para ativar o mod.
+*Nunca clique em "submit mod" ou "upload steam workshop", pois eu não forneci permissão para nenhuma outra pessoa utilizar o mod.*
 
 ## Observação
 
