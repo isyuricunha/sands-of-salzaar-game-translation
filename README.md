@@ -10,13 +10,13 @@ Vamos lá!
 
 ## Instruções de Instalação
 
-1. Primeiro, você precisa baixar o arquivo .zip de tradução. Você pode encontrá-lo neste link: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou acessando a seção "Releases" aqui mesmo no GitHub. Certifique-se de baixar o arquivo com o nome "source-code.zip" - não baixe os outros, pois são vai precisar.
+1. Primeiro, você precisa baixar o arquivo .zip de tradução. Você pode encontrá-lo neste link: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou acessando a seção "Releases" aqui mesmo no GitHub. Certifique-se de baixar o arquivo com o nome "source-code.zip" - não baixe os outros, pois não vai precisar.
 
 2. Após o download, extraia o arquivo.
 
 3. Abra o jogo. Clique em "mods", e em "develop mod".
 
-4. Já na seção de "develope mod", clique em "open project", procure pela pasta "tradpt" que você extraiu. Selecione ela e clique em ok.
+4. Já na seção de "develop mod", clique em "open project", procure pela pasta "tradpt" que você extraiu. Selecione ela e clique em ok.
 
 5. No final do menu lateral esquerdo, tera a opção "build", clique e espere até aparecer "build success" ou "build complete". 
 
