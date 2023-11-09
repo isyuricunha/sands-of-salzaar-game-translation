@@ -10,19 +10,40 @@ Vamos lá!
 
 ## Instruções de Instalação
 
-1. Primeiro, você precisa baixar o arquivo .zip de tradução. Você pode encontrá-lo neste link: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou acessando a seção "Releases" aqui mesmo no GitHub. Certifique-se de baixar o arquivo com o nome "source-code.zip" - não baixe os outros, pois não vai precisar.
+1. **Download do Arquivo de Tradução:**
+   - Acesse o link de download da tradução: [Baixar Tradução](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/) ou vá para a seção "Releases" no GitHub.
+   - Certifique-se de baixar o arquivo com o nome "source-code.zip" - ignore os outros arquivos.
 
-2. Após o download, extraia o arquivo.
+2. **Extração do Arquivo:**
+   - Após o download, extraia o conteúdo do arquivo baixado.
 
-3. Abra o jogo. Clique em "mods", e em "develop mod".
+3. **Abertura do Jogo:**
+   - Inicie o jogo e vá para a seção "mods" e, em seguida, selecione "develop mod".
 
-4. Já na seção de "develop mod", clique em "open project", procure pela pasta "tradpt" que você extraiu. Selecione ela e clique em ok.
+4. **Configuração do Projeto:**
+   - Na seção "develop mod", clique em "open project" e localize a pasta "tradpt" que você extraiu. Selecione-a e clique em OK.
 
-5. No final do menu lateral esquerdo, tera a opção "build", clique e espere até aparecer "build success" ou "build complete". 
+5. **Compilação do Mod:**
+   - No final do menu lateral esquerdo, clique em "build" e aguarde até aparecer "build success" ou "build complete".
 
-7. Volte para o menu inicial (clicando no X no canto superior direito), clique em "mods", depois em "manage mods", e, ative o mod.
+6. **Ativação do Mod:**
+   - Retorne ao menu inicial (canto superior direito), clique em "mods", depois em "manage mods", e ative o mod.
 
-*Nunca clique em "submit mod" ou "upload steam workshop", pois eu não forneci permissão para nenhuma outra pessoa utilizar o mod.*
+7. **Importante:**
+   - **Nunca clique em "submit mod" ou "upload steam workshop"** sem a minha permissão. O mod é exclusivo e não deve ser compartilhado sem autorização.
+
+**Método Alternativo de Instalação:**
+   
+- Se o jogo foi baixado como um arquivo zip, coloque-o no diretório raiz do sistema (por exemplo, C: ou D:).
+- Em seguida, instale o mod, pois o SoS (Sands of Salzaar) requer permissões de gravação na pasta do jogo para os arquivos do mod.
+
+- Outro método é baixar o arquivo chamado "76561198122671177#tradept#0.1.zip" nas releases ([Link para as Releases](https://github.com/isyuricunha/sands-of-salzaar-game-translation/releases/)).
+- Vá para a pasta raiz do jogo, encontre a pasta "DeployedMods.HS" e coloque o arquivo extraído (76561198122671177#tradept#0.1.zip) dentro dela.
+- Certifique-se de que o mod não está em várias subpastas, o caminho correto é "Jogo/DeployedMods.HS/76561198122671177#tradept#0.1".
+
+**Atenção:**
+- Siga atentamente este tutorial, pois não estou disponível para fornecer assistência contínua. A falta de conformidade pode resultar em atrasos ou falta de resposta da minha parte.
+- Lembre-se de ativar o mod no menu "mods" do jogo. Se você não fizer isso, o mod não funcionará.
 
 ## Observação
 
