@@ -2,9 +2,15 @@
 
 ## Introdução
 
-Olá,
+Olá, por favor, leia
 
 Este é o mod de tradução para Português Brasileiro do jogo Sands of Salzaar. Este guia explicará como instalar este mod em jogos fora da Steam. É importante seguir as instruções rigorosamente, pois qualquer erro no processo pode fazer com que o jogo perca a referência do mod e o mod não funcione.
+
+Considere me ajudar a manter esse projeto, pois essa traducao contem mais de 950 mil palavras, e, 80 mil linhas, sem contar as DLC's, e eu estou traduzindo tudo para nós, Brasileiros.
+
+Se você puder, considere fazer uma doação via [b]Pix[/b] ou [b]Patreon[/b]:
+- [b]Pix[/b]: isyuricunha@skiff.com ou [QR Code do Pix](https://cdn.discordapp.com/attachments/1029239636259782713/1173615629811601449/photo_2023-11-13_10-24-15.jpg?ex=656499ba&is=655224ba&hm=21f231bd3c930b43f8fb3c263df766f8183fb57df724f2bc548838fb35a1930d&)
+- [b]Patreon[/b]: [Link do meu Patreon](https://www.patreon.com/user?u=81633504)
 
 Vamos lá!
 
